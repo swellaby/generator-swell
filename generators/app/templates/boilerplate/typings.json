@@ -1,0 +1,7 @@
+{
+  "globalDependencies": {
+    "node": "registry:dt/node"
+  },
+  "dependencies": {
+  }
+}

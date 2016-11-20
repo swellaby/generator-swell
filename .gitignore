@@ -1,0 +1,13 @@
+# NPM/Node
+/node_modules/
+.ntvs_analysis.dat*
+npm-debug*
+
+# IDE
+/.vscode/
+/.idea/
+
+# Code Coverage
+**/coverage/
+
+**/testresults/

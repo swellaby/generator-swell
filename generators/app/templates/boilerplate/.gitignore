@@ -1,0 +1,26 @@
+# NPM/Node
+/node_modules/
+.ntvs_analysis.dat*
+npm-debug*
+
+# Istanbul
+**/coverage/
+coverage# IDE
+/.vscode/
+/.idea/
+!/.vscode/launch.json
+!/.vscode/settings.json
+/.settings
+
+# Typescript
+/typings
+tsd-debug.log
+
+# Generated Javascript
+/lib/**/*.js*
+/src/**/*.js*
+/test/**/*.js*
+/bin/**/*.js*
+/out/
+
+**/testresults/

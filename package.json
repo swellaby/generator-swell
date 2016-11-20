@@ -1,0 +1,78 @@
+{
+  "name": "generator-swellaby-node",
+  "version": "0.1.2",
+  "description": "Yeoman generator for various types of projects with Node and TypeScript",
+  "author": {
+    "name": "Swellaby",
+    "email": "opensource@swellaby.com",
+    "url": "http://swellaby.com"
+  },
+  "contributors": [
+    {
+      "name": "Caleb Cartwright",
+      "url": "https://github.com/calebcartwright"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/swellaby/generator-swellaby-node/issues"
+  },
+  "main": "generators/index.js",
+  "keywords": [
+    "yeoman-generator",
+    "node",
+    "nodejs",
+    "typescript",
+    "vsts-task",
+    "express",
+    "cli",
+    "swellaby"
+  ],
+  "repository": {
+    "url": "https://github.com/swellaby/generator-swellaby-node",
+    "type": "git"
+  },
+  "scripts": {
+    "build": "npm run lint check-security run-unit-tests enforce-code-coverage",
+    "gated-build": "gulp jshint eslint check-security run-unit-tests enforce-code-coverage",
+    "check-security": "gulp check-security",
+    "enforce-code-coverage": "gulp enforce-code-coverage",
+    "gulp": "gulp",
+    "lint": "gulp jshint eslint",
+    "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
+    "test": "gulp run-unit-tests check-security",
+    "validate": "npm ls"
+  },
+  "pre-commit": [
+    "check-security",
+    "enforce-code-coverage",
+    "lint"
+  ],
+  "devDependencies": {
+    "eslint": "^3.10.2",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-mocha": "^3.0.1",
+    "gulp-nsp": "^2.4.2",
+    "gulp-open": "^2.0.0",
+    "istanbul": "^0.4.5",
+    "jshint": "^2.9.4",
+    "mocha": "^3.1.2",
+    "mocha-multi": "^0.9.1",
+    "precommit-hook": "^3.0.0",
+    "require-dir": "^0.3.1",
+    "sinon": "^1.17.5",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.4.0"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "deep-extend": "^0.4.1",
+    "glob": "^7.1.1",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7",
+    "yeoman-generator": "^0.24.1",
+    "yosay": "^1.2.1"
+  }
+}

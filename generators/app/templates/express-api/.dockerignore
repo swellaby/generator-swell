@@ -1,0 +1,10 @@
+build.sh 
+build/* 
+gulpfile.js  
+node_modules/* 
+tsconfig.json  
+typings/*
+tslint.json
+typings.json
+*.md
+*.ts

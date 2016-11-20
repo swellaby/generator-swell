@@ -1,0 +1,57 @@
+{    
+    "name": <%- JSON.stringify(appName) %>,
+    "description": <%- JSON.stringify(description) %>,
+    "version": "0.0.1",
+    "license": "",
+    "repository": {},
+    "author": {
+        "url": "",
+        "name": "",
+        "email": ""
+    },
+    "contributors": [
+        {
+            "url": "",
+            "name": "",
+            "email": ""
+        }
+    ],
+    "scripts": {
+        "build": "gulp clean tslint transpile package-transpiled-javascript",
+        "clean": "gulp clean",
+        "gulp": "gulp",
+        "install-typings": "gulp install-typings",
+        "lint": "gulp tslint",
+        "package": "gulp package-transpiled-javascript",
+        "postinstall": "npm run install-typings",
+        "transpile": "gulp transpile"
+    },
+    "pre-commit": [      
+      "check-security",
+      "enforce-code-coverage",
+      "lint"
+    ],
+    "devDependencies": {
+        "del": "^2.2.1",
+        "eslint": "^3.2.0",
+        "gulp": "^3.9.1",
+        "gulp-eslint": "^3.0.1",
+        "gulp-istanbul": "^1.0.0",
+        "gulp-jshint": "^2.0.1",
+        "gulp-mocha": "^2.2.0",
+        "gulp-nsp": "^2.4.2",
+        "gulp-open": "^2.0.0",
+        "gulp-sourcemaps": "^1.6.0",
+        "gulp-tslint": "^6.0.1",
+        "gulp-typescript": "^2.13.6",
+        "gulp-typings": "^2.0.3",
+        "jshint": "^2.9.2",
+        "mocha": "^2.5.3",
+        "mocha-multi": "^0.9.0",
+        "require-dir": "^0.3.0",
+        "tslint": "^3.13.0",
+        "tslint-microsoft-contrib": "^2.0.8",
+        "typescript": "^1.8.10"
+    },
+    "dependencies": {}
+}
