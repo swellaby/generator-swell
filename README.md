@@ -1,4 +1,6 @@
 # generator-swellaby-node
+[![Build Status](https://travis-ci.org/swellaby/generator-swellaby-node.svg?branch=master)](https://travis-ci.org/swellaby/generator-swellaby-node)
+
 Yeoman generator for various types of projects with Node and TypeScript
 
 ## Running (temporarily until we publish to npm)
