@@ -6,6 +6,8 @@ node_js:
 - "4"
 os:
 - linux
+addons:
+- srcclr: true
 script:
 - npm run lint
 - npm run enforce-code-coverage
