@@ -23,6 +23,7 @@ jdk:
 
 before_script:
     - export PROJECT_VERSION=$(node -e "console.log(require('./package.json').version);")
+    - echo $PROJECT_VERSION
 
 script:
     - npm run lint
