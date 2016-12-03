@@ -1,4 +1,6 @@
-language: node_js
+language:
+  - node_js
+  - java
 node_js:
   - "node"
   - "6"
@@ -28,4 +30,4 @@ before_script:
 script:
     - npm run lint
     - npm run enforce-code-coverage
-    - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
+    - sonar-scanner -D sonar.projectVersion=0.0.1
