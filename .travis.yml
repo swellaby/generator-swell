@@ -21,4 +21,4 @@ cache:
 script:
     - npm run lint
     - npm run enforce-code-coverage
-    - sonar-scanner -D sonar.projectVersion=$(node -e "console.log(require('./package.json'').version);")
+    - sonar-scanner -D sonar.projectVersion=$(node -e "console.log(require('./package.json').version);")
