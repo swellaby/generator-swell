@@ -18,6 +18,9 @@ cache:
   directories:
     - '$HOME/.sonar/cache'
 
+jdk:
+  - oraclejdk8
+
 before_script:
     - export PROJECT_VERSION=$(node -e "console.log(require('./package.json').version);")
 
