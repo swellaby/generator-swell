@@ -21,9 +21,9 @@ before_script:
     - echo $JAVA_HOME
     - echo $TRAVIS_JDK_VERSION
 
-install:
-    - npm install
+install:    
     - nvm install node
+    - npm install
     - nvm install 6
     - nvm install 5
     - nvm install 4
@@ -31,7 +31,7 @@ install:
 script:
     - nvm use node
     - npm run lint
-    - npm run-script enforce-code-coverage
+    - npm run enforce-code-coverage
     - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
     - nvm use 6
     - npm run lint
