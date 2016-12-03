@@ -1,7 +1,7 @@
 language: java
 jdk:
   - oraclejdk8
-  
+
 os:
   - linux
 
@@ -29,8 +29,8 @@ install:
 
 script:
     - nvm use node
-    - npm run lint
-    - npm run enforce-code-coverage
+    - npm run-script lint
+    - npm run-script enforce-code-coverage
     - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
     - nvm use 6
     - npm run lint
