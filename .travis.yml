@@ -29,7 +29,7 @@ install:
 
 script:
     - nvm use node
-    - npm run-script lint
+    - "npm run-script lint"
     - npm run-script enforce-code-coverage
     - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
     - nvm use 6
