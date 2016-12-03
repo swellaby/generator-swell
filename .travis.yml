@@ -33,7 +33,7 @@ script:
     - "npm run-script enforce-code-coverage"
     - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
     - nvm use 6
-    - "npm run lint""
+    - "npm run lint"
     - "npm run enforce-code-coverage"
     - nvm use 5
     - npm run lint
