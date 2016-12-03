@@ -17,9 +17,6 @@ cache:
 
 before_script:
     - export PROJECT_VERSION=$(node -e "console.log(require('./package.json').version);")
-    - echo $PROJECT_VERSION
-    - echo $JAVA_HOME
-    - echo $TRAVIS_JDK_VERSION
 
 install:    
     - nvm install node
