@@ -1,6 +1,6 @@
 {
   "name": "generator-swellaby-node",
-  "version": "0.1.2",
+  "version": "0.0.1",
   "description": "Yeoman generator for various types of projects with Node and TypeScript",
   "author": {
     "name": "Swellaby",

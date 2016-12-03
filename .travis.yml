@@ -1,13 +1,20 @@
 language: node_js
 node_js:
-- "node"
-- "6"
-- "5"
-- "4"
+    - "node"
+    - "6"
+    - "5"
+    - "4"
 os:
-- linux
+    - linux
 addons:
     srcclr: true
+    sonarqube: true
+        token:
+        secure: "$SONAR_TOKEN"
+cache:
+    directories:
+        - '$HOME/.sonar/cache'
 script:
-- npm run lint
-- npm run enforce-code-coverage
+    - npm run lint
+    - npm run enforce-code-coverage
+    - sonar-scanner -D sonar.projectVersion=$(node -e "console.log(require(./package.json).version);")
