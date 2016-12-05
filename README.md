@@ -11,7 +11,7 @@ Yeoman generator for various types of projects with Node and TypeScript
 ## Running (temporarily until we publish to npm)
 We're assuming you already have Node.js and git installed, because let's be honest.. you should.
 
-If you don't have yeoman installed:
+If you don't have yeoman installed (you may need to use sudo):
 ```sh
 npm i -g yo
 ```
