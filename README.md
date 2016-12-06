@@ -1,21 +1,22 @@
 # generator-swellaby-node
-[![Build Status](https://travis-ci.org/swellaby/generator-swellaby-node.svg?branch=master)](https://travis-ci.org/swellaby/generator-swellaby-node)
-[![Code Climate](https://codeclimate.com/github/swellaby/generator-swellaby-node/badges/gpa.svg)](https://codeclimate.com/github/swellaby/generator-swellaby-node)
-[![SonarQube Coverage](https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/coverage.svg)](https://sonarqube.com/component_measures/metric/coverage/list?id=swellaby%3Agenerator-swellaby-node)
-[![SonarQube Coverage](https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/tech_debt.svg)](https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swellaby-node)
-[![SonarQube Coverage](https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/sqale_rating.svg)](https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swellaby-node)
+Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] projects with [TypeScript][typescript-url]. Yes, there are
+others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and with 100% test coverage) will be happily accepted.
 
-
-Yeoman generator for various types of projects with Node and TypeScript
+[![Travis CI Badge][travis-ci-build-status-badge]]([travis-ci-url])
+[![Code Climate Badge][code-climate-status-badge]]([code-climate-url])
+[![SonarQube Coverage Badge][sonarqube-coverage-badge]]([sonarqube-coverage-url])
+[![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]]([sonarqube-techdebt-url])
+[![SonarQube Maintainability Badge][sonarqube-maintainability-badge]]([sonarqube-maintainability-url])
+  
 
 ## Running (temporarily until we publish to npm)
-We're assuming you already have Node.js and git installed, because let's be honest.. you should.
+We're assuming you already have [Node.js][nodejs-url] and [git][git-download-url] installed, because let's be honest... you really should.
 
-If you don't have yeoman installed (you may need to use sudo):
+If you don't have [Yeoman][yeoman-url] installed globally (you may need to use sudo):
 ```sh
 npm i -g yo
 ```
-
+With yeoman installed, follow the following steps to scaffold a new project with this generator:
 ```sh
 git clone https://github.com/swellaby/generator-swellaby-node && cd generator-swellaby-node
 npm i
@@ -25,3 +26,18 @@ yo swellaby-node
 ```
 
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
+
+[yeoman-url]: https://nodejs.org/en/download
+[nodejs-url]: https://nodejs.org/
+[typescript-url]: http://www.typescriptlang.org/
+[git-download-url]: https://git-scm.com/download
+[travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swellaby-node.svg?branch=master
+[travis-ci-url]: https://travis-ci.org/swellaby/generator-swellaby-node
+[code-climate-status-badge]: https://codeclimate.com/github/swellaby/generator-swellaby-node/badges/gpa.svg
+[code-climate-url]: https://codeclimate.com/github/swellaby/generator-swellaby-node
+[sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/coverage.svg
+[sonarqube-coverage-url]: https://sonarqube.com/component_measures/metric/coverage/list?id=swellaby%3Agenerator-swellaby-node
+[sonarqube-techdebt-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/tech_debt.svg
+[sonarqube-techdebt-url]: https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swellaby-node
+[sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/sqale_rating.svg
+[sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swellaby-node
