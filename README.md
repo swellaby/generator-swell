@@ -3,6 +3,7 @@ Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js]
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and with 100% test coverage) will be happily accepted.
 
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
+[![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
 [![Code Climate Badge][code-climate-status-badge]]([code-climate-url])
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]]([sonarqube-coverage-url])
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]]([sonarqube-techdebt-url])
@@ -33,6 +34,8 @@ Note you will need to cd into the newly created directory if you specify an app 
 [git-download-url]: https://git-scm.com/download
 [travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swellaby-node.svg?branch=master
 [travis-ci-url]: https://travis-ci.org/swellaby/generator-swellaby-node
+[circle-ci-build-status-badge]: https://circleci.com/gh/swellaby/generator-swellaby-node.svg?style=shield
+[circle-ci-url]: https://circleci.com/gh/swellaby/generator-swellaby-node 
 [code-climate-status-badge]: https://codeclimate.com/github/swellaby/generator-swellaby-node/badges/gpa.svg
 [code-climate-url]: https://codeclimate.com/github/swellaby/generator-swellaby-node
 [sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/coverage.svg
