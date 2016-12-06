@@ -2,7 +2,7 @@
 Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and with 100% test coverage) will be happily accepted.
 
-[![Travis CI Badge][travis-ci-build-status-badge]]([travis-ci-url])
+[![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
 [![Code Climate Badge][code-climate-status-badge]]([code-climate-url])
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]]([sonarqube-coverage-url])
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]]([sonarqube-techdebt-url])
