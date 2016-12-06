@@ -1,5 +1,7 @@
 'use strict';
-/* jshint maxstatements:false */
+/* jshint maxstatements:false */ 
+// Disabled maxstatements jshint rule which errors due to 
+// the test functions being embedded within the suite functions.
 
 var assert = require('yeoman-assert');
 var helpers = require('yeoman-test');
