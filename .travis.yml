@@ -27,16 +27,16 @@ install:
     - nvm install 4
 
 script:
-    - nvm use node
-    - npm run lint
-    - npm run enforce-code-coverage
-    - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
-    - nvm use 6
+    - nvm use 4
     - npm run lint
     - npm run enforce-code-coverage
     - nvm use 5
     - npm run lint
     - npm run enforce-code-coverage
-    - nvm use 4
+    - nvm use 6
     - npm run lint
     - npm run enforce-code-coverage
+    - nvm use node
+    - npm run lint
+    - npm run enforce-code-coverage
+    - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION   
