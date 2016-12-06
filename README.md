@@ -4,10 +4,10 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
-[![Code Climate Badge][code-climate-status-badge]]([code-climate-url])
-[![SonarQube Coverage Badge][sonarqube-coverage-badge]]([sonarqube-coverage-url])
-[![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]]([sonarqube-techdebt-url])
-[![SonarQube Maintainability Badge][sonarqube-maintainability-badge]]([sonarqube-maintainability-url])
+[![Code Climate Badge][code-climate-status-badge]][code-climate-url]
+[![SonarQube Coverage Badge][sonarqube-coverage-badge]][sonarqube-coverage-url]
+[![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]][sonarqube-techdebt-url]
+[![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
   
 
 ## Running (temporarily until we publish to npm)
