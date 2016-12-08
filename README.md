@@ -8,7 +8,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]][sonarqube-coverage-url]
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]][sonarqube-techdebt-url]
 [![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
-[![codecov][codecov-badge]][codecov-url]
+[![Codecov Badge][codecov-badge]][codecov-url]
 
   
 
