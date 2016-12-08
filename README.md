@@ -8,6 +8,8 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]][sonarqube-coverage-url]
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]][sonarqube-techdebt-url]
 [![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
+[![codecov][codecov-badge]][codecov-url]
+
   
 
 ## Running (temporarily until we publish to npm)
@@ -44,3 +46,5 @@ Note you will need to cd into the newly created directory if you specify an app 
 [sonarqube-techdebt-url]: https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swellaby-node
 [sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/sqale_rating.svg
 [sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swellaby-node
+[codecov-badge]: https://codecov.io/gh/swellaby/generator-swellaby-node/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/swellaby/generator-swellaby-node
