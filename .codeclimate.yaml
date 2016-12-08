@@ -1,10 +1,4 @@
 engines: 
   eslint:
-    enabled: false
+    enabled: true
     channel: "eslint-3"
-
-ratings:
-    paths:
-    - "build/**/*"
-    - "generators/**/*"
-    - "!generators/app/templates/*"
