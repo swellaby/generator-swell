@@ -1,2 +1,13 @@
-engines: 
-  eslint: false
+engines:
+  eslint:
+    enabled: false
+
+ratings:
+  paths:
+  - build/**
+exclude_paths:
+- coverage
+- testresults
+- node_modules
+- generators
+- test
