@@ -36,7 +36,7 @@ module.exports = {
             }
         ],
         'linebreak-style': [
-            'off'
+            0
         ],
         quotes: [
             'error',
