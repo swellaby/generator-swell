@@ -4,9 +4,15 @@ engines:
     channel: "eslint-3"
   duplication:
     enabled: true
+    exclude_fingerprints:
+    # exclude the istanbul threshold enforcer of both global and local threshold levels
+    - a97caa1d667999959d27f6f90a0b7721
+    # exclude the suite setup methods in each of the various suites
+    - 3dd6881013a288a956b1df18a972d66a
     config:
       languages:
         javascript:
+    
 ratings:
     paths:
     - "build/**/*"
