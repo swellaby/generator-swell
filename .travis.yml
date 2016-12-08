@@ -7,6 +7,8 @@ os:
 
 addons:
   srcclr: true
+  codeclimate:
+    repo_token: $CODECLIMATE_TOKEN
   sonarqube:
     token:
       secure: '$SONAR_TOKEN'
@@ -38,4 +40,7 @@ script:
     - nvm use node
     - npm run lint
     - npm run enforce-code-coverage
-    - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION   
+    - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
+
+after_success:
+    - codeclimate-test-reporter < coverage/unit/lcov.info
