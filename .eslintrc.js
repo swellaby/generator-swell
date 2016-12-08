@@ -29,14 +29,14 @@ module.exports = {
     extends: 'eslint:recommended',
     rules: {
         indent: [
-            2,
+            'error',
             4,
             {
                 "SwitchCase": 1
             }
         ],
         'linebreak-style': [
-            0
+            'off'
         ],
         quotes: [
             'error',
