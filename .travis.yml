@@ -7,7 +7,6 @@ os:
 
 addons:
   srcclr: true
-  code_climate: true
   sonarqube:
     token:
       secure: '$SONAR_TOKEN'
