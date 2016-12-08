@@ -1,13 +1,15 @@
-engines:
+engines: 
   eslint:
-    enabled: false
+    enabled: true
+    channel: "eslint-3"
 
 ratings:
-  paths:
-  - build/**
+    paths:
+    - "build/**/*"
+    - "generators/**/*"
+    - test
 exclude_paths:
 - coverage
 - testresults
 - node_modules
-- generators
-- test
+- "generators/app/templates/**/*"
