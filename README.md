@@ -1,5 +1,5 @@
 # generator-swell
-Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] projects with [TypeScript][typescript-url]. Yes, there are
+Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url], Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and with 100% test coverage) will be happily accepted.
 
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
@@ -34,17 +34,17 @@ Note you will need to cd into the newly created directory if you specify an app 
 [nodejs-url]: https://nodejs.org/
 [typescript-url]: http://www.typescriptlang.org/
 [git-download-url]: https://git-scm.com/download
-[travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swellaby-node.svg?branch=master
-[travis-ci-url]: https://travis-ci.org/swellaby/generator-swellaby-node
-[circle-ci-build-status-badge]: https://circleci.com/gh/swellaby/generator-swellaby-node.svg?style=shield
-[circle-ci-url]: https://circleci.com/gh/swellaby/generator-swellaby-node 
-[code-climate-status-badge]: https://codeclimate.com/github/swellaby/generator-swellaby-node/badges/gpa.svg
-[code-climate-url]: https://codeclimate.com/github/swellaby/generator-swellaby-node
-[sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/coverage.svg
-[sonarqube-coverage-url]: https://sonarqube.com/component_measures/metric/coverage/list?id=swellaby%3Agenerator-swellaby-node
-[sonarqube-techdebt-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/tech_debt.svg
-[sonarqube-techdebt-url]: https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swellaby-node
-[sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swellaby-node/sqale_rating.svg
-[sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swellaby-node
-[codecov-badge]: https://codecov.io/gh/swellaby/generator-swellaby-node/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/swellaby/generator-swellaby-node
+[travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swell.svg?branch=master
+[travis-ci-url]: https://travis-ci.org/swellaby/generator-swell
+[circle-ci-build-status-badge]: https://circleci.com/gh/swellaby/generator-swell.svg?style=shield
+[circle-ci-url]: https://circleci.com/gh/swellaby/generator-swell
+[code-climate-status-badge]: https://codeclimate.com/github/swellaby/generator-swell/badges/gpa.svg
+[code-climate-url]: https://codeclimate.com/github/swellaby/generator-swell
+[sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/coverage.svg
+[sonarqube-coverage-url]: https://sonarqube.com/component_measures/metric/coverage/list?id=swellaby%3Agenerator-swell
+[sonarqube-techdebt-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/tech_debt.svg
+[sonarqube-techdebt-url]: https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swell
+[sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/sqale_rating.svg
+[sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swell
+[codecov-badge]: https://codecov.io/gh/swellaby/generator-swell/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/swellaby/generator-swell
