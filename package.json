@@ -1,9 +1,9 @@
 {
-  "name": "generator-swellaby-node",
+  "name": "generator-swell",
   "version": "0.1.1",
   "description": "Yeoman generator for various types of projects with Node and TypeScript",
   "author": {
-    "name": "Swellaby",
+    "name": "swellaby",
     "email": "opensource@swellaby.com",
     "url": "http://swellaby.com"
   },
@@ -14,12 +14,15 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/swellaby/generator-swellaby-node/issues"
+    "url": "https://github.com/swellaby/generator-swell/issues"
   },
   "main": "generators/index.js",
   "keywords": [
     "yeoman-generator",
+    "generator",
+    "yeoman",
     "node",
+    "node.js",
     "nodejs",
     "typescript",
     "vsts-task",
@@ -28,7 +31,7 @@
     "swellaby"
   ],
   "repository": {
-    "url": "https://github.com/swellaby/generator-swellaby-node",
+    "url": "https://github.com/swellaby/generator-swell",
     "type": "git"
   },
   "scripts": {

@@ -1,4 +1,4 @@
-# generator-swellaby-node
+# generator-swell
 Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and with 100% test coverage) will be happily accepted.
 
@@ -21,11 +21,11 @@ npm i -g yo
 ```
 With yeoman installed, follow the following steps to scaffold a new project with this generator:
 ```sh
-git clone https://github.com/swellaby/generator-swellaby-node && cd generator-swellaby-node
+git clone https://github.com/swellaby/generator-swell && cd generator-swell
 npm i
 npm link
 cd ..
-yo swellaby-node
+yo swell
 ```
 
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
