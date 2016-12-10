@@ -33,7 +33,7 @@ var boilerplateFiles = [
     './build/tasks/test.js'
 ];
 
-suite('Node TypeScript Generator Suite: App', function() {
+suite('Core Generator Suite:', function() {
     var sandbox;
     setup(function() {
         sandbox = sinon.sandbox.create();
@@ -42,7 +42,7 @@ suite('Node TypeScript Generator Suite: App', function() {
         sandbox.restore();
     });
 
-    suite('Base Option Tests', function() {
+    suite('Base Option Tests:', function() {
         var baseAppName = 'baseOptionApp';
         var appType = inputConfig.basePromptValue;
         var appDescription = 'this is a test description';
@@ -139,7 +139,7 @@ suite('Node TypeScript Generator Suite: App', function() {
         });
     });
 
-    suite('CLI Option Tests', function() {
+    suite('CLI Option Tests: ', function() {
         var cliAppName = 'cli app';
         var appType = inputConfig.cliPromptValue;
         var appDescription = 'this is a test description';
@@ -236,7 +236,7 @@ suite('Node TypeScript Generator Suite: App', function() {
         });
     });
 
-    suite('Express API Option Tests', function() {
+    suite('Express API Option Tests:', function() {
         var expressAppName = 'api app';
         var appType = inputConfig.expressApiPromptValue;
         var appDescription = 'this is a test description';
@@ -333,7 +333,7 @@ suite('Node TypeScript Generator Suite: App', function() {
         });
     });
 
-    suite('VSTS Task Option Tests', function() {
+    suite('VSTS Task Option Tests:', function() {
         var vstsAppName = 'vsts task';
         var appType = inputConfig.vstsTaskPromptValue;
         var appDescription = 'this is a test description';

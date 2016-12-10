@@ -25,7 +25,7 @@ module.exports = {
             required: true,
             choices: [
                 {
-                    name: 'New App with just the Base Items',
+                    name: 'New App with just the boilerplate',
                     value: basePromptValue
                 },
                 {
