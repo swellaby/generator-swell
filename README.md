@@ -5,12 +5,11 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
 [![Code Climate Badge][code-climate-status-badge]][code-climate-url]
+[![Codecov Badge][codecov-badge]][codecov-url]
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]][sonarqube-coverage-url]
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]][sonarqube-techdebt-url]
 [![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
-[![Codecov Badge][codecov-badge]][codecov-url]
 
-  
 
 ## Running (temporarily until we publish to npm)
 We're assuming you already have [Node.js][nodejs-url] and [git][git-download-url] installed, because let's be honest... you really should.

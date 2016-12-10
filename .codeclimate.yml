@@ -7,8 +7,12 @@ engines:
     exclude_fingerprints:
     # exclude the istanbul threshold enforcer of both global and local threshold levels
     - a97caa1d667999959d27f6f90a0b7721
-    # exclude the suite setup methods in each of the various suites
+    # exclude the suite setup methods in each of the various unit test suites which use locally 
+    # scoped variables with the same names due to the async nature of test execution
     - 3dd6881013a288a956b1df18a972d66a
+    - 32a0198b3010fffa23cea033e43fa9ad
+    # exclude the unit test names for the app type choices within the various choice suites
+    - cddf17dbff1f28cd76a98d447f60a4d3
     config:
       languages:
         javascript:
