@@ -44,7 +44,7 @@
     "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
     "test": "gulp run-unit-tests check-security",
     "validate": "npm ls",
-    "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify -m \"bumped version\""
+    "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify"
   },
   "pre-commit": [
     "check-security",
