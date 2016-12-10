@@ -44,12 +44,15 @@
     "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
     "test": "gulp run-unit-tests check-security",
     "validate": "npm ls",
-    "bump-patch": "npm version patch --force && git add package.json"
+    "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify -m \"bumped version\""
   },
   "pre-commit": [
     "check-security",
     "enforce-code-coverage",
     "lint"
+  ],
+  "pre-push": [
+    "bump-patch"
   ],
   "devDependencies": {
     "chai": "^3.5.0",
@@ -65,6 +68,7 @@
     "jshint": "^2.9.4",
     "mocha": "^3.1.2",
     "mocha-multi": "^0.9.1",
+    "pre-push": "^0.1.1",
     "precommit-hook": "^3.0.0",
     "require-dir": "^0.3.1",
     "sinon": "^1.17.5",
