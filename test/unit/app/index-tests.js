@@ -352,6 +352,10 @@ suite('Core Generator Suite:', function() {
             assert.file(boilerplateFiles);
         });
 
+        test('Should create all of the default VSTS Task template files', function() {
+
+        });
+
         test('Should inject the App Name into the README.md file when the VSTS option is selected', function() {
             assert.fileContent('README.md', '# ' + vstsAppName);
         });
