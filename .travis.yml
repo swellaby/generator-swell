@@ -11,11 +11,7 @@ addons:
     repo_token: $CODECLIMATE_TOKEN
   sonarqube:
     token:
-      secure: '$SONAR_TOKEN'
-
-cache:
-  directories:
-    - '$HOME/.sonar/cache'
+      secure: $SONAR_TOKEN
 
 before_script:
     - export PROJECT_VERSION=$(node -e "console.log(require('./package.json').version);")
