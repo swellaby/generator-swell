@@ -13,12 +13,17 @@ addons:
     token:
       secure: $SONAR_TOKEN
 
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
 before_script:
     - export PROJECT_VERSION=$(node -e "console.log(require('./package.json').version);")
 
-install:    
+install:  
     - nvm install node
     - npm install
+    - npm install -g codeclimate-test-reporter
     - nvm install 6
     - nvm install 5
     - nvm install 4
