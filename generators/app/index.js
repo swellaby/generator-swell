@@ -98,7 +98,7 @@ module.exports = yeoman.Base.extend({
             dependencies: {
                 'q': '^1.4.1',
                 'request': '2.73.0',
-                'vsts-task-lib': JSON.stringify('^1.1.0')
+                'vsts-task-lib': '^1.1.0'
             },
             devDependencies: {
                 '@types/q': '0.0.32',

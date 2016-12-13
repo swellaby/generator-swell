@@ -33,11 +33,9 @@ var helper = new Helper();
 helper.add(inputAParameter, inputBParameter)
     .then((sum: number) => {        
         console.log('The sum is: ' + sum);
-        tl.setResult(tl.TaskResult.Succeeded, 'Your task passed, hooray!');
-        tl.exit(0);        
+        tl.setResult(tl.TaskResult.Succeeded, 'Your task passed, hooray!');     
     })
     .fail((error: Error) => {
         tl.error('Something failed! Error message: ' + error.message);
         tl.setResult(tl.TaskResult.Succeeded, 'Addition failed, math is broken :(');
-        tl.exit(1);
     });

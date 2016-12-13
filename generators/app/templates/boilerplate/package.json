@@ -18,10 +18,14 @@
     ],
     "scripts": {
         "build": "gulp clean tslint transpile package-transpiled-javascript",
+        "check-security": "gulp check-security",
         "clean": "gulp clean",
+        "enforce-code-coverage": "gulp enforce-code-coverage",
         "gulp": "gulp",
         "lint": "gulp tslint",
         "package": "gulp package-transpiled-javascript",
+        "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
+        "test": "gulp run-unit-tests check-security",
         "transpile": "gulp transpile"
     },
     "pre-commit": [      
