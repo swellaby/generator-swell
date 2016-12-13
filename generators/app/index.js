@@ -1,7 +1,7 @@
 'use strict';
 
 // var chalk = require('chalk');
-// var extend = require('deep-extend');
+var extend = require('deep-extend');
 var glob = require('glob');
 var path = require('path');
 var mkdirp = require('mkdirp');
@@ -87,14 +87,37 @@ module.exports = yeoman.Base.extend({
     _writingVSTSTask: function() {
         this.log(yosay('A new task to make a great platform even better'));
         this.sourceRoot(vstsRoot);
+        var context = this._buildVSTSContext();     
+
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        // this.npmInstall(['vsts-task-lib q request'], { 'save': true});
         
+        var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+        extend(pkg, {
+            dependencies: {
+                'q': '^1.4.1',
+                'request': '2.73.0',
+                'vsts-task-lib': JSON.stringify('^1.1.0')
+            },
+            devDependencies: {
+                '@types/q': '0.0.32',
+                '@types/request': '0.0.34',
+            }
+        });
+
+        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    },
+
+    _buildVSTSContext: function() {
         var context = this.extensionConfig;
         context.dot = true;
         // need to figure out the best way to pump these values in from the secondary prompts
         context.taskId = 'foo'; // new guid
         context.author = 'me'; // this can be moved to the core generator
         context.category = 'Utility'; // from new prompt
-        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        return context;
     },
 
     install: function() {

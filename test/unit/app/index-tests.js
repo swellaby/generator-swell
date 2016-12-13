@@ -22,7 +22,6 @@ var boilerplateFiles = [
     'README.md',
     'tsconfig.json',
     'tslint.json',
-    'typings.json',
     './build/gulp-config.js',
     './build/istanbul-config.js',
     './build/mocha-config.js',

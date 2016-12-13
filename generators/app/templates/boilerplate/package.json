@@ -20,10 +20,8 @@
         "build": "gulp clean tslint transpile package-transpiled-javascript",
         "clean": "gulp clean",
         "gulp": "gulp",
-        "install-typings": "gulp install-typings",
         "lint": "gulp tslint",
         "package": "gulp package-transpiled-javascript",
-        "postinstall": "npm run install-typings",
         "transpile": "gulp transpile"
     },
     "pre-commit": [      
@@ -32,26 +30,31 @@
       "lint"
     ],
     "devDependencies": {
-        "del": "^2.2.1",
-        "eslint": "^3.2.0",
+        "@types/node": "0.0.3",
+        "chai": "^3.5.0",
+        "del": "^2.2.2",
+        "eslint": "^3.12.1",
         "gulp": "^3.9.1",
         "gulp-eslint": "^3.0.1",
-        "gulp-istanbul": "^1.0.0",
-        "gulp-jshint": "^2.0.1",
-        "gulp-mocha": "^2.2.0",
+        "gulp-istanbul": "^1.1.1",
+        "gulp-jshint": "^2.0.4",
+        "gulp-mocha": "^3.0.1",
         "gulp-nsp": "^2.4.2",
         "gulp-open": "^2.0.0",
-        "gulp-sourcemaps": "^1.6.0",
-        "gulp-tslint": "^6.0.1",
-        "gulp-typescript": "^2.13.6",
-        "gulp-typings": "^2.0.3",
-        "jshint": "^2.9.2",
-        "mocha": "^2.5.3",
-        "mocha-multi": "^0.9.0",
-        "require-dir": "^0.3.0",
-        "tslint": "^3.13.0",
-        "tslint-microsoft-contrib": "^2.0.8",
-        "typescript": "^1.8.10"
+        "gulp-sourcemaps": "^1.9.1",
+        "gulp-tslint": "^7.0.1",
+        "gulp-typescript": "^3.1.3",
+        "istanbul": "^0.4.5",
+        "jshint": "^2.9.4",
+        "mocha": "^3.2.0",
+        "mocha-multi": "^0.9.1",
+        "precommit-hook": "^3.0.0",
+        "require-dir": "^0.3.1",
+        "sinon": "^1.17.6",
+        "tslint": "^4.0.2",
+        "tslint-microsoft-contrib": "^4.0.0",
+        "typescript": "^2.1.4"
     },
-    "dependencies": {}
+    "dependencies": {
+    }
 }

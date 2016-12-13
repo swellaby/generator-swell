@@ -55,7 +55,7 @@
   ],
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^3.10.2",
+    "eslint": "^3.12.1",
     "gulp": "^3.9.1",
     "gulp-eslint": "^3.0.1",
     "gulp-istanbul": "^1.1.1",
@@ -65,13 +65,13 @@
     "gulp-open": "^2.0.0",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.4",
-    "mocha": "^3.1.2",
+    "mocha": "^3.2.0",
     "mocha-multi": "^0.9.1",
     "precommit-hook": "^3.0.0",
     "require-dir": "^0.3.1",
-    "sinon": "^1.17.5",
+    "sinon": "^1.17.6",
     "yeoman-assert": "^2.2.1",
-    "yeoman-test": "^1.4.0"
+    "yeoman-test": "^1.6.0"
   },
   "dependencies": {
     "chalk": "^1.1.3",
