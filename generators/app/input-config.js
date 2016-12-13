@@ -44,6 +44,15 @@ module.exports = {
             ]
         },
         {
+            when: function (response) {
+                return response.type === expressApiPromptValue;
+            },
+            type: 'input',
+            name: 'dockerUser',
+            message: 'What is your Docker Hub User Id?',
+            default: 'user'
+        },
+        {
             type: 'confirm',
             name: 'installDependencies',
             message: 'Do you want me to install dependencies for you?',

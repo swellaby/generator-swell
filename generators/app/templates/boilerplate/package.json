@@ -17,7 +17,7 @@
         }
     ],
     "scripts": {
-        "build": "gulp clean tslint transpile package-transpiled-javascript",
+        "build": "gulp clean tslint transpile",
         "check-security": "gulp check-security",
         "clean": "gulp clean",
         "enforce-code-coverage": "gulp enforce-code-coverage",

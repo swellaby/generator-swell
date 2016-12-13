@@ -13,31 +13,32 @@ var inputConfig = require('./input-config');
 var templateRoot = path.join(__dirname, 'templates');
 var boilerplateRoot = path.join(templateRoot, 'boilerplate');
 var vstsRoot = path.join(templateRoot, 'vsts-task');
+var expressRoot = path.join(templateRoot, 'express-api');
 
 module.exports = yeoman.Base.extend({
-    initializing: function() {
+    initializing: function () {
         this.log(yosay('Welcome to the Swellaby Node TypeScript Generator!'));
     },
 
-    prompting: function() {
-        return this.prompt(inputConfig.prompts).then(function(extensionConfig) {
+    prompting: function () {
+        return this.prompt(inputConfig.prompts).then(function (extensionConfig) {
             this.extensionConfig = extensionConfig;
         }.bind(this));
     },
 
-    default: function() {
+    default: function () {
         var appName = this.extensionConfig.appName;
 
         if (path.basename(this.destinationPath()) !== appName) {
-            this.log('Your generator must be inside a directory with the same name as your extension name \'' + appName + '\'\n' + 
-            'I\'ll automatically create this directory for you.');
+            this.log('Your generator must be inside a directory with the same name as your extension name \'' + appName + '\'\n' +
+                'I\'ll automatically create this directory for you.');
 
             mkdirp(appName);
-            this.destinationRoot(this.destinationPath(appName));            
+            this.destinationRoot(this.destinationPath(appName));
         }
     },
 
-    writing: function() {
+    writing: function () {
         this._writingBoilerplate();
         var extensionType = this.extensionConfig.type;
 
@@ -61,7 +62,7 @@ module.exports = yeoman.Base.extend({
         }
     },
 
-    _writingBoilerplate: function() {
+    _writingBoilerplate: function () {
         this.sourceRoot(boilerplateRoot);
         // this.sourceRoot = 
         // var pkg = this.fs.readJSON(this.sourceRoot('package.json'), {});
@@ -76,23 +77,42 @@ module.exports = yeoman.Base.extend({
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
     },
 
-    _writingCli: function() {
+    _writingCli: function () {
         this.log(yosay('New CLI coming'));
     },
 
-    _writingExpress: function() {
+    _writingExpress: function () {
         this.log(yosay('Super API underway'));
+        this.sourceRoot(expressRoot);
+        var context = this._buildExpressContext();
+
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+        extend(pkg, {
+            scripts: {
+                'docker-build': 'bash build.sh'
+            },
+            dependencies: {
+                'express': '^4.14.0'
+            },
+            devDependencies: {
+                '@types/express': '^4.0.34'
+            }
+        });
+
+        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
     },
 
-    _writingVSTSTask: function() {
+    _writingVSTSTask: function () {
         this.log(yosay('A new task to make a great platform even better'));
         this.sourceRoot(vstsRoot);
-        var context = this._buildVSTSContext();     
+        var context = this._buildVSTSContext();
 
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
 
         // this.npmInstall(['vsts-task-lib q request'], { 'save': true});
-        
+
         var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
         extend(pkg, {
             dependencies: {
@@ -109,7 +129,7 @@ module.exports = yeoman.Base.extend({
         this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
     },
 
-    _buildVSTSContext: function() {
+    _buildVSTSContext: function () {
         var context = this.extensionConfig;
         context.dot = true;
         // need to figure out the best way to pump these values in from the secondary prompts
@@ -120,7 +140,19 @@ module.exports = yeoman.Base.extend({
         return context;
     },
 
-    install: function() {
+    _buildExpressContext: function () {
+        //Copied from above
+        var context = this.extensionConfig;
+        context.dot = true;
+        // need to figure out the best way to pump these values in from the secondary prompts
+        context.taskId = 'foo'; // new guid
+        context.author = 'me'; // this can be moved to the core generator
+        context.category = 'Utility'; // from new prompt
+
+        return context;
+    },
+
+    install: function () {
         var installDependencies = this.extensionConfig.installDependencies;
 
         if (installDependencies === true) {
@@ -128,6 +160,6 @@ module.exports = yeoman.Base.extend({
             this.npmInstall();
         } else {
             this.log('You said you wanted to install dependencies yourself, so don\'t forget!');
-        }     
+        }
     }
 });
