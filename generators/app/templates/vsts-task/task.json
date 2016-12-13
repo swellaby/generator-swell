@@ -1,7 +1,7 @@
 {
   "id": <%- JSON.stringify(taskId) %>,
   "name": <%- JSON.stringify(appName) %>,
-  "friendlyName": <%- JSON.stringify(appName) %>,
+  "friendlyName": "Replace with a friendly name",
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,
   "helpMarkDown": "Replace with markdown to show in help",

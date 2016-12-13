@@ -139,7 +139,7 @@ suite('Input Config Suite:', function() {
                 });
 
                 test('Should have the correct choice value', function() {
-                    assert.deepEqual(choice.value, 'base');
+                    assert.deepEqual(choice.value, 'boilerplate');
                 });
             });
 

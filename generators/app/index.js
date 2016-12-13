@@ -12,6 +12,7 @@ var inputConfig = require('./input-config');
 
 var templateRoot = path.join(__dirname, 'templates');
 var boilerplateRoot = path.join(templateRoot, 'boilerplate');
+var vstsRoot = path.join(templateRoot, 'vsts-task');
 
 module.exports = yeoman.Base.extend({
     initializing: function() {
@@ -39,11 +40,10 @@ module.exports = yeoman.Base.extend({
     writing: function() {
         this._writingBoilerplate();
         var extensionType = this.extensionConfig.type;
-        this.sourceRoot = path.join(templateRoot, extensionType);
 
         switch (extensionType) {
-            case inputConfig.basePromptValue:
-                this._writingBase();
+            case inputConfig.boilerplatePromptValue:
+                this.log(yosay('Just the basic boilerplate'));
                 break;
 
             case inputConfig.cliPromptValue:
@@ -63,6 +63,7 @@ module.exports = yeoman.Base.extend({
 
     _writingBoilerplate: function() {
         this.sourceRoot(boilerplateRoot);
+        // this.sourceRoot = 
         // var pkg = this.fs.readJSON(this.sourceRoot('package.json'), {});
         // extend(pkg, {
         //     name: '<%- JSON.stringify(name) %>'
@@ -75,11 +76,6 @@ module.exports = yeoman.Base.extend({
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
     },
 
-    _writingBase: function() {
-        this.log(yosay('Created just the basics.'));
-
-    },
-
     _writingCli: function() {
         this.log(yosay('New CLI coming'));
     },
@@ -90,6 +86,15 @@ module.exports = yeoman.Base.extend({
 
     _writingVSTSTask: function() {
         this.log(yosay('A new task to make a great platform even better'));
+        this.sourceRoot(vstsRoot);
+        
+        var context = this.extensionConfig;
+        context.dot = true;
+        // need to figure out the best way to pump these values in from the secondary prompts
+        context.taskId = 'foo'; // new guid
+        context.author = 'me'; // this can be moved to the core generator
+        context.category = 'Utility'; // from new prompt
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
     },
 
     install: function() {

@@ -42,9 +42,9 @@ suite('Core Generator Suite:', function() {
         sandbox.restore();
     });
 
-    suite('Base Option Tests:', function() {
+    suite('Boilerplate Option Tests:', function() {
         var baseAppName = 'baseOptionApp';
-        var appType = inputConfig.basePromptValue;
+        var appType = inputConfig.boilerplatePromptValue;
         var appDescription = 'this is a test description';
 
         suiteSetup(function() {
@@ -70,7 +70,7 @@ suite('Core Generator Suite:', function() {
                 .withPrompts({
                     appName: baseAppName,
                     description: 'my test',
-                    type: inputConfig.basePromptValue,                        
+                    type: inputConfig.boilerplatePromptValue,                        
                 })
                 .toPromise()             
                 .then(function(dir) {
@@ -89,7 +89,7 @@ suite('Core Generator Suite:', function() {
                 .withPrompts({
                     appName: baseAppName,
                     description: 'my test',
-                    type: inputConfig.basePromptValue,                        
+                    type: inputConfig.boilerplatePromptValue,                        
                 })
                 .toPromise()                
                 .then(function(dir) {
@@ -108,7 +108,7 @@ suite('Core Generator Suite:', function() {
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
-                    type: inputConfig.basePromptValue,
+                    type: inputConfig.boilerplatePromptValue,
                     installDependencies: true                      
                 })
                 .toPromise()
@@ -127,7 +127,7 @@ suite('Core Generator Suite:', function() {
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
-                    type: inputConfig.basePromptValue,
+                    type: inputConfig.boilerplatePromptValue,
                     installDependencies: false                      
                 })
                 .toPromise()
@@ -353,7 +353,15 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should create all of the default VSTS Task template files', function() {
-
+            assert.file([
+                'task.json',
+                'icon.png',
+                './src/main.ts',
+                './src/helper.ts',
+                './test/main-tests.ts',
+                './test/helper-tests.ts',
+                './build/tasks/package.js'
+            ]);
         });
 
         test('Should inject the App Name into the README.md file when the VSTS option is selected', function() {

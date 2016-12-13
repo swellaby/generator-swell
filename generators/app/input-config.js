@@ -1,6 +1,6 @@
 'use strict';
 
-var basePromptValue = 'base';
+var boilerplatePromptValue = 'boilerplate';
 var cliPromptValue = 'cli';
 var expressApiPromptValue = 'express-api';
 var vstsTaskPromptValue = 'vsts-task';
@@ -22,11 +22,12 @@ module.exports = {
             type: 'list',
             name: 'type',
             message: 'What type of app is this?',
+            default: boilerplatePromptValue,
             required: true,
             choices: [
                 {
                     name: 'New App with just the boilerplate',
-                    value: basePromptValue
+                    value: boilerplatePromptValue
                 },
                 {
                     name: 'New CLI App',
@@ -49,7 +50,7 @@ module.exports = {
             default: true
         }
     ],
-    basePromptValue: basePromptValue,
+    boilerplatePromptValue: boilerplatePromptValue,
     cliPromptValue: cliPromptValue,
     expressApiPromptValue: expressApiPromptValue,
     vstsTaskPromptValue: vstsTaskPromptValue
