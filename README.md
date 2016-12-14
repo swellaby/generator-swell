@@ -6,6 +6,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
 [![Code Climate Badge][code-climate-status-badge]][code-climate-url]
 [![Codecov Badge][codecov-badge]][codecov-url]
+[![Coveralls Badge][coveralls-badge]][coveralls-url]
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]][sonarqube-coverage-url]
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]][sonarqube-techdebt-url]
 [![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
@@ -47,3 +48,5 @@ Note you will need to cd into the newly created directory if you specify an app 
 [sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swell
 [codecov-badge]: https://codecov.io/gh/swellaby/generator-swell/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/swellaby/generator-swell
+[coveralls-badge]: https://coveralls.io/repos/github/swellaby/generator-swell/badge.svg
+[coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
