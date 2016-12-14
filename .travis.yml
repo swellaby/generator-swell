@@ -8,7 +8,7 @@ os:
 addons:
   srcclr: true
   codeclimate:
-    repo_token: $CODECLIMATE_TOKEN
+    repo_token: $CODECLIMATE_REPO_TOKEN
   sonarqube:
     token:
       secure: $SONAR_TOKEN
