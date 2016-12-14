@@ -23,7 +23,7 @@ before_script:
 install:  
     - nvm install node
     - npm install
-    - npm install -g codeclimate-test-reporter
+    - npm install -g codeclimate-test-reporter coveralls
     - nvm install 6
     - nvm install 5
     - nvm install 4
@@ -45,3 +45,4 @@ script:
 
 after_success:
     - codeclimate-test-reporter < coverage/unit/lcov.info
+    - coveralls < coverage/unit/lcov.info
