@@ -13,12 +13,17 @@ addons:
     token:
       secure: $SONAR_TOKEN
 
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
 before_script:
     - export PROJECT_VERSION=$(node -e "console.log(require('./package.json').version);")
 
-install:    
+install:  
     - nvm install node
     - npm install
+    - npm install -g codeclimate-test-reporter
     - nvm install 6
     - nvm install 5
     - nvm install 4
@@ -36,7 +41,7 @@ script:
     - nvm use node
     - npm run lint
     - npm run enforce-code-coverage
-    - sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION
+    - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
 
 after_success:
     - codeclimate-test-reporter < coverage/unit/lcov.info
