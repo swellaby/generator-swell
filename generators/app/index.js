@@ -91,7 +91,8 @@ module.exports = yeoman.Base.extend({
         var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
         extend(pkg, {
             scripts: {
-                'docker-build': 'bash build.sh'
+                'docker-build': 'bash build.sh',
+                'start': 'node src/app.js'
             },
             dependencies: {
                 'express': '^4.14.0'
