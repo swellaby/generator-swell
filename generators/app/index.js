@@ -1,6 +1,5 @@
 'use strict';
 
-// var chalk = require('chalk');
 var extend = require('deep-extend');
 var glob = require('glob');
 var path = require('path');
@@ -17,7 +16,7 @@ var expressRoot = path.join(templateRoot, 'express-api');
 
 module.exports = yeoman.Base.extend({
     initializing: function () {
-        this.log(yosay('Welcome to the Swellaby Node TypeScript Generator!'));
+        this.log(yosay('Welcome to the Swellaby Generator!'));
     },
 
     prompting: function () {
@@ -64,14 +63,6 @@ module.exports = yeoman.Base.extend({
 
     _writingBoilerplate: function () {
         this.sourceRoot(boilerplateRoot);
-        // this.sourceRoot = 
-        // var pkg = this.fs.readJSON(this.sourceRoot('package.json'), {});
-        // extend(pkg, {
-        //     name: '<%- JSON.stringify(name) %>'
-        // });
-
-        // this.fs.writeJSON(this.sourceRoot('package.json'));
-
         var context = this.extensionConfig;
         context.dot = true;
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
@@ -111,8 +102,6 @@ module.exports = yeoman.Base.extend({
         var context = this._buildVSTSContext();
 
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
-
-        // this.npmInstall(['vsts-task-lib q request'], { 'save': true});
 
         var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
         extend(pkg, {
