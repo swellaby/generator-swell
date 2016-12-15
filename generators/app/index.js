@@ -106,12 +106,10 @@ module.exports = yeoman.Base.extend({
         var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
         extend(pkg, {
             dependencies: {
-                'q': '^1.4.1',
                 'request': '2.73.0',
                 'vsts-task-lib': '^1.1.0'
             },
             devDependencies: {
-                '@types/q': '0.0.32',
                 '@types/request': '0.0.34',
             }
         });
