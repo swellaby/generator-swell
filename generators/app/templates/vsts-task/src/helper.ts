@@ -49,7 +49,7 @@ class Helper {
                 (err: any, response: any, data: string) => {
                     if (!err && (response.statusCode === 200)) {
                         try {
-                            resolve(+JSON.parse(data).length);
+                            resolve(+JSON.parse(data).count);
                         } catch (err) {
                             reject(new Error('Error parsing API response'));
                         }
