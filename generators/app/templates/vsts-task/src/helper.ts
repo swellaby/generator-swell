@@ -15,7 +15,7 @@ class Helper {
      * 
      * @memberOf Helper
      */
-    public async add(a: number, b: number): Promise<number> {
+    public add(a: number, b: number): Promise<number> {
         return new Promise<number>((resolve, reject) => {
             if (isNaN(a) || isNaN(b)) {
                 reject('Invalid inputs.');
