@@ -36,8 +36,6 @@ helper.add(inputAParameter, inputBParameter)
     })
     .catch((error: Error) => {
         tl.error('Something failed! Error message: ' + error.message);
-        tl.setResult(tl.TaskResult.Failed, 'Addition failed, math is broken :(');
-    });
 
  async function getTeamProjecCount() {
      try {

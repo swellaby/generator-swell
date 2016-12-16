@@ -40,7 +40,7 @@ class Helper {
      * @returns {Promise<number>}
      */
     public getNumTeamProjects(teamProjectCollectionUri: string, accessToken: string): Promise<number> {
-        return new Promise<number>((resolve, reject) => {
+       return new Promise<n>((resolve, reject) => {
             if (!teamProjectCollectionUri || !accessToken) {
                 reject(new Error('Invalid params.'));
             }
