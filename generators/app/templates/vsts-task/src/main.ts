@@ -12,7 +12,6 @@ let inputBParameter = parseFloat(tl.getInput('inputB', true));
 // More details about variables can be found at: https://www.visualstudio.com/en-us/docs/build/define/variables 
 const buildId = tl.getVariable('Build.BuildId');
 const collectionUri = tl.getVariable('System.TeamFoundationCollectionUri');
-const teamProjectName = tl.getVariable('System.TeamProject');
 const systemAccessToken = tl.getVariable('System.AccessToken');
 
 if (isNaN(inputAParameter) || isNaN(inputBParameter)) {

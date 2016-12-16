@@ -1,6 +1,6 @@
 'use strict';
 
-import Q = require('q');
+import request = require('request');
 
 /**
  * Example of a Helper class.
@@ -9,27 +9,56 @@ import Q = require('q');
  */
 class Helper {
     /**
-     * Derives the sum of the two input numbers.
+     * Derives the sum of the two input numbers. 
+     *      
+     * @description - Note that this is a bad example of using promises.
      * 
      * @param {number} a - The first input.
      * @param {number} b - The second input.
-     * @returns {Q.Promise<number>}
      * 
-     * @memberOf Helper
+     * @returns {Promise<number>}
      */
-    public add(a: number, b: number): Q.Promise<number> {
-        const deferred: Q.Deferred<number> = Q.defer<number>();
+    public add(a: number, b: number): Promise<number> {
+        // Stupid example to show ES6 promise
+        return new Promise<number>((resolve, reject) => {
+            if (isNaN(a) || isNaN(b)) {
+                reject(new Error('Invalid inputs.'));
+            }
+            resolve(a + b);
+        });
+    }
 
-        if (isNaN(a) || isNaN(b)) {
-            return Q.reject<number>(new Error('Invalid inputs.'));
-            //deferred.reject(new Error());
-        } else {
-            var sum = a + b;
-            return Q.resolve<number>(sum);
-            //deferred.resolve(sum);
-        }
+    /**
+     * Retrieves the number of Team Projects in the specified Team Project Collection.
+     * 
+     * @description This illustrates how you can make API calls to the VSTS instance.
+     * More details on the API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/overview
+     * 
+     * @param {string} teamProjectCollectionUri - The URI of the Team Project Collection.
+     * @param {string} accessToken - The bearer token which can be used to access the Team Project Collection.
+     * 
+     * @returns {Promise<number>}
+     */
+    public getNumTeamProjects(teamProjectCollectionUri: string, accessToken: string): Promise<number> {
+        return new Promise<Array<string>>((resolve, reject) => {
+            if (!teamProjectCollectionUri || !accessToken) {
+                reject(new Error('Invalid params.'));
+            }
 
-        //return deferred.promise;
+            request.get(teamProjectCollectionUri, { 'auth': { 'bearer': accessToken}}, 
+                (err: any, response: any, data: string) => {
+                    if (!err && (response.statusCode === 200)) {
+                        try {
+                            resolve(JSON.parse(data).count);
+                        } catch (err) {
+                            reject(new Error('Error parsing API response'));
+                        }                        
+                    } else {
+                        reject(new Error('Error calling API. Error details: ' + err.message));
+                    }
+                }
+            );
+        });
     }
 }
 
