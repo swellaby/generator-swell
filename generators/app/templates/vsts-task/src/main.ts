@@ -38,3 +38,8 @@ helper.add(inputAParameter, inputBParameter)
         tl.error('Something failed! Error message: ' + error.message);
         tl.setResult(tl.TaskResult.Succeeded, 'Addition failed, math is broken :(');
     });
+
+ async function getTeamProjecCount() {
+     var count = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
+     console.log(count);
+ }
