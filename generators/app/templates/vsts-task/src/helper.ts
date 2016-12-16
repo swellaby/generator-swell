@@ -22,7 +22,7 @@ class Helper {
         // Stupid example to show ES6 promise
         return new Promise<number>((resolve, reject) => {
             if (isNaN(a) || isNaN(b)) {
-                reject(new Error('Invalid inputs.'));
+                reject(new Error('Invalid params.'));
             }
             resolve(a + b);
         });
@@ -45,15 +45,15 @@ class Helper {
                 reject(new Error('Invalid params.'));
             }
 
-            request.get(teamProjectCollectionUri, { 'auth': { 'bearer': accessToken}}, 
+            request.get(teamProjectCollectionUri, { 'auth': { 'bearer': accessToken}},
                 (err: any, response: any, data: string) => {
                     if (!err && (response.statusCode === 200)) {
                         try {
-                            resolve(+JSON.parse(data).count);
+                            resolve(+JSON.parse(data).length);
                         } catch (err) {
                             reject(new Error('Error parsing API response'));
-                        }                        
-                    } else {                   
+                        }
+                    } else {
                         reject(new Error('Error calling API'));
                     }
                 }
