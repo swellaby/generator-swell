@@ -12,7 +12,6 @@ let inputBParameter = parseFloat(tl.getInput('inputB', true));
 // More details about variables can be found at: https://www.visualstudio.com/en-us/docs/build/define/variables 
 const buildId = tl.getVariable('Build.BuildId');
 const collectionUri = tl.getVariable('System.TeamFoundationCollectionUri');
-const teamProjectName = tl.getVariable('System.TeamProject');
 const systemAccessToken = tl.getVariable('System.AccessToken');
 
 if (isNaN(inputAParameter) || isNaN(inputBParameter)) {
@@ -39,3 +38,8 @@ helper.add(inputAParameter, inputBParameter)
         tl.error('Something failed! Error message: ' + error.message);
         tl.setResult(tl.TaskResult.Succeeded, 'Addition failed, math is broken :(');
     });
+
+ async function getTeamProjecCount() {
+     var count = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
+     console.log(count);
+ }

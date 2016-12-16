@@ -4,6 +4,7 @@ var extend = require('deep-extend');
 var glob = require('glob');
 var path = require('path');
 var mkdirp = require('mkdirp');
+var uuid = require('uuid');
 var yeoman = require('yeoman-generator');
 var yosay = require('yosay');
 
@@ -121,7 +122,7 @@ module.exports = yeoman.Base.extend({
         var context = this.extensionConfig;
         context.dot = true;
         // need to figure out the best way to pump these values in from the secondary prompts
-        context.taskId = 'foo'; // new guid
+        context.taskId = uuid.v4(); // new guid
         context.author = 'me'; // this can be moved to the core generator
         context.category = 'Utility'; // from new prompt
 
