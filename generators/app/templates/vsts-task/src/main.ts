@@ -28,13 +28,13 @@ inputBParameter = +inputBParameter.toFixed(2);
 // console.log/error is usually simpler IMO.
 console.log('You said: ' + exampleMessageParameter);
 
-var helper = new Helper();
+const helper = new Helper();
 helper.add(inputAParameter, inputBParameter)
     .then((sum: number) => {        
         console.log('The sum is: ' + sum);
         tl.setResult(tl.TaskResult.Succeeded, 'Your task passed, hooray!');     
     })
-    .fail((error: Error) => {
+    .catch((error: Error) => {
         tl.error('Something failed! Error message: ' + error.message);
         tl.setResult(tl.TaskResult.Succeeded, 'Addition failed, math is broken :(');
     });
