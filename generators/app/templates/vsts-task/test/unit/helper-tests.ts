@@ -101,7 +101,7 @@ suite('Helper Suite -', () => {
             teamProjectCollectionUri = 'uri';
             accessToken = 'token';
             // Ths should be better fake data
-            const res = [ 0, 1, 2, 3 ]; 
+            const res = [ 0, 1, 2, 3 ];
             getStub.yields(null, { statusCode: 200 }, JSON.stringify(res));
             sut.getNumTeamProjects(teamProjectCollectionUri, accessToken).then((count) => {
                 assert.equal(count, res.length);
