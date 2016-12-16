@@ -40,7 +40,7 @@ class Helper {
      * @returns {Promise<number>}
      */
     public getNumTeamProjects(teamProjectCollectionUri: string, accessToken: string): Promise<number> {
-        return new Promise<Array<string>>((resolve, reject) => {
+        return new Promise<number>((resolve, reject) => {
             if (!teamProjectCollectionUri || !accessToken) {
                 reject(new Error('Invalid params.'));
             }
@@ -49,12 +49,12 @@ class Helper {
                 (err: any, response: any, data: string) => {
                     if (!err && (response.statusCode === 200)) {
                         try {
-                            resolve(JSON.parse(data).count);
+                            resolve(+JSON.parse(data).count);
                         } catch (err) {
                             reject(new Error('Error parsing API response'));
                         }                        
-                    } else {
-                        reject(new Error('Error calling API. Error details: ' + err.message));
+                    } else {                   
+                        reject(new Error('Error calling API'));
                     }
                 }
             );

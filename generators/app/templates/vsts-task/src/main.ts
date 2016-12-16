@@ -36,10 +36,18 @@ helper.add(inputAParameter, inputBParameter)
     })
     .catch((error: Error) => {
         tl.error('Something failed! Error message: ' + error.message);
-        tl.setResult(tl.TaskResult.Succeeded, 'Addition failed, math is broken :(');
+        tl.setResult(tl.TaskResult.Failed, 'Addition failed, math is broken :(');
     });
 
  async function getTeamProjecCount() {
-     var count = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
-     console.log(count);
+     try {
+        var count = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
+        console.log(count);
+        tl.setResult(tl.TaskResult.Succeeded, 'Got count. Your task passed, hooray!');  
+     } catch (err) {
+        tl.error('Something failed! Error message: ' + err.message);
+        tl.setResult(tl.TaskResult.Failed, 'Addition failed, math is broken :(');
+     }     
  }
+
+ getTeamProjecCount();

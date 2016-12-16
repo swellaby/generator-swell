@@ -12,6 +12,7 @@ var inputConfig = require('./input-config');
 
 var templateRoot = path.join(__dirname, 'templates');
 var boilerplateRoot = path.join(templateRoot, 'boilerplate');
+var vstsCommonRoot = path.join(templateRoot, 'vsts-common');
 var vstsRoot = path.join(templateRoot, 'vsts-task');
 var expressRoot = path.join(templateRoot, 'express-api');
 
@@ -99,6 +100,7 @@ module.exports = yeoman.Base.extend({
 
     _writingVSTSTask: function () {
         this.log(yosay('A new task to make a great platform even better'));
+        this._writeSharedVSTSContent();
         this.sourceRoot(vstsRoot);
         var context = this._buildVSTSContext();
 
@@ -107,15 +109,20 @@ module.exports = yeoman.Base.extend({
         var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
         extend(pkg, {
             dependencies: {
-                'request': '2.73.0',
+                'request': '^2.79.0',
                 'vsts-task-lib': '^1.1.0'
             },
             devDependencies: {
-                '@types/request': '0.0.34',
+                '@types/request': '^0.0.36',
             }
         });
 
         this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    },
+
+    _writeSharedVSTSContent: function () {
+        this.sourceRoot(vstsCommonRoot);
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), this.extensionConfig);
     },
 
     _buildVSTSContext: function () {

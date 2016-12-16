@@ -34,10 +34,10 @@
       "lint"
     ],
     "devDependencies": {
-        "@types/node": "0.0.3",
+        "@types/node": "^6.0.52",
         "chai": "^3.5.0",
         "del": "^2.2.2",
-        "eslint": "^3.12.1",
+        "eslint": "^3.12.2",
         "gulp": "^3.9.1",
         "gulp-eslint": "^3.0.1",
         "gulp-istanbul": "^1.1.1",
@@ -52,10 +52,11 @@
         "jshint": "^2.9.4",
         "mocha": "^3.2.0",
         "mocha-multi": "^0.9.1",
+        "path": "^0.12.7",
         "precommit-hook": "^3.0.0",
         "require-dir": "^0.3.1",
         "sinon": "^1.17.6",
-        "tslint": "^4.0.2",
+        "tslint": "^4.1.1",
         "tslint-microsoft-contrib": "^4.0.0",
         "typescript": "^2.1.4"
     },
