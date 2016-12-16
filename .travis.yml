@@ -13,6 +13,9 @@ addons:
     token:
       secure: $SONAR_TOKEN
 
+notifications:
+  slack: swellaby:$SLACK_TOKEN
+
 cache:
   directories:
     - '$HOME/.sonar/cache'
