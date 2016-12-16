@@ -15,7 +15,7 @@ gulp.task('check-security', function(cb) {
 });
 
 gulp.task('pre-unit-tests', function() {
-    return gulp.src(gulpConfig.srcJavascript)
+    return gulp.src(gulpConfig.appTranspiledJavaScript)
         .pipe(istanbul({
             includeUntested: istanbulConfig.includeUntested,
         }))

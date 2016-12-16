@@ -20,7 +20,8 @@ module.exports = {
         srcRoot + '**/*.js*',
         testRoot + '**/*.js*'
     ],
-    appTranspiledJavaScript: srcRoot + '**/*.js*',
+    appTranspiledJavaScript: srcRoot + '**/*.js',
+    javascriptUnitTests: testRoot + '/unit/**/*.js',
     allTypescript: [
         srcRoot + '/**/*.ts',
         testRoot + '/**/*-tests.ts',
