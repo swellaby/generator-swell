@@ -78,7 +78,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                 })
                 .toPromise()
@@ -101,7 +101,7 @@ suite('Core Generator Suite:', function() {
                 })
                 .withPrompts({
                     appName: baseAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                 })
                 .toPromise()
@@ -124,7 +124,7 @@ suite('Core Generator Suite:', function() {
                 })
                 .withPrompts({
                     appName: baseAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                 })
                 .toPromise()
@@ -138,7 +138,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                 })
                 .toPromise()
@@ -157,7 +157,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                 })
                 .toPromise()
@@ -172,8 +172,8 @@ suite('Core Generator Suite:', function() {
         test('Should install dependencies if user confirms with the Base option selected', function(done) {
             helpers.run(generatorRoot)
                 .withPrompts({
-                    appName: 'name',
-                    description: 'my test',
+                    appName: baseAppName,
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                     installDependencies: true
                 })
@@ -188,8 +188,8 @@ suite('Core Generator Suite:', function() {
         test('Should not install dependencies if user declines with the Base option selected', function(done) {
             helpers.run(generatorRoot)
                 .withPrompts({
-                    appName: 'name',
-                    description: 'my test',
+                    appName: baseAppName,
+                    description: appDescription,
                     type: inputConfig.boilerplatePromptValue,
                     installDependencies: false
                 })
@@ -229,7 +229,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.cliPromptValue,
                 })
                 .toPromise()
@@ -248,7 +248,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.cliPromptValue,
                 })
                 .toPromise()
@@ -263,8 +263,8 @@ suite('Core Generator Suite:', function() {
         test('Should install dependencies if user confirms with the CLI option selected', function(done) {
             helpers.run(generatorRoot)
                 .withPrompts({
-                    appName: 'name',
-                    description: 'my test',
+                    appName: cliAppName,
+                    description: appDescription,
                     type: inputConfig.cliPromptValue,
                     installDependencies: true
                 })
@@ -279,8 +279,8 @@ suite('Core Generator Suite:', function() {
         test('Should not install dependencies if user declines with the CLI option selected', function(done) {
             helpers.run(generatorRoot)
                 .withPrompts({
-                    appName: 'name',
-                    description: 'my test',
+                    appName: cliAppName,
+                    description: appDescription,
                     type: inputConfig.cliPromptValue,
                     installDependencies: false
                 })
@@ -296,7 +296,7 @@ suite('Core Generator Suite:', function() {
     suite('Express API Option Tests:', function() {
         var expressAppName = 'api app';
         var appType = inputConfig.expressApiPromptValue;
-        var appDescription = 'this is a test description';
+        var appDescription = 'brand new express API';
         var dockerUser = 'testUser';
         var expressFiles = [
             '.dockerignore',
@@ -337,7 +337,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.expressApiPromptValue,
                 })
                 .toPromise()
@@ -356,7 +356,7 @@ suite('Core Generator Suite:', function() {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
-                    description: 'my test',
+                    description: appDescription,
                     type: inputConfig.expressApiPromptValue,
                 })
                 .toPromise()
@@ -371,8 +371,8 @@ suite('Core Generator Suite:', function() {
         test('Should install dependencies if user confirms with the Express API option selected', function(done) {
             helpers.run(generatorRoot)
                 .withPrompts({
-                    appName: 'name',
-                    description: 'my test',
+                    appName: expressAppName,
+                    description: appDescription,
                     type: inputConfig.expressApiPromptValue,
                     installDependencies: true
                 })
@@ -387,8 +387,8 @@ suite('Core Generator Suite:', function() {
         test('Should not install dependencies if user declines with the Express API option selected', function(done) {
             helpers.run(generatorRoot)
                 .withPrompts({
-                    appName: 'name',
-                    description: 'my test',
+                    appName: expressAppName,
+                    description: appDescription,
                     type: inputConfig.expressApiPromptValue,
                     installDependencies: false
                 })
@@ -411,7 +411,7 @@ suite('Core Generator Suite:', function() {
         suite('VSTS Task Option Tests:', function() {
             var vstsAppName = 'vsts task';
             var appType = inputConfig.vstsTaskPromptValue;
-            var appDescription = 'this is a test description';
+            var appDescription = 'this is an awesome vsts task';
 
             suiteSetup(function() {
                 return helpers.run(generatorRoot)
@@ -469,7 +469,7 @@ suite('Core Generator Suite:', function() {
                 helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
-                        description: 'my test',
+                        description: appDescription,
                         type: inputConfig.vstsTaskPromptValue,
                     })
                     .toPromise()
@@ -485,7 +485,7 @@ suite('Core Generator Suite:', function() {
                 helpers.run(generatorRoot)
                     .withPrompts({
                         appName: 'name',
-                        description: 'my test',
+                        description: appDescription,
                         type: inputConfig.vstsTaskPromptValue,
                         installDependencies: true
                     })
@@ -500,8 +500,8 @@ suite('Core Generator Suite:', function() {
             test('Should not install dependencies if user declines with the VSTS option selected', function(done) {
                 helpers.run(generatorRoot)
                     .withPrompts({
-                        appName: 'name',
-                        description: 'my test',
+                        appName: vstsAppName,
+                        description: appDescription,
                         type: inputConfig.vstsTaskPromptValue,
                         installDependencies: false
                     })
