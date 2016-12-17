@@ -33,18 +33,19 @@ var boilerplateFiles = [
     './build/tasks/test.js'
 ];
 
-var expressFiles = [
-    '.dockerignore',
-    'build.sh',
-    'Dockerfile',
-    './build/tasks/package.js',
-    './src/app.ts'
-];
-
 suite('Core Generator Suite:', function() {
     var sandbox;
+    var generatorRoot = path.join(__dirname, './../../../generators/app');
+    var yoDestinationPathFunctionName = 'destinationPath';
+    var gitInitCommandSpy;
+    var npmInstallCommandSpy;
+    var installDependenciesCommandSpy;
+    
     setup(function() {
         sandbox = sinon.sandbox.create();
+        gitInitCommandSpy = sandbox.spy(yeoman.Base.prototype, 'spawnCommandSync').withArgs('git', ['init', '--quiet']);
+        npmInstallCommandSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
+        installDependenciesCommandSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
     });
     teardown(function() {
         sandbox.restore();        
@@ -56,7 +57,7 @@ suite('Core Generator Suite:', function() {
         var appDescription = 'this is a test description';        
 
         suiteSetup(function() {
-            return helpers.run(path.join(__dirname, './../../../generators/app'))
+            return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
@@ -74,8 +75,7 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should init a new git repository when the destination directory does not have a .git directory', function(done) {
-            var commandSpy = sandbox.spy(yeoman.Base.prototype, 'spawnCommandSync');
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
                     description: 'my test',
@@ -83,7 +83,7 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(commandSpy.withArgs('git', ['init', '--quiet']).called, true);
+                    assert.deepEqual(gitInitCommandSpy.called, true);
                     done();
                 }); 
         });
@@ -91,11 +91,11 @@ suite('Core Generator Suite:', function() {
         test('Should init a new git repository when the destination directory has a file entitled \'.git\'', function(done) {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in 
             // the same directory as the destinationRoot of the generator. 
-            sandbox.stub(yeoman.Base.prototype, 'destinationPath', function() {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
                 return path.join(process.cwd(), baseAppName);
             });
-            var commandSpy = sandbox.spy(yeoman.Base.prototype, 'spawnCommandSync');
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+
+            helpers.run(generatorRoot)
                 .inTmpDir(function(dir) {
                     fs.writeFileSync(path.join(dir, '.git'));
                 })
@@ -106,7 +106,7 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(commandSpy.withArgs('git', ['init', '--quiet']).called, true);
+                    assert.deepEqual(gitInitCommandSpy.called, true);
                     done();
                 }); 
         });
@@ -114,11 +114,11 @@ suite('Core Generator Suite:', function() {
         test('Should not init a new git repository when the destination directory already has a git repo initialized', function(done) {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in 
             // the same directory as the destinationRoot of the generator. 
-            sandbox.stub(yeoman.Base.prototype, 'destinationPath', function() {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
                 return path.join(process.cwd(), baseAppName);
             });
-            var commandSpy = sandbox.spy(yeoman.Base.prototype, 'spawnCommandSync');
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+
+            helpers.run(generatorRoot)
                 .inTmpDir(function(dir) {
                     fs.mkdirSync(path.join(path.resolve(dir), '.git'));                   
                 })
@@ -129,13 +129,13 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(commandSpy.withArgs('git', ['init', '--quiet']).called, false);
+                    assert.deepEqual(gitInitCommandSpy.called, false);
                     done();
                 }); 
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Base option', function(done) {
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
                     description: 'my test',
@@ -150,11 +150,11 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option', function(done) {
-            sandbox.stub(yeoman.Base.prototype, 'destinationPath', function() {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
                 return path.join(process.cwd(), baseAppName);
             });
 
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
                     description: 'my test',
@@ -170,10 +170,7 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should install dependencies if user confirms with the Base option selected', function(done) {
-            var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-            var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
@@ -182,17 +179,14 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(npmSpy.called, true);
-                    assert.deepEqual(bothSpy.called, false);
+                    assert.deepEqual(npmInstallCommandSpy.called, true);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
         test('Should not install dependencies if user declines with the Base option selected', function(done) {
-            var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-            var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
@@ -201,8 +195,8 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(npmSpy.called, false);
-                    assert.deepEqual(bothSpy.called, false);
+                    assert.deepEqual(npmInstallCommandSpy.called, false);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
@@ -214,7 +208,7 @@ suite('Core Generator Suite:', function() {
         var appDescription = 'this is a test description';
 
         suiteSetup(function() {
-            return helpers.run(path.join(__dirname, './../../../generators/app'))
+            return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
                     description: appDescription,
@@ -232,7 +226,7 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the CLI option', function(done) {
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
                     description: 'my test',
@@ -247,11 +241,11 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the CLI option', function(done) {
-            sandbox.stub(yeoman.Base.prototype, 'destinationPath', function() {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
                 return path.join(process.cwd(), cliAppName);
             });
 
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
                     description: 'my test',
@@ -267,10 +261,7 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should install dependencies if user confirms with the CLI option selected', function(done) {
-            var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-            var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
@@ -279,17 +270,14 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(npmSpy.called, true);
-                    assert.deepEqual(bothSpy.called, false);
+                    assert.deepEqual(npmInstallCommandSpy.called, true);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
         test('Should not install dependencies if user declines with the CLI option selected', function(done) {
-            var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-            var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
@@ -298,8 +286,8 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(npmSpy.called, false);
-                    assert.deepEqual(bothSpy.called, false);
+                    assert.deepEqual(npmInstallCommandSpy.called, false);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
@@ -310,9 +298,16 @@ suite('Core Generator Suite:', function() {
         var appType = inputConfig.expressApiPromptValue;
         var appDescription = 'this is a test description';
         var dockerUser = 'testUser';
+        var expressFiles = [
+            '.dockerignore',
+            'build.sh',
+            'Dockerfile',
+            './build/tasks/package.js',
+            './src/app.ts'
+        ];
 
         suiteSetup(function() {
-            return helpers.run(path.join(__dirname, './../../../generators/app'))
+            return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
                     description: appDescription,
@@ -339,7 +334,7 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Express API option', function(done) {
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
                     description: 'my test',
@@ -354,11 +349,11 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Express API option', function(done) {
-            sandbox.stub(yeoman.Base.prototype, 'destinationPath', function() {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
                 return path.join(process.cwd(), expressAppName);
             });
 
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
                     description: 'my test',
@@ -374,10 +369,7 @@ suite('Core Generator Suite:', function() {
         });
 
         test('Should install dependencies if user confirms with the Express API option selected', function(done) {
-            var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-            var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
@@ -386,17 +378,14 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(npmSpy.called, true);
-                    assert.deepEqual(bothSpy.called, false);
+                    assert.deepEqual(npmInstallCommandSpy.called, true);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
         test('Should not install dependencies if user declines with the Express API option selected', function(done) {
-            var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-            var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-            helpers.run(path.join(__dirname, './../../../generators/app'))
+            helpers.run(generatorRoot)
                 .withPrompts({
                     appName: 'name',
                     description: 'my test',
@@ -405,8 +394,8 @@ suite('Core Generator Suite:', function() {
                 })
                 .toPromise()
                 .then(function() {
-                    assert.deepEqual(npmSpy.called, false);
-                    assert.deepEqual(bothSpy.called, false);
+                    assert.deepEqual(npmInstallCommandSpy.called, false);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
@@ -425,7 +414,7 @@ suite('Core Generator Suite:', function() {
             var appDescription = 'this is a test description';
 
             suiteSetup(function() {
-                return helpers.run(path.join(__dirname, './../../../generators/app'))
+                return helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
                         description: appDescription,
@@ -458,7 +447,7 @@ suite('Core Generator Suite:', function() {
             });
 
             test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', function(done) {
-                helpers.run(path.join(__dirname, './../../../generators/app'))
+                helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
                         description: 'my test',
@@ -473,11 +462,11 @@ suite('Core Generator Suite:', function() {
             });
 
             test('Should scaffold into the current directory when the specified app name matches the current directory name with the VSTS option', function(done) {
-                sandbox.stub(yeoman.Base.prototype, 'destinationPath', function() {
+                sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
                     return path.join(process.cwd(), vstsAppName);
                 });
 
-                helpers.run(path.join(__dirname, './../../../generators/app'))
+                helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
                         description: 'my test',
@@ -493,10 +482,7 @@ suite('Core Generator Suite:', function() {
             });
 
             test('Should install dependencies if user confirms with the VSTS option selected', function(done) {
-                var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-                var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-                helpers.run(path.join(__dirname, './../../../generators/app'))
+                helpers.run(generatorRoot)
                     .withPrompts({
                         appName: 'name',
                         description: 'my test',
@@ -505,17 +491,14 @@ suite('Core Generator Suite:', function() {
                     })
                     .toPromise()
                     .then(function() {
-                        assert.deepEqual(npmSpy.called, true);
-                        assert.deepEqual(bothSpy.called, false);
+                        assert.deepEqual(npmInstallCommandSpy.called, true);
+                        assert.deepEqual(installDependenciesCommandSpy.called, false);
                         done();
                     });
             });
 
             test('Should not install dependencies if user declines with the VSTS option selected', function(done) {
-                var npmSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-                var bothSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
-
-                helpers.run(path.join(__dirname, './../../../generators/app'))
+                helpers.run(generatorRoot)
                     .withPrompts({
                         appName: 'name',
                         description: 'my test',
@@ -524,8 +507,8 @@ suite('Core Generator Suite:', function() {
                     })
                     .toPromise()
                     .then(function() {
-                        assert.deepEqual(npmSpy.called, false);
-                        assert.deepEqual(bothSpy.called, false);
+                        assert.deepEqual(npmInstallCommandSpy.called, false);
+                        assert.deepEqual(installDependenciesCommandSpy.called, false);
                         done();
                     });
             });
