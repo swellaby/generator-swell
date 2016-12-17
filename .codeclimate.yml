@@ -13,6 +13,8 @@ engines:
     - 32a0198b3010fffa23cea033e43fa9ad
     # exclude the unit test names for the app type choices within the various choice suites
     - cddf17dbff1f28cd76a98d447f60a4d3
+    # re: PR #27
+    - a38749321b0cb09986838831d2fb6e00
     config:
       languages:
         javascript:
