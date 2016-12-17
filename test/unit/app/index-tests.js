@@ -447,8 +447,8 @@ suite('Core Generator Suite:', function() {
                     'task.json',                    
                     './src/main.ts',
                     './src/helper.ts',
-                    './test/main-tests.ts',
-                    './test/helper-tests.ts',
+                    './test/unit/main-tests.ts',
+                    './test/unit/helper-tests.ts',
                     './build/tasks/package.js'
                 ]);
             });

@@ -1,6 +1,6 @@
 import express = require('express');
 
-let app = express();
+const app = express();
 
 //Add CORS
 app.use((req, res, next) => {

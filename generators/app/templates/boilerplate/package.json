@@ -1,6 +1,6 @@
-{    
-    "name": <%- JSON.stringify(appName) %>,
-    "description": <%- JSON.stringify(description) %>,
+{
+    "name": <%-JSON.stringify(appName)%>,
+    "description": <%-JSON.stringify(description)%>,
     "version": "0.0.1",
     "license": "",
     "repository": {},
@@ -28,13 +28,17 @@
         "test": "gulp run-unit-tests check-security",
         "transpile": "gulp transpile"
     },
-    "pre-commit": [      
-      "check-security",
-      "enforce-code-coverage",
-      "lint"
+    "pre-commit": [
+        "check-security",
+        "enforce-code-coverage",
+        "lint"
     ],
     "devDependencies": {
         "@types/node": "^6.0.52",
+        "@types/chai": "^3.4.34",
+        "@types/mocha": "^2.2.33",
+        "@types/request": "0.0.34",
+        "@types/sinon": "^1.16.33",
         "chai": "^3.5.0",
         "del": "^2.2.2",
         "eslint": "^3.12.2",
@@ -60,6 +64,5 @@
         "tslint-microsoft-contrib": "^4.0.0",
         "typescript": "^2.1.4"
     },
-    "dependencies": {
-    }
+    "dependencies": {}
 }
