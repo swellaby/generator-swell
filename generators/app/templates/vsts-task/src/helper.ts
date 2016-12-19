@@ -32,7 +32,8 @@ class Helper {
      * Retrieves the number of Team Projects in the specified Team Project Collection.
      * 
      * @description This illustrates how you can make API calls to the VSTS instance.
-     * More details on the API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/overview
+     * An overview of the VSTS API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/overview
+     * This specific API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/tfs/projects 
      * 
      * @param {string} teamProjectCollectionUri - The URI of the Team Project Collection.
      * @param {string} accessToken - The bearer token which can be used to access the Team Project Collection.

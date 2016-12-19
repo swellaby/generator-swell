@@ -1,6 +1,7 @@
 'use strict';
 
 var extend = require('deep-extend');
+var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
 var mkdirp = require('mkdirp');
@@ -28,6 +29,11 @@ module.exports = yeoman.Base.extend({
     },
 
     default: function () {
+        this._validateDirectoryName();
+        this._validateGitRepository();        
+    },
+
+    _validateDirectoryName: function () {
         var appName = this.extensionConfig.appName;
 
         if (path.basename(this.destinationPath()) !== appName) {
@@ -37,6 +43,29 @@ module.exports = yeoman.Base.extend({
             mkdirp(appName);
             this.destinationRoot(this.destinationPath(appName));
         }
+    },
+
+    _validateGitRepository: function() {
+        try {
+            var gitPath = path.join(path.resolve(this.destinationRoot()), '.git');
+  
+            if (fs.statSync(gitPath).isFile()) {
+                this.log('Are you being mischievous? You have a file in the target directory named \'.git\' with the same name as the directory git uses. I am deleting this because ' +
+                    'it will cause errors and you absolutely do not need it. :)');
+                fs.unlinkSync(gitPath);
+
+                this._initGitRepo();
+            }
+        } catch (err) {
+            // fs.statSync will throw an exception when the directory does not exist so need to init
+            this._initGitRepo();
+        }
+    },
+
+    _initGitRepo: function () {    
+        this.log('I see that you don\'t have a git repo in the target directory. I\'ll initialize it for you now, and then you can add' +
+            ' your remote later on via a \'git remote add origin << insert your remote url - like https://github.com/me/my-repo.git >>\'');
+        this.spawnCommandSync('git', ['init', '--quiet']);
     },
 
     writing: function () {
@@ -59,7 +88,6 @@ module.exports = yeoman.Base.extend({
             case inputConfig.vstsTaskPromptValue:
                 this._writingVSTSTask();
                 break;
-
         }
     },
 
@@ -129,7 +157,7 @@ module.exports = yeoman.Base.extend({
         var context = this.extensionConfig;
         context.dot = true;
         // need to figure out the best way to pump these values in from the secondary prompts
-        context.taskId = uuid.v4(); // new guid
+        context.taskId = uuid.v4();
         context.author = 'me'; // this can be moved to the core generator
         context.category = 'Utility'; // from new prompt
 
@@ -140,10 +168,7 @@ module.exports = yeoman.Base.extend({
         //Copied from above
         var context = this.extensionConfig;
         context.dot = true;
-        // need to figure out the best way to pump these values in from the secondary prompts
-        context.taskId = 'foo'; // new guid
         context.author = 'me'; // this can be moved to the core generator
-        context.category = 'Utility'; // from new prompt
 
         return context;
     },
