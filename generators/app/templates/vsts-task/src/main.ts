@@ -36,6 +36,7 @@ helper.add(inputAParameter, inputBParameter)
     })
     .catch((error: Error) => {
         tl.error('Something failed! Error message: ' + error.message);
+    });
 
  async function getTeamProjecCount() {
      try {
