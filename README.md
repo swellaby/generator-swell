@@ -5,6 +5,10 @@
 Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url], Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and that pass all the automated gates) will be happily accepted.
 
+[![NPM Version Badge][npmjs-version-badge]][npmjs-package-url]
+[![NPM Stats Badge](https://nodei.co/npm/generator-swell.png)](https://nodei.co/npm/generator-swell/)
+[![npm][npmjs-downloads-badge]][npmjs-package-url]  
+  
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
 [![Code Climate Badge][code-climate-status-badge]][code-climate-url]
@@ -38,10 +42,12 @@ yo swell
 ```
 
 More usage details to come..
-
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
 
-[yeoman-url]: https://nodejs.org/en/download
+[npmjs-version-badge]: https://img.shields.io/npm/v/generator-swell.svg
+[npmjs-downloads-badge]: https://img.shields.io/npm/dt/generator-swell.svg
+[npmjs-package-url]: https://www.npmjs.com/package/generator-swell
+[yeoman-url]: https://yeoman.io
 [nodejs-url]: https://nodejs.org/
 [typescript-url]: http://www.typescriptlang.org/
 [git-download-url]: https://git-scm.com/download
