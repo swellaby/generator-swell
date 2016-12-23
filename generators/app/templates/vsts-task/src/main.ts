@@ -38,7 +38,7 @@ helper.add(inputAParameter, inputBParameter)
         tl.error('Something failed! Error message: ' + error.message);
     });
 
- async function getTeamProjecCount() {
+ async function getTeamProjectCount() {
      try {
         var count = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
         console.log(count);
@@ -49,4 +49,4 @@ helper.add(inputAParameter, inputBParameter)
      }     
  }
 
- getTeamProjecCount();
+ getTeamProjectCount();
