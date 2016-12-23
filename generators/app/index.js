@@ -15,6 +15,7 @@ var templateRoot = path.join(__dirname, 'templates');
 var boilerplateRoot = path.join(templateRoot, 'boilerplate');
 var vstsCommonRoot = path.join(templateRoot, 'vsts-common');
 var vstsRoot = path.join(templateRoot, 'vsts-task');
+var chatbotRoot = path.join(templateRoot, 'chatbot');
 var expressRoot = path.join(templateRoot, 'express-api');
 
 module.exports = yeoman.Base.extend({
@@ -30,7 +31,7 @@ module.exports = yeoman.Base.extend({
 
     default: function () {
         this._validateDirectoryName();
-        this._validateGitRepository();        
+        this._validateGitRepository();
     },
 
     _validateDirectoryName: function () {
@@ -45,10 +46,10 @@ module.exports = yeoman.Base.extend({
         }
     },
 
-    _validateGitRepository: function() {
+    _validateGitRepository: function () {
         try {
             var gitPath = path.join(path.resolve(this.destinationRoot()), '.git');
-  
+
             if (fs.statSync(gitPath).isFile()) {
                 this.log('Are you being mischievous? You have a file in the target directory named \'.git\' with the same name as the directory git uses. I am deleting this because ' +
                     'it will cause errors and you absolutely do not need it. :)');
@@ -62,7 +63,7 @@ module.exports = yeoman.Base.extend({
         }
     },
 
-    _initGitRepo: function () {    
+    _initGitRepo: function () {
         this.log('I see that you don\'t have a git repo in the target directory. I\'ll initialize it for you now, and then you can add' +
             ' your remote later on via a \'git remote add origin << insert your remote url - like https://github.com/me/my-repo.git >>\'');
         this.spawnCommandSync('git', ['init', '--quiet']);
@@ -87,6 +88,10 @@ module.exports = yeoman.Base.extend({
 
             case inputConfig.vstsTaskPromptValue:
                 this._writingVSTSTask();
+                break;
+
+            case inputConfig.chatbotPromptValue:
+                this._writingChatbotTask();
                 break;
         }
     },
@@ -142,6 +147,27 @@ module.exports = yeoman.Base.extend({
             },
             devDependencies: {
                 '@types/request': '^0.0.36',
+            }
+        });
+
+        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    },
+
+    _writingChatbotTask: function () {
+        this.log(yosay('Engage users in new channels with a Chatbot'));
+        this.sourceRoot(chatbotRoot);
+        var context = this._buildExpressContext();
+
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        var pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+        extend(pkg, {
+            dependencies: {
+                'botbuilder': '^3.4.4',
+                'restify': '^4.3.0'
+            },
+            devDependencies: {
+                '@types/restify': '^2.0.35'
             }
         });
 
