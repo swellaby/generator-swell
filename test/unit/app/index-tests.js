@@ -514,4 +514,108 @@ suite('Core Generator Suite:', function() {
             });
         });
     });
+
+    suite('Chatbot Option Tests:', function() {
+        var chatbotAppName = 'chatbot app';
+        var appType = inputConfig.chatbotPromptValue;
+        var appDescription = 'brand new chatbot';
+        var chatbotFiles = [
+            './src/bot.ts',
+            './src/config.ts',
+            './src/console.ts',
+            './src/server.ts',
+            './src/dialogs/dialog-base.ts',
+            './src/dialogs/sample.ts',
+        ];
+
+        suiteSetup(function() {
+            return helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: chatbotAppName,
+                    description: appDescription,
+                    type: appType
+                })
+                .toPromise();
+        });
+
+        test('Should create all the correct boilerplate files when the Chatbot option is selected', function() {
+            assert.file(boilerplateFiles);
+        });
+
+        test('Should create all the correct express files when the Chatbot option is selected', function() {
+            assert.file(chatbotFiles);
+        });
+
+        test('Should inject the App Name into the README.md file when the Express API option is selected', function() {
+            assert.fileContent('README.md', '# ' + chatbotAppName);
+        });
+
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Chatbot option', function(done) {
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: chatbotAppName,
+                    description: appDescription,
+                    type: inputConfig.chatbotPromptValue,
+                })
+                .toPromise()
+                .then(function(dir) {
+                    assert.equal(path.basename(process.cwd()), chatbotAppName);
+                    assert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
+                    done();
+                });
+        });
+
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Chatbot option', function(done) {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function() {
+                return path.join(process.cwd(), chatbotAppName);
+            });
+
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: chatbotAppName,
+                    description: appDescription,
+                    type: inputConfig.chatbotPromptValue,
+                })
+                .toPromise()
+                .then(function(dir) {
+                    assert.equal(path.basename(process.cwd()), path.basename(dir));
+                    assert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                    assert.noFile(path.join(process.cwd(), chatbotAppName));
+                    done();
+                });
+        });
+
+        test('Should install dependencies if user confirms with the Chatbot option selected', function(done) {
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: chatbotAppName,
+                    description: appDescription,
+                    type: inputConfig.chatbotPromptValue,
+                    installDependencies: true
+                })
+                .toPromise()
+                .then(function() {
+                    assert.deepEqual(npmInstallCommandSpy.called, true);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
+                    done();
+                });
+        });
+
+        test('Should not install dependencies if user declines with the Chatbot option selected', function(done) {
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: chatbotAppName,
+                    description: appDescription,
+                    type: inputConfig.chatbotPromptValue,
+                    installDependencies: false
+                })
+                .toPromise()
+                .then(function() {
+                    assert.deepEqual(npmInstallCommandSpy.called, false);
+                    assert.deepEqual(installDependenciesCommandSpy.called, false);
+                    done();
+                });
+        });
+    });
+
 });

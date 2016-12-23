@@ -4,6 +4,7 @@ var boilerplatePromptValue = 'boilerplate';
 var cliPromptValue = 'cli';
 var expressApiPromptValue = 'express-api';
 var vstsTaskPromptValue = 'vsts-task';
+var chatbotPromptValue = 'chatbot';
 
 module.exports = {
     prompts: [
@@ -40,6 +41,10 @@ module.exports = {
                 {
                     name: 'New VSTS Task',
                     value: vstsTaskPromptValue
+                },
+                {
+                    name: 'New Chatbot',
+                    value: chatbotPromptValue
                 }
             ]
         },
@@ -61,6 +66,7 @@ module.exports = {
     ],
     boilerplatePromptValue: boilerplatePromptValue,
     cliPromptValue: cliPromptValue,
+    chatbotPromptValue: chatbotPromptValue,
     expressApiPromptValue: expressApiPromptValue,
     vstsTaskPromptValue: vstsTaskPromptValue
 };

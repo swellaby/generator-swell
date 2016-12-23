@@ -113,7 +113,7 @@ suite('Input Config Suite:', function () {
 
         suite('Choices Tests:', function () {
             var choices = inputConfig.prompts[appTypeIndex].choices;
-            var expectedNumberOfChoices = 4;
+            var expectedNumberOfChoices = 5;
             var boilerplateIndex = 0;
             var boilerplateName = 'New App with just the boilerplate';
             var cliIndex = 1;
@@ -122,6 +122,8 @@ suite('Input Config Suite:', function () {
             var expressApiName = 'New API App with Express and Docker';
             var vstsIndex = 3;
             var vstsName = 'New VSTS Task';
+            var chatbotIndex = 4;
+            var chatbotName = 'New Chatbot';
 
             test('Should have the correct number of choices', function () {
                 assert.deepEqual(prompt.choices.length, expectedNumberOfChoices);
@@ -132,6 +134,7 @@ suite('Input Config Suite:', function () {
                 assert.deepEqual(choices[cliIndex].name, cliName);
                 assert.deepEqual(choices[expressApiIndex].name, expressApiName);
                 assert.deepEqual(choices[vstsIndex].name, vstsName);
+                assert.deepEqual(choices[chatbotIndex].name, chatbotName);
             });
 
             suite('Boilerplate Tests:', function () {
@@ -179,6 +182,18 @@ suite('Input Config Suite:', function () {
 
                 test('Should have the correct choice value', function () {
                     assert.deepEqual(choice.value, 'vsts-task');
+                });
+            });
+
+            suite('Chatbot Tests:', function () {
+                var choice = choices[chatbotIndex];
+
+                test('Should have the correct choice name', function () {
+                    assert.deepEqual(choice.name, chatbotName);
+                });
+
+                test('Should have the correct choice value', function () {
+                    assert.deepEqual(choice.value, 'chatbot');
                 });
             });
         });
