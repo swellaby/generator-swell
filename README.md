@@ -47,7 +47,7 @@ Note you will need to cd into the newly created directory if you specify an app 
 [npmjs-version-badge]: https://img.shields.io/npm/v/generator-swell.svg
 [npmjs-downloads-badge]: https://img.shields.io/npm/dt/generator-swell.svg
 [npmjs-package-url]: https://www.npmjs.com/package/generator-swell
-[yeoman-url]: https://yeoman.io
+[yeoman-url]: http://yeoman.io
 [nodejs-url]: https://nodejs.org/
 [typescript-url]: http://www.typescriptlang.org/
 [git-download-url]: https://git-scm.com/download
