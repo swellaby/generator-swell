@@ -156,7 +156,7 @@ module.exports = yeoman.Base.extend({
     _writingChatbotTask: function () {
         this.log(yosay('Engage users in new channels with a Chatbot'));
         this.sourceRoot(chatbotRoot);
-        var context = this._buildChatbotContext();
+        var context = this._buildExpressContext();
 
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
 
@@ -191,15 +191,6 @@ module.exports = yeoman.Base.extend({
     },
 
     _buildExpressContext: function () {
-        //Copied from above
-        var context = this.extensionConfig;
-        context.dot = true;
-        context.author = 'me'; // this can be moved to the core generator
-
-        return context;
-    },
-
-    _buildChatbotContext: function () {
         //Copied from above
         var context = this.extensionConfig;
         context.dot = true;
