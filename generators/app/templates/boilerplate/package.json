@@ -24,7 +24,7 @@
         "gulp": "gulp",
         "lint": "gulp tslint",
         "package": "gulp package-transpiled-javascript",
-        "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
+        "show-unit-test-coverage": "gulp show-unittest-coverage-report",
         "test": "gulp run-unit-tests check-security",
         "transpile": "gulp transpile"
     },

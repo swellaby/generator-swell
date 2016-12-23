@@ -1,0 +1,14 @@
+/build/
+/coverage/
+/test/
+/testresults/
+/.codeclimate.yml
+/.eslintignore
+/.eslintrc.js
+/.jshintignore
+/.jshintrc
+/.travis.yml
+/gulpfile.js
+/jsconfig.json
+/sonar-project.properties
+/.npmignore
