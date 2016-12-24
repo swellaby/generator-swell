@@ -16,8 +16,6 @@ class Bot {
     private recognizer: builder.LuisRecognizer;
     private dialog: builder.IntentDialog;
 
-    constructor(private sampleDialog?: SampleDialog) { }
-
     /**
      * Initializes the bot for use with a framework such as restify or express
      * @memberOf Bot
@@ -44,8 +42,7 @@ class Bot {
 
     private registerDialogs() {
         this.bot.dialog('/', this.dialog);
-        (this.sampleDialog || new SampleDialog())
-            .register(this.bot, config.dialogs.paths.sample); // Add a line like this for every dialog       
+        (new SampleDialog()).register(this.bot, config.dialogs.paths.sample); // Add a line like this for every dialog       
     }
 
     private bindDialogs() {
