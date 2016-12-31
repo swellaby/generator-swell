@@ -5,8 +5,9 @@
 Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url], Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and that pass all the automated gates) will be happily accepted.
 
+[![NPM Stats Badge][nodeico-badge]][npmjs-package-url]  
+  
 [![NPM Version Badge][npmjs-version-badge]][npmjs-package-url]
-[![NPM Stats Badge](https://nodei.co/npm/generator-swell.png)](https://nodei.co/npm/generator-swell/)
 [![npm][npmjs-downloads-badge]][npmjs-package-url]  
   
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
@@ -43,6 +44,7 @@ yo swell
 See the [Usage Overview][generator-usage-overview-url] for detailed information about usage.
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
 
+[nodeico-badge]: https://nodei.co/npm/generator-swell.png?downloads=true&downloadRank=true&stars=true
 [npmjs-version-badge]: https://img.shields.io/npm/v/generator-swell.svg
 [npmjs-downloads-badge]: https://img.shields.io/npm/dt/generator-swell.svg
 [npmjs-package-url]: https://www.npmjs.com/package/generator-swell
