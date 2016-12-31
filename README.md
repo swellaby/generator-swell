@@ -66,4 +66,4 @@ Note you will need to cd into the newly created directory if you specify an app 
 [codecov-url]: https://codecov.io/gh/swellaby/generator-swell
 [coveralls-badge]: https://coveralls.io/repos/github/swellaby/generator-swell/badge.svg
 [coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
-[generator-usage-overview-url]: https://github.com/swellaby/generator-swell/docs/usage-overview.md
+[generator-usage-overview-url]: https://github.com/swellaby/generator-swell/blob/master/docs/USAGE-OVERVIEW.md
