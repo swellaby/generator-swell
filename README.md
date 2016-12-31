@@ -36,12 +36,11 @@ If you don't have [Yeoman][yeoman-url] installed globally (note, you may need to
 npm i -g yo
 ```
 
-## Running
+## Usage
 ```sh
 yo swell
 ```
-
-More usage details to come..
+See the [Usage Overview][generator-usage-overview-url] for detailed information about usage.
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
 
 [npmjs-version-badge]: https://img.shields.io/npm/v/generator-swell.svg
@@ -67,3 +66,4 @@ Note you will need to cd into the newly created directory if you specify an app 
 [codecov-url]: https://codecov.io/gh/swellaby/generator-swell
 [coveralls-badge]: https://coveralls.io/repos/github/swellaby/generator-swell/badge.svg
 [coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
+[generator-usage-overview-url]: https://github.com/swellaby/generator-swell/docs/usage-overview.md
