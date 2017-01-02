@@ -10,5 +10,5 @@ use TypeScript, gulp, mocha, eslint, jshint, and more. The following types of pr
 - Angular 2 (planned)
 - Aurelia (planned)
 
-[boilerplate-doc-url]: boilerplate.md
+[boilerplate-doc-url]: BOILERPLATE.md
 
