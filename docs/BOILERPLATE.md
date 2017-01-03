@@ -7,7 +7,7 @@ The generator will create the following boilerplate directory structure and file
 create additional files and/or directories for you. Also note that you won't have the 'node_modules' directory if you tell the generator to not install dependencies for your project.  
 ![Directory Structure][boilerplate-dir-image]  
   
-See the below sections for detailed information about the [standard files][standard-section] , [task running/building with gulp][building-section], [linting][linting-section] ,
+See the below sections for detailed information about the [standard files][standard-section], [gulp tasks/building][building-section], [linting][linting-section] ,
 [testing with mocha and istanbul][testing-section], and [the git hooks][git-hooks-section].
 
 
@@ -34,5 +34,5 @@ Naturally, the below common files are created for you.
 [linting-section]: BOILERPLATE.md#linting
 [testing-section]: BOILERPLATE.md#testing
 [boilerplate-dir-image]: boilerplate-dir-structure.png "Boilerplate Directory Structure"
-[standard-section]: BOILERPLATE.md#standard
-[git-hooks-section]: BOILERPLATE.md#git%20hooks
+[standard-section]: BOILERPLATE.md#standard-files
+[git-hooks-section]: BOILERPLATE.md#git-hooks
