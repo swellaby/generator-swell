@@ -8,8 +8,8 @@ create additional files and/or directories for you. Also note that you won't hav
   
 ![Directory Structure][boilerplate-dir-image]  
   
-See the below sections for detailed information about the [standard files][standard-section], [gulp tasks/building][building-section], [linting][linting-section] ,
-[testing with mocha and istanbul][testing-section], and [git hooks][git-hooks-section].
+See the below sections for detailed information about the [standard files][standard-section], [gulp tasks/building][building-section], [linting][linting-section],
+[testing with mocha and istanbul][testing-section], [git hooks][git-hooks-section], and [npm scripts][npm-scripts-section].
 
 
 ## Standard Files
@@ -21,8 +21,10 @@ Naturally, the below common files are created for you.
 - .npmignore
 - tsconfig.json
 
-## Building
-There is a gulpfile.js created in the root of the project directory, however, all of the gulp tasks are defined within the 'build' directory.
+## Gulp & Building
+There is a gulpfile.js created in the root of the project directory, however, all of the gulp tasks are defined within the 'tasks' subdirectory within the 'build' directory.
+
+![Gulp Tasks][]
 
 
 ## Linting
@@ -33,10 +35,14 @@ There is a gulpfile.js created in the root of the project directory, however, al
 
 ## Git Hooks
 
+## NPM Scripts
 
-[building-section]: BOILERPLATE.md#building
+
+[building-section]: BOILERPLATE.md#gulp-&-building
+[gulp-tasks-image]: 
 [linting-section]: BOILERPLATE.md#linting
 [testing-section]: BOILERPLATE.md#testing
 [boilerplate-dir-image]: boilerplate-dir-structure.png "Boilerplate Directory Structure"
 [standard-section]: BOILERPLATE.md#standard-files
 [git-hooks-section]: BOILERPLATE.md#git-hooks
+[npm-scripts-section]: BOILERPLATE.md#npm-scripts
