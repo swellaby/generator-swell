@@ -22,10 +22,9 @@
         "clean": "gulp clean",
         "enforce-code-coverage": "gulp enforce-code-coverage",
         "gulp": "gulp",
-        "lint": "gulp tslint",
-        "package": "gulp package-transpiled-javascript",
+        "lint": "gulp tslint eslint jshint",
         "show-unit-test-coverage": "gulp show-unittest-coverage-report",
-        "test": "gulp run-unit-tests check-security",
+        "test": "gulp enforce-code-coverage check-security",
         "transpile": "gulp transpile"
     },
     "pre-commit": [

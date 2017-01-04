@@ -99,6 +99,25 @@ enforce-code-coverage, and lint.
 ![Pre-Commit][precommit-image]
 
 ## NPM Scripts
+npm scripts are a quick and convenient way to execute certain activities. This is especially useful for dependencies local to the project, as it eliminates the need to install those globally
+and prevents needing to use hardcoded paths into the node_modules directory. 
+
+Scripts can be executed via the shorthand:
+```sh
+npm run *script name*
+```  
+  
+The generator creates the following npm scripts for your project:
+
+- *build*
+- *check-security*
+- *clean*
+- *enforce-code-coverage*
+- *gulp*
+- *lint* 
+- *show-unit-test-coverage*
+- *test*
+- *transpile*
 
 
 [building-section]: BOILERPLATE.md#gulp-&-building
