@@ -10,6 +10,19 @@ use TypeScript, gulp, mocha, eslint, jshint, and more. The following types of pr
 - [Angular 2][angular-doc-url] (planned)
 - [Aurelia][aurelia-doc-url] (planned)
 
+
+## Running
+Run the below command to launch the generator:
+```sh
+yo swell
+```
+
+### Prompts and Inputs
+The generator will prompt you for a few pieces of information in order to create your new project.
+
+#### Application Name
+
+
 [boilerplate-doc-url]: BOILERPLATE.md
 [cli-doc-url]: CLI.md
 [express-api-doc-url]: EXPRESS-API.md
