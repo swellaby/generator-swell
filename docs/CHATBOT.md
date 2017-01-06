@@ -57,6 +57,6 @@ A few general notes about building on the scaffolding.
 [config.ts]: ../generators/app/templates/chatbot/src/config.ts
 [console.ts]: ../generators/app/templates/chatbot/src/console.ts
 [server.ts]: ../generators/app/templates/chatbot/src/server.ts
-[dialogs/dialog-base.ts]: ../generators/app/templates/chatbot/src/dialogs/dialog-base.ts
-[dialogs/sample.ts]: ../generators/app/templates/chatbot/src/dialogs/sample.ts
+[dialog-base.ts]: ../generators/app/templates/chatbot/src/dialogs/dialog-base.ts
+[sample.ts]: ../generators/app/templates/chatbot/src/dialogs/sample.ts
 [bot-tests.ts]: ../generators/app/templates/chatbot/test/unit/bot-tests.ts
