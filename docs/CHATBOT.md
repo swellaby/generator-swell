@@ -53,10 +53,10 @@ A few general notes about building on the scaffolding.
 [bot-framework]: https://dev.botframework.com
 [luis]: https://luis.ai
 [package.json]: https://github.com/beverts312/sample-bot/blob/master/package.json  
-[bot.ts]: ../generators/app/chatbot/src/bot.ts
-[config.ts]: ../generators/app/chatbot/src/config.ts
-[console.ts]: ../generators/app/chatbot/src/console.ts
-[server.ts]: ../generators/app/chatbot/src/server.ts
-[dialogs/dialog-base.ts]: ../generators/app/chatbot/src/dialogs/dialog-base.ts
-[dialogs/sample.ts]: ../generators/app/chatbot/src/dialogs/sample.ts
-[bot-tests.ts]: ../generators/app/chatbot/test/unit/bot-tests.ts
+[bot.ts]: ../generators/app/templates/chatbot/src/bot.ts
+[config.ts]: ../generators/app/templates/chatbot/src/config.ts
+[console.ts]: ../generators/app/templates/chatbot/src/console.ts
+[server.ts]: ../generators/app/templates/chatbot/src/server.ts
+[dialogs/dialog-base.ts]: ../generators/app/templates/chatbot/src/dialogs/dialog-base.ts
+[dialogs/sample.ts]: ../generators/app/templates/chatbot/src/dialogs/sample.ts
+[bot-tests.ts]: ../generators/app/templates/chatbot/test/unit/bot-tests.ts
