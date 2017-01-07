@@ -79,7 +79,7 @@ The generator creates the testing setup for your project with the following comp
 The recommended method for running tests and calculating code coverage is to use the [npm script outlined below][npm-scripts-section].  
   
 By default, the tests use Mocha's TDD testing interface with a 3 second timeout, and leverage the [mocha-multi][mocha-multi-url] module to leverage the spec/stdout reporter as well
-as the xunit reporter to write the test results to a file in the xunit format (which can be used to import/upload) the results into certain CI/build tools. This configuration is defined
+as the xunit reporter to write the test results to a file in the xunit format (which can be used to import/upload the results into certain CI/build tools). This configuration is defined
 in the 'mocha-config.js' file within the 'build' directory.
 
 ### Coverage
