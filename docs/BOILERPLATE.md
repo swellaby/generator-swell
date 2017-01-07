@@ -1,6 +1,6 @@
 # Boilerplate
 All project types include all of the content outlined below. You can choose the first option 'New App with just the boilerplate' for the project type 
-if you only want these files.
+if you only want these files. See the [high level usage overview][usage-overview-url] for more details.
 
 ## Directory Structure & Files
 The generator will create the following boilerplate directory structure and files for you. Note that if you pick a different project type, then the generator may
@@ -122,6 +122,7 @@ The generator creates the following npm scripts for your project:
   
 ![Package.json][package-json-image]
 
+[usage-overview-url]: USAGE-OVERVIEW.md
 [building-section]: BOILERPLATE.md#gulp-&-building
 [gulp-tasks-image]: gulp-tasks.png "Gulp Tasks"
 [istanbul-html-report-image]: istanbul-coverage.png "Istanbul Coverage"
