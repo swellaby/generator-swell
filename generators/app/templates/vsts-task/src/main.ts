@@ -30,7 +30,7 @@ console.log('You said: ' + exampleMessageParameter);
 
 const helper = new Helper();
 helper.add(inputAParameter, inputBParameter)
-    .then((sum: number) => {        
+    .then((sum: number) => {
         console.log('The sum is: ' + sum);
         tl.setResult(tl.TaskResult.Succeeded, 'Your task passed, hooray!');     
     })
