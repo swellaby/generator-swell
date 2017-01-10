@@ -24,7 +24,7 @@ The application source code is contained within the 'src' directory. There are t
 - *main.ts*
 - *helper.ts*
 
-The 'main.ts' file is the main executable that is called by the VSTS task runner engine.  
+The 'main.ts' file is the main executable that is called by the VSTS task runner engine. This file 
 
 [usage-overview-url]: USAGE-OVERVIEW.md
 [vsts-url]: https://www.visualstudio.com/team-services/
