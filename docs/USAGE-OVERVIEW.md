@@ -60,6 +60,14 @@ generator supports the following types of projects:
 - [Aurelia][aurelia-doc-url] (planned)
 
 #### Install Dependencies
+- **Display message**: 'Do you want me to install dependencies for you?'
+- **Prompt Type**: Confirmation
+- **Required?**: Yes
+- **Default Value**: True
+
+The generator can install the dependencies for your new project after scaffolding is complete. Dependencies will be installed
+automatically by default, but you can decline this option and install the dependencies (```npm install```) yourself afterwards 
+if you would like.
 
 [boilerplate-doc-url]: BOILERPLATE.md
 [cli-doc-url]: CLI.md
