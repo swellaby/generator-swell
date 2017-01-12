@@ -97,7 +97,11 @@ The steps that will be automatically executed are defined within the 'pre-commit
 within the npm scripts section in the package.json. The generator will set your initial configuration for the pre-commit hook to execute three of the npm scripts: check-security, 
 enforce-code-coverage, and lint.
 
-![Pre-Commit][package-json-image]
+![Pre-Commit][package-json-image]  
+  
+You will notice the hook scripts executing after you do a git commit:  
+  
+![Git Commit Hook][git-commit-cli]
 
 ## NPM Scripts
 npm scripts are a quick and convenient way to execute certain activities. We recommend leveraging these whenever and wherever possible. They are especially useful for dependencies local 
@@ -141,5 +145,6 @@ The generator creates the following npm scripts for your project:
 [standard-section]: BOILERPLATE.md#standard-files
 [git-hooks-section]: BOILERPLATE.md#git-hooks
 [git-hooks-url]: https://www.git-scm.com/book/uz/v2/Customizing-Git-Git-Hooks
+[git-commit-cli]: git-precommit-hook.png
 [package-json-image]: package-json.png "Package.json"
 [npm-scripts-section]: BOILERPLATE.md#npm-scripts

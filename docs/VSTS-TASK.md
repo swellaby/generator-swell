@@ -16,15 +16,24 @@ All of the standard files outlined in the [boilerplate doc][boilerplate-standard
 - *extension-icon.png* - This is the image/icon that will represent your task in VSTS
 - *OVERVIEW.md* - Contains the information/page that will be displayed for your extension in the VSTS Marketplace
 - *task.json* - Defines your task
-- *vss-extension.json* - Defines your extension configuration, if you choose to package and publish your task(s) to the VSTS Marketplace
+- *vss-extension.json* - Defines your extension configuration, which is required if you choose to package and publish your task(s) to the VSTS Marketplace for others to consume
 
 ### Source Code
-The application source code is contained within the 'src' directory. There are two sample starting files created:
+There are several sample/starter files that the generator creates for you. This sample content shows various patterns and ways of interacting with the VSTS system. You may begin building off 
+of these starter files or remove them entirely and start from scratch. Regardless, the source code for your task should go within the 'src' directory. The two sample/starter files the generator 
+creates for you in the 'src' directory are:
 
 - *main.ts*
 - *helper.ts*
 
-The 'main.ts' file is the main executable that is called by the VSTS task runner engine. This file 
+The 'main.ts' file is the main executable that is called by the VSTS task runner engine. This is where build information, variables, etc. can be obtained by interacting with the VSTS task system.
+Think of this main file as the entry point to begin the process of executing your task. However, the bulk of the work performed should be offloaded to other classes/files. This is demonstrated by 
+the 'main.ts' file interacting with 
+by the generated sample file 'helper.ts'. The 'main.ts' shows how you can get the values provided as parameters to your task, and then uses those values  
+
+
+### Transpiling
+The TypeScript source code 
 
 [usage-overview-url]: USAGE-OVERVIEW.md
 [vsts-url]: https://www.visualstudio.com/team-services/
