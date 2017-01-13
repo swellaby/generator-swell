@@ -37,12 +37,19 @@ with the VSTS APIs.
 
 
 ### Transpiling
-The TypeScript source code 
+The TypeScript source code needs to be transpiled to JavaScript prior to publishing. This can be done via an npm command (or gulp if you really want) as outlined in the 
+[boilerplate documentation][boilerplate-building=section].
 
+```sh
+npm run transpile
+```  
+  
+  
 [usage-overview-url]: USAGE-OVERVIEW.md
 [vsts-url]: https://www.visualstudio.com/team-services/
 [boilerplate-doc]: BOILERPLATE.md
 [vsts-dir-structure-img]: vsts-dir-structure.png
 [boilerplate-standard-section]: BOILERPLATE.md#standard-files
+[boilerplate-building=section]: BOILERPLATE.md#gulp-&-building
 [main.ts-img]: vsts-main.png
 [helper.ts-img]: vsts-helper.png
