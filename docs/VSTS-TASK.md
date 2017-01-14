@@ -33,8 +33,11 @@ the 'main.ts' file interacting with a Helper class defined in the 'helper.ts' fi
   
 The 'main.ts' shows how you can get inputs (via build variables and user defined parameter values), use those inputs to perform various operations, and display info/output. The 'helper.ts' file 
 defines the Helper class which performs a couple of basic operations, while using ES6 promises: basic addition of two numbers and getting the number of Team Projects in the account by interacting 
-with the VSTS APIs.
-
+with the VSTS APIs.  
+  
+![VSTS Task Main.ts][main.ts-img]  
+  
+![VSTS Task Helper.ts][helper.ts-img]  
 
 ### Transpiling
 The TypeScript source code needs to be transpiled to JavaScript prior to publishing. This can be done via an npm command (or gulp if you really want) as outlined in the 
@@ -44,7 +47,7 @@ The TypeScript source code needs to be transpiled to JavaScript prior to publish
 npm run transpile
 ```  
   
-  
+
 [usage-overview-url]: USAGE-OVERVIEW.md
 [vsts-url]: https://www.visualstudio.com/team-services/
 [boilerplate-doc]: BOILERPLATE.md
