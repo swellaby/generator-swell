@@ -18,6 +18,8 @@ All of the standard files outlined in the [boilerplate doc][boilerplate-standard
 - *task.json* - Defines your task
 - *vss-extension.json* - Defines your extension configuration, which is required if you choose to package and publish your task(s) to the VSTS Marketplace for others to consume
 
+### What Needs to be Updated
+
 ### Source Code
 There are several sample/starter files that the generator creates for you. This sample content shows various patterns and ways of interacting with the VSTS system. The initial task 
 created by the generator shows a simple mathematical addition of two numerical parameters, as well as displaying the count of Team Projects by interacting with the VSTS APIs. You may begin building off 
@@ -46,6 +48,14 @@ The TypeScript source code needs to be transpiled to JavaScript prior to publish
 ```sh
 npm run transpile
 ```  
+
+### Running Unit Tests
+
+
+### Debugging/Validating
+
+
+### Publishing
   
 
 [usage-overview-url]: USAGE-OVERVIEW.md
