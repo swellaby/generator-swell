@@ -69,6 +69,8 @@ npm run enforce-code-coverage
 ```
 
 ### Debugging/Validating
+Due to the nature of the VSTS tasks, there isn't really a "localhost" equivalent to validate the functionality of your task. The easiest way (that we know of) is to simply publish your task
+to a VSTS account where you have the necessary permissions. This is accomplished via the CLI Utility (tfx)
 
 
 ### Packaging & Publishing
