@@ -20,7 +20,7 @@ suite('Main Suite: ', () => {
     suiteSetup(() => {
         sandbox = Sinon.sandbox.create();
         taskLibGetInputStub = Sinon.stub(tl, "getInput");
-        taskLibGetInputStub = Sinon.stub(tl, "getVariable").returns("doesn't really matter");
+        taskLibGetVariableStub = Sinon.stub(tl, "getVariable").returns("doesn't really matter");
     });
 
     suiteTeardown(() => {
