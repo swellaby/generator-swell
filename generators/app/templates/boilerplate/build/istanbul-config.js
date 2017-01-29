@@ -17,13 +17,13 @@ var includeUntested = true;
 var reporters = ['html', 'cobertura', 'lcov', 'text', 'text-summary'];
 
 module.exports = {
-    unitTestGlobal: {
+    unitTestGlobalThresholds: {
         statementCoverageThreshold: unitTestGlobalStatementCoverageThreshold,
         branchCoverageThreshold: unitTestGlobalBranchCoverageThreshold,
         lineCoverageThreshold: unitTestGlobalLineCoverageThreshold,
         functionCoverageThreshold: unitTestGlobalFunctionCoverageThreshold
     }, 
-    unitTestLocal: {
+    unitTestLocalThresholds: {
         statementCoverageThreshold: unitTestLocalStatementCoverageThreshold,
         branchCoverageThreshold: unitTestLocalBranchCoverageThreshold,
         lineCoverageThreshold: unitTestLocalLineCoverageThreshold,

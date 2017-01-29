@@ -6,14 +6,14 @@ var jshint = require('gulp-jshint');
 var tslint = require('gulp-tslint');
 var gulpConfig = require('./../gulp-config');
 
-gulp.task('jshint', function () {
+gulp.task('jshint', ['transpile'], function () {
     return gulp.src(gulpConfig.allJavascript)
         .pipe(jshint())
         .pipe(jshint.reporter('default'))
         .pipe(jshint.reporter('fail'));
 });
 
-gulp.task('eslint', function () {
+gulp.task('eslint', ['transpile'], function () {
     return gulp.src(gulpConfig.allJavascript)
         .pipe(eslint())
         .pipe(eslint.format())
