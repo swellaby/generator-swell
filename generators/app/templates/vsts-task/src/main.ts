@@ -29,11 +29,11 @@ export async function executeTask() {
 
     // You can use standard console mechanisms, or retrieve a tool runner like echo
     // via the tl object: var echo = new tl.ToolRunner(tl.which('echo', true));
-    // console.log/error is usually simpler IMO.
-    console.log('You said: ' + exampleMessageParameter);
+    // console.log/error is usually simpler in our opinion.
+    // console.log('You said: ' + exampleMessageParameter);
 
     helper.add(inputAParameter, inputBParameter)
-        .then((sum: number) => {
+        .then((sum: number) => {            
             console.log('The sum is: ' + sum);
             tl.setResult(tl.TaskResult.Succeeded, 'Your task passed, hooray!');
         })
@@ -42,7 +42,7 @@ export async function executeTask() {
             return;
         });
 
-    getTeamProjectCount(collectionUri, systemAccessToken);
+    await getTeamProjectCount(collectionUri, systemAccessToken);
 
 }
 

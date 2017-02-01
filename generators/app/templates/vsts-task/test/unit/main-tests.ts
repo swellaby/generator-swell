@@ -86,6 +86,382 @@ suite('Main Suite: ', () => {
         assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
     });
 
+    test('Should fail when numeric input param A is null and B is a negative numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(null);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('-1');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is null and B is zero numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(null);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('0');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is null and B is a numeric decimal string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(null);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('1.2');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is null and B is a positive whole number string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(null);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('4');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is null', function () {
+            taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+            taskLibGetInputStub.withArgs(bParamName, true).returns(null);
+
+            main.executeTask();
+            assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+            assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is undefined', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns(undefined);
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is an empty string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is a non numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('asdfa');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is a negative numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('-1');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is zero numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('0');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is a numeric decimal string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('1.2');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is undefined and B is a positive whole number string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns(undefined);
+        taskLibGetInputStub.withArgs(bParamName, true).returns('4');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is null', function () {
+            taskLibGetInputStub.withArgs(aParamName, true).returns('');
+            taskLibGetInputStub.withArgs(bParamName, true).returns(null);
+
+            main.executeTask();
+            assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+            assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is undefined', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns(undefined);
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is an empty string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is a non numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('asdfa');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is a negative numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('-1');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is zero numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('0');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is a numeric decimal string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('1.2');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is an empty string and B is a positive whole number string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('4');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is null', function () {
+            taskLibGetInputStub.withArgs(aParamName, true).returns('ffdasfasdf');
+            taskLibGetInputStub.withArgs(bParamName, true).returns(null);
+
+            main.executeTask();
+            assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+            assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is undefined', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('asdfasdf');
+        taskLibGetInputStub.withArgs(bParamName, true).returns(undefined);
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is an empty string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('wersxxf');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is a non numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('asdfacse');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('asdfa');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is a negative numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('aefaf');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('-1');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is zero numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('adsaed');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('0');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is a numeric decimal string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('aewrdfd');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('1.2');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a non numeric string and B is a positive whole number string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('aeaderf');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('4');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is null', function () {
+            taskLibGetInputStub.withArgs(aParamName, true).returns('-3');
+            taskLibGetInputStub.withArgs(bParamName, true).returns(null);
+
+            main.executeTask();
+            assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+            assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is undefined', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-10');
+        taskLibGetInputStub.withArgs(bParamName, true).returns(undefined);
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is an empty string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-7');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is a non numeric string', function () {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-40');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('asdfa');
+
+        main.executeTask();
+        assert.deepEqual(taskLibDebugSpy.calledWith(invalidInputParamsDebugMessage), true);
+        assert.deepEqual(taskLibErrorSpy.calledWith(invalidInputParamsErrorMessage), true);
+        assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Failed, invalidInputResultErrorMessage), true);
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is a negative numeric string', function (done) {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-4');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('-1');
+        const x = -5;
+        helperAddStub.returns(Q.resolve(x));
+
+        main.executeTask().then(() => {
+            assert.deepEqual(consoleLogSpy.calledWith('The sum is: ' + x), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Succeeded, successfulAddResultMessage), true);
+            done();
+        });
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is a zero numeric string', function (done) {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-4');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('0');
+        const x = -4;
+        helperAddStub.returns(Q.resolve(x));
+
+        main.executeTask().then(() => {
+            assert.deepEqual(consoleLogSpy.calledWith('The sum is: ' + x), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Succeeded, successfulAddResultMessage), true);
+            done();
+        });
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is a numeric decimal string', function (done) {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-4');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('1.5');
+        const x = -2.5;
+        helperAddStub.returns(Q.resolve(x));
+
+        main.executeTask().then(() => {
+            assert.deepEqual(consoleLogSpy.calledWith('The sum is: ' + x), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Succeeded, successfulAddResultMessage), true);
+            done();
+        });
+    });
+
+    test('Should fail when numeric input param A is a negative numeric string and B is a positive whole number string', function (done) {
+        taskLibGetInputStub.withArgs(aParamName, true).returns('-4');
+        taskLibGetInputStub.withArgs(bParamName, true).returns('10');
+        const x = 6;
+        helperAddStub.returns(Q.resolve(x));
+
+        main.executeTask().then(() => {
+            assert.deepEqual(consoleLogSpy.calledWith('The sum is: ' + x), true);
+            assert.deepEqual(taskLibSetResultSpy.calledWith(tl.TaskResult.Succeeded, successfulAddResultMessage), true);
+            done();
+        });
+    });
+
+
+
+    
+
     test('Should display correct sum when both input params are valid numbers', function (done) {
         taskLibGetInputStub.withArgs(aParamName, true).returns('1');
         taskLibGetInputStub.withArgs(bParamName, true).returns('2');
