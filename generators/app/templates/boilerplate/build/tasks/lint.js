@@ -23,7 +23,8 @@ gulp.task('eslint', ['transpile'], function () {
 gulp.task('tslint', function () {
     return gulp.src(gulpConfig.appTypescript)
         .pipe(tslint({
-            formatter: 'verbose'
+            formatter: 'verbose',
+            rulesDirectory: 'node_modules/tslint-microsoft-contrib',
         }))
         .pipe(tslint.report());
 });
