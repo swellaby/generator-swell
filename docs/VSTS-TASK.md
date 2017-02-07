@@ -2,8 +2,8 @@
 The VSTS Task project type gives you everything you need to add your own custom Build and/or Release tasks for [Visual Studio Team Services][vsts-url] (VSTS is a *free* end to end ALM platform, 
 you should definitely check it out!). Although VSTS Tasks can be written in either Node.js or PowerShell, this generator scaffolds a new project for working with Node.js. 
   
-As with other project types, the generator will also give you all of the [boilerplate content][boilerplate-doc]. 
-See the [high level usage overview][usage-overview-url] for more details about using the generator.
+As with other project types, the generator will also give you all of the [boilerplate content][boilerplate-doc], which we highly recommend reviewing as it provides the details on generator content
+that is standard across all project types like testing, linting, and more. You can also review the [high level usage overview][usage-overview-url] for more details about using the generator.
 
 ## Directory Structure & Content
 The generator will create a new VSTS Task project that has the following content:  
@@ -43,19 +43,37 @@ with the VSTS APIs.
 
 ### Transpiling
 The TypeScript source code needs to be transpiled to JavaScript prior to publishing. This can be done via an npm command (or gulp if you really want) as outlined in the 
-[boilerplate documentation][boilerplate-building=section].
+[boilerplate documentation][boilerplate-building=section]. Many of the other tasks/scripts will automatically execute this step for you prior to performing their function, so you won't
+usually need to run this yourself. For example, when you run the tests (see next section below) transpilation will happen automatically as a prerequisite.
 
 ```sh
 npm run transpile
 ```  
 
-### Running Unit Tests
+### Unit Tests
+In today's world, automated tests are a necessity. The generator creates corresponding suites of tests for the aforementioned example classes/files, along with all the basic plumbing. 
+This plumbing allows you to run the tests from an npm script as well as directly through a gulp task. You can find more details about the tests, code coverage, and more in 
+[the common testing documentation][boilerplate-testing-section]. Note that running the tests will automatically transpile your code for you, so there is no need to run any tasks manually
+in advance.  
+  
+You can kick off your unit tests via:
+```sh
+npm test
+```  
 
+Or even better, run your tests and ensure they meet a minimum level of code coverage. The generator creates your new VSTS task project on the right footing with 100% code coverage, and you
+should really strive to keep that going!  
+  
+```sh
+npm run enforce-code-coverage
+```
 
 ### Debugging/Validating
+Due to the nature of the VSTS tasks, there isn't really a "localhost" equivalent to validate the functionality of your task. The easiest way (that we know of) is to simply publish your task
+to a VSTS account where you have the necessary permissions. This is accomplished via the CLI Utility (tfx)
 
 
-### Publishing
+### Packaging & Publishing
   
 
 [usage-overview-url]: USAGE-OVERVIEW.md
@@ -66,3 +84,4 @@ npm run transpile
 [boilerplate-building=section]: BOILERPLATE.md#gulp-&-building
 [main.ts-img]: vsts-main.png
 [helper.ts-img]: vsts-helper.png
+[boilerplate-testing-section]: BOILERPLATE.md#testing
