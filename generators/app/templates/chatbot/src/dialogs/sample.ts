@@ -1,12 +1,18 @@
+'use strict';
+
 import builder = require('botbuilder');
-
 import DialogBase = require('./dialog-base');
-
 import config = require('../config');
 
+/**
+ * Sample class for illustration purposes
+ */
 class Sample extends DialogBase {
 
-    setDialog() {
+    /**
+     * Sets the dialogs
+     */
+    public setDialog() {
         this.dialog = [
             (session, args, next) => {
                 session.userData.food = builder.EntityRecognizer.findEntity(args.entities, 'food');
@@ -26,4 +32,5 @@ class Sample extends DialogBase {
         ];
     }
 }
+
 export = Sample;

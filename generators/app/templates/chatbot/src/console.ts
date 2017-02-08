@@ -1,3 +1,9 @@
+'use strict';
+
+/**
+ * Manages console interaction
+ */
+
 import Bot = require('./bot');
 
 const bot = new Bot();

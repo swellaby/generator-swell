@@ -1,8 +1,12 @@
+'use strict';
+
+/**
+ * Initializes the server
+ */
+
 import restify = require('restify');
 import builder = require('botbuilder');
-
 import Bot = require('./bot');
-
 import config = require('./config');
 
 const bot = new Bot();

@@ -2,26 +2,27 @@
 
 import Chai = require('chai');
 import Sinon = require('sinon');
-
 import builder = require('botbuilder');
 
 import Bot = require('../../src/bot');
 
 const assert = Chai.assert;
 
+/**
+ * Contains Tests for Bot class
+ */
 suite('Bot Suite -', () => {
     let sut: Bot;
     let sandbox: Sinon.SinonSandbox;
-
     const univseralBot = {
-        dialog: () => { } // tslint:disable-line
+        dialog: () => { return null }
     };
-    let recognizer: builder.LuisRecognizer; // tslint:disable-line
     const dialog = {
-        onDefault: () => { }, // tslint:disable-line
-        matches: () => { } // tslint:disable-line
+        onDefault: () => { return null; },
+        matches: () => { return null; }
     };
-    let connector: builder.IConnector; // tslint:disable-line
+    const recognizer: builder.LuisRecognizer = null;
+    const connector: builder.IConnector = null;
 
     let botStub: Sinon.SinonStub;
     let connectorStub: Sinon.SinonStub;
@@ -59,7 +60,6 @@ suite('Bot Suite -', () => {
             connectorStub = sandbox.stub(builder, 'ConsoleConnector');
             connectorStub.returns(connector);
         });
-
 
         test('initializeForConsole calls required bot framework methods', (done: () => void) => {
             sut.initializeForConsole();
@@ -101,7 +101,7 @@ suite('Bot Suite -', () => {
 
         test('initializeForWeb registers all dialogs', (done: () => void) => {
             sut.initializeForWeb();
-            assert.equal(rootDialogStub.callCount, 2);            
+            assert.equal(rootDialogStub.callCount, 2);
             done();
         });
     });

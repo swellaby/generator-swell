@@ -1,5 +1,10 @@
+'use strict';
+
 import builder = require('botbuilder');
 
+/**
+ * Base class for Dialog Helper
+ */
 abstract class DialogHelperBase {
     /**
      * The dialog to register, read about dialogs here: https://docs.botframework.com/en-us/node/builder/chat/dialogs
@@ -33,6 +38,6 @@ abstract class DialogHelperBase {
      * @memberOf DialogHelperBase
      */
     public abstract setDialog();
-
 }
+
 export = DialogHelperBase;
