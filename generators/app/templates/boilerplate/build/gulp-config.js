@@ -13,7 +13,7 @@ module.exports = {
     output: outputRoot,
     appOutput: outputRoot + srcRoot,
     allJavascript: [
-        '/**/*.js',
+        './**/*.js',
         '!node_modules/**'
     ],
     allTranspiledJavascript: [
