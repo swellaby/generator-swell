@@ -1,8 +1,3 @@
-'use strict';
-
-/**
- * Defines various configuration settings
- */
 const config = {
     bot: {
         /*
@@ -33,7 +28,7 @@ const config = {
     luis: {
         /*
         * To obtain these:
-        * 1. go to: https://www.luis.ai/
+        * 1. go to: https://www.luis.ai/ 
         * 2. sign in/create an account
         * 3. Create a new app
         * The provided app/key will work with the sample dialog

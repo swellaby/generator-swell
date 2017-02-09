@@ -13,14 +13,14 @@ module.exports = {
     output: outputRoot,
     appOutput: outputRoot + srcRoot,
     allJavascript: [
-        './**/*.js',
+        '**/*.js',
         '!node_modules/**'
     ],
     allTranspiledJavascript: [
-        srcRoot + '/**/*.js*',
-        testRoot + '/**/*.js*'
+        srcRoot + '**/*.js*',
+        testRoot + '**/*.js*'
     ],
-    appTranspiledJavaScript: srcRoot + '/**/*.js',
+    appTranspiledJavaScript: srcRoot + '**/*.js',
     javascriptUnitTests: testRoot + '/unit/**/*.js',
     allTypescript: [
         srcRoot + '/**/*.ts',

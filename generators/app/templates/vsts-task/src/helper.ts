@@ -4,18 +4,18 @@ import request = require('request');
 
 /**
  * Example of a Helper class.
- *
+ * 
  * @class Helper
  */
 class Helper {
     /**
-     * Derives the sum of the two input numbers.
-     *
+     * Derives the sum of the two input numbers. 
+     *      
      * @description - Note that this is a bad example of using promises.
-     *
+     * 
      * @param {number} a - The first input.
      * @param {number} b - The second input.
-     *
+     * 
      * @returns {Promise<number>}
      */
     public add(a: number, b: number): Promise<number> {
@@ -30,14 +30,14 @@ class Helper {
 
     /**
      * Retrieves the number of Team Projects in the specified Team Project Collection.
-     *
+     * 
      * @description This illustrates how you can make API calls to the VSTS instance.
      * An overview of the VSTS API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/overview
-     * This specific API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/tfs/projects
-     *
+     * This specific API can be found at: https://www.visualstudio.com/en-us/docs/integrate/api/tfs/projects 
+     * 
      * @param {string} teamProjectCollectionUri - The URI of the Team Project Collection.
      * @param {string} accessToken - The bearer token which can be used to access the Team Project Collection.
-     *
+     * 
      * @returns {Promise<number>}
      */
     public getNumTeamProjects(teamProjectCollectionUri: string, accessToken: string): Promise<number> {
@@ -47,9 +47,7 @@ class Helper {
             }
 
             request.get(teamProjectCollectionUri, { 'auth': { 'bearer': accessToken}},
-                /* tslint:disable:no-any Need to disable this due to the callback params defined by the module */
                 (err: any, response: any, data: string) => {
-                /* tslint:enable:no-any */
                     if (!err && (response.statusCode === 200)) {
                         try {
                             resolve(+JSON.parse(data).count);
