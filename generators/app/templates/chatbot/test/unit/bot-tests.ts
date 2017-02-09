@@ -1,40 +1,27 @@
 'use strict';
-/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
-/* jshint maxstatements:false */
-// Disabled maxstatements jshint rule which errors due to
-// the test functions being embedded within the suite functions.
 
-// This is a temporary fix due to the way the TypeScript compiler currently functions
-// it converts single quotes to double quotes on import/require statements.
-/* jshint quotmark:false */
-/* eslint-disable quotes */
 import Chai = require('chai');
 import Sinon = require('sinon');
+
 import builder = require('botbuilder');
 
 import Bot = require('../../src/bot');
-/* eslint-enable quotes */
-/* jshint quotmark:true */
-
-/* tslint:enable:no-single-line-block-comment -- Leave this line*/
 
 const assert = Chai.assert;
 
-/**
- * Contains Tests for Bot class
- */
 suite('Bot Suite -', () => {
     let sut: Bot;
     let sandbox: Sinon.SinonSandbox;
+
     const univseralBot = {
-        dialog: () => { return null }
+        dialog: () => { } // tslint:disable-line
     };
+    let recognizer: builder.LuisRecognizer; // tslint:disable-line
     const dialog = {
-        onDefault: () => { return null; },
-        matches: () => { return null; }
+        onDefault: () => { }, // tslint:disable-line
+        matches: () => { } // tslint:disable-line
     };
-    const recognizer: builder.LuisRecognizer = null;
-    const connector: builder.IConnector = null;
+    let connector: builder.IConnector; // tslint:disable-line
 
     let botStub: Sinon.SinonStub;
     let connectorStub: Sinon.SinonStub;
@@ -72,6 +59,7 @@ suite('Bot Suite -', () => {
             connectorStub = sandbox.stub(builder, 'ConsoleConnector');
             connectorStub.returns(connector);
         });
+
 
         test('initializeForConsole calls required bot framework methods', (done: () => void) => {
             sut.initializeForConsole();
@@ -113,7 +101,7 @@ suite('Bot Suite -', () => {
 
         test('initializeForWeb registers all dialogs', (done: () => void) => {
             sut.initializeForWeb();
-            assert.equal(rootDialogStub.callCount, 2);
+            assert.equal(rootDialogStub.callCount, 2);            
             done();
         });
     });

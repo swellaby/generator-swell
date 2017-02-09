@@ -14,7 +14,7 @@ gulp.task('check-security', function(cb) {
     nsp({package: gulpConfig.packageJSON}, cb);
 });
 
-gulp.task('pre-unit-tests', ['transpile'], function() {
+gulp.task('pre-unit-tests', function() {
     return gulp.src(gulpConfig.appTranspiledJavaScript)
         .pipe(istanbul({
             includeUntested: istanbulConfig.includeUntested,
@@ -38,7 +38,7 @@ gulp.task('run-unit-tests', ['pre-unit-tests'], function(cb) {
 });
 
 gulp.task('enforce-code-coverage', ['run-unit-tests'], function() {
-    return gulp.src(gulpConfig.appTranspiledJavaScript)
+    return gulp.src(gulpConfig.srcJavascript)
         .pipe(istanbul.enforceThresholds({
             thresholds: {
                 global: {

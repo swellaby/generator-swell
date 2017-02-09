@@ -46,9 +46,6 @@ module.exports = {
             'error',
             'always'
         ],
-        "no-console": [
-            'off'
-        ]
         
     },
     // Custom Globals

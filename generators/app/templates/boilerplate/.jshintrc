@@ -32,7 +32,7 @@
     "strict"        : true,     // true: Requires all functions run in ES5 Strict Mode
     "maxparams"     : 4,    // {int} Max number of formal params allowed per function
     "maxdepth"      : 2,    // {int} Max depth of nested blocks (within functions)
-    "maxstatements" : 10,    // {int} Max number statements per function
+    "maxstatements" : 8,    // {int} Max number statements per function
     "maxcomplexity" : 8,    // {int} Max cyclomatic complexity per function
     "maxlen"        : false,    // {int} Max number of characters per line
     "varstmt"       : false,    // true: Disallow any var statements. Only `let` and `const` are allowed.
@@ -42,7 +42,7 @@
     "boss"          : false,     // true: Tolerate assignments where comparisons would be expected
     "debug"         : false,     // true: Allow debugger statements e.g. browser breakpoints.
     "eqnull"        : false,     // true: Tolerate use of `== null`
-    "esversion"     : 6,         // {int} Specify the ECMAScript version to which the code must adhere.
+    "esversion"     : 5,         // {int} Specify the ECMAScript version to which the code must adhere.
     "moz"           : false,     // true: Allow Mozilla specific syntax (extends and overrides esnext features)
                                  // (ex: `for each`, multiple try/catch, function expression…)
     "evil"          : false,     // true: Tolerate use of `eval` and `new Function()`
