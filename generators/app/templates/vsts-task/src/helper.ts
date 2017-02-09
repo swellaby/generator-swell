@@ -47,7 +47,9 @@ class Helper {
             }
 
             request.get(teamProjectCollectionUri, { 'auth': { 'bearer': accessToken}},
+                /* tslint:disable:no-any Need to disable this due to the callback params defined by the module */
                 (err: any, response: any, data: string) => {
+                /* tslint:enable:no-any */
                     if (!err && (response.statusCode === 200)) {
                         try {
                             resolve(+JSON.parse(data).count);
