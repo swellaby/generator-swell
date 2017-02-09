@@ -1,9 +1,21 @@
+'use strict';
+
+// This is a temporary fix due to the way the TypeScript compiler currently functions
+// it converts single quotes to double quotes on import/require statements.
+/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
+/* jshint quotmark:false */
+/* eslint-disable quotes */
 import builder = require('botbuilder');
-
 import SampleDialog = require('./dialogs/sample');
-
 import config = require('./config');
+/* eslint-enable quotes */
+/* jshint quotmark:true */
+/* tslint:enable:no-single-line-block-comment */
 
+/**
+ * Represents a Bot
+ * @class
+ */
 class Bot {
     /**
      * Connector to use
@@ -40,15 +52,27 @@ class Bot {
         this.init();
     }
 
+    /**
+     * Registers the dialog interactions with the bot.
+     * @private
+     */
     private registerDialogs() {
         this.bot.dialog('/', this.dialog);
-        (new SampleDialog()).register(this.bot, config.dialogs.paths.sample); // Add a line like this for every dialog       
+        (new SampleDialog()).register(this.bot, config.dialogs.paths.sample); // Add a line like this for every dialog
     }
 
+    /**
+     * Binds the dialogs to intents
+     * @private
+     */
     private bindDialogs() {
         this.dialog.matches('favoriteFood', config.dialogs.paths.sample); // Add a line like this for every intent
     }
 
+    /**
+     * Initializes the bot
+     * @private
+     */
     private init() {
         this.bot = new builder.UniversalBot(this.connector);
         const url = config.luis.url.replace('##APP##', config.luis.app).replace('##KEY##', config.luis.key);
@@ -65,4 +89,5 @@ class Bot {
         this.bindDialogs();
     }
 }
+
 export = Bot;

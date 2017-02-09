@@ -8,6 +8,9 @@ import Helper = require('../../src/helper');
 
 const assert = Chai.assert;
 
+/**
+ * Suite of tests for Helper class defined in /src/helper.ts
+ */
 suite('Helper Suite -', () => {
     const sut = new Helper();
 
