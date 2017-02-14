@@ -1,6 +1,14 @@
 'use strict';
 
+// This is a temporary fix due to the way the TypeScript compiler currently functions
+// it converts single quotes to double quotes on import/require statements.
+/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
+/* jshint quotmark:false */
+/* eslint-disable quotes */
 import request = require('request');
+/* eslint-enable quotes */
+/* jshint quotmark:true */
+/* tslint:enable:no-single-line-block-comment */
 
 /**
  * Example of a Helper class.

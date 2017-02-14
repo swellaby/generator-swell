@@ -1,5 +1,12 @@
 'use strict';
 
+/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
+/* jshint maxstatements:false */
+
+// This is a temporary fix due to the way the TypeScript compiler currently functions
+// it converts single quotes to double quotes on import/require statements.
+/* jshint quotmark:false */
+/* eslint-disable quotes */
 import Chai = require('chai');
 import Q = require('q');
 import Sinon = require('sinon');
@@ -7,6 +14,10 @@ import tl = require('vsts-task-lib/task');
 
 import Helper = require('../../src/helper');
 import main = require('../../src/main');
+/* eslint-enable quotes */
+/* jshint quotmark:true */
+
+/* tslint:enable:no-single-line-block-comment -- Leave this line*/
 
 const assert = Chai.assert;
 
@@ -14,7 +25,6 @@ const assert = Chai.assert;
  * Suite of tests for /src/main.ts
  */
 suite('Main Suite: ', () => {
-
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
     let helperAddStub: Sinon.SinonStub;
     let helperGetTeamProjectsStub: Sinon.SinonStub;
