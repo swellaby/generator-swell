@@ -1,11 +1,12 @@
-'use strict';
-
 // This is a temporary fix due to the way the TypeScript compiler currently functions
 // it converts single quotes to double quotes on import/require statements.
 /* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
 /* jshint quotmark:false */
 /* eslint-disable quotes */
+'use strict';
+
 import tl = require('vsts-task-lib/task');
+import Helper = require('./helper');
 import Helper = require('./helper');
 /* eslint-enable quotes */
 /* jshint quotmark:true */
@@ -16,7 +17,7 @@ const helper = new Helper();
 /**
  *
  */
-const validateInputs = (inputA, inputB) => {
+const validateInputs = (inputA, inputB): boolean => {
     if (isNaN(inputA) || isNaN(inputB)) {
         tl.debug('This message will show when debugging is enabled on the build/release.');
         tl.error('Invalid inputs!');
@@ -55,9 +56,25 @@ const addInputs = async (inputA, inputB) => {
 /**
  *
  */
-const getTeamProjectCount = async (collectionUri: string, token: string) => {
+export const executeTask = async () => {
+    // Examples of retrieving input parameters
+    const exampleMessageParameter = tl.getInput('exampleMessage');
+    const inputAParameter = parseFloat(tl.getInput('inputA', true));
+    const inputBParameter = parseFloat(tl.getInput('inputB', true));
+   
+    console.log('You said: ' + exampleMessageParameter);
+
+    await addInputs(inputAParameter, inputBParameter);
+}
+
+export const getTeamProjectCount = async () => {
+    // Examples of accessing system variables.
+    // More details about variables can be found at: https://www.visualstudio.com/en-us/docs/build/define/variables
+    const collectionUri = tl.getVariable('System.TeamFoundationCollectionUri');
+    const systemAccessToken = tl.getVariable('System.AccessToken');
+
     try {
-        const count = await helper.getNumTeamProjects(collectionUri, token);
+        const count = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
         tl.setResult(tl.TaskResult.Succeeded, 'Got count: ' + count + '. Your task passed, hooray!');
     } catch (err) {
         tl.error('Something failed! Error message: ' + err.message);
@@ -65,24 +82,7 @@ const getTeamProjectCount = async (collectionUri: string, token: string) => {
     }
 }
 
-/**
- *
- */
-export async function executeTask() {
-    // Examples of retrieving input parameters
-    const exampleMessageParameter = tl.getInput('exampleMessage');
-    const inputAParameter = parseFloat(tl.getInput('inputA', true));
-    const inputBParameter = parseFloat(tl.getInput('inputB', true));
-
-    // Examples of accessing system variables.
-    // More details about variables can be found at: https://www.visualstudio.com/en-us/docs/build/define/variables
-    const collectionUri = tl.getVariable('System.TeamFoundationCollectionUri');
-    const systemAccessToken = tl.getVariable('System.AccessToken');
-
-    console.log('You said: ' + exampleMessageParameter);
-
-    await addInputs(inputAParameter, inputBParameter);
-    await getTeamProjectCount(collectionUri, systemAccessToken);
-}
-
+// These two methods invocated for illustrative purposes. These could just as easily have been
+// broken down into two separate tasks (and probably should be).
 executeTask();
+getTeamProjectCount();
