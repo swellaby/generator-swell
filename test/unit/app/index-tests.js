@@ -15,8 +15,6 @@ var inputConfig = require('./../../../generators/app/input-config');
 var boilerplateFiles = [
     '.eslintignore',
     '.gitignore',
-    '.jshintignore',
-    '.jshintrc',
     '.eslintrc.js',
     'gulpfile.js',
     'package.json',
