@@ -1,0 +1,8 @@
+/build/
+/coverage/
+/test/
+/testresults/
+/.eslintignore
+/.eslintrc.js
+/gulpfile.js
+/.npmignore
