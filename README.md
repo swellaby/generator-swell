@@ -23,7 +23,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 
 Ensure you have the necessary prerequisites outlined below. Then install the generator globally (note, you may need to use sudo):
 ```sh
-npm i -g --prod generator-swell
+npm i --prod -g generator-swell
 ```
 
 ### Prerequisites

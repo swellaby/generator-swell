@@ -2,12 +2,10 @@
 
 // This is a temporary fix due to the way the TypeScript compiler currently functions
 // it converts single quotes to double quotes on import/require statements.
-/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
-/* jshint quotmark:false */
+/* tslint:disable:no-single-line-block-comment ESLint needs single line block comments */
 /* eslint-disable quotes */
 import request = require('request');
 /* eslint-enable quotes */
-/* jshint quotmark:true */
 /* tslint:enable:no-single-line-block-comment */
 
 /**

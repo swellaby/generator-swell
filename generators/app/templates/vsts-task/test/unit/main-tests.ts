@@ -1,11 +1,10 @@
 'use strict';
 
-/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
-/* jshint maxstatements:false */
+/* tslint:disable:no-single-line-block-comment ESLint needs single line block comments */
+/* eslint-disable max-statements */
 
 // This is a temporary fix due to the way the TypeScript compiler currently functions
 // it converts single quotes to double quotes on import/require statements.
-/* jshint quotmark:false */
 /* eslint-disable quotes */
 import Chai = require('chai');
 import Q = require('q');
@@ -15,7 +14,6 @@ import tl = require('vsts-task-lib/task');
 import Helper = require('../../src/helper');
 import main = require('../../src/main');
 /* eslint-enable quotes */
-/* jshint quotmark:true */
 
 /* tslint:enable:no-single-line-block-comment -- Leave this line*/
 
