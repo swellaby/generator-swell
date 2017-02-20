@@ -17,6 +17,7 @@ var vstsCommonRoot = path.join(templateRoot, 'vsts-common');
 var vstsRoot = path.join(templateRoot, 'vsts-task');
 var chatbotRoot = path.join(templateRoot, 'chatbot');
 var expressRoot = path.join(templateRoot, 'express-api');
+var vscodeRoot = path.join(templateRoot, 'vscode');
 
 module.exports = yeoman.Base.extend({
     initializing: function () {
@@ -73,6 +74,10 @@ module.exports = yeoman.Base.extend({
         this._writingBoilerplate();
         var extensionType = this.extensionConfig.type;
 
+        if(this.extensionConfig.vscode) {
+            this._writingVsCode();
+        }
+
         switch (extensionType) {
             case inputConfig.boilerplatePromptValue:
                 this.log(yosay('Just the basic boilerplate'));
@@ -101,6 +106,13 @@ module.exports = yeoman.Base.extend({
         var context = this.extensionConfig;
         context.dot = true;
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+    },
+
+    _writingVsCode: function () {
+        this.sourceRoot(vscodeRoot);
+        var context = this.extensionConfig;
+        context.dot = true;
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot() + '/.vscode', context);
     },
 
     _writingCli: function () {
