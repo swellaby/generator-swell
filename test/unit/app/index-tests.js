@@ -615,5 +615,4 @@ suite('Core Generator Suite:', function() {
                 });
         });
     });
-
 });

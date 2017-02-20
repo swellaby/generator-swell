@@ -101,6 +101,8 @@ module.exports = yeoman.Base.extend({
         var context = this.extensionConfig;
         context.dot = true;
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+        var destRoot = path.resolve(this.destinationRoot());
+        this.fs.copy(path.join(destRoot, 'gitignore'), path.join(destRoot, '.gitignore'));        
     },
 
     _writingCli: function () {
