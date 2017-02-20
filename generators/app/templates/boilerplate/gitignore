@@ -5,7 +5,8 @@ npm-debug*
 
 # Istanbul
 **/coverage/
-coverage# IDE
+coverage
+# IDE
 /.vscode/
 /.idea/
 !/.vscode/launch.json
@@ -22,5 +23,6 @@ tsd-debug.log
 /test/**/*.js*
 /bin/**/*.js*
 /out/
+/dist/
 
 **/testresults/
