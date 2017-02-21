@@ -49,6 +49,12 @@ module.exports = {
             ]
         },
         {
+            type: 'confirm',
+            name: 'vscode',
+            message: 'Do you use Visual Studio Code?',
+            default: true
+        },
+        {
             when: function (response) {
                 return response.type === expressApiPromptValue;
             },

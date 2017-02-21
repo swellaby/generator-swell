@@ -11,17 +11,19 @@ var assert = chai.assert;
 
 suite('Input Config Suite:', function () {
     var sandbox;
-    var expectedNumPrompts = 5;
+    var expectedNumPrompts = 6;
     var appNamePromptKey = 'appName';
     var appNameIndex = 0;
     var descriptionPromptKey = 'description';
     var descriptionIndex = 1;
     var appTypePromptKey = 'type';
     var appTypeIndex = 2;
+    var vscodePromptKey = 'vscode';
+    var vscodeIndex = 3;
     var dockerUserPromptKey = 'dockerUser';
-    var dockerUserIndex = 3;
+    var dockerUserIndex = 4;
     var dependenciesPromptKey = 'installDependencies';
-    var dependenciesIndex = 4;
+    var dependenciesIndex = 5;
 
     setup(function () {
         sandbox = sinon.sandbox.create();
@@ -196,6 +198,32 @@ suite('Input Config Suite:', function () {
                     assert.deepEqual(choice.value, 'chatbot');
                 });
             });
+        });
+    });
+
+    suite('Add VSCode Files Prompt Tests:', function () {
+        var prompt = inputConfig.prompts[vscodeIndex];
+        var expectedMessage = 'Do you use Visual Studio Code?';
+        var expectedPromptType = 'confirm';
+
+        test('Should have the correct prompt name', function () {
+            assert.deepEqual(prompt.name, vscodePromptKey);
+        });
+
+        test('Should not be a required prompt', function () {
+            var required = prompt.required;
+
+            if (required !== undefined) {
+                assert.isFalse(prompt.required);
+            }
+        });
+
+        test('Should have the correct message that describes the prompt', function () {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', function () {
+            assert.deepEqual(prompt.type, expectedPromptType);
         });
     });
 

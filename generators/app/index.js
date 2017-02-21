@@ -17,6 +17,7 @@ var vstsCommonRoot = path.join(templateRoot, 'vsts-common');
 var vstsRoot = path.join(templateRoot, 'vsts-task');
 var chatbotRoot = path.join(templateRoot, 'chatbot');
 var expressRoot = path.join(templateRoot, 'express-api');
+var vscodeRoot = path.join(templateRoot, 'vscode');
 
 module.exports = yeoman.Base.extend({
     initializing: function () {
@@ -73,6 +74,10 @@ module.exports = yeoman.Base.extend({
         this._writingBoilerplate();
         var extensionType = this.extensionConfig.type;
 
+        if (this.extensionConfig.vscode) {
+            this._writingVsCode();
+        }
+
         switch (extensionType) {
             case inputConfig.boilerplatePromptValue:
                 this.log(yosay('Just the basic boilerplate'));
@@ -104,6 +109,21 @@ module.exports = yeoman.Base.extend({
         var destRoot = path.resolve(this.destinationRoot());
         this.fs.move(path.join(destRoot, 'gitignore'), path.join(destRoot, '.gitignore'));
         this.fs.move(path.join(destRoot, 'npmignore'), path.join(destRoot, '.npmignore'));
+    },
+
+    _writingVsCode: function () {
+        this.sourceRoot(vscodeRoot);
+        var context = this.extensionConfig;
+        context.dot = true;
+        this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot() + '/.vscode', context);
+        
+        var launch = this.fs.readJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), {});
+        if (context.type === inputConfig.chatbotPromptValue) {
+            launch.configurations[0].program = '${workspaceRoot}/src/server.ts';
+        } else if (context.type === inputConfig.expressApiPromptValue) {
+            launch.configurations[0].program = '${workspaceRoot}/src/app.ts';
+        }
+        this.fs.writeJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), launch);
     },
 
     _writingCli: function () {

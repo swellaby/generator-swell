@@ -18,6 +18,8 @@ engines:
     - 426fbfe9a74b1af7f5106ec544786b79
     - a7c333f0c4e553e09408202d50489d09
     - 1cb770af6b97b855d40b8ee44cf15388
+    # duplication in tests
+    - 84efdc0a2f77ae85c711930f0c359c12
     
     config:
       languages:
