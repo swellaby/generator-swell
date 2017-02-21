@@ -74,7 +74,7 @@ module.exports = yeoman.Base.extend({
         this._writingBoilerplate();
         var extensionType = this.extensionConfig.type;
 
-        if(this.extensionConfig.vscode) {
+        if (this.extensionConfig.vscode) {
             this._writingVsCode();
         }
 
@@ -113,6 +113,14 @@ module.exports = yeoman.Base.extend({
         var context = this.extensionConfig;
         context.dot = true;
         this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot() + '/.vscode', context);
+        
+        var launch = this.fs.readJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), {});
+        if (context.type === inputConfig.chatbotPromptValue) {
+            launch.configurations[0].program = '${workspaceRoot}/src/server.ts';
+        } else if (context.type === inputConfig.expressApiPromptValue) {
+            launch.configurations[0].program = '${workspaceRoot}/src/app.ts';
+        }
+        this.fs.writeJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), launch);
     },
 
     _writingCli: function () {

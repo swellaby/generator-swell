@@ -618,10 +618,10 @@ suite('Core Generator Suite:', function () {
 
     suite('VsCode Option Tests:', function () {
         var codeAppName = 'code app';
-        var appType = inputConfig.boilerplatePromptValue;
         var appDescription = 'brand new app';
         var codeFiles = [
-            '.vscode/tasks.json'
+            '.vscode/tasks.json',
+            '.vscode/launch.json'
         ];
 
         test('Should create all the correct files when the vscode option is selected', function () {
@@ -629,8 +629,7 @@ suite('Core Generator Suite:', function () {
                 .withPrompts({
                     appName: codeAppName,
                     description: appDescription,
-                    type: appType,
-                    vscode: true
+                    type: inputConfig.boilerplatePromptValue
                 })
                 .toPromise()
                 .then(function () {
@@ -650,6 +649,48 @@ suite('Core Generator Suite:', function () {
                 .toPromise()
                 .then(function () {
                     assert.noFile(codeFiles);
+                    done();
+                });
+        });
+
+        test('Should set debug program correctly for boilerplate app',  function (done) {
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: codeAppName,
+                    description: appDescription,
+                    type: inputConfig.boilerplatePromptValue
+                })
+                .toPromise()
+                .then(function () {
+                    assert.fileContent('.vscode/launch.json', '"program": "${file}"');
+                    done();
+                });
+        });
+
+        test('Should set debug program correctly for express app',  function (done) {
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: codeAppName,
+                    description: appDescription,
+                    type: inputConfig.expressApiPromptValue
+                })
+                .toPromise()
+                .then(function () {
+                    assert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/app.ts"');
+                    done();
+                });
+        });
+
+        test('Should set debug program correctly for chatbot app',  function (done) {
+            helpers.run(generatorRoot)
+                .withPrompts({
+                    appName: codeAppName,
+                    description: appDescription,
+                    type: inputConfig.chatbotPromptValue
+                })
+                .toPromise()
+                .then(function () {
+                    assert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/server.ts"');
                     done();
                 });
         });
