@@ -5,7 +5,6 @@ var browserOpen = require('gulp-open');
 var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
 var nsp = require('gulp-nsp');
-// var path = require('path');
 
 var gulpConfig = require('./../gulp-config');
 var istanbulConfig = require('./../istanbul-config');
@@ -15,8 +14,8 @@ gulp.task('check-security', function(cb) {
     nsp({package: gulpConfig.packageJSON}, cb);
 });
 
-gulp.task('pre-unit-tests', function() {
-    return gulp.src(gulpConfig.srcJavascript)
+gulp.task('pre-unit-tests', ['transpile'], function() {
+    return gulp.src(gulpConfig.appTranspiledJavaScript)
         .pipe(istanbul({
             includeUntested: istanbulConfig.includeUntested,
         }))
@@ -39,7 +38,7 @@ gulp.task('run-unit-tests', ['pre-unit-tests'], function(cb) {
 });
 
 gulp.task('enforce-code-coverage', ['run-unit-tests'], function() {
-    return gulp.src(gulpConfig.srcJavascript)
+    return gulp.src(gulpConfig.appTranspiledJavaScript)
         .pipe(istanbul.enforceThresholds({
             thresholds: {
                 global: {
@@ -59,7 +58,7 @@ gulp.task('enforce-code-coverage', ['run-unit-tests'], function() {
     ));
 });
 
-gulp.task('show-unit-test-coverage-report', ['run-unit-tests'], function() {
+gulp.task('show-unittest-coverage-report', ['run-unit-tests'], function() {
     return gulp.src(istanbulConfig.unitTestCoverageReportHtmlFile)
         .pipe(browserOpen());
 });

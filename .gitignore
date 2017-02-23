@@ -1,5 +1,5 @@
 # NPM/Node
-/node_modules/
+node_modules/*
 .ntvs_analysis.dat*
 npm-debug*
 
@@ -11,3 +11,11 @@ npm-debug*
 **/coverage/
 
 **/testresults/
+
+generators/**/*.js*
+test/unit/app/**/*.js*
+!generators/app/templates/**/*.js
+
+!node_modules/@types/
+node_modules/@types/*
+!node_modules/@types/yeoman-generator/

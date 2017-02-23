@@ -1,18 +1,15 @@
 'use strict';
-/* jshint maxstatements:false */
-// Disabled maxstatements jshint rule which errors due to 
-// the test functions being embedded within the suite functions.
 
-var assert = require('yeoman-assert');
-var fs = require('fs');
-var helpers = require('yeoman-test');
-var yeoman = require('yeoman-generator');
-var path = require('path');
-var sinon = require('sinon');
+import assert = require('yeoman-assert');
+import fs = require('fs');
+import helpers = require('yeoman-test');
+import yeoman = require('yeoman-generator');
+import path = require('path');
+import sinon = require('sinon');
 
-var inputConfig = require('./../../../generators/app/input-config');
+import inputConfig = require('./../../../generators/app/input-config');
 
-var boilerplateFiles = [
+const boilerplateFiles = [
     '.eslintignore',
     '.gitignore',
     '.eslintrc.js',
@@ -31,143 +28,145 @@ var boilerplateFiles = [
     './build/tasks/test.js'
 ];
 
-suite('Core Generator Suite:', function () {
-    var sandbox;
-    var generatorRoot = path.join(__dirname, './../../../generators/app');
-    var yoDestinationPathFunctionName = 'destinationPath';
-    var gitInitCommandSpy;
-    var npmInstallCommandSpy;
-    var installDependenciesCommandSpy;
+suite('Core Generator Suite:', () => {
+    let sandbox;
+    const generatorRoot = path.join(__dirname, './../../../generators/app');
+    const yoDestinationPathFunctionName = 'destinationPath';
+    let gitInitCommandSpy;
+    let npmInstallCommandSpy;
+    let installDependenciesCommandSpy;
 
-    setup(function () {
+    setup(() => {
         sandbox = sinon.sandbox.create();
         gitInitCommandSpy = sandbox.spy(yeoman.Base.prototype, 'spawnCommandSync').withArgs('git', ['init', '--quiet']);
         npmInstallCommandSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
         installDependenciesCommandSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
     });
-    teardown(function () {
+    teardown(() => {
         sandbox.restore();
     });
 
-    suite('Boilerplate Option Tests:', function () {
-        var baseAppName = 'baseOptionApp';
-        var appType = inputConfig.boilerplatePromptValue;
-        var appDescription = 'this is a test description';
+    suite('Boilerplate Option Tests:', () => {
+        const baseAppName = 'baseOptionApp';
+        const appType = inputConfig.boilerplatePromptValue;
+        const appDescription = 'this is a test description';
 
-        suiteSetup(function () {
+        suiteSetup(() => {
             return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: appType,
+                    type: appType
                 })
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the Base option is selected', function () {
+        test('Should create all the correct boilerplate files when the Base option is selected', () => {
             assert.file(boilerplateFiles);
         });
 
-        test('Should inject the App Name into the README.md file when the Base option is selected', function () {
+        test('Should inject the App Name into the README.md file when the Base option is selected', () => {
             assert.fileContent('README.md', '# ' + baseAppName);
         });
 
-        test('Should init a new git repository when the destination directory does not have a .git directory', function (done) {
+        test('Should init a new git repository when the destination directory does not have a .git directory', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
+                    type: inputConfig.boilerplatePromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(gitInitCommandSpy.called, true);
                     done();
                 });
         });
 
-        test('Should init a new git repository when the destination directory has a file entitled \'.git\'', function (done) {
-            // this stub is to ensure that the tmp directory (see below) creates the .git directory in 
-            // the same directory as the destinationRoot of the generator. 
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
+        test('Should init a new git repository when the destination directory has a file entitled \'.git\'', (done) => {
+            // this stub is to ensure that the tmp directory (see below) creates the .git directory in
+            // the same directory as the destinationRoot of the generator.
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), baseAppName);
             });
 
             helpers.run(generatorRoot)
-                .inTmpDir(function (dir) {
-                    fs.writeFileSync(path.join(dir, '.git'));
+                .inTmpDir((dir) => {
+                    fs.writeFileSync(path.join(dir, '.git'), null);
                 })
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
+                    type: inputConfig.boilerplatePromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(gitInitCommandSpy.called, true);
                     done();
                 });
         });
 
-        test('Should not init a new git repository when the destination directory already has a git repo initialized', function (done) {
-            // this stub is to ensure that the tmp directory (see below) creates the .git directory in 
-            // the same directory as the destinationRoot of the generator. 
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
+        test('Should not init a new git repository when the destination directory already has a git repo initialized', (done) => {
+            // this stub is to ensure that the tmp directory (see below) creates the .git directory in
+            // the same directory as the destinationRoot of the generator.
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), baseAppName);
             });
 
             helpers.run(generatorRoot)
-                .inTmpDir(function (dir) {
+                .inTmpDir((dir) => {
                     fs.mkdirSync(path.join(path.resolve(dir), '.git'));
                 })
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
+                    type: inputConfig.boilerplatePromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(gitInitCommandSpy.called, false);
                     done();
                 });
         });
-
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Base option', function (done) {
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
-                })
-                .toPromise()
-                .then(function (dir) {
-                    assert.equal(path.basename(process.cwd()), baseAppName);
-                    assert.equal(path.resolve(process.cwd()), path.join(dir, baseAppName));
-                    done();
+        // tslint:disable-next-line:max-line-length
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Base option',
+            (done) => {
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: baseAppName,
+                        description: appDescription,
+                        type: inputConfig.boilerplatePromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), baseAppName);
+                        assert.equal(path.resolve(process.cwd()), path.join(dir, baseAppName));
+                        done();
+                    });
+            });
+        // tslint:disable-next-line:max-line-length
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option',
+            (done) => {
+                sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+                    return path.join(process.cwd(), baseAppName);
                 });
-        });
 
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option', function (done) {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
-                return path.join(process.cwd(), baseAppName);
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: baseAppName,
+                        description: appDescription,
+                        type: inputConfig.boilerplatePromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), path.basename(dir));
+                        assert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                        assert.noFile(path.join(process.cwd(), baseAppName));
+                        done();
+                    });
             });
 
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
-                })
-                .toPromise()
-                .then(function (dir) {
-                    assert.equal(path.basename(process.cwd()), path.basename(dir));
-                    assert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                    assert.noFile(path.join(process.cwd(), baseAppName));
-                    done();
-                });
-        });
-
-        test('Should install dependencies if user confirms with the Base option selected', function (done) {
+        test('Should install dependencies if user confirms with the Base option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
@@ -176,14 +175,14 @@ suite('Core Generator Suite:', function () {
                     installDependencies: true
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, true);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
-        test('Should not install dependencies if user declines with the Base option selected', function (done) {
+        test('Should not install dependencies if user declines with the Base option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: baseAppName,
@@ -192,7 +191,7 @@ suite('Core Generator Suite:', function () {
                     installDependencies: false
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, false);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
@@ -200,46 +199,46 @@ suite('Core Generator Suite:', function () {
         });
     });
 
-    suite('CLI Option Tests: ', function () {
-        var cliAppName = 'cli app';
-        var appType = inputConfig.cliPromptValue;
-        var appDescription = 'this is a test description';
+    suite('CLI Option Tests: ', () => {
+        const cliAppName = 'cli app';
+        const appType = inputConfig.cliPromptValue;
+        const appDescription = 'this is a test description';
 
-        suiteSetup(function () {
+        suiteSetup(() => {
             return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
                     description: appDescription,
-                    type: appType,
+                    type: appType
                 })
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the CLI option is selected', function () {
+        test('Should create all the correct boilerplate files when the CLI option is selected', () => {
             assert.file(boilerplateFiles);
         });
 
-        test('Should inject the App Name into the README.md file when the CLI option is selected', function () {
+        test('Should inject the App Name into the README.md file when the CLI option is selected', () => {
             assert.fileContent('README.md', '# ' + cliAppName);
         });
-
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the CLI option', function (done) {
+        // tslint:disable-next-line:max-line-length
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the CLI option', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
                     description: appDescription,
-                    type: inputConfig.cliPromptValue,
+                    type: inputConfig.cliPromptValue
                 })
                 .toPromise()
-                .then(function (dir) {
+                .then((dir) => {
                     assert.equal(path.basename(process.cwd()), cliAppName);
                     assert.equal(path.resolve(process.cwd()), path.join(dir, cliAppName));
                     done();
                 });
         });
-
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the CLI option', function (done) {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
+        // tslint:disable-next-line:max-line-length
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the CLI option', (done) => {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), cliAppName);
             });
 
@@ -247,10 +246,10 @@ suite('Core Generator Suite:', function () {
                 .withPrompts({
                     appName: cliAppName,
                     description: appDescription,
-                    type: inputConfig.cliPromptValue,
+                    type: inputConfig.cliPromptValue
                 })
                 .toPromise()
-                .then(function (dir) {
+                .then((dir) => {
                     assert.equal(path.basename(process.cwd()), path.basename(dir));
                     assert.equal(path.resolve(process.cwd()), path.resolve(dir));
                     assert.noFile(path.join(process.cwd(), cliAppName));
@@ -258,7 +257,7 @@ suite('Core Generator Suite:', function () {
                 });
         });
 
-        test('Should install dependencies if user confirms with the CLI option selected', function (done) {
+        test('Should install dependencies if user confirms with the CLI option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
@@ -267,14 +266,14 @@ suite('Core Generator Suite:', function () {
                     installDependencies: true
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, true);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
-        test('Should not install dependencies if user declines with the CLI option selected', function (done) {
+        test('Should not install dependencies if user declines with the CLI option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: cliAppName,
@@ -283,7 +282,7 @@ suite('Core Generator Suite:', function () {
                     installDependencies: false
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, false);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
@@ -291,12 +290,12 @@ suite('Core Generator Suite:', function () {
         });
     });
 
-    suite('Express API Option Tests:', function () {
-        var expressAppName = 'api app';
-        var appType = inputConfig.expressApiPromptValue;
-        var appDescription = 'brand new express API';
-        var dockerUser = 'testUser';
-        var expressFiles = [
+    suite('Express API Option Tests:', () => {
+        const expressAppName = 'api app';
+        const appType = inputConfig.expressApiPromptValue;
+        const appDescription = 'brand new express API';
+        const dockerUser = 'testUser';
+        const expressFiles = [
             '.dockerignore',
             'build.sh',
             'Dockerfile',
@@ -304,7 +303,7 @@ suite('Core Generator Suite:', function () {
             './src/app.ts'
         ];
 
-        suiteSetup(function () {
+        suiteSetup(() => {
             return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
@@ -315,39 +314,39 @@ suite('Core Generator Suite:', function () {
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the Express API option is selected', function () {
+        test('Should create all the correct boilerplate files when the Express API option is selected', () => {
             assert.file(boilerplateFiles);
         });
 
-        test('Should create all the correct express files when the Express API option is selected', function () {
+        test('Should create all the correct express files when the Express API option is selected', () => {
             assert.file(expressFiles);
         });
 
-        test('Should inject the App Name into the README.md file when the Express API option is selected', function () {
+        test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
             assert.fileContent('README.md', '# ' + expressAppName);
         });
 
-        test('Should inject image name correctly into the build.sh file when the Express API option is selected', function () {
+        test('Should inject image name correctly into the build.sh file when the Express API option is selected', () => {
             assert.fileContent('build.sh', dockerUser + '/' + expressAppName);
         });
-
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Express API option', function (done) {
+        // tslint:disable-next-line:max-line-length
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Express API option', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.expressApiPromptValue,
+                    type: inputConfig.expressApiPromptValue
                 })
                 .toPromise()
-                .then(function (dir) {
+                .then((dir) => {
                     assert.equal(path.basename(process.cwd()), expressAppName);
                     assert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
                     done();
                 });
         });
-
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Express API option', function (done) {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
+        // tslint:disable-next-line:max-line-length
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Express API option', (done) => {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), expressAppName);
             });
 
@@ -355,10 +354,10 @@ suite('Core Generator Suite:', function () {
                 .withPrompts({
                     appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.expressApiPromptValue,
+                    type: inputConfig.expressApiPromptValue
                 })
                 .toPromise()
-                .then(function (dir) {
+                .then((dir) => {
                     assert.equal(path.basename(process.cwd()), path.basename(dir));
                     assert.equal(path.resolve(process.cwd()), path.resolve(dir));
                     assert.noFile(path.join(process.cwd(), expressAppName));
@@ -366,7 +365,7 @@ suite('Core Generator Suite:', function () {
                 });
         });
 
-        test('Should install dependencies if user confirms with the Express API option selected', function (done) {
+        test('Should install dependencies if user confirms with the Express API option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
@@ -375,14 +374,14 @@ suite('Core Generator Suite:', function () {
                     installDependencies: true
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, true);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
-        test('Should not install dependencies if user declines with the Express API option selected', function (done) {
+        test('Should not install dependencies if user declines with the Express API option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: expressAppName,
@@ -391,7 +390,7 @@ suite('Core Generator Suite:', function () {
                     installDependencies: false
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, false);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
@@ -399,37 +398,37 @@ suite('Core Generator Suite:', function () {
         });
     });
 
-    suite('VSTS Option Tests:', function () {
-        var vstsCommonFiles = [
+    suite('VSTS Option Tests:', () => {
+        const vstsCommonFiles = [
             'extension-icon.png',
             'OVERVIEW.md',
             'vss-extension.json'
         ];
 
-        suite('VSTS Task Option Tests:', function () {
-            var vstsAppName = 'vsts task';
-            var appType = inputConfig.vstsTaskPromptValue;
-            var appDescription = 'this is an awesome vsts task';
+        suite('VSTS Task Option Tests:', () => {
+            const vstsAppName = 'vsts task';
+            const appType = inputConfig.vstsTaskPromptValue;
+            const appDescription = 'this is an awesome vsts task';
 
-            suiteSetup(function () {
+            suiteSetup(() => {
                 return helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
                         description: appDescription,
-                        type: appType,
+                        type: appType
                     })
                     .toPromise();
             });
 
-            test('Should create all the correct boilerplate files when the VSTS option is selected', function () {
+            test('Should create all the correct boilerplate files when the VSTS option is selected', () => {
                 assert.file(boilerplateFiles);
             });
 
-            test('Should contain all of the common VSTS files', function () {
+            test('Should contain all of the common VSTS files', () => {
                 assert.file(vstsCommonFiles);
             });
 
-            test('Should create all of the default VSTS Task template files', function () {
+            test('Should create all of the default VSTS Task template files', () => {
                 assert.file([
                     'task.json',
                     './src/main.ts',
@@ -440,27 +439,27 @@ suite('Core Generator Suite:', function () {
                 ]);
             });
 
-            test('Should inject the App Name into the README.md file when the VSTS option is selected', function () {
+            test('Should inject the App Name into the README.md file when the VSTS option is selected', () => {
                 assert.fileContent('README.md', '# ' + vstsAppName);
             });
-
-            test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', function (done) {
+            // tslint:disable-next-line:max-line-length
+            test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', (done) => {
                 helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
                         description: 'my test',
-                        type: inputConfig.vstsTaskPromptValue,
+                        type: inputConfig.vstsTaskPromptValue
                     })
                     .toPromise()
-                    .then(function (dir) {
+                    .then((dir) => {
                         assert.equal(path.basename(process.cwd()), vstsAppName);
                         assert.equal(path.resolve(process.cwd()), path.join(dir, vstsAppName));
                         done();
                     });
             });
-
-            test('Should scaffold into the current directory when the specified app name matches the current directory name with the VSTS option', function (done) {
-                sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
+            // tslint:disable-next-line:max-line-length
+            test('Should scaffold into the current directory when the specified app name matches the current directory name with the VSTS option', (done) => {
+                sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
                     return path.join(process.cwd(), vstsAppName);
                 });
 
@@ -468,10 +467,10 @@ suite('Core Generator Suite:', function () {
                     .withPrompts({
                         appName: vstsAppName,
                         description: appDescription,
-                        type: inputConfig.vstsTaskPromptValue,
+                        type: inputConfig.vstsTaskPromptValue
                     })
                     .toPromise()
-                    .then(function (dir) {
+                    .then((dir) => {
                         assert.equal(path.basename(process.cwd()), path.basename(dir));
                         assert.equal(path.resolve(process.cwd()), path.resolve(dir));
                         assert.noFile(path.join(process.cwd(), vstsAppName));
@@ -479,7 +478,7 @@ suite('Core Generator Suite:', function () {
                     });
             });
 
-            test('Should install dependencies if user confirms with the VSTS option selected', function (done) {
+            test('Should install dependencies if user confirms with the VSTS option selected', (done) => {
                 helpers.run(generatorRoot)
                     .withPrompts({
                         appName: 'name',
@@ -488,14 +487,14 @@ suite('Core Generator Suite:', function () {
                         installDependencies: true
                     })
                     .toPromise()
-                    .then(function () {
+                    .then(() => {
                         assert.deepEqual(npmInstallCommandSpy.called, true);
                         assert.deepEqual(installDependenciesCommandSpy.called, false);
                         done();
                     });
             });
 
-            test('Should not install dependencies if user declines with the VSTS option selected', function (done) {
+            test('Should not install dependencies if user declines with the VSTS option selected', (done) => {
                 helpers.run(generatorRoot)
                     .withPrompts({
                         appName: vstsAppName,
@@ -504,7 +503,7 @@ suite('Core Generator Suite:', function () {
                         installDependencies: false
                     })
                     .toPromise()
-                    .then(function () {
+                    .then(() => {
                         assert.deepEqual(npmInstallCommandSpy.called, false);
                         assert.deepEqual(installDependenciesCommandSpy.called, false);
                         done();
@@ -513,20 +512,20 @@ suite('Core Generator Suite:', function () {
         });
     });
 
-    suite('Chatbot Option Tests:', function () {
-        var chatbotAppName = 'chatbot app';
-        var appType = inputConfig.chatbotPromptValue;
-        var appDescription = 'brand new chatbot';
-        var chatbotFiles = [
+    suite('Chatbot Option Tests:', () => {
+        const chatbotAppName = 'chatbot app';
+        const appType = inputConfig.chatbotPromptValue;
+        const appDescription = 'brand new chatbot';
+        const chatbotFiles = [
             './src/bot.ts',
             './src/config.ts',
             './src/console.ts',
             './src/server.ts',
             './src/dialogs/dialog-base.ts',
-            './src/dialogs/sample.ts',
+            './src/dialogs/sample.ts'
         ];
 
-        suiteSetup(function () {
+        suiteSetup(() => {
             return helpers.run(generatorRoot)
                 .withPrompts({
                     appName: chatbotAppName,
@@ -536,35 +535,35 @@ suite('Core Generator Suite:', function () {
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the Chatbot option is selected', function () {
+        test('Should create all the correct boilerplate files when the Chatbot option is selected', () => {
             assert.file(boilerplateFiles);
         });
 
-        test('Should create all the correct express files when the Chatbot option is selected', function () {
+        test('Should create all the correct express files when the Chatbot option is selected', () => {
             assert.file(chatbotFiles);
         });
 
-        test('Should inject the App Name into the README.md file when the Express API option is selected', function () {
+        test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
             assert.fileContent('README.md', '# ' + chatbotAppName);
         });
-
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Chatbot option', function (done) {
+        // tslint:disable-next-line:max-line-length
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Chatbot option', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: chatbotAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.chatbotPromptValue
                 })
                 .toPromise()
-                .then(function (dir) {
+                .then((dir) => {
                     assert.equal(path.basename(process.cwd()), chatbotAppName);
                     assert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
                     done();
                 });
         });
-
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Chatbot option', function (done) {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, function () {
+        // tslint:disable-next-line:max-line-length
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Chatbot option', (done) => {
+            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), chatbotAppName);
             });
 
@@ -572,10 +571,10 @@ suite('Core Generator Suite:', function () {
                 .withPrompts({
                     appName: chatbotAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.chatbotPromptValue
                 })
                 .toPromise()
-                .then(function (dir) {
+                .then((dir) => {
                     assert.equal(path.basename(process.cwd()), path.basename(dir));
                     assert.equal(path.resolve(process.cwd()), path.resolve(dir));
                     assert.noFile(path.join(process.cwd(), chatbotAppName));
@@ -583,7 +582,7 @@ suite('Core Generator Suite:', function () {
                 });
         });
 
-        test('Should install dependencies if user confirms with the Chatbot option selected', function (done) {
+        test('Should install dependencies if user confirms with the Chatbot option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: chatbotAppName,
@@ -592,14 +591,14 @@ suite('Core Generator Suite:', function () {
                     installDependencies: true
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, true);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
                 });
         });
 
-        test('Should not install dependencies if user declines with the Chatbot option selected', function (done) {
+        test('Should not install dependencies if user declines with the Chatbot option selected', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: chatbotAppName,
@@ -608,7 +607,7 @@ suite('Core Generator Suite:', function () {
                     installDependencies: false
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.deepEqual(npmInstallCommandSpy.called, false);
                     assert.deepEqual(installDependenciesCommandSpy.called, false);
                     done();
@@ -616,15 +615,15 @@ suite('Core Generator Suite:', function () {
         });
     });
 
-    suite('VsCode Option Tests:', function () {
-        var codeAppName = 'code app';
-        var appDescription = 'brand new app';
-        var codeFiles = [
+    suite('VsCode Option Tests:', () => {
+        const codeAppName = 'code app';
+        const appDescription = 'brand new app';
+        const codeFiles = [
             '.vscode/tasks.json',
             '.vscode/launch.json'
         ];
 
-        test('Should create all the correct files when the vscode option is selected', function () {
+        test('Should create all the correct files when the vscode option is selected', () => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: codeAppName,
@@ -632,13 +631,13 @@ suite('Core Generator Suite:', function () {
                     type: inputConfig.boilerplatePromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.file(boilerplateFiles);
                     assert.file(codeFiles);
                 });
         });
 
-        test('Should not add vscode files if the user declines the vscode option', function (done) {
+        test('Should not add vscode files if the user declines the vscode option', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: codeAppName,
@@ -647,13 +646,13 @@ suite('Core Generator Suite:', function () {
                     vscode: false
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.noFile(codeFiles);
                     done();
                 });
         });
 
-        test('Should set debug program correctly for boilerplate app',  function (done) {
+        test('Should set debug program correctly for boilerplate app', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: codeAppName,
@@ -661,13 +660,13 @@ suite('Core Generator Suite:', function () {
                     type: inputConfig.boilerplatePromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.fileContent('.vscode/launch.json', '"program": "${file}"');
                     done();
                 });
         });
 
-        test('Should set debug program correctly for express app',  function (done) {
+        test('Should set debug program correctly for express app', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: codeAppName,
@@ -675,13 +674,13 @@ suite('Core Generator Suite:', function () {
                     type: inputConfig.expressApiPromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/app.ts"');
                     done();
                 });
         });
 
-        test('Should set debug program correctly for chatbot app',  function (done) {
+        test('Should set debug program correctly for chatbot app', (done) => {
             helpers.run(generatorRoot)
                 .withPrompts({
                     appName: codeAppName,
@@ -689,7 +688,7 @@ suite('Core Generator Suite:', function () {
                     type: inputConfig.chatbotPromptValue
                 })
                 .toPromise()
-                .then(function () {
+                .then(() => {
                     assert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/server.ts"');
                     done();
                 });

@@ -1,0 +1,155 @@
+    _validateDirectoryName: () => {
+        const appName = this.extensionConfig.appName;
+
+        if (path.basename(this.destinationPath()) !== appName) {
+            this.log('Your generator must be inside a directory with the same name as your extension name \'' + appName + '\'\n' +
+                'I\'ll automatically create this directory for you.');
+
+            mkdirp(appName, null);
+            this.destinationRoot(this.destinationPath(appName));
+        }
+    }
+
+    _validateGitRepository: () => {
+        try {
+            const gitPath = path.join(path.resolve(this.destinationRoot()), '.git');
+
+            if (fs.statSync(gitPath).isFile()) {
+                this.log('Are you being mischievous? You have a file in the target directory named \'.git\' with' +
+                    'the same name as the directory git uses. I am deleting this because it will cause errors and you' +
+                    'absolutely do not need it. :)');
+                fs.unlinkSync(gitPath);
+
+                this._initGitRepo();
+            }
+        } catch (err) {
+            // fs.statSync will throw an exception when the directory does not exist so need to init
+            this._initGitRepo();
+        }
+    },
+
+    _initGitRepo: () => {
+        this.log('I see that you don\'t have a git repo in the target directory. I\'ll initialize it for you now, and then you can add' +
+            ' your remote later on via a \'git remote add origin << insert your remote url - like https://github.com/me/my-repo.git >>\'');
+        this.spawnCommandSync('git', ['init', '--quiet']);
+    },
+    _writingBoilerplate: () => {
+        this.sourceRoot(boilerplateRoot);
+        const context = this.extensionConfig;
+        context.dot = true; */
+      this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+       const destRoot = path.resolve(this.destinationRoot());
+        this.fs.move(path.join(destRoot, 'gitignore'), path.join(destRoot, '.gitignore'));
+        this.fs.move(path.join(destRoot, 'npmignore'), path.join(destRoot, '.npmignore'));
+    },
+
+    _writingVsCode: () => {
+        this.sourceRoot(vscodeRoot);
+        const context = this.extensionConfig;
+        context.dot = true; */
+       this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot() + '/.vscode', context);
+
+        const launch = this.fs.readJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), {});
+        if (context.type === inputConfig.chatbotPromptValue) {
+            launch.configurations[0].program = '${workspaceRoot}/src/server.ts';
+        } else if (context.type === inputConfig.expressApiPromptValue) {
+            launch.configurations[0].program = '${workspaceRoot}/src/app.ts';
+        }
+        this.fs.writeJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), launch);
+    },
+
+    _writingCli: () => {
+        this.log(yosay('New CLI coming'));
+    },
+
+    _writingExpress: () => {
+        this.log(yosay('Super API underway'));
+        this.sourceRoot(expressRoot);
+        const context = this._buildExpressContext();
+
+      this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        const pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+        extend(pkg, {
+            scripts: {
+                'docker-build': 'bash build.sh',
+                'start': 'node src/app.js'
+            },
+            dependencies: {
+                'express': '^4.14.0'
+            },
+            devDependencies: {
+                '@types/express': '^4.0.34'
+            }
+        });
+
+        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    },
+
+    _writingVSTSTask: () => {
+        this.log(yosay('A new task to make a great platform even better'));
+        this._writeSharedVSTSContent();
+        this.sourceRoot(vstsRoot);
+        const context = this._buildVSTSContext();
+
+       this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        const pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+
+        extend(pkg, {
+            dependencies: {
+                'request': '^2.79.0',
+                'vsts-task-lib': '^1.1.0'
+            },
+            devDependencies: {
+                '@types/request': '^0.0.36'
+            }
+        });
+
+        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    },
+
+    _writingChatbotTask: () => {
+        this.log(yosay('Engage users in new channels with a Chatbot'));
+        this.sourceRoot(chatbotRoot);
+        const context = this._buildExpressContext();
+
+   this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), context);
+
+        const pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+        extend(pkg, {
+            dependencies: {
+                'botbuilder': '^3.4.4',
+                'restify': '^4.3.0'
+            },
+            devDependencies: {
+                '@types/restify': '^2.0.35'
+            }
+        });
+
+        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    },
+
+    _writeSharedVSTSContent: () => {
+        this.sourceRoot(vstsCommonRoot);
+      this.fs.copyTpl(glob.sync(this.sourceRoot() + '/**/*', { dot: true }), this.destinationRoot(), this.extensionConfig);
+   },
+
+    _buildVSTSContext: () => {
+        const context = this.extensionConfig;
+        context.dot = true; */
+        // need to figure out the best way to pump these values in from the secondary prompts
+      context.taskId = uuid.v4();
+       context.author = 'me'; // this can be moved to the core generator
+        context.category = 'Utility'; // from new prompt
+
+        return context;
+    },
+
+    _buildExpressContext: () => {
+        const context = this.extensionConfig;
+        context.dot = true;
+        context.author = 'me'; 
+
+        return context;
+    },

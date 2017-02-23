@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    unitTestTimeout: 5000,
+    unitTestTimeout: 3000,
     unitTestReporter: 'mocha-multi',
     unitTestReporterOptions: {
         'xunit': {
