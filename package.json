@@ -73,7 +73,6 @@
     "@types/request": "^0.0.40",
     "@types/sinon": "^1.16.35",
     "@types/uuid": "^2.0.29",
-    "@types/yeoman-generator": "^1.0.1",
     "@types/yosay": "0.0.28",
     "chai": "^3.5.0",
     "del": "^2.2.2",
