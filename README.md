@@ -44,6 +44,15 @@ yo swell
 See the [Usage Overview][generator-usage-overview-url] for detailed information about usage.
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
 
+## Development  
+First please read the [Contribution Guidelines][guidelines].  
+The Swellaby Generator is developed using [Typescript][typescript-url].  
+Here are some things you should know:  
+
+- Run `npm install` to install dependencies  
+- Run `npm run build` to clean, transpile, lint, test, and check-security  
+- Run `npm link` (as admin) to install the locally cloned generator globally so that you can see how it behaves
+
 [nodeico-badge]: https://nodei.co/npm/generator-swell.png?downloads=true&downloadRank=true&stars=true
 [npmjs-version-badge]: https://img.shields.io/npm/v/generator-swell.svg
 [npmjs-downloads-badge]: https://img.shields.io/npm/dt/generator-swell.svg
@@ -69,3 +78,4 @@ Note you will need to cd into the newly created directory if you specify an app 
 [coveralls-badge]: https://coveralls.io/repos/github/swellaby/generator-swell/badge.svg
 [coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
 [generator-usage-overview-url]: https://github.com/swellaby/generator-swell/blob/master/docs/USAGE-OVERVIEW.md
+[guidelines]: ./CONTRIBUTING.md
