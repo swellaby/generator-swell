@@ -45,7 +45,7 @@
     "type": "git"
   },
   "scripts": {
-    "build": "gulp clean tslint transpile",
+    "build": "npm run test && gulp eslint",
     "clean": "gulp clean",
     "gated-build": "gulp jshint eslint check-security run-unit-tests enforce-code-coverage",
     "check-security": "gulp check-security",
