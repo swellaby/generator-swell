@@ -3,7 +3,8 @@
 This page provides some general guidelines for contriubting to the Swellaby Generator.  
 
 2 Things you should keep in mind:  
-1. Dont be an idiot!  
+
+1. Dont be an idiot!
 2. Have Fun!  
 
 ## Topics
