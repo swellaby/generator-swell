@@ -57,7 +57,7 @@ We are not commit message Nazi's but here are a few guidelines:
 
 ### Coding Rules  
 
-Rules are strickly enforced by automated processes. Rules will be enforced by precommit hooks, automated gates, and core callaborator reviews.
+Rules will be enforced by precommit hooks, automated gates, and core callaborator reviews.
 
 The rules:
 
