@@ -128,8 +128,9 @@ suite('Core Generator Suite:', () => {
                     done();
                 });
         });
-        // tslint:disable-next-line:max-line-length
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Base option',
+
+        test('Should create and scaffold into a new directory if the specified app name'
+            + 'differs from the current directory with the Base option',
             (done) => {
                 helpers.run(generatorRoot)
                     .withPrompts({
@@ -144,8 +145,9 @@ suite('Core Generator Suite:', () => {
                         done();
                     });
             });
-        // tslint:disable-next-line:max-line-length
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option',
+
+        test('Should scaffold into the current directory when the specified app name matches'
+            + 'the current directory name with the Base option',
             (done) => {
                 sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                     return path.join(process.cwd(), baseAppName);
@@ -221,41 +223,42 @@ suite('Core Generator Suite:', () => {
         test('Should inject the App Name into the README.md file when the CLI option is selected', () => {
             assert.fileContent('README.md', '# ' + cliAppName);
         });
-        // tslint:disable-next-line:max-line-length
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the CLI option', (done) => {
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: cliAppName,
-                    description: appDescription,
-                    type: inputConfig.cliPromptValue
-                })
-                .toPromise()
-                .then((dir) => {
-                    assert.equal(path.basename(process.cwd()), cliAppName);
-                    assert.equal(path.resolve(process.cwd()), path.join(dir, cliAppName));
-                    done();
-                });
-        });
-        // tslint:disable-next-line:max-line-length
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the CLI option', (done) => {
-            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
-                return path.join(process.cwd(), cliAppName);
-            });
 
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: cliAppName,
-                    description: appDescription,
-                    type: inputConfig.cliPromptValue
-                })
-                .toPromise()
-                .then((dir) => {
-                    assert.equal(path.basename(process.cwd()), path.basename(dir));
-                    assert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                    assert.noFile(path.join(process.cwd(), cliAppName));
-                    done();
+        test('Should create and scaffold into a new directory if the specified app name differs from'
+            + 'the current directory with the CLI option', (done) => {
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: cliAppName,
+                        description: appDescription,
+                        type: inputConfig.cliPromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), cliAppName);
+                        assert.equal(path.resolve(process.cwd()), path.join(dir, cliAppName));
+                        done();
+                    });
+            });
+        test('Should scaffold into the current directory when the specified app name matches the current'
+            + 'directory name with the CLI option', (done) => {
+                sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
+                    return path.join(process.cwd(), cliAppName);
                 });
-        });
+
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: cliAppName,
+                        description: appDescription,
+                        type: inputConfig.cliPromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), path.basename(dir));
+                        assert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                        assert.noFile(path.join(process.cwd(), cliAppName));
+                        done();
+                    });
+            });
 
         test('Should install dependencies if user confirms with the CLI option selected', (done) => {
             helpers.run(generatorRoot)
@@ -329,41 +332,43 @@ suite('Core Generator Suite:', () => {
         test('Should inject image name correctly into the build.sh file when the Express API option is selected', () => {
             assert.fileContent('build.sh', dockerUser + '/' + expressAppName);
         });
-        // tslint:disable-next-line:max-line-length
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Express API option', (done) => {
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: expressAppName,
-                    description: appDescription,
-                    type: inputConfig.expressApiPromptValue
-                })
-                .toPromise()
-                .then((dir) => {
-                    assert.equal(path.basename(process.cwd()), expressAppName);
-                    assert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
-                    done();
-                });
-        });
-        // tslint:disable-next-line:max-line-length
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Express API option', (done) => {
-            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
-                return path.join(process.cwd(), expressAppName);
+
+        test('Should create and scaffold into a new directory if the specified app name differs from the'
+            + 'current directory with the Express API option', (done) => {
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: expressAppName,
+                        description: appDescription,
+                        type: inputConfig.expressApiPromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), expressAppName);
+                        assert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
+                        done();
+                    });
             });
 
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: expressAppName,
-                    description: appDescription,
-                    type: inputConfig.expressApiPromptValue
-                })
-                .toPromise()
-                .then((dir) => {
-                    assert.equal(path.basename(process.cwd()), path.basename(dir));
-                    assert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                    assert.noFile(path.join(process.cwd(), expressAppName));
-                    done();
+        test('Should scaffold into the current directory when the specified app name matches the current'
+            + 'directory name with the Express API option', (done) => {
+                sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
+                    return path.join(process.cwd(), expressAppName);
                 });
-        });
+
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: expressAppName,
+                        description: appDescription,
+                        type: inputConfig.expressApiPromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), path.basename(dir));
+                        assert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                        assert.noFile(path.join(process.cwd(), expressAppName));
+                        done();
+                    });
+            });
 
         test('Should install dependencies if user confirms with the Express API option selected', (done) => {
             helpers.run(generatorRoot)
@@ -442,41 +447,43 @@ suite('Core Generator Suite:', () => {
             test('Should inject the App Name into the README.md file when the VSTS option is selected', () => {
                 assert.fileContent('README.md', '# ' + vstsAppName);
             });
-            // tslint:disable-next-line:max-line-length
-            test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', (done) => {
-                helpers.run(generatorRoot)
-                    .withPrompts({
-                        appName: vstsAppName,
-                        description: 'my test',
-                        type: inputConfig.vstsTaskPromptValue
-                    })
-                    .toPromise()
-                    .then((dir) => {
-                        assert.equal(path.basename(process.cwd()), vstsAppName);
-                        assert.equal(path.resolve(process.cwd()), path.join(dir, vstsAppName));
-                        done();
-                    });
-            });
-            // tslint:disable-next-line:max-line-length
-            test('Should scaffold into the current directory when the specified app name matches the current directory name with the VSTS option', (done) => {
-                sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
-                    return path.join(process.cwd(), vstsAppName);
+
+            test('Should create and scaffold into a new directory if the specified app name differs from the'
+                + 'current directory with the VSTS option', (done) => {
+                    helpers.run(generatorRoot)
+                        .withPrompts({
+                            appName: vstsAppName,
+                            description: 'my test',
+                            type: inputConfig.vstsTaskPromptValue
+                        })
+                        .toPromise()
+                        .then((dir) => {
+                            assert.equal(path.basename(process.cwd()), vstsAppName);
+                            assert.equal(path.resolve(process.cwd()), path.join(dir, vstsAppName));
+                            done();
+                        });
                 });
 
-                helpers.run(generatorRoot)
-                    .withPrompts({
-                        appName: vstsAppName,
-                        description: appDescription,
-                        type: inputConfig.vstsTaskPromptValue
-                    })
-                    .toPromise()
-                    .then((dir) => {
-                        assert.equal(path.basename(process.cwd()), path.basename(dir));
-                        assert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        assert.noFile(path.join(process.cwd(), vstsAppName));
-                        done();
+            test('Should scaffold into the current directory when the specified app name matches the current'
+                + 'directory name with the VSTS option', (done) => {
+                    sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
+                        return path.join(process.cwd(), vstsAppName);
                     });
-            });
+
+                    helpers.run(generatorRoot)
+                        .withPrompts({
+                            appName: vstsAppName,
+                            description: appDescription,
+                            type: inputConfig.vstsTaskPromptValue
+                        })
+                        .toPromise()
+                        .then((dir) => {
+                            assert.equal(path.basename(process.cwd()), path.basename(dir));
+                            assert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                            assert.noFile(path.join(process.cwd(), vstsAppName));
+                            done();
+                        });
+                });
 
             test('Should install dependencies if user confirms with the VSTS option selected', (done) => {
                 helpers.run(generatorRoot)
@@ -546,41 +553,43 @@ suite('Core Generator Suite:', () => {
         test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
             assert.fileContent('README.md', '# ' + chatbotAppName);
         });
-        // tslint:disable-next-line:max-line-length
-        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Chatbot option', (done) => {
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: chatbotAppName,
-                    description: appDescription,
-                    type: inputConfig.chatbotPromptValue
-                })
-                .toPromise()
-                .then((dir) => {
-                    assert.equal(path.basename(process.cwd()), chatbotAppName);
-                    assert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
-                    done();
-                });
-        });
-        // tslint:disable-next-line:max-line-length
-        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Chatbot option', (done) => {
-            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
-                return path.join(process.cwd(), chatbotAppName);
+
+        test('Should create and scaffold into a new directory if the specified app name differs from'
+            + 'the current directory with the Chatbot option', (done) => {
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: chatbotAppName,
+                        description: appDescription,
+                        type: inputConfig.chatbotPromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), chatbotAppName);
+                        assert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
+                        done();
+                    });
             });
 
-            helpers.run(generatorRoot)
-                .withPrompts({
-                    appName: chatbotAppName,
-                    description: appDescription,
-                    type: inputConfig.chatbotPromptValue
-                })
-                .toPromise()
-                .then((dir) => {
-                    assert.equal(path.basename(process.cwd()), path.basename(dir));
-                    assert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                    assert.noFile(path.join(process.cwd(), chatbotAppName));
-                    done();
+        test('Should scaffold into the current directory when the specified app name matches the current directory'
+            + 'name with the Chatbot option', (done) => {
+                sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
+                    return path.join(process.cwd(), chatbotAppName);
                 });
-        });
+
+                helpers.run(generatorRoot)
+                    .withPrompts({
+                        appName: chatbotAppName,
+                        description: appDescription,
+                        type: inputConfig.chatbotPromptValue
+                    })
+                    .toPromise()
+                    .then((dir) => {
+                        assert.equal(path.basename(process.cwd()), path.basename(dir));
+                        assert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                        assert.noFile(path.join(process.cwd(), chatbotAppName));
+                        done();
+                    });
+            });
 
         test('Should install dependencies if user confirms with the Chatbot option selected', (done) => {
             helpers.run(generatorRoot)
