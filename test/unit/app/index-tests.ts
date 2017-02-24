@@ -38,9 +38,9 @@ suite('Core Generator Suite:', () => {
 
     setup(() => {
         sandbox = sinon.sandbox.create();
-        gitInitCommandSpy = sandbox.spy(yeoman.Base.prototype, 'spawnCommandSync').withArgs('git', ['init', '--quiet']);
-        npmInstallCommandSpy = sandbox.spy(yeoman.Base.prototype, 'npmInstall');
-        installDependenciesCommandSpy = sandbox.spy(yeoman.Base.prototype, 'installDependencies');
+        gitInitCommandSpy = sandbox.spy(yeoman.prototype, 'spawnCommandSync').withArgs('git', ['init', '--quiet']);
+        npmInstallCommandSpy = sandbox.spy(yeoman.prototype, 'npmInstall');
+        installDependenciesCommandSpy = sandbox.spy(yeoman.prototype, 'installDependencies');
     });
     teardown(() => {
         sandbox.restore();
@@ -86,7 +86,7 @@ suite('Core Generator Suite:', () => {
         test('Should init a new git repository when the destination directory has a file entitled \'.git\'', (done) => {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in
             // the same directory as the destinationRoot of the generator.
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), baseAppName);
             });
 
@@ -109,7 +109,7 @@ suite('Core Generator Suite:', () => {
         test('Should not init a new git repository when the destination directory already has a git repo initialized', (done) => {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in
             // the same directory as the destinationRoot of the generator.
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), baseAppName);
             });
 
@@ -147,7 +147,7 @@ suite('Core Generator Suite:', () => {
         // tslint:disable-next-line:max-line-length
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option',
             (done) => {
-                sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+                sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                     return path.join(process.cwd(), baseAppName);
                 });
 
@@ -238,7 +238,7 @@ suite('Core Generator Suite:', () => {
         });
         // tslint:disable-next-line:max-line-length
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the CLI option', (done) => {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), cliAppName);
             });
 
@@ -346,7 +346,7 @@ suite('Core Generator Suite:', () => {
         });
         // tslint:disable-next-line:max-line-length
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Express API option', (done) => {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), expressAppName);
             });
 
@@ -459,7 +459,7 @@ suite('Core Generator Suite:', () => {
             });
             // tslint:disable-next-line:max-line-length
             test('Should scaffold into the current directory when the specified app name matches the current directory name with the VSTS option', (done) => {
-                sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+                sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                     return path.join(process.cwd(), vstsAppName);
                 });
 
@@ -563,7 +563,7 @@ suite('Core Generator Suite:', () => {
         });
         // tslint:disable-next-line:max-line-length
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Chatbot option', (done) => {
-            sandbox.stub(yeoman.Base.prototype, yoDestinationPathFunctionName, () => {
+            sandbox.stub(yeoman.prototype, yoDestinationPathFunctionName, () => {
                 return path.join(process.cwd(), chatbotAppName);
             });
 

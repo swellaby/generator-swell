@@ -19,7 +19,7 @@ const chatbotRoot = path.join(templateRoot, 'chatbot');
 const expressRoot = path.join(templateRoot, 'express-api');
 const vscodeRoot = path.join(templateRoot, 'vscode');
 
-class SwellabyGenerator extends yeoman.Base {
+class SwellabyGenerator extends yeoman {
     // tslint:disable-next-line:no-any
     private extensionConfig: any;
 
