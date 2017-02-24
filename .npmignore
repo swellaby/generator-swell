@@ -12,3 +12,6 @@
 /jsconfig.json
 /sonar-project.properties
 /.npmignore
+generators/**/*.js.map
+generators/**/*.ts
+!generators/app/templates/**/*.ts
