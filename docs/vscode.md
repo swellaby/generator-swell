@@ -1,7 +1,6 @@
 # Visual Studio Code Support  
 [Visual Studio Code][vscode-url] workspaces are configured via the files in the `.vscode` folder at the root of your workspace.  
 
-### Other Node
 ## Debugging  
 Visual Studio Code has built in support for debugging node applicaitons. Debug settings are configured in the `.vscode/launch.json` file.
 After you transpile your code, start debugging by hitting `F5`.  
