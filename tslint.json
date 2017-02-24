@@ -62,7 +62,7 @@
     ],
     "max-func-body-length": [
       true,
-      30,
+      25,
       {
         "ignore-parameters-to-function-regex": "describe|suite"
       }
@@ -82,7 +82,7 @@
     "mocha-unneeded-done": true,
     "new-parens": true,
     "no-angle-bracket-type-assertion": false,
-    "no-any": false,
+    "no-any": true,
     "no-arg": true,
     "no-backbone-get-set-outside-model": true,
     "no-banned-terms": true,

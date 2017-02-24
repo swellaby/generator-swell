@@ -20,6 +20,7 @@ const expressRoot = path.join(templateRoot, 'express-api');
 const vscodeRoot = path.join(templateRoot, 'vscode');
 
 class SwellabyGenerator extends yeoman.Base {
+    // tslint:disable-next-line:no-any
     private extensionConfig: any;
 
     public initializing() {
@@ -27,11 +28,13 @@ class SwellabyGenerator extends yeoman.Base {
     }
 
     public prompting() {
+        // tslint:disable-next-line:no-any
         return this.prompt(inputConfig.prompts).then((extensionConfig: any) => {
             this.extensionConfig = extensionConfig;
         });
     }
 
+    // tslint:disable-next-line:max-func-body-length
     public writing() {
         this._writingBoilerplate();
         const extensionType = this.extensionConfig.type;
