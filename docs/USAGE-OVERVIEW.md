@@ -62,7 +62,8 @@ generator supports the following types of projects:
 - **Prompt Type**: Confirmation
 - **Default Value**: True
 
-If confirmed the generator will provide additional files to allow for an enhanced experience when using Visual Studio Code. See details [here][vscode-doc-url]  
+If confirmed the generator will provide additional files to allow for an enhanced experience when using Visual Studio Code. 
+See details [here][vscode-doc-url].  
 
 #### Install Dependencies
 - **Display message**: 'Do you want me to install dependencies for you?'

@@ -23,7 +23,7 @@ Coming Soon!
 
 ## Tasks  
 Tasks are defined in the `.vscode/tasks.json` file. I would highly reccomend the extension [Status Bar Tasks][tasks-extension], 
-it turns you tasks into buttons at the button of VS Code.  
+it turns your tasks into buttons at the button of VS Code.  
 
 We provide the following tasks:  
 
