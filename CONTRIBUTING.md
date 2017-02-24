@@ -33,7 +33,7 @@ When reporting issues, always include:
 **Be sure to scrub any sensetive information if you include logs**  
 
 ## Feature requests
-Feature requests are welcome. We may take a request and impliment it, we may ask if you want to impliment it, amd we may reject it. 
+Feature requests are welcome. We may take a request and implement it, we may ask if you want to impliment it, and we may reject it. 
 Please first check to make sure the feature has not already been requested (or implimented).
 
 ## Contribution tips and guidelines
@@ -43,12 +43,12 @@ Please first check to make sure the feature has not already been requested (or i
 If you found a bug or typo feel free to open a pull request with a fix. For any significant contribution, 
 please open an issue before working on it.  
 
-Pull requests will need to pass a number of automated gates before being considered for approval. After the
-gates automated gates, the pull request will be reviewed by one or more core callaborators before being merged.  
+Pull requests will need to pass a number of automated gates before being considered for approval. After the automated gates pass, 
+the pull request will be reviewed by one or more core callaborators before being merged.  
 
 ### Commit Messages
 
-We are not commit message Nazi's but here are a few guidelines:  
+We are not commit message police but here are a few guidelines:  
 - Use clear and precise language  
 - Try to stick to under 50 characters  
 - Stick to the what/why not the how  
@@ -62,7 +62,7 @@ Rules will be enforced by precommit hooks, automated gates, and core callaborato
 The rules:
 
 1. Test coverage will not dip below 100%
-2. All code must passed the tslint rules defined [here](./tslint.json)
-3. All code must passed the eslint rules defined [here](./eslintrc.js)
+2. All code must pass the tslint rules defined [here](./tslint.json)
+3. All code must pass the eslint rules defined [here](./eslintrc.js)
 4. Inline linter exceptions or rule changes can be *requested* in the relevant pull request
 5. Documentation should be updated to reflect new features being add and/or behaviour changes  
