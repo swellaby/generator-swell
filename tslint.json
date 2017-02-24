@@ -75,7 +75,7 @@
     "member-ordering": [
       false
     ],
-    "missing-jsdoc": true,
+    "missing-jsdoc": false,
     "missing-optional-annotation": true,
     "mocha-avoid-only": true,
     "mocha-no-side-effect-code": true,
@@ -158,7 +158,7 @@
     "no-string-based-set-immediate": true,
     "no-string-based-set-interval": true,
     "no-string-based-set-timeout": true,
-    "no-string-literal": true,
+    "no-string-literal": false,
     "no-string-throw": true,
     "no-suspicious-comment": true,
     "no-switch-case-fall-through": true,

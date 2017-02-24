@@ -1,28 +1,40 @@
 'use strict';
 
-var path = require('path'); 
-var srcRoot = './generators';
+var path = require('path');
+var srcRoot = './generators/app';
 var testRoot = './test';
+var notTemplates = '!' + srcRoot + '/templates/**';
+var typescriptDefinitions = './node_modules/@types/*/index.d.ts';
+var tsconfig = './tsconfig.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),
     root: srcRoot,
     allJavascript: [
-        '**/*.js',
-        '!node_modules/**'
+        './**/*.js',
+        '!node_modules/**',
+        notTemplates
     ],
-    allSrcJavascript: [
-        srcRoot + '/**/*.js'
+    allTranspiledJavascript: [
+        srcRoot + '/**/*.js*',
+        testRoot + '/**/*.js*',
+        notTemplates     
     ],
-    srcJavascript: [
+    appTranspiledJavaScript: [
         srcRoot + '/**/*.js',
-        '!' + srcRoot + '/**/templates/**/*.js'
+        notTemplates              
     ],
-    appJavascript: [
-        srcRoot + '/**/*.js',
-        testRoot + '/**/*-tests.js'
+    javascriptUnitTests: testRoot + '/unit/**/*.js',
+    allTypescript: [
+        srcRoot + '/**/*.ts',
+        testRoot + '/**/*-tests.ts',
+        typescriptDefinitions,
+        notTemplates
     ],
-    javascriptUnitTests: [
-        testRoot + '/**/*-tests.js'
-    ]
+    appTypescript: [
+        srcRoot + '/**/*.ts',
+        testRoot + '/**/*-tests.ts',
+        notTemplates
+    ],
+    typescriptCompilerOptions: tsconfig
 };
