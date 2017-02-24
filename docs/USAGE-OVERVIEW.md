@@ -37,7 +37,6 @@ for you, such as the package.json and the README.md.
 #### Description 
 - **Display Message**: 'The description of your app'
 - **Prompt Type**: Free entry
-- **Required?**: No
 - **Default Value**: N/A
 
 This (optional) value will be injected into your package.json and markdown files.
@@ -45,7 +44,6 @@ This (optional) value will be injected into your package.json and markdown files
 #### Application Type
 - **Display message**: 'What type of app is this?'
 - **Prompt Type**: Selection
-- **Required?**: Yes
 - **Default Value**: Boilerplate - 'New App with just the boilerplate'
 
 This option determines which type of project (and which files, directories, etc.) the generator will create for you. The
@@ -59,10 +57,16 @@ generator supports the following types of projects:
 - [Angular 2][angular-doc-url] (planned)
 - [Aurelia][aurelia-doc-url] (planned)
 
+#### Visual Studio Code  
+- **Display message**: 'Do you use Visual Studio Code?'
+- **Prompt Type**: Confirmation
+- **Default Value**: True
+
+If confirmed the generator will provide additional files to allow for an enhanced experience when using Visual Studio Code. See details [here][vscode-doc-url]  
+
 #### Install Dependencies
 - **Display message**: 'Do you want me to install dependencies for you?'
 - **Prompt Type**: Confirmation
-- **Required?**: Yes
 - **Default Value**: True
 
 The generator can install the dependencies for your new project after scaffolding is complete. Dependencies will be installed
@@ -76,3 +80,4 @@ if you would like.
 [chatbot-doc-url]: CHATBOT.md
 [angular-doc-url]: ANGULAR.md
 [aurelia-doc-url]: AURELIA.md
+[vscode-doc-url]: vscode.md
