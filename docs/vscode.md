@@ -33,5 +33,5 @@ We provide the following tasks:
 - clean: Removes transpiled js and js.map files
 - pack: Packages your application
 
-[vscode-doc-url]: https://code.visualstudio.com  
+[vscode-url]: https://code.visualstudio.com  
 [tasks-extension]: https://marketplace.visualstudio.com/items?itemName=GuardRex.status-bar-tasks
