@@ -33,8 +33,8 @@ When reporting issues, always include:
 **Be sure to scrub any sensetive information if you include logs**  
 
 ## Feature requests
-Feature requests are welcome. We may take a request and implement it, we may ask if you want to impliment it, and we may reject it. 
-Please first check to make sure the feature has not already been requested (or implimented).
+Feature requests are welcome. We may take a request and implement it, we may ask if you want to implement it, and we may reject it. 
+Please first check to make sure the feature has not already been requested (or implemented).
 
 ## Contribution tips and guidelines
 
