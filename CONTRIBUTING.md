@@ -63,6 +63,6 @@ The rules:
 
 1. Test coverage will not dip below 100%
 2. All code must pass the tslint rules defined [here](./tslint.json)
-3. All code must pass the eslint rules defined [here](./eslintrc.js)
+3. All code must pass the eslint rules defined [here](./.eslintrc.js)
 4. Inline linter exceptions or rule changes can be *requested* in the relevant pull request
 5. Documentation should be updated to reflect new features being add and/or behaviour changes  
