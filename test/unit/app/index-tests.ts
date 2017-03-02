@@ -629,6 +629,7 @@ suite('Core Generator Suite:', () => {
         const appDescription = 'brand new app';
         const codeFiles = [
             '.vscode/tasks.json',
+            '.vscode/extensions.json',
             '.vscode/launch.json'
         ];
 
