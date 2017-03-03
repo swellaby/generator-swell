@@ -1,11 +1,7 @@
 {
     "version": "0.1.0",
-    "command": "cmd",
     "isShellCommand": true,
     "showOutput": "silent",
-    "args": [
-        "/c"
-    ],
     "tasks": [
         {
             "taskName": "package install",
