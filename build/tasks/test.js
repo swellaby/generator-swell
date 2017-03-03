@@ -22,7 +22,7 @@ gulp.task('pre-unit-tests', ['transpile'], function() {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('run-unit-tests', ['pre-unit-tests'], function(cb) {
+gulp.task('run-unit-tests', ['pre-unit-tests','eslint'], function(cb) {
     gulp.src(gulpConfig.javascriptUnitTests)
         .pipe(mocha({
             ui: mochaConfig.unitTestMochaInterface,
