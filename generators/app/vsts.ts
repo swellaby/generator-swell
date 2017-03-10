@@ -6,8 +6,6 @@ import yeoman = require('yeoman-generator');
 import uuid = require('uuid');
 import yosay = require('yosay');
 
-// let vstsRoot: string;
-
 /**
  * Creates the context needed for scaffolding the VSTS Task.
  *
