@@ -9,7 +9,9 @@ import mkdirp = require('mkdirp');
 import uuid = require('uuid');
 import yosay = require('yosay');
 import yeoman = require('yeoman-generator');
+
 import inputConfig = require('./input-config');
+import vsts = require('./vsts');
 
 const templateRoot = path.join(__dirname, 'templates');
 const boilerplateRoot = path.join(templateRoot, 'boilerplate');
@@ -57,7 +59,7 @@ class SwellabyGenerator extends yeoman {
                 break;
 
             case inputConfig.vstsTaskPromptValue:
-                this._writingVSTSTask();
+                vsts.scaffoldVSTSTask(this, templateRoot, this.extensionConfig);
                 break;
 
             case inputConfig.chatbotPromptValue:
@@ -171,28 +173,28 @@ class SwellabyGenerator extends yeoman {
         this.fs.move(path.join(this.destinationRoot(), 'dockerignore'), path.join(this.destinationRoot(), '.dockerignore'));
     }
 
-    private _writingVSTSTask() {
-        this.log(yosay('A new task to make a great platform even better'));
-        this._writeSharedVSTSContent();
-        this.sourceRoot(vstsRoot);
-        const context = this._buildVSTSContext();
+    // private _writingVSTSTask() {
+    //     this.log(yosay('A new task to make a great platform even better'));
+    //     this._writeSharedVSTSContent();
+    //     this.sourceRoot(vstsRoot);
+    //     const context = this._buildVSTSContext();
 
-        this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), context);
+    //     this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), context);
 
-        const pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
+    //     const pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
 
-        extend(pkg, {
-            dependencies: {
-                'request': '^2.79.0',
-                'vsts-task-lib': '^1.1.0'
-            },
-            devDependencies: {
-                '@types/request': '^0.0.36'
-            }
-        });
+    //     extend(pkg, {
+    //         dependencies: {
+    //             'request': '^2.79.0',
+    //             'vsts-task-lib': '^1.1.0'
+    //         },
+    //         devDependencies: {
+    //             '@types/request': '^0.0.36'
+    //         }
+    //     });
 
-        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
-    }
+    //     this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
+    // }
 
     private _writingChatbotTask() {
         this.log(yosay('Engage users in new channels with a Chatbot'));
@@ -215,21 +217,21 @@ class SwellabyGenerator extends yeoman {
         this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
     }
 
-    private _writeSharedVSTSContent() {
-        this.sourceRoot(vstsCommonRoot);
-        this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), this.extensionConfig);
-    }
+    // private _writeSharedVSTSContent() {
+    //     this.sourceRoot(vstsCommonRoot);
+    //     this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), this.extensionConfig);
+    // }
 
-    private _buildVSTSContext() {
-        const context = this.extensionConfig;
-        context.dot = true;
-        // need to figure out the best way to pump these values in from the secondary prompts
-        context.taskId = uuid.v4();
-        context.author = 'me'; // this can be moved to the core generator
-        context.category = 'Utility'; // from new prompt
+    // private _buildVSTSContext() {
+    //     const context = this.extensionConfig;
+    //     context.dot = true;
+    //     // need to figure out the best way to pump these values in from the secondary prompts
+    //     context.taskId = uuid.v4();
+    //     context.author = 'me'; // this can be moved to the core generator
+    //     context.category = 'Utility'; // from new prompt
 
-        return context;
-    }
+    //     return context;
+    // }
 
     private _buildExpressContext() {
         const context = this.extensionConfig;

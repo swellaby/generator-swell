@@ -58,7 +58,7 @@ gulp.task('enforce-code-coverage', ['run-unit-tests'], function() {
     ));
 });
 
-gulp.task('show-unittest-coverage-report', ['run-unit-tests'], function() {
+gulp.task('show-unit-test-coverage-report', ['run-unit-tests'], function() {
     return gulp.src(istanbulConfig.unitTestCoverageReportHtmlFile)
         .pipe(browserOpen());
 });
