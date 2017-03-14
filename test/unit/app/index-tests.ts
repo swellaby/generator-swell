@@ -630,7 +630,8 @@ suite('Core Generator Suite:', () => {
         const codeFiles = [
             '.vscode/tasks.json',
             '.vscode/extensions.json',
-            '.vscode/launch.json'
+            '.vscode/launch.json',
+            '.vscode/settings.json'
         ];
 
         test('Should create all the correct files when the vscode option is selected', () => {
