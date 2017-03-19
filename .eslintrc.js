@@ -46,7 +46,25 @@ module.exports = {
             'error',
             'always'
         ],
-        
+                "no-console": [
+            'off'
+        ],
+        "max-statements": [
+            'error',
+            {
+                'max': 10
+            },
+            {
+                'ignoreTopLevelFunctions': false
+            }
+        ],
+        "require-yield": [
+            'off'
+        ],
+        strict: [
+            'error',
+            'global'
+        ]
     },
     // Custom Globals
     globals: {
