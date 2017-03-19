@@ -3,8 +3,7 @@ node_modules
 .ntvs_analysis.dat*
 npm-debug*
 
-# IDE
-/.vscode/
+# IDE - VS Code is not listed here intentionally
 /.idea/
 
 # Code Coverage
@@ -13,6 +12,6 @@ npm-debug*
 **/testresults/
 
 generators/**/*.js*
-test/unit/app/**/*.js*
+test/unit/**/*.js*
 !generators/app/templates/**/*.js
 !generators/app/templates/**/*.json

@@ -1,0 +1,7 @@
+{
+    "vsicons.presets.angular": true,
+    "files.exclude": {
+        "**/*.js": { "when": "$(basename).ts" },
+        "**/*.map": { "when": "$(basename).map" }
+    }
+}
