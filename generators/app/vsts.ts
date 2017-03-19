@@ -1,21 +1,21 @@
 'use strict';
 
-import extend = require('deep-extend');
 import path = require('path');
-import yeoman = require('yeoman-generator');
+import YeomanGenerator = require('yeoman-generator');
 import uuid = require('uuid');
 import yosay = require('yosay');
+
+import pathHelpers = require('./path-helpers');
 
 /**
  * Creates the context needed for scaffolding the VSTS Task.
  *
- * @param extensionConfig
+ * @param {JSON} extensionConfig - The configuration specified for generation.
  */
 // tslint:disable-next-line:no-any
 const buildVSTSContext = (extensionConfig: any): any => {
     const context = extensionConfig;
     context.dot = true;
-    // need to figure out the best way to pump these values in from the secondary prompts
     context.taskId = uuid.v4();
     context.author = 'me'; // this can be moved to the core generator
     context.category = 'Utility'; // from new prompt
@@ -24,31 +24,39 @@ const buildVSTSContext = (extensionConfig: any): any => {
 };
 
 /**
+ * Scaffolds the content that is common for all VSTS projects.
  *
- * @param context
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ * @param {JSON} extensionConfig - The configuration specified for generation.
  */
 // tslint:disable-next-line:no-any
-const scaffoldSharedVSTSContent = (generator: yeoman, templateRoot: string, context: any) => {
-    generator.sourceRoot(path.join(templateRoot, 'vsts-common'));
+const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => {
+    generator.sourceRoot(pathHelpers.vstsCommonRoot);
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
 }
 
 /**
  * Scaffolds the VSTS Task project type
  *
- * @param generator
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ * @param {JSON} extensionConfig - The configuration specified for generation.
  */
 // tslint:disable-next-line:no-any
-export const scaffoldVSTSTask = (generator: yeoman, templateRoot: string, extensionConfig: any) => {
+export const scaffoldVSTSTask = (generator: YeomanGenerator, extensionConfig: any) => {
+    if (!generator || !extensionConfig) {
+        console.error('Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
+            'Task project :( The VSTS files were not added to the project.');
+        return;
+    }
+
     generator.log(yosay('A new task to make a great platform even better'));
     const context = buildVSTSContext(extensionConfig);
-    scaffoldSharedVSTSContent(generator, templateRoot, context);
+    scaffoldSharedVSTSContent(generator, context);
 
-    generator.sourceRoot(path.join(templateRoot, 'vsts-task'));
+    generator.sourceRoot(pathHelpers.vstsTaskRoot);
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
 
-    const pkg = generator.fs.readJSON(path.join(generator.destinationRoot(), 'package.json'), {});
-    extend(pkg, {
+    generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
         dependencies: {
             'request': '^2.79.0',
             'vsts-task-lib': '^1.1.0'
@@ -57,6 +65,4 @@ export const scaffoldVSTSTask = (generator: yeoman, templateRoot: string, extens
             '@types/request': '^0.0.36'
         }
     });
-
-    generator.fs.writeJSON(path.join(generator.destinationRoot(), 'package.json'), pkg);
 };

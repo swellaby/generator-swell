@@ -11,24 +11,36 @@ import yosay = require('yosay');
 import yeoman = require('yeoman-generator');
 
 import inputConfig = require('./input-config');
+import pathHelpers = require('./path-helpers');
 import vsts = require('./vsts');
 
-const templateRoot = path.join(__dirname, 'templates');
-const boilerplateRoot = path.join(templateRoot, 'boilerplate');
-const vstsCommonRoot = path.join(templateRoot, 'vsts-common');
-const vstsRoot = path.join(templateRoot, 'vsts-task');
-const chatbotRoot = path.join(templateRoot, 'chatbot');
-const expressRoot = path.join(templateRoot, 'express-api');
-const vscodeRoot = path.join(templateRoot, 'vscode');
-
+/**
+ * The Swellaby Generator Class
+ *
+ * @class SwellabyGenerator
+ * @extends {yeoman}
+ */
 class SwellabyGenerator extends yeoman {
     // tslint:disable-next-line:no-any
     private extensionConfig: any;
 
+    /**
+     *
+     *
+     *
+     * @memberOf SwellabyGenerator
+     */
     public initializing() {
         this.log(yosay('Welcome to the Swellaby Generator!'));
     }
 
+    /**
+     *
+     *
+     * @returns
+     *
+     * @memberOf SwellabyGenerator
+     */
     public prompting() {
         // tslint:disable-next-line:no-any
         return this.prompt(inputConfig.prompts).then((extensionConfig: any) => {
@@ -36,6 +48,12 @@ class SwellabyGenerator extends yeoman {
         });
     }
 
+    /**
+     *
+     *
+     *
+     * @memberOf SwellabyGenerator
+     */
     // tslint:disable-next-line:max-func-body-length
     public writing() {
         this._writingBoilerplate();
@@ -59,7 +77,7 @@ class SwellabyGenerator extends yeoman {
                 break;
 
             case inputConfig.vstsTaskPromptValue:
-                vsts.scaffoldVSTSTask(this, templateRoot, this.extensionConfig);
+                vsts.scaffoldVSTSTask(this, this.extensionConfig);
                 break;
 
             case inputConfig.chatbotPromptValue:
@@ -68,6 +86,12 @@ class SwellabyGenerator extends yeoman {
         }
     }
 
+    /**
+     *
+     *
+     *
+     * @memberOf SwellabyGenerator
+     */
     public install() {
         const installDependencies = this.extensionConfig.installDependencies;
 
@@ -79,6 +103,13 @@ class SwellabyGenerator extends yeoman {
         }
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _validateDirectoryName() {
         const appName = this.extensionConfig.appName;
 
@@ -91,6 +122,13 @@ class SwellabyGenerator extends yeoman {
         }
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _validateGitRepository() {
         try {
             const gitPath = path.join(path.resolve(this.destinationRoot()), '.git');
@@ -109,16 +147,30 @@ class SwellabyGenerator extends yeoman {
         }
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _initGitRepo() {
         this.log('I see that you don\'t have a git repo in the target directory. I\'ll initialize it for you now, and then you can add' +
             ' your remote later on via a \'git remote add origin << insert your remote url - like https://github.com/me/my-repo.git >>\'');
         this.spawnCommandSync('git', ['init', '--quiet']);
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _writingBoilerplate() {
         this._validateDirectoryName();
         this._validateGitRepository();
-        this.sourceRoot(boilerplateRoot);
+        this.sourceRoot(pathHelpers.boilerplateRoot);
         const context = this.extensionConfig;
         context.dot = true;
         this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), context);
@@ -129,8 +181,15 @@ class SwellabyGenerator extends yeoman {
         this.fs.move(path.join(destRoot, 'eslintrc.js'), path.join(destRoot, '.eslintrc.js'));
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _writingVsCode() {
-        this.sourceRoot(vscodeRoot);
+        this.sourceRoot(pathHelpers.vscodeRoot);
         const context = this.extensionConfig;
         context.dot = true;
         this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot() + '/.vscode', context);
@@ -144,13 +203,27 @@ class SwellabyGenerator extends yeoman {
         this.fs.writeJSON(path.join(this.destinationRoot(), '.vscode/launch.json'), launch);
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _writingCli() {
         this.log(yosay('New CLI coming'));
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _writingExpress() {
         this.log(yosay('Super API underway'));
-        this.sourceRoot(expressRoot);
+        this.sourceRoot(pathHelpers.expressRoot);
         const context = this._buildExpressContext();
 
         this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), context);
@@ -173,9 +246,16 @@ class SwellabyGenerator extends yeoman {
         this.fs.move(path.join(this.destinationRoot(), 'dockerignore'), path.join(this.destinationRoot(), '.dockerignore'));
     }
 
+    /**
+     *
+     *
+     * @private
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _writingChatbotTask() {
         this.log(yosay('Engage users in new channels with a Chatbot'));
-        this.sourceRoot(chatbotRoot);
+        this.sourceRoot(pathHelpers.chatbotRoot);
         const context = this._buildExpressContext();
 
         this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), context);
@@ -194,6 +274,14 @@ class SwellabyGenerator extends yeoman {
         this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
     }
 
+    /**
+     *
+     *
+     * @private
+     * @returns
+     *
+     * @memberOf SwellabyGenerator
+     */
     private _buildExpressContext() {
         const context = this.extensionConfig;
         context.dot = true;
