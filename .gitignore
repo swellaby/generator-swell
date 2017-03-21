@@ -12,6 +12,6 @@ npm-debug*
 **/testresults/
 
 generators/**/*.js*
-test/unit/**/*.js*
+test/**/*.js*
 !generators/app/templates/**/*.js
 !generators/app/templates/**/*.json
