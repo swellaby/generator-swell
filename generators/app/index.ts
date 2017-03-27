@@ -10,6 +10,7 @@ import uuid = require('uuid');
 import yosay = require('yosay');
 import yeoman = require('yeoman-generator');
 
+import chatbot = require('./chatbot');
 import inputConfig = require('./input-config');
 import pathHelpers = require('./path-helpers');
 import vsts = require('./vsts');
@@ -22,7 +23,11 @@ import vsts = require('./vsts');
  */
 class SwellabyGenerator extends yeoman {
     // tslint:disable-next-line:no-any
-    private extensionConfig: any;
+    public extensionConfig: any;
+
+    constructor(args: string | string[], options: {}) {
+        super(args, options);
+    }
 
     /**
      *
@@ -77,11 +82,11 @@ class SwellabyGenerator extends yeoman {
                 break;
 
             case inputConfig.vstsTaskPromptValue:
-                vsts.scaffoldVSTSTask(this, this.extensionConfig);
+                vsts.scaffoldVSTSTaskProject(this, this.extensionConfig);
                 break;
 
             case inputConfig.chatbotPromptValue:
-                this._writingChatbotTask();
+                chatbot.scaffoldChatbotProject(this, this.extensionConfig);
                 break;
         }
     }
@@ -250,34 +255,6 @@ class SwellabyGenerator extends yeoman {
      *
      *
      * @private
-     *
-     * @memberOf SwellabyGenerator
-     */
-    private _writingChatbotTask() {
-        this.log(yosay('Engage users in new channels with a Chatbot'));
-        this.sourceRoot(pathHelpers.chatbotRoot);
-        const context = this._buildExpressContext();
-
-        this.fs.copyTpl(this.sourceRoot() + '/**/*', this.destinationRoot(), context);
-
-        const pkg = this.fs.readJSON(path.join(this.destinationRoot(), 'package.json'), {});
-        extend(pkg, {
-            dependencies: {
-                'botbuilder': '^3.4.4',
-                'restify': '^4.3.0'
-            },
-            devDependencies: {
-                '@types/restify': '^2.0.35'
-            }
-        });
-
-        this.fs.writeJSON(path.join(this.destinationRoot(), 'package.json'), pkg);
-    }
-
-    /**
-     *
-     *
-     * @private
      * @returns
      *
      * @memberOf SwellabyGenerator
@@ -290,4 +267,5 @@ class SwellabyGenerator extends yeoman {
         return context;
     }
 }
+
 export = SwellabyGenerator;

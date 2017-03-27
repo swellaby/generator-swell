@@ -42,7 +42,7 @@ const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => 
  * @param {JSON} extensionConfig - The configuration specified for generation.
  */
 // tslint:disable-next-line:no-any
-export const scaffoldVSTSTask = (generator: YeomanGenerator, extensionConfig: any) => {
+export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionConfig: any) => {
     if (!generator || !extensionConfig) {
         console.error('Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
             'Task project :( The VSTS files were not added to the project.');

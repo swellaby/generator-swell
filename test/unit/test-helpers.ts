@@ -2,6 +2,7 @@
 
 import path = require('path');
 import yeoman = require('yeoman-generator');
+import SwellabyGenerator = require('../../generators/app/index');
 
 export const generatorRoot = path.join(__dirname, './../../../generators/app');
 
@@ -13,11 +14,11 @@ const fs: yeoman.MemFsEditor = {
     delete: null,
     exists: null,
     extendJSON: () => { return null; },
-    move: null,
+    move: () => { return null; },
     read: null,
-    readJSON: null,
+    readJSON: () => { return null; },
     write: null,
-    writeJSON: null
+    writeJSON: () => { return null; }
 };
 export const generatorStub: yeoman = {
     env: 'foo',
@@ -70,3 +71,19 @@ export const generatorStub: yeoman = {
     yarnInstall: null
 };
 
+// export const swellabyGeneratorStub: SwellabyGenerator = {
+//     extensionConfig: {},
+//     initializing: () => { return null; },
+//     prompting: () => { return null; },
+//     writing: () => { return null; },
+//     install: () => { return null; },
+//      _validateDirectoryName: () => { return null; },
+//     _buildExpressContext: () => { return null; },
+//     _initGitRepo: () => { return null; },
+//     _validateGitRepository: () => { return null; },
+//     _writingBoilerplate: () => { return null; },
+//     _writingChatbotTask: () => { return null; },
+//     _writingCli: () => { return null; },
+//     _writingExpress: () => { return null; },
+//     _writingVsCode: () => { return null; }
+// };

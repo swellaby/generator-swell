@@ -6,6 +6,9 @@ import chai = require('chai');
 import inputConfig = require('./../../../generators/app/input-config');
 const assert = chai.assert;
 
+/**
+ * Contains unit tests for the input configuration for the user prompts.
+ */
 suite('Input Config Suite:', () => {
     let sandbox;
     const expectedNumPrompts = 6;
