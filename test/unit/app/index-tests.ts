@@ -6,8 +6,7 @@
 // import YeomanGenerator = require('yeoman-generator');
 
 // import testHelpers = require('./../../test-helpers');
-// import inputConfig = require('./../../../generators/app/input-config');
-// import SwellabyGenerator = require('./../../../generators/app/index');
+// import inputConfig = require('./../../../generators/app/input-config');// import SwellabyGenerator = require('./../../../generators/app/index');
 
 // const assert = Chai.assert;
 
@@ -18,7 +17,6 @@
 //     const sandbox = Sinon.sandbox.create();
 //     let index: SwellabyGenerator;
 //     let swellabyGeneratorInitStub: Sinon.SinonStub;
-
 //     setup(() => {
 //         // // swellabyGeneratorInitStub = sandbox.stub(() => {
 //         // //     return Sinon.createStubInstance(SwellabyGenerator);

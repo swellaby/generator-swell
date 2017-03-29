@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var sourceMaps = require ('gulp-sourcemaps');
+var sourceMaps = require('gulp-sourcemaps');
 var tsc = require('gulp-typescript');
 var gulpConfig = require('./../gulp-config');
 

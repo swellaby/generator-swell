@@ -27,6 +27,7 @@ When reporting issues, always include:
 * The output of `node --version`.
 * The output of `npm --version`.
 * The output of `yo --version`.
+* The version of the swellaby generator you are using (if you are unsure how to do this: `npm install -g get-pkg-version && get-pkg-version generator-swell`)
 * Your Operating System  
 * As detailed steps as possible to recreate the issue  
 
