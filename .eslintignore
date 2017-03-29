@@ -1,6 +1,6 @@
 node_modules
 coverage
 testresults
-test/unit/app/**/*.js
+test/**/*.js
 generators/app/**/*.js
-!generators/app/templates/
+generators/app/templates/

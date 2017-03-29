@@ -27,13 +27,12 @@ module.exports = {
     javascriptUnitTests: testRoot + '/unit/**/*.js',
     allTypescript: [
         srcRoot + '/**/*.ts',
-        testRoot + '/**/*-tests.ts',
+        testRoot + '/**/*.ts',
         typescriptDefinitions,
         notTemplates
     ],
     appTypescript: [
         srcRoot + '/**/*.ts',
-        testRoot + '/**/*-tests.ts',
         notTemplates
     ],
     typescriptCompilerOptions: tsconfig

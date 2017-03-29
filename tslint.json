@@ -62,7 +62,7 @@
     ],
     "max-func-body-length": [
       true,
-      25,
+      30,
       {
         "ignore-parameters-to-function-regex": "describe|suite"
       }

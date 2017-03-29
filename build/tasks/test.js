@@ -22,7 +22,7 @@ gulp.task('pre-unit-tests', ['transpile'], function() {
         .pipe(istanbul.hookRequire());
 });
 
-gulp.task('run-unit-tests', ['pre-unit-tests','eslint'], function(cb) {
+gulp.task('run-unit-tests', ['pre-unit-tests', 'eslint'], function(cb) {
     gulp.src(gulpConfig.javascriptUnitTests)
         .pipe(mocha({
             ui: mochaConfig.unitTestMochaInterface,
@@ -30,10 +30,13 @@ gulp.task('run-unit-tests', ['pre-unit-tests','eslint'], function(cb) {
             reporter: mochaConfig.unitTestReporter,
             reporterOptions: mochaConfig.unitTestReporterOptions
         }))
+        .on('error', function (err) {
+            console.error(err);
+        })
         .pipe(istanbul.writeReports({
             reporters: istanbulConfig.reporters,
             dir: istanbulConfig.unitTestCoverageDirectory
-        }))
+        }))        
         .on('end', cb);
 });
 
@@ -58,7 +61,7 @@ gulp.task('enforce-code-coverage', ['run-unit-tests'], function() {
     ));
 });
 
-gulp.task('show-unittest-coverage-report', ['run-unit-tests'], function() {
+gulp.task('show-unit-test-coverage-report', ['run-unit-tests'], function() {
     return gulp.src(istanbulConfig.unitTestCoverageReportHtmlFile)
         .pipe(browserOpen());
 });
