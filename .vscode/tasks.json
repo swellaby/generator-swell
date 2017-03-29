@@ -12,6 +12,24 @@
             ]
         },
         {
+            "taskName": "clean",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "clean"
+            ]
+        },
+        {
+            "taskName": "lint",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "lint"
+            ]
+        },
+        {
             "taskName": "build",
             "args": [
                 "npm",
@@ -31,12 +49,12 @@
             "problemMatcher": "$tsc"
         },
         {
-            "taskName": "clean",
+            "taskName": "unit test coverage",
             "suppressTaskName": true,
             "args": [
                 "npm",
                 "run",
-                "clean"
+                "show-unit-test-coverage"
             ]
         },
         {

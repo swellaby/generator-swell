@@ -1,5 +1,6 @@
 'use strict';
 
+import fs = require('fs');
 import path = require('path');
 import yeoman = require('yeoman-generator');
 import SwellabyGenerator = require('../../generators/app/index');
@@ -7,7 +8,7 @@ import SwellabyGenerator = require('../../generators/app/index');
 export const generatorRoot = path.join(__dirname, './../../../generators/app');
 
 const storage: yeoman.Storage = null;
-const fs: yeoman.MemFsEditor = {
+const fsStats: yeoman.MemFsEditor = {
     commit: null,
     copy: null,
     copyTpl: () => { return null; },
@@ -27,7 +28,7 @@ export const generatorStub: yeoman = {
     description: 'foo',
     appname: 'foo',
     config: storage,
-    fs: fs,
+    fs: fsStats,
     options: null,
     log: () => { return null; },
     argument: null,
@@ -36,7 +37,7 @@ export const generatorStub: yeoman = {
     destinationRoot: () => { return __dirname; },
     determineAppname: null,
     option: null,
-    prompt: null,
+    prompt: () => { return Promise.prototype; },
     registerTransformStream: null,
     rootGeneratorName: null,
     rootGeneratorVersion: null,
@@ -57,7 +58,7 @@ export const generatorStub: yeoman = {
     installDependencies: null,
     listenerCount: null,
     listeners: null,
-    npmInstall: null,
+    npmInstall: () => { return null; },
     on: null,
     once: null,
     prependListener: null,
@@ -67,9 +68,33 @@ export const generatorStub: yeoman = {
     runInstall: null,
     setMaxListeners: null,
     spawnCommand: null,
-    spawnCommandSync: null,
+    spawnCommandSync: () => { return null; },
     yarnInstall: null
 };
+
+export const fsStatStub: fs.Stats = {
+    atime: null,
+    birthtime: null,
+    blksize: null,
+    blocks: null,
+    ctime: null,
+    dev: null,
+    gid: null,
+    ino: null,
+    isBlockDevice: () => { return null; },
+    isCharacterDevice: () => { return null; },
+    isDirectory: () => { return null; },
+    isFIFO: () => { return null; },
+    isFile: () => { return null; },
+    isSocket: () => { return null; },
+    isSymbolicLink: () => { return null; },
+    mode: null,
+    mtime: null,
+    nlink: null,
+    rdev: null,
+    size: null,
+    uid: null
+}
 
 // export const swellabyGeneratorStub: SwellabyGenerator = {
 //     extensionConfig: {},
