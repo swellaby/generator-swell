@@ -16,20 +16,34 @@ const assert = Chai.assert;
  */
 suite('Boilerplate Tests:', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
-    const descriptionMessage = 'A new task to make a great platform even better';
     let consoleErrorSpy: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
     const generatorRoot = path.join(__dirname, './../../../generators/app');
-    const vstsAppName = 'vsts task';
-    const appType = inputConfig.vstsTaskPromptValue;
-    const appDescription = 'this is an awesome vsts task';
-    const extensionConfig = { appName: vstsAppName, description: appDescription, appType: appType};
+    const extensionConfig = {
+        appName: 'asdf',
+        description: 'words',
+        type: 'doesnt matter',
+        dot: false
+    };
+    const sourceRootBase = 'templates/boilerplate';
+    const sourceRoot = sourceRootBase + '/**/*';
+    const destRoot = 'asde';
     const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to scaffold the ' +
-        'boilerplate content :( The boilerplate files were not added to the project.'
+        'boilerplate content :( The boilerplate files were not added to the project.';
+    let generatorSourceRootStub: Sinon.SinonStub;
+    let generatorFsCopyTplStub: Sinon.SinonStub;
+    let generatorDestinationRootStub: Sinon.SinonStub;
 
     setup(() => {
         consoleErrorSpy = sandbox.stub(console, 'error');
         generatorStub = testHelpers.generatorStub;
+        generatorSourceRootStub = sandbox.stub(generatorStub, 'sourceRoot').callsFake(() => {
+            return sourceRootBase;
+        });
+        generatorFsCopyTplStub = sandbox.stub(generatorStub.fs, 'copyTpl');
+        generatorDestinationRootStub = sandbox.stub(generatorStub, 'destinationRoot').callsFake(() => {
+            return destRoot;
+        });
     });
     teardown(() => {
         sandbox.restore();
