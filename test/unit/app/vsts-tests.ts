@@ -57,8 +57,7 @@ suite('VSTS Project Tests:', () => {
         sandbox.restore();
     });
 
-    suite('VSTS Task Option Tests:', () => {
-        const generatorRoot = path.join(__dirname, './../../../generators/app');
+    suite('ScaffoldVSTSTaskProject Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = inputConfig.vstsTaskPromptValue;
         const appDescription = 'this is an awesome vsts task';
