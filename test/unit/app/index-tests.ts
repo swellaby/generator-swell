@@ -1,11 +1,12 @@
 'use strict';
 
+// tslint:disable:no-var-requires
 import Chai = require('chai');
-var FileEditor = require('mem-fs-editor');
-var findUp = require('find-up');
+const fileEditor = require('mem-fs-editor');
+const findUp = require('find-up');
 import path = require('path');
 import Sinon = require('sinon');
-var YeomanEnvironment = require('yeoman-environment');
+const yeomanEnvironment = require('yeoman-environment');
 import YeomanGenerator = require('yeoman-generator');
 
 import Index = require('././../../../generators/app/index');
@@ -42,8 +43,8 @@ suite('Index Tests:', () => {
     };
 
     setup(() => {
-        yeomanEnvironmentForceUpdate = sandbox.stub(YeomanEnvironment, 'enforceUpdate');
-        fileEditorCreateStub = sandbox.stub(FileEditor, 'create');
+        yeomanEnvironmentForceUpdate = sandbox.stub(yeomanEnvironment, 'enforceUpdate');
+        fileEditorCreateStub = sandbox.stub(fileEditor, 'create');
         findUpSyncStub = sandbox.stub(findUp, 'sync');
         generatorOptionStub = sandbox.stub(YeomanGenerator.prototype, 'option');
         generatorDetermineAppNameStub = sandbox.stub(YeomanGenerator.prototype, 'determineAppname');
