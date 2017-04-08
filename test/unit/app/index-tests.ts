@@ -1,11 +1,11 @@
 'use strict';
 
 import Chai = require('chai');
-import FileEditor = require('mem-fs-editor');
-import findUp = require('find-up');
+var FileEditor = require('mem-fs-editor');
+var findUp = require('find-up');
 import path = require('path');
 import Sinon = require('sinon');
-import YeomanEnvironment = require('yeoman-environment');
+var YeomanEnvironment = require('yeoman-environment');
 import YeomanGenerator = require('yeoman-generator');
 
 import Index = require('././../../../generators/app/index');
@@ -28,7 +28,7 @@ suite('Index Tests:', () => {
     let generatorOptionStub: Sinon.SinonStub;
     let generatorDetermineAppNameStub: Sinon.SinonStub;
     let generatorGetStorageStub: Sinon.SinonStub;
-    let generatorGetGlobalSTorageStub: Sinon.SinonStub;
+    let generatorGetGlobalStorageStub: Sinon.SinonStub;
     let generatorSourceRootStub: Sinon.SinonStub;
     let pathJoinStub: Sinon.SinonStub;
     let pathDirnameStub: Sinon.SinonStub;
@@ -48,7 +48,7 @@ suite('Index Tests:', () => {
         generatorOptionStub = sandbox.stub(YeomanGenerator.prototype, 'option');
         generatorDetermineAppNameStub = sandbox.stub(YeomanGenerator.prototype, 'determineAppname');
         generatorGetStorageStub = sandbox.stub(YeomanGenerator.prototype, '_getStorage');
-        generatorGetGlobalSTorageStub = sandbox.stub(YeomanGenerator.prototype, '_getGlobalStorage');
+        generatorGetGlobalStorageStub = sandbox.stub(YeomanGenerator.prototype, '_getGlobalStorage');
         generatorSourceRootStub = sandbox.stub(YeomanGenerator.prototype, 'sourceRoot');
         pathJoinStub = sandbox.stub(path, 'join');
         pathDirnameStub = sandbox.stub(path, 'dirname');
