@@ -18,7 +18,7 @@ const assert = Chai.assert;
  */
 suite('Chatbot Tests:', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
-    let consoleErrorSpy: Sinon.SinonSpy;
+    let consoleErrorStub: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
     let generatorLogStub: Sinon.SinonStub;
     let generatorSourceRootStub: Sinon.SinonStub;
@@ -32,7 +32,7 @@ suite('Chatbot Tests:', () => {
     const packageJson = destRoot + '/package.json';
 
     setup(() => {
-        consoleErrorSpy = sandbox.stub(console, 'error');
+        consoleErrorStub = sandbox.stub(console, 'error');
         generatorStub = testHelpers.generatorStub;
         generatorLogStub = sandbox.stub(generatorStub, 'log');
         generatorSourceRootStub = sandbox.stub(generatorStub, 'sourceRoot').callsFake(() => {
@@ -62,62 +62,57 @@ suite('Chatbot Tests:', () => {
 
         test('Should display an error message when the generator is null and the extension config is null', () => {
             chatbot.scaffoldChatbotProject(null, null);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is null and the extension config is undefined', () => {
             chatbot.scaffoldChatbotProject(null, undefined);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is null and the extension config is empty', () => {
             chatbot.scaffoldChatbotProject(null, {});
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is null and the extension config is valid', () => {
             chatbot.scaffoldChatbotProject(null, extensionConfig);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is null', () => {
             chatbot.scaffoldChatbotProject(undefined, null);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is undefined', () => {
             chatbot.scaffoldChatbotProject(undefined, undefined);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is empty', () => {
             chatbot.scaffoldChatbotProject(undefined, {});
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is valid', () => {
             chatbot.scaffoldChatbotProject(undefined, extensionConfig);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
         test('Should display an error message when the generator is valid and the extension config is null', () => {
             chatbot.scaffoldChatbotProject(generatorStub, null);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is valid and the extension config is undefined', () => {
             chatbot.scaffoldChatbotProject(generatorStub, undefined);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should succeed when the generator is valid and the extension config is empty', () => {
             chatbot.scaffoldChatbotProject(generatorStub, {});
-            assert.isFalse(consoleErrorSpy.called);
+            assert.isFalse(consoleErrorStub.called);
             assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
-        });
-
-        test('Should succeed when the generator is valid and the extension config is valid', () => {
-            chatbot.scaffoldChatbotProject(generatorStub, extensionConfig);
-            assert.isFalse(consoleErrorSpy.called);
         });
 
         test('Should scaffold the Chatbot content when the generator and config are valid', () => {
