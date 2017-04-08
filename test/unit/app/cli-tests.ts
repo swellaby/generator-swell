@@ -4,10 +4,12 @@ import Chai = require('chai');
 import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
+import yosay = require('yosay');
 
-import testHelpers = require('./../test-helpers');
-import inputConfig = require('./../../../generators/app/input-config');
 import cli = require('./../../../generators/app/cli');
+import inputConfig = require('./../../../generators/app/input-config');
+import pathHelpers = require('./../../../generators/app/path-helpers');
+import testHelpers = require('./../test-helpers');
 
 const assert = Chai.assert;
 
@@ -16,26 +18,32 @@ const assert = Chai.assert;
  */
 suite('CLI Project Tests:', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
-    const descriptionMessage = 'A new task to make a great platform even better';
     let consoleErrorSpy: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
+    let generatorLogStub: Sinon.SinonStub;
 
     setup(() => {
         consoleErrorSpy = sandbox.stub(console, 'error');
         generatorStub = testHelpers.generatorStub;
+        generatorLogStub = sandbox.stub(generatorStub, 'log');
     });
     teardown(() => {
         sandbox.restore();
     });
 
-    suite('CLI Option Tests:', () => {
-        const generatorRoot = path.join(__dirname, './../../../generators/app');
-        const vstsAppName = 'vsts task';
-        const appType = inputConfig.vstsTaskPromptValue;
-        const appDescription = 'this is an awesome vsts task';
-        const extensionConfig = { appName: vstsAppName, description: appDescription, appType: appType};
+    /**
+     * Contains unit tests for the scaffoldCliProject function.
+     */
+    suite('scaffoldCliProject Tests:', () => {
+        const extensionConfig = {
+            appName: 'a',
+            description: 'abc',
+            type: inputConfig.cliPromptValue,
+            dot: false
+        };
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new CLI ' +
-            'project :( The CLI files were not added to the project.'
+            'project :( The CLI files were not added to the project.';
+        const descriptionMessage = 'New CLI coming... but not yet. The CLI Project is not yet supported';
 
         test('Should display an error message when the generator is null and the extension config is null', () => {
             cli.scaffoldCliProject(null, null);
@@ -89,11 +97,13 @@ suite('CLI Project Tests:', () => {
         test('Should succeed when the generator is valid and the extension config is empty', () => {
             cli.scaffoldCliProject(generatorStub, {});
             assert.isFalse(consoleErrorSpy.called);
+            assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
         });
 
         test('Should succeed when the generator is valid and the extension config is valid', () => {
             cli.scaffoldCliProject(generatorStub, extensionConfig);
             assert.isFalse(consoleErrorSpy.called);
+            assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
         });
     });
 });

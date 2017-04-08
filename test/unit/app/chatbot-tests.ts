@@ -49,7 +49,10 @@ suite('Chatbot Tests:', () => {
         sandbox.restore();
     });
 
-    suite('ScaffoldChatbotProject Tests:', () => {
+    /**
+     * Contains unit tests for the scaffoldChatbotProject function.
+     */
+    suite('scaffoldChatbotProject Tests:', () => {
          const extensionConfig = {
             appName: 'a',
             description: 'abc',

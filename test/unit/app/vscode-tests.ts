@@ -66,7 +66,10 @@ suite('VS Code Tests:', () => {
         sandbox.restore();
     });
 
-    suite('ScaffoldVSCodeContent Tests:', () => {
+    /**
+     * Contains unit tests for the scaffoldVSCodeContent function.
+     */
+    suite('scaffoldVSCodeContent Tests:', () => {
         test('Should display an error message when the generator is null and the extension config is null', () => {
             vscode.scaffoldVSCodeContent(null, null);
             assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));

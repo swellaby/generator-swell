@@ -19,7 +19,6 @@ suite('Boilerplate Tests:', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
     let consoleErrorStub: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
-    const generatorRoot = path.join(__dirname, './../../../generators/app');
     const extensionConfig = {
         appName: 'asdf',
         description: 'words',
@@ -75,7 +74,10 @@ suite('Boilerplate Tests:', () => {
         sandbox.restore();
     });
 
-    suite('ScaffoldBoilerplateContent Tests:', () => {
+    /**
+     * Contains unit tests for the scaffoldBoilerplateContent function.
+     */
+    suite('scaffoldBoilerplateContent Tests:', () => {
         test('Should display an error message when the generator is null and the config is null', () => {
             boilerplate.scaffoldBoilerplateContent(null, null);
             assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));

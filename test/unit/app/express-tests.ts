@@ -52,7 +52,7 @@ suite('Express Project Tests:', () => {
         sandbox.restore();
     });
 
-    suite('ScaffoldExpressApiProject Tests:', () => {
+    suite('scaffoldExpressApiProject Tests:', () => {
         const extensionConfig = {
             appName: 'e',
             description: 'api',
@@ -120,11 +120,6 @@ suite('Express Project Tests:', () => {
             express.scaffoldExpressApiProject(generatorStub, {});
             assert.isFalse(consoleErrorStub.called);
             assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
-        });
-
-        test('Should succeed when the generator is valid and the extension config is valid', () => {
-            express.scaffoldExpressApiProject(generatorStub, extensionConfig);
-            assert.isFalse(consoleErrorStub.called);
         });
 
         test('Should scaffold express api content when generator and config are valid', () => {

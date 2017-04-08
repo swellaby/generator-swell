@@ -57,7 +57,10 @@ suite('VSTS Project Tests:', () => {
         sandbox.restore();
     });
 
-    suite('ScaffoldVSTSTaskProject Tests:', () => {
+    /**
+     * Contains unit tests for the scaffoldVSTSTaskProject function.
+     */
+    suite('scaffoldVSTSTaskProject Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = inputConfig.vstsTaskPromptValue;
         const appDescription = 'this is an awesome vsts task';
