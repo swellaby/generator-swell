@@ -1,5 +1,9 @@
 'use strict';
 
+import path = require('path');
+
+export const generatorRoot = path.join(__dirname, './../../generators/app');
+
 export const boilerplateFiles = [
     '.eslintignore',
     '.gitignore',
