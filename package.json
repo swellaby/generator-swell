@@ -54,6 +54,7 @@
     "lint": "gulp tslint eslint",
     "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
     "test": "gulp enforce-code-coverage check-security",
+    "component-test": "gulp run-component-integration-tests",
     "transpile": "gulp transpile",
     "validate": "npm ls",
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
