@@ -20,6 +20,11 @@ engines:
     - 1cb770af6b97b855d40b8ee44cf15388
     # duplication in tests
     - 84efdc0a2f77ae85c711930f0c359c12
+    # gulp tasks for unit vs component tests
+    - f8177affa3e5e9ffbedecb408ff57288
+    - 58e16481760d5542bcdbc5482f9898f6
+    - 495c562a25c81b97b22bf6d87b849681
+    - 1a3e55e186eabbc236deba99cbfd92a9
     
     config:
       languages:
