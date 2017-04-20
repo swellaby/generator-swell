@@ -8,6 +8,10 @@ const expressApiPromptValue = 'express-api';
 const vstsTaskPromptValue = 'vsts-task';
 const chatbotPromptValue = 'chatbot';
 
+const isExpressApiProject = (response) => {
+    return response['type'] === expressApiPromptValue;
+};
+
 const prompts: inquirer.Question[] = [
     {
         type: 'input',
@@ -54,9 +58,7 @@ const prompts: inquirer.Question[] = [
         default: true
     },
     {
-        when: (response) => {
-            return response['type'] === expressApiPromptValue;
-        },
+        when: isExpressApiProject,
         type: 'input',
         name: 'dockerUser',
         message: 'What is your Docker Hub User Id?',
@@ -76,5 +78,6 @@ export = {
     cliPromptValue: cliPromptValue,
     chatbotPromptValue: chatbotPromptValue,
     expressApiPromptValue: expressApiPromptValue,
-    vstsTaskPromptValue: vstsTaskPromptValue
+    vstsTaskPromptValue: vstsTaskPromptValue,
+    isExpressApiProject: isExpressApiProject
 }

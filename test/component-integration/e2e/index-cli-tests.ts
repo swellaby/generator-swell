@@ -4,16 +4,16 @@ import fs = require('fs');
 import helpers = require('yeoman-test');
 import path = require('path');
 import Sinon = require('sinon');
-
-import YeomanGenerator = require('yeoman-generator');
 import yeomanAssert = require('yeoman-assert');
+import YeomanGenerator = require('yeoman-generator');
+
 import inputConfig = require('./../../../generators/app/input-config');
 import testHelpers = require('./../test-helpers');
 
 /**
- * Contains component integration tests from the index entry point to the functions in chatbot.ts
+ * Contains component integration tests from the index entry point to the functions in cli.ts
  */
-suite('Index/Chatbot Project Component Integration Tests:', () => {
+suite('Index/CLI Project Component Integration Tests:', () => {
     let sandbox: Sinon.SinonSandbox;
     let gitInitCommandStub: Sinon.SinonStub;
     let npmInstallCommandStub: Sinon.SinonStub;
@@ -30,85 +30,72 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    suite('Chatbot Option Tests:', () => {
-        const chatbotAppName = 'chatbot app';
-        const appType = inputConfig.chatbotPromptValue;
-        const appDescription = 'brand new chatbot';
-        const chatbotFiles = [
-            './src/bot.ts',
-            './src/config.ts',
-            './src/console.ts',
-            './src/server.ts',
-            './src/dialogs/dialog-base.ts',
-            './src/dialogs/sample.ts'
-        ];
+    suite('CLI Option Tests: ', () => {
+        const cliAppName = 'cli app';
+        const appType = inputConfig.cliPromptValue;
+        const appDescription = 'this is a test description';
 
         suiteSetup(() => {
             return helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: chatbotAppName,
+                    appName: cliAppName,
                     description: appDescription,
-                    type: appType,
-                    vscode: true
+                    type: appType
                 })
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the Chatbot option is selected', () => {
+        test('Should create all the correct boilerplate files when the CLI option is selected', () => {
             yeomanAssert.file(testHelpers.boilerplateFiles);
         });
 
-        test('Should create all the correct express files when the Chatbot option is selected', () => {
-            yeomanAssert.file(chatbotFiles);
-        });
-
-        test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
-            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + chatbotAppName);
+        test('Should inject the App Name into the README.md file when the CLI option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + cliAppName);
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from'
-            + 'the current directory with the Chatbot option', (done) => {
+            + 'the current directory with the CLI option', (done) => {
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: chatbotAppName,
+                        appName: cliAppName,
                         description: appDescription,
-                        type: inputConfig.chatbotPromptValue
+                        type: inputConfig.cliPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), chatbotAppName);
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
+                        yeomanAssert.equal(path.basename(process.cwd()), cliAppName);
+                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, cliAppName));
                         done();
                     });
         });
 
-        test('Should scaffold into the current directory when the specified app name matches the current directory'
-            + 'name with the Chatbot option', (done) => {
+        test('Should scaffold into the current directory when the specified app name matches the current'
+            + 'directory name with the CLI option', (done) => {
                 sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                    return path.join(process.cwd(), chatbotAppName);
+                    return path.join(process.cwd(), cliAppName);
                 });
 
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: chatbotAppName,
+                        appName: cliAppName,
                         description: appDescription,
-                        type: inputConfig.chatbotPromptValue
+                        type: inputConfig.cliPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
                         yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
                         yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        yeomanAssert.noFile(path.join(process.cwd(), chatbotAppName));
+                        yeomanAssert.noFile(path.join(process.cwd(), cliAppName));
                         done();
                     });
         });
 
-        test('Should install dependencies if user confirms with the Chatbot option selected', (done) => {
+        test('Should install dependencies if user confirms with the CLI option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: chatbotAppName,
+                    appName: cliAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.cliPromptValue,
                     installDependencies: true
                 })
                 .toPromise()
@@ -119,12 +106,12 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                 });
         });
 
-        test('Should not install dependencies if user declines with the Chatbot option selected', (done) => {
+        test('Should not install dependencies if user declines with the CLI option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: chatbotAppName,
+                    appName: cliAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.cliPromptValue,
                     installDependencies: false
                 })
                 .toPromise()
@@ -139,16 +126,16 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
             yeomanAssert.file(testHelpers.vsCodeFiles);
         });
 
-        test('Should set VS Code debug program correctly for chatbot app', () => {
-            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/server.ts"');
+        test('Should set VS Code debug program correctly for CLI app', () => {
+            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${file}"');
         });
 
         test('Should not add VS Code files if the user declines the vscode option', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: 'fo',
+                    appName: 'fdfdsfo',
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.cliPromptValue,
                     vscode: false
                 })
                 .toPromise()

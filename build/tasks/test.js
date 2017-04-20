@@ -113,11 +113,6 @@ gulp.task('enforce-component-integration-testcode-coverage', ['run-component-int
     ));
 });
 
-gulp.task('show-unit-test-coverage-report', ['run-unit-tests'], function() {
-    return gulp.src(istanbulConfig.unitTestCoverageReportHtmlFile)
-        .pipe(browserOpen());
-});
-
 gulp.task('show-component-integration-test-coverage-report', ['run-component-integration-tests'], function() {
     return gulp.src(istanbulConfig.componentIntegrationTestCoverageReportHtmlFile)
         .pipe(browserOpen());

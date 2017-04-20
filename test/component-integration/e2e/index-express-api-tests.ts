@@ -4,16 +4,16 @@ import fs = require('fs');
 import helpers = require('yeoman-test');
 import path = require('path');
 import Sinon = require('sinon');
-
-import YeomanGenerator = require('yeoman-generator');
 import yeomanAssert = require('yeoman-assert');
+import YeomanGenerator = require('yeoman-generator');
+
 import inputConfig = require('./../../../generators/app/input-config');
 import testHelpers = require('./../test-helpers');
 
 /**
- * Contains component integration tests from the index entry point to the functions in chatbot.ts
+ * Contains component integration tests from the index entry point to the functions in express.ts
  */
-suite('Index/Chatbot Project Component Integration Tests:', () => {
+suite('Index/Express Project Component Integration Tests:', () => {
     let sandbox: Sinon.SinonSandbox;
     let gitInitCommandStub: Sinon.SinonStub;
     let npmInstallCommandStub: Sinon.SinonStub;
@@ -30,85 +30,89 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    suite('Chatbot Option Tests:', () => {
-        const chatbotAppName = 'chatbot app';
-        const appType = inputConfig.chatbotPromptValue;
-        const appDescription = 'brand new chatbot';
-        const chatbotFiles = [
-            './src/bot.ts',
-            './src/config.ts',
-            './src/console.ts',
-            './src/server.ts',
-            './src/dialogs/dialog-base.ts',
-            './src/dialogs/sample.ts'
+    suite('Express API Option Tests:', () => {
+        const expressAppName = 'api app';
+        const appType = inputConfig.expressApiPromptValue;
+        const appDescription = 'brand new express API';
+        const dockerUser = 'testUser';
+        const expressFiles = [
+            '.dockerignore',
+            'build.sh',
+            'Dockerfile',
+            './build/tasks/package.js',
+            './src/app.ts'
         ];
 
         suiteSetup(() => {
             return helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: chatbotAppName,
+                    appName: expressAppName,
                     description: appDescription,
                     type: appType,
-                    vscode: true
+                    dockerUser: dockerUser
                 })
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the Chatbot option is selected', () => {
+        test('Should create all the correct boilerplate files when the Express API option is selected', () => {
             yeomanAssert.file(testHelpers.boilerplateFiles);
         });
 
-        test('Should create all the correct express files when the Chatbot option is selected', () => {
-            yeomanAssert.file(chatbotFiles);
+        test('Should create all the correct express files when the Express API option is selected', () => {
+            yeomanAssert.file(expressFiles);
         });
 
         test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
-            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + chatbotAppName);
+            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + expressAppName);
         });
 
-        test('Should create and scaffold into a new directory if the specified app name differs from'
-            + 'the current directory with the Chatbot option', (done) => {
+        test('Should inject image name correctly into the build.sh file when the Express API option is selected', () => {
+            yeomanAssert.fileContent('build.sh', dockerUser + '/' + expressAppName);
+        });
+
+        test('Should create and scaffold into a new directory if the specified app name differs from the'
+            + 'current directory with the Express API option', (done) => {
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: chatbotAppName,
+                        appName: expressAppName,
                         description: appDescription,
-                        type: inputConfig.chatbotPromptValue
+                        type: inputConfig.expressApiPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), chatbotAppName);
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
+                        yeomanAssert.equal(path.basename(process.cwd()), expressAppName);
+                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
                         done();
                     });
         });
 
-        test('Should scaffold into the current directory when the specified app name matches the current directory'
-            + 'name with the Chatbot option', (done) => {
+        test('Should scaffold into the current directory when the specified app name matches the current'
+            + 'directory name with the Express API option', (done) => {
                 sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                    return path.join(process.cwd(), chatbotAppName);
+                    return path.join(process.cwd(), expressAppName);
                 });
 
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: chatbotAppName,
+                        appName: expressAppName,
                         description: appDescription,
-                        type: inputConfig.chatbotPromptValue
+                        type: inputConfig.expressApiPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
                         yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
                         yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        yeomanAssert.noFile(path.join(process.cwd(), chatbotAppName));
+                        yeomanAssert.noFile(path.join(process.cwd(), expressAppName));
                         done();
                     });
         });
 
-        test('Should install dependencies if user confirms with the Chatbot option selected', (done) => {
+        test('Should install dependencies if user confirms with the Express API option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: chatbotAppName,
+                    appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.expressApiPromptValue,
                     installDependencies: true
                 })
                 .toPromise()
@@ -119,12 +123,12 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                 });
         });
 
-        test('Should not install dependencies if user declines with the Chatbot option selected', (done) => {
+        test('Should not install dependencies if user declines with the Express API option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: chatbotAppName,
+                    appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.expressApiPromptValue,
                     installDependencies: false
                 })
                 .toPromise()
@@ -139,16 +143,16 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
             yeomanAssert.file(testHelpers.vsCodeFiles);
         });
 
-        test('Should set VS Code debug program correctly for chatbot app', () => {
-            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/server.ts"');
+        test('Should set VS Code debug program correctly for Express API app', () => {
+            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/app.ts"');
         });
 
         test('Should not add VS Code files if the user declines the vscode option', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: 'fo',
+                    appName: 'exp-api',
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: inputConfig.expressApiPromptValue,
                     vscode: false
                 })
                 .toPromise()

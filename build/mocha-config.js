@@ -15,7 +15,7 @@ module.exports = {
         }
     },
     unitTestMochaInterface: 'tdd',
-    componentIntegrationTestTimeout: 5000,
+    componentIntegrationTestTimeout: 7500,
     componentIntegrationTestReporter: 'mocha-multi',
     componentIntegrationTestReporterOptions: {
         'xunit': {
