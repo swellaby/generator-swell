@@ -40,7 +40,7 @@
             "isBuildCommand": true
         },
         {
-            "taskName": "test",
+            "taskName": "unit test",
             "args": [
                 "npm",
                 "run",
@@ -55,6 +55,24 @@
                 "npm",
                 "run",
                 "show-unit-test-coverage"
+            ]
+        },
+                {
+            "taskName": "component test",
+            "args": [
+                "npm",
+                "run",
+                "component-test"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "taskName": "component test coverage",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "show-component-integration-test-coverage"
             ]
         },
         {

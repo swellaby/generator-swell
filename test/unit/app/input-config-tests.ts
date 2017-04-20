@@ -221,6 +221,33 @@ suite('Input Config Suite:', () => {
         });
     });
 
+    suite('IsExpressApiProject Tests:', () => {
+        test('Should return false when the project type is boilerplate', () => {
+            const actual = inputConfig.isExpressApiProject({ type: inputConfig.boilerplatePromptValue});
+            assert.deepEqual(actual, false);
+        });
+
+        test('Should return false when the project type is Chatbot', () => {
+            const actual = inputConfig.isExpressApiProject({ type: inputConfig.chatbotPromptValue});
+            assert.deepEqual(actual, false);
+        });
+
+        test('Should return false when the project type is CLI', () => {
+            const actual = inputConfig.isExpressApiProject({ type: inputConfig.cliPromptValue});
+            assert.deepEqual(actual, false);
+        });
+
+        test('Should return false when the project type is VSTS Task', () => {
+            const actual = inputConfig.isExpressApiProject({ type: inputConfig.vstsTaskPromptValue});
+            assert.deepEqual(actual, false);
+        });
+
+        test('Should return true when the project type is Express API', () => {
+            const actual = inputConfig.isExpressApiProject({ type: inputConfig.expressApiPromptValue});
+            assert.deepEqual(actual, true);
+        });
+    });
+
     suite('Install Dependencies Prompt Tests:', () => {
         const prompt = inputConfig.prompts[dependenciesIndex];
         const expectedMessage = 'Do you want me to install dependencies for you?';

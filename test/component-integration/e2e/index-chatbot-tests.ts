@@ -4,25 +4,20 @@ import fs = require('fs');
 import helpers = require('yeoman-test');
 import path = require('path');
 import Sinon = require('sinon');
-import yeomanAssert = require('yeoman-assert');
-import YeomanGenerator = require('yeoman-generator');
 
+import YeomanGenerator = require('yeoman-generator');
+import yeomanAssert = require('yeoman-assert');
 import inputConfig = require('./../../../generators/app/input-config');
 import testHelpers = require('./../test-helpers');
 
 /**
- * Contains component integration tests from the index entry point to the functions in vsts.ts
+ * Contains component integration tests from the index entry point to the functions in chatbot.ts
  */
-suite('Index/VSTS Project Component Integration Tests:', () => {
+suite('Index/Chatbot Project Component Integration Tests:', () => {
     let sandbox: Sinon.SinonSandbox;
     let gitInitCommandStub: Sinon.SinonStub;
     let npmInstallCommandStub: Sinon.SinonStub;
     let installDependenciesCommandStub: Sinon.SinonStub;
-    const vstsCommonFiles = [
-        'extension-icon.png',
-        'OVERVIEW.md',
-        'vss-extension.json'
-    ];
 
     setup(() => {
         sandbox = Sinon.sandbox.create()
@@ -35,89 +30,85 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    suite('VSTS Task Project Tests:', () => {
-        const vstsAppName = 'vsts task';
-        const appType = inputConfig.vstsTaskPromptValue;
-        const appDescription = 'this is an awesome vsts task';
-        const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
-            'Task project :( The VSTS files were not added to the project.';
+    suite('Chatbot Option Tests:', () => {
+        const chatbotAppName = 'chatbot app';
+        const appType = inputConfig.chatbotPromptValue;
+        const appDescription = 'brand new chatbot';
+        const chatbotFiles = [
+            './src/bot.ts',
+            './src/config.ts',
+            './src/console.ts',
+            './src/server.ts',
+            './src/dialogs/dialog-base.ts',
+            './src/dialogs/sample.ts'
+        ];
 
         suiteSetup(() => {
             return helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: vstsAppName,
+                    appName: chatbotAppName,
                     description: appDescription,
-                    type: appType
+                    type: appType,
+                    vscode: true
                 })
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the VSTS option is selected', () => {
+        test('Should create all the correct boilerplate files when the Chatbot option is selected', () => {
             yeomanAssert.file(testHelpers.boilerplateFiles);
         });
 
-        test('Should contain all of the common VSTS files', () => {
-            yeomanAssert.file(vstsCommonFiles);
+        test('Should create all the correct express files when the Chatbot option is selected', () => {
+            yeomanAssert.file(chatbotFiles);
         });
 
-        test('Should create all of the default VSTS Task template files', () => {
-            yeomanAssert.file([
-                'task.json',
-                './src/main.ts',
-                './src/helper.ts',
-                './test/unit/main-tests.ts',
-                './test/unit/helper-tests.ts',
-                './build/tasks/package.js'
-            ]);
+        test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + chatbotAppName);
         });
 
-        test('Should inject the App Name into the README.md file when the VSTS option is selected', () => {
-            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + vstsAppName);
-        });
-
-        test('Should create and scaffold into a new directory if the specified app name differs from the'
-            + 'current directory with the VSTS option', (done) => {
+        test('Should create and scaffold into a new directory if the specified app name differs from'
+            + 'the current directory with the Chatbot option', (done) => {
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: vstsAppName,
-                        description: 'my test',
-                        type: inputConfig.vstsTaskPromptValue
+                        appName: chatbotAppName,
+                        description: appDescription,
+                        type: inputConfig.chatbotPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), vstsAppName);
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, vstsAppName));
+                        yeomanAssert.equal(path.basename(process.cwd()), chatbotAppName);
+                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
                         done();
                     });
         });
 
-        test('Should scaffold into the current directory when the specified app name matches the current'
-            + 'directory name with the VSTS option', (done) => {
+        test('Should scaffold into the current directory when the specified app name matches the current directory'
+            + 'name with the Chatbot option', (done) => {
                 sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                    return path.join(process.cwd(), vstsAppName);
+                    return path.join(process.cwd(), chatbotAppName);
                 });
 
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: vstsAppName,
+                        appName: chatbotAppName,
                         description: appDescription,
-                        type: inputConfig.vstsTaskPromptValue
+                        type: inputConfig.chatbotPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
                         yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
                         yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        yeomanAssert.noFile(path.join(process.cwd(), vstsAppName));
+                        yeomanAssert.noFile(path.join(process.cwd(), chatbotAppName));
                         done();
                     });
         });
 
-        test('Should install dependencies if user confirms with the VSTS option selected', (done) => {
+        test('Should install dependencies if user confirms with the Chatbot option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: 'name',
+                    appName: chatbotAppName,
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: inputConfig.chatbotPromptValue,
                     installDependencies: true
                 })
                 .toPromise()
@@ -128,12 +119,12 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 });
         });
 
-        test('Should not install dependencies if user declines with the VSTS option selected', (done) => {
+        test('Should not install dependencies if user declines with the Chatbot option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: vstsAppName,
+                    appName: chatbotAppName,
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: inputConfig.chatbotPromptValue,
                     installDependencies: false
                 })
                 .toPromise()
@@ -141,24 +132,23 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                     yeomanAssert.deepEqual(npmInstallCommandStub.called, false);
                     yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
                     done();
-                }
-            );
+                });
         });
 
         test('Should create all the correct VS Code files when the vscode option is selected', () => {
             yeomanAssert.file(testHelpers.vsCodeFiles);
         });
 
-        test('Should set VS Code debug program correctly for VSTS app', () => {
-            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${file}"');
+        test('Should set VS Code debug program correctly for chatbot app', () => {
+            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/server.ts"');
         });
 
         test('Should not add VS Code files if the user declines the vscode option', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: 'vsts',
+                    appName: 'fo',
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: inputConfig.chatbotPromptValue,
                     vscode: false
                 })
                 .toPromise()

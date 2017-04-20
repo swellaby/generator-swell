@@ -6,9 +6,11 @@ import SwellabyGenerator = require('./swellaby-generator');
 /**
  * Main entry point of the application.
  */
-export = class Generator extends yeoman {
+class Generator extends yeoman {
     public execute() {
         const swellabyGenerator = new SwellabyGenerator(this);
         return swellabyGenerator.createProject();
     }
 }
+
+export = Generator;

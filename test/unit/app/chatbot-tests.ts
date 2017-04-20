@@ -4,10 +4,12 @@ import Chai = require('chai');
 import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
+import yosay = require('yosay');
 
-import testHelpers = require('./../test-helpers');
-import inputConfig = require('./../../../generators/app/input-config');
 import chatbot = require('./../../../generators/app/chatbot');
+import inputConfig = require('./../../../generators/app/input-config');
+import pathHelpers = require('./../../../generators/app/path-helpers');
+import testHelpers = require('./../test-helpers');
 
 const assert = Chai.assert;
 
@@ -16,84 +18,130 @@ const assert = Chai.assert;
  */
 suite('Chatbot Tests:', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
-    const descriptionMessage = 'A new task to make a great platform even better';
-    let consoleErrorSpy: Sinon.SinonSpy;
+    let consoleErrorStub: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
+    let generatorLogStub: Sinon.SinonStub;
+    let generatorSourceRootStub: Sinon.SinonStub;
+    let generatorFsCopyTplStub: Sinon.SinonStub;
+    let generatorDestinationRootStub: Sinon.SinonStub;
+    let generatorFsExtendJsonStub: Sinon.SinonStub;
+    let pathJoinStub: Sinon.SinonStub;
+    const sourceRootBase = 'templates/chatbot';
+    const sourceRoot = sourceRootBase + '/**/*';
+    const destRoot = 'robot';
+    const packageJson = destRoot + '/package.json';
 
     setup(() => {
-        consoleErrorSpy = sandbox.stub(console, 'error');
+        consoleErrorStub = sandbox.stub(console, 'error');
         generatorStub = testHelpers.generatorStub;
+        generatorLogStub = sandbox.stub(generatorStub, 'log');
+        generatorSourceRootStub = sandbox.stub(generatorStub, 'sourceRoot').callsFake(() => {
+            return sourceRootBase;
+        });
+        generatorFsCopyTplStub = sandbox.stub(generatorStub.fs, 'copyTpl');
+        generatorDestinationRootStub = sandbox.stub(generatorStub, 'destinationRoot').callsFake(() => {
+            return destRoot;
+        });
+        generatorFsExtendJsonStub = sandbox.stub(generatorStub.fs, 'extendJSON');
+        pathJoinStub = sandbox.stub(path, 'join');
     });
     teardown(() => {
         sandbox.restore();
     });
 
-    suite('Chatbot Option Tests:', () => {
-        const generatorRoot = path.join(__dirname, './../../../generators/app');
-        const vstsAppName = 'vsts task';
-        const appType = inputConfig.vstsTaskPromptValue;
-        const appDescription = 'this is an awesome vsts task';
-        const extensionConfig = { appName: vstsAppName, description: appDescription, appType: appType};
+    /**
+     * Contains unit tests for the scaffoldChatbotProject function.
+     */
+    suite('scaffoldChatbotProject Tests:', () => {
+         const extensionConfig = {
+            appName: 'a',
+            description: 'abc',
+            type: inputConfig.chatbotPromptValue,
+            dot: false
+        };
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new Chatbot ' +
-            'project :( The Chatbot files were not added to the project.'
+            'project :( The Chatbot files were not added to the project.';
+        const descriptionMessage = 'Engage users in new channels with a Chatbot';
 
         test('Should display an error message when the generator is null and the extension config is null', () => {
             chatbot.scaffoldChatbotProject(null, null);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is null and the extension config is undefined', () => {
             chatbot.scaffoldChatbotProject(null, undefined);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is null and the extension config is empty', () => {
             chatbot.scaffoldChatbotProject(null, {});
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is null and the extension config is valid', () => {
             chatbot.scaffoldChatbotProject(null, extensionConfig);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is null', () => {
             chatbot.scaffoldChatbotProject(undefined, null);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is undefined', () => {
             chatbot.scaffoldChatbotProject(undefined, undefined);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is empty', () => {
             chatbot.scaffoldChatbotProject(undefined, {});
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is undefined and the extension config is valid', () => {
             chatbot.scaffoldChatbotProject(undefined, extensionConfig);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
         test('Should display an error message when the generator is valid and the extension config is null', () => {
             chatbot.scaffoldChatbotProject(generatorStub, null);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should display an error message when the generator is valid and the extension config is undefined', () => {
             chatbot.scaffoldChatbotProject(generatorStub, undefined);
-            assert.isTrue(consoleErrorSpy.calledWith(invalidParamsErrorMessage));
+            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
         });
 
         test('Should succeed when the generator is valid and the extension config is empty', () => {
             chatbot.scaffoldChatbotProject(generatorStub, {});
-            assert.isFalse(consoleErrorSpy.called);
+            assert.isFalse(consoleErrorStub.called);
+            assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
         });
 
-        test('Should succeed when the generator is valid and the extension config is valid', () => {
+        test('Should scaffold the Chatbot content when the generator and config are valid', () => {
             chatbot.scaffoldChatbotProject(generatorStub, extensionConfig);
-            assert.isFalse(consoleErrorSpy.called);
+            assert.isTrue(generatorSourceRootStub.firstCall.calledWith(pathHelpers.chatbotRoot));
+            assert.isTrue(generatorFsCopyTplStub.firstCall.calledWith(
+                sourceRoot,
+                destRoot,
+                extensionConfig
+            ));
+        });
+
+        test('Should add correct dependencies when the generator and config are valid', () => {
+            pathJoinStub.callsFake(() => {
+                return packageJson;
+            });
+            chatbot.scaffoldChatbotProject(generatorStub, extensionConfig);
+            assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
+                dependencies: {
+                    'botbuilder': '^3.4.4',
+                    'restify': '^4.3.0'
+                },
+                devDependencies: {
+                    '@types/restify': '^2.0.35'
+                }
+            }));
         });
     });
 });

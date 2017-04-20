@@ -25,6 +25,7 @@ module.exports = {
         notTemplates              
     ],
     javascriptUnitTests: testRoot + '/unit/**/*.js',
+    javascriptComponentIntegrationTests: testRoot + '/component-integration/**/*.js',
     allTypescript: [
         srcRoot + '/**/*.ts',
         testRoot + '/**/*.ts',

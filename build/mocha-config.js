@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-    unitTestTimeout: 5000,
+    unitTestTimeout: 2000,
     unitTestReporter: 'mocha-multi',
     unitTestReporterOptions: {
         'xunit': {
@@ -14,5 +14,19 @@ module.exports = {
             stdout: '-'
         }
     },
-    unitTestMochaInterface: 'tdd'
+    unitTestMochaInterface: 'tdd',
+    componentIntegrationTestTimeout: 7500,
+    componentIntegrationTestReporter: 'mocha-multi',
+    componentIntegrationTestReporterOptions: {
+        'xunit': {
+            stdout: './testresults/component-integration-test-results.xml',
+            options: {
+                verbose: true,
+            }
+        },
+        spec: {
+            stdout: '-'
+        }
+    },
+    componentIntegrationTestMochaInterface: 'tdd',
 };

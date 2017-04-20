@@ -11,18 +11,13 @@ import inputConfig = require('./../../../generators/app/input-config');
 import testHelpers = require('./../test-helpers');
 
 /**
- * Contains component integration tests from the index entry point to the functions in vsts.ts
+ * Contains component integration tests from the index entry point to the functions in express.ts
  */
-suite('Index/VSTS Project Component Integration Tests:', () => {
+suite('Index/Express Project Component Integration Tests:', () => {
     let sandbox: Sinon.SinonSandbox;
     let gitInitCommandStub: Sinon.SinonStub;
     let npmInstallCommandStub: Sinon.SinonStub;
     let installDependenciesCommandStub: Sinon.SinonStub;
-    const vstsCommonFiles = [
-        'extension-icon.png',
-        'OVERVIEW.md',
-        'vss-extension.json'
-    ];
 
     setup(() => {
         sandbox = Sinon.sandbox.create()
@@ -35,89 +30,89 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    suite('VSTS Task Project Tests:', () => {
-        const vstsAppName = 'vsts task';
-        const appType = inputConfig.vstsTaskPromptValue;
-        const appDescription = 'this is an awesome vsts task';
-        const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
-            'Task project :( The VSTS files were not added to the project.';
+    suite('Express API Option Tests:', () => {
+        const expressAppName = 'api app';
+        const appType = inputConfig.expressApiPromptValue;
+        const appDescription = 'brand new express API';
+        const dockerUser = 'testUser';
+        const expressFiles = [
+            '.dockerignore',
+            'build.sh',
+            'Dockerfile',
+            './build/tasks/package.js',
+            './src/app.ts'
+        ];
 
         suiteSetup(() => {
             return helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: vstsAppName,
+                    appName: expressAppName,
                     description: appDescription,
-                    type: appType
+                    type: appType,
+                    dockerUser: dockerUser
                 })
                 .toPromise();
         });
 
-        test('Should create all the correct boilerplate files when the VSTS option is selected', () => {
+        test('Should create all the correct boilerplate files when the Express API option is selected', () => {
             yeomanAssert.file(testHelpers.boilerplateFiles);
         });
 
-        test('Should contain all of the common VSTS files', () => {
-            yeomanAssert.file(vstsCommonFiles);
+        test('Should create all the correct express files when the Express API option is selected', () => {
+            yeomanAssert.file(expressFiles);
         });
 
-        test('Should create all of the default VSTS Task template files', () => {
-            yeomanAssert.file([
-                'task.json',
-                './src/main.ts',
-                './src/helper.ts',
-                './test/unit/main-tests.ts',
-                './test/unit/helper-tests.ts',
-                './build/tasks/package.js'
-            ]);
+        test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + expressAppName);
         });
 
-        test('Should inject the App Name into the README.md file when the VSTS option is selected', () => {
-            yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + vstsAppName);
+        test('Should inject image name correctly into the build.sh file when the Express API option is selected', () => {
+            yeomanAssert.fileContent('build.sh', dockerUser + '/' + expressAppName);
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the'
-            + 'current directory with the VSTS option', (done) => {
+            + 'current directory with the Express API option', (done) => {
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: vstsAppName,
-                        description: 'my test',
-                        type: inputConfig.vstsTaskPromptValue
+                        appName: expressAppName,
+                        description: appDescription,
+                        type: inputConfig.expressApiPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), vstsAppName);
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, vstsAppName));
+                        yeomanAssert.equal(path.basename(process.cwd()), expressAppName);
+                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
                         done();
                     });
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current'
-            + 'directory name with the VSTS option', (done) => {
+            + 'directory name with the Express API option', (done) => {
                 sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                    return path.join(process.cwd(), vstsAppName);
+                    return path.join(process.cwd(), expressAppName);
                 });
 
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
-                        appName: vstsAppName,
+                        appName: expressAppName,
                         description: appDescription,
-                        type: inputConfig.vstsTaskPromptValue
+                        type: inputConfig.expressApiPromptValue
                     })
                     .toPromise()
                     .then((dir) => {
                         yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
                         yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        yeomanAssert.noFile(path.join(process.cwd(), vstsAppName));
+                        yeomanAssert.noFile(path.join(process.cwd(), expressAppName));
                         done();
                     });
         });
 
-        test('Should install dependencies if user confirms with the VSTS option selected', (done) => {
+        test('Should install dependencies if user confirms with the Express API option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: 'name',
+                    appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: inputConfig.expressApiPromptValue,
                     installDependencies: true
                 })
                 .toPromise()
@@ -128,12 +123,12 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 });
         });
 
-        test('Should not install dependencies if user declines with the VSTS option selected', (done) => {
+        test('Should not install dependencies if user declines with the Express API option selected', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: vstsAppName,
+                    appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: inputConfig.expressApiPromptValue,
                     installDependencies: false
                 })
                 .toPromise()
@@ -141,24 +136,23 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                     yeomanAssert.deepEqual(npmInstallCommandStub.called, false);
                     yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
                     done();
-                }
-            );
+                });
         });
 
         test('Should create all the correct VS Code files when the vscode option is selected', () => {
             yeomanAssert.file(testHelpers.vsCodeFiles);
         });
 
-        test('Should set VS Code debug program correctly for VSTS app', () => {
-            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${file}"');
+        test('Should set VS Code debug program correctly for Express API app', () => {
+            yeomanAssert.fileContent('.vscode/launch.json', '"program": "${workspaceRoot}/src/app.ts"');
         });
 
         test('Should not add VS Code files if the user declines the vscode option', (done) => {
             helpers.run(testHelpers.generatorRoot)
                 .withPrompts({
-                    appName: 'vsts',
+                    appName: 'exp-api',
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: inputConfig.expressApiPromptValue,
                     vscode: false
                 })
                 .toPromise()

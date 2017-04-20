@@ -1,0 +1,27 @@
+## Customize the test machine
+machine:
+  node:
+    version: 6.1.0
+
+dependencies:
+  pre:
+    - nvm install node
+    - nvm use node
+    - npm cache clean
+    - rm -rf node_modules/
+  override:
+    - nvm use node
+    - npm install
+
+## Customize test commands
+test:
+  override:
+    - nvm use node
+    - npm run lint
+    - npm run enforce-code-coverage
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit
+    - mkdir -p $CIRCLE_TEST_REPORTS/coverage
+    - cp testresults/unit-test-results.xml $CIRCLE_TEST_REPORTS/junit/unit-test-results.xml
+    - cp -R coverage/unit $CIRCLE_TEST_REPORTS/coverage
+    - bash <(curl -s https://codecov.io/bash)

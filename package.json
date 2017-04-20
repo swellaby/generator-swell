@@ -1,6 +1,6 @@
 {
   "name": "generator-swell",
-  "version": "0.11.0-alpha",
+  "version": "0.11.4-alpha",
   "description": "Yeoman generator for various types of Node, Angular, and Aurelia projects with TypeScript",
   "author": {
     "name": "swellaby",
@@ -54,6 +54,7 @@
     "lint": "gulp tslint eslint",
     "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
     "test": "gulp enforce-code-coverage check-security",
+    "component-test": "gulp run-component-integration-tests",
     "transpile": "gulp transpile",
     "validate": "npm ls",
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
