@@ -7,19 +7,6 @@ engines:
     exclude_fingerprints:
     # exclude the istanbul threshold enforcer of both global and local threshold levels
     - a97caa1d667999959d27f6f90a0b7721
-    # exclude the suite setup methods in each of the various unit test suites which use locally 
-    # scoped variables with the same names due to the async nature of test execution
-    - 3dd6881013a288a956b1df18a972d66a
-    - 32a0198b3010fffa23cea033e43fa9ad
-    # exclude the unit test names for the app type choices within the various choice suites
-    - cddf17dbff1f28cd76a98d447f60a4d3
-    # re: PR #27
-    - a38749321b0cb09986838831d2fb6e00
-    - 426fbfe9a74b1af7f5106ec544786b79
-    - a7c333f0c4e553e09408202d50489d09
-    - 1cb770af6b97b855d40b8ee44cf15388
-    # duplication in tests
-    - 84efdc0a2f77ae85c711930f0c359c12
     # gulp tasks for unit vs component tests
     - f8177affa3e5e9ffbedecb408ff57288
     - 58e16481760d5542bcdbc5482f9898f6
