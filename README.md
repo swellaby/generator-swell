@@ -15,6 +15,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![Code Climate Badge][code-climate-status-badge]][code-climate-url]
 [![Codecov Badge][codecov-badge]][codecov-url]
 [![Coveralls Badge][coveralls-badge]][coveralls-url]
+[![SonarQube Quality Gate Badge][sonarqube-qualitygate-badge]][sonarqube-project-url]
 [![SonarQube Coverage Badge][sonarqube-coverage-badge]][sonarqube-coverage-url]
 [![SonarQube Tech Debt Badge][sonarqube-techdebt-badge]][sonarqube-techdebt-url]
 [![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
@@ -67,11 +68,16 @@ Here are some things you should know:
 [circle-ci-url]: https://circleci.com/gh/swellaby/generator-swell
 [code-climate-status-badge]: https://codeclimate.com/github/swellaby/generator-swell/badges/gpa.svg
 [code-climate-url]: https://codeclimate.com/github/swellaby/generator-swell
-[sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/coverage.svg
+[sonarqube-qualitygate-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell
+[sonarqube-project-url]: https://sonarqube.com/dashboard?id=swellaby%3Agenerator-swell
+[sheildsio-sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/coverage.svg
+[sonarqube-coverage-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell&metric=coverage
 [sonarqube-coverage-url]: https://sonarqube.com/component_measures/metric/coverage/list?id=swellaby%3Agenerator-swell
-[sonarqube-techdebt-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/tech_debt.svg
+[sheildsio--sonarqube-techdebt-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/tech_debt.svg
+[sonarqube-techdebt-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell&metric=sqale_debt_ratio
 [sonarqube-techdebt-url]: https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swell
-[sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/sqale_rating.svg
+[sheildsio-sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/sqale_rating.svg
+[sonarqube-maintainability-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell&metric=new_maintainability_rating
 [sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swell
 [codecov-badge]: https://codecov.io/gh/swellaby/generator-swell/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/swellaby/generator-swell
