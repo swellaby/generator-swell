@@ -71,13 +71,13 @@ Here are some things you should know:
 [sonarqube-qualitygate-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell
 [sonarqube-project-url]: https://sonarqube.com/dashboard?id=swellaby%3Agenerator-swell
 [sheildsio-sonarqube-coverage-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/coverage.svg
-[sonarqube-coverage-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell&metric=coverage
+[sonarqube-coverage-badge]: https://sonarqube.com/api/badges/measure?key=swellaby:generator-swell&metric=coverage
 [sonarqube-coverage-url]: https://sonarqube.com/component_measures/metric/coverage/list?id=swellaby%3Agenerator-swell
 [sheildsio--sonarqube-techdebt-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/tech_debt.svg
-[sonarqube-techdebt-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell&metric=sqale_debt_ratio
+[sonarqube-techdebt-badge]: https://sonarqube.com/api/badges/measure?key=swellaby:generator-swell&metric=sqale_debt_ratio
 [sonarqube-techdebt-url]: https://sonarqube.com/component_measures/metric/sqale_index/list?id=swellaby%3Agenerator-swell
 [sheildsio-sonarqube-maintainability-badge]: https://img.shields.io/sonar/http/sonarqube.com/swellaby:generator-swell/sqale_rating.svg
-[sonarqube-maintainability-badge]: https://sonarqube.com/api/badges/gate?key=swellaby:generator-swell&metric=new_maintainability_rating
+[sonarqube-maintainability-badge]: https://sonarqube.com/api/badges/measure?key=swellaby:generator-swell&metric=new_maintainability_rating
 [sonarqube-maintainability-url]: https://sonarqube.com/component_measures/metric/sqale_rating/list?id=swellaby%3Agenerator-swell
 [codecov-badge]: https://codecov.io/gh/swellaby/generator-swell/branch/master/graph/badge.svg
 [codecov-url]: https://codecov.io/gh/swellaby/generator-swell
