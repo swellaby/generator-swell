@@ -7,8 +7,8 @@ import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import cli = require('./../../../generators/app/cli');
-import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 const assert = Chai.assert;
@@ -38,7 +38,7 @@ suite('CLI Project Tests:', () => {
         const extensionConfig = {
             appName: 'a',
             description: 'abc',
-            type: inputConfig.cliPromptValue,
+            type: ProjectTypes[ProjectTypes.cli],
             dot: false
         };
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new CLI ' +

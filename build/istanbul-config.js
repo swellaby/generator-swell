@@ -20,15 +20,15 @@ var unitTestLocalBranchCoverageThreshold = 100;
 var unitTestLocalLineCoverageThreshold = 100;
 var unitTestLocalFunctionCoverageThreshold = 100;
 
-var componentIntegrationTestGlobalStatementCoverageThreshold = 90;
+var componentIntegrationTestGlobalStatementCoverageThreshold = 85;
 var componentIntegrationTestGlobalBranchCoverageThreshold = 80;
-var componentIntegrationTestGlobalLineCoverageThreshold = 90;
+var componentIntegrationTestGlobalLineCoverageThreshold = 85;
 var componentIntegrationTestGlobalFunctionCoverageThreshold = 100;
 
-var componentIntegrationTestLocalStatementCoverageThreshold = 90;
-var componentIntegrationTestLocalBranchCoverageThreshold = 80;
-var componentIntegrationTestLocalLineCoverageThreshold = 90;
-var componentIntegrationTestLocalFunctionCoverageThreshold = 100;
+var componentIntegrationTestLocalStatementCoverageThreshold = 65;
+var componentIntegrationTestLocalBranchCoverageThreshold = 0;
+var componentIntegrationTestLocalLineCoverageThreshold = 65;
+var componentIntegrationTestLocalFunctionCoverageThreshold = 0;
 
 var includeUntested = true;
 var reporters = ['html', 'lcov', 'cobertura', 'text', 'text-summary'];

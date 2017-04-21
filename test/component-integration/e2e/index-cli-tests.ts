@@ -7,7 +7,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 import YeomanGenerator = require('yeoman-generator');
 
-import inputConfig = require('./../../../generators/app/input-config');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 /**
@@ -32,7 +32,7 @@ suite('Index/CLI Project Component Integration Tests:', () => {
 
     suite('CLI Option Tests: ', () => {
         const cliAppName = 'cli app';
-        const appType = inputConfig.cliPromptValue;
+        const appType = ProjectTypes[ProjectTypes.cli];
         const appDescription = 'this is a test description';
 
         suiteSetup(() => {
@@ -59,7 +59,7 @@ suite('Index/CLI Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: cliAppName,
                         description: appDescription,
-                        type: inputConfig.cliPromptValue
+                        type: ProjectTypes[ProjectTypes.cli]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -79,7 +79,7 @@ suite('Index/CLI Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: cliAppName,
                         description: appDescription,
-                        type: inputConfig.cliPromptValue
+                        type: ProjectTypes[ProjectTypes.cli]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -95,7 +95,7 @@ suite('Index/CLI Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: cliAppName,
                     description: appDescription,
-                    type: inputConfig.cliPromptValue,
+                    type: ProjectTypes[ProjectTypes.cli],
                     installDependencies: true
                 })
                 .toPromise()
@@ -111,7 +111,7 @@ suite('Index/CLI Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: cliAppName,
                     description: appDescription,
-                    type: inputConfig.cliPromptValue,
+                    type: ProjectTypes[ProjectTypes.cli],
                     installDependencies: false
                 })
                 .toPromise()
@@ -135,7 +135,7 @@ suite('Index/CLI Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: 'fdfdsfo',
                     description: appDescription,
-                    type: inputConfig.cliPromptValue,
+                    type: ProjectTypes[ProjectTypes.cli],
                     vscode: false
                 })
                 .toPromise()

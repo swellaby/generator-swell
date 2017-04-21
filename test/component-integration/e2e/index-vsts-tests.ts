@@ -7,7 +7,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 import YeomanGenerator = require('yeoman-generator');
 
-import inputConfig = require('./../../../generators/app/input-config');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 /**
@@ -37,7 +37,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
     suite('VSTS Task Project Tests:', () => {
         const vstsAppName = 'vsts task';
-        const appType = inputConfig.vstsTaskPromptValue;
+        const appType = ProjectTypes[ProjectTypes.vstsTask];
         const appDescription = 'this is an awesome vsts task';
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
             'Task project :( The VSTS files were not added to the project.';
@@ -81,7 +81,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: vstsAppName,
                         description: 'my test',
-                        type: inputConfig.vstsTaskPromptValue
+                        type: ProjectTypes[ProjectTypes.vstsTask]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -101,7 +101,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: vstsAppName,
                         description: appDescription,
-                        type: inputConfig.vstsTaskPromptValue
+                        type: ProjectTypes[ProjectTypes.vstsTask]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -117,7 +117,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: 'name',
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: ProjectTypes[ProjectTypes.vstsTask],
                     installDependencies: true
                 })
                 .toPromise()
@@ -133,7 +133,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: vstsAppName,
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: ProjectTypes[ProjectTypes.vstsTask],
                     installDependencies: false
                 })
                 .toPromise()
@@ -158,7 +158,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: 'vsts',
                     description: appDescription,
-                    type: inputConfig.vstsTaskPromptValue,
+                    type: ProjectTypes[ProjectTypes.vstsTask],
                     vscode: false
                 })
                 .toPromise()

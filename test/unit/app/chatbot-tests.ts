@@ -7,8 +7,8 @@ import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import chatbot = require('./../../../generators/app/chatbot');
-import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 const assert = Chai.assert;
@@ -56,7 +56,7 @@ suite('Chatbot Tests:', () => {
          const extensionConfig = {
             appName: 'a',
             description: 'abc',
-            type: inputConfig.chatbotPromptValue,
+            type: ProjectTypes[ProjectTypes.chatbot],
             dot: false
         };
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new Chatbot ' +

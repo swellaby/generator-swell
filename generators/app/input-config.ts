@@ -1,16 +1,14 @@
 'use strict';
 
 import inquirer = require('inquirer');
+import ProjectTypes = require('./project-types');
+import promptHelpers = require('./prompt-helpers');
 
 const boilerplatePromptValue = 'boilerplate';
 const cliPromptValue = 'cli';
 const expressApiPromptValue = 'express-api';
 const vstsTaskPromptValue = 'vsts-task';
 const chatbotPromptValue = 'chatbot';
-
-const isExpressApiProject = (response) => {
-    return response['type'] === expressApiPromptValue;
-};
 
 const prompts: inquirer.Question[] = [
     {
@@ -31,23 +29,23 @@ const prompts: inquirer.Question[] = [
         choices: [
             {
                 name: 'New App with just the boilerplate',
-                value: boilerplatePromptValue
+                value: ProjectTypes[ProjectTypes.boilerplate]
             },
             {
                 name: 'New CLI App (Not Yet Supported)',
-                value: cliPromptValue
+                value: ProjectTypes[ProjectTypes.cli]
             },
             {
                 name: 'New API App with Express and Docker',
-                value: expressApiPromptValue
+                value: ProjectTypes[ProjectTypes.expressApi]
             },
             {
                 name: 'New VSTS Task',
-                value: vstsTaskPromptValue
+                value: ProjectTypes[ProjectTypes.vstsTask]
             },
             {
                 name: 'New Chatbot',
-                value: chatbotPromptValue
+                value: ProjectTypes[ProjectTypes.chatbot]
             }
         ]
     },
@@ -58,7 +56,7 @@ const prompts: inquirer.Question[] = [
         default: true
     },
     {
-        when: isExpressApiProject,
+        when: promptHelpers.isExpressApiProject,
         type: 'input',
         name: 'dockerUser',
         message: 'What is your Docker Hub User Id?',
@@ -73,11 +71,11 @@ const prompts: inquirer.Question[] = [
 ];
 
 export = {
-    prompts: prompts,
-    boilerplatePromptValue: boilerplatePromptValue,
-    cliPromptValue: cliPromptValue,
-    chatbotPromptValue: chatbotPromptValue,
-    expressApiPromptValue: expressApiPromptValue,
-    vstsTaskPromptValue: vstsTaskPromptValue,
-    isExpressApiProject: isExpressApiProject
+    prompts: prompts
 }
+
+    // boilerplatePromptValue: boilerplatePromptValue,
+    // cliPromptValue: cliPromptValue,
+    // chatbotPromptValue: chatbotPromptValue,
+    // expressApiPromptValue: expressApiPromptValue,
+    // vstsTaskPromptValue: vstsTaskPromptValue

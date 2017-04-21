@@ -7,8 +7,8 @@ import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import express = require('./../../../generators/app/express');
-import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 const assert = Chai.assert;
@@ -56,7 +56,7 @@ suite('Express Project Tests:', () => {
         const extensionConfig = {
             appName: 'e',
             description: 'api',
-            type: inputConfig.expressApiPromptValue,
+            type: ProjectTypes[ProjectTypes.expressApi],
             dot: false
         };
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new Express ' +

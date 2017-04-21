@@ -7,7 +7,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 import YeomanGenerator = require('yeoman-generator');
 
-import inputConfig = require('./../../../generators/app/input-config');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 /**
@@ -32,7 +32,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
 
     suite('Boilerplate Option Tests:', () => {
         const baseAppName = 'baseOptionApp';
-        const appType = inputConfig.boilerplatePromptValue;
+        const appType = ProjectTypes[ProjectTypes.boilerplate];
         const appDescription = 'this is a test description';
 
         suiteSetup(() => {
@@ -59,7 +59,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue
+                    type: ProjectTypes[ProjectTypes.boilerplate]
                 })
                 .toPromise()
                 .then(() => {
@@ -82,7 +82,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue
+                    type: ProjectTypes[ProjectTypes.boilerplate]
                 })
                 .toPromise()
                 .then(() => {
@@ -105,7 +105,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue
+                    type: ProjectTypes[ProjectTypes.boilerplate]
                 })
                 .toPromise()
                 .then(() => {
@@ -121,7 +121,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: baseAppName,
                         description: appDescription,
-                        type: inputConfig.boilerplatePromptValue
+                        type: ProjectTypes[ProjectTypes.boilerplate]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -142,7 +142,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: baseAppName,
                         description: appDescription,
-                        type: inputConfig.boilerplatePromptValue
+                        type: ProjectTypes[ProjectTypes.boilerplate]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -158,7 +158,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
+                    type: ProjectTypes[ProjectTypes.boilerplate],
                     installDependencies: true
                 })
                 .toPromise()
@@ -174,7 +174,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: baseAppName,
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
+                    type: ProjectTypes[ProjectTypes.boilerplate],
                     installDependencies: false
                 })
                 .toPromise()
@@ -198,7 +198,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: 'fo',
                     description: appDescription,
-                    type: inputConfig.boilerplatePromptValue,
+                    type: ProjectTypes[ProjectTypes.boilerplate],
                     vscode: false
                 })
                 .toPromise()

@@ -12,6 +12,7 @@ import cli = require('./cli');
 import express = require('./express');
 import inputConfig = require('./input-config');
 import pathHelpers = require('./path-helpers');
+import ProjectTypes = require('./project-types');
 import vscode = require('./vscode');
 import vsts = require('./vsts');
 
@@ -80,31 +81,31 @@ class SwellabyGenerator {
     // tslint:disable-next-line:max-func-body-length
     private scaffoldProjectContent() {
         boilerplate.scaffoldBoilerplateContent(this.generator, this.extensionConfig);
-        const extensionType = this.extensionConfig.type;
+        const extensionType = +ProjectTypes[this.extensionConfig.type];
 
         if (this.extensionConfig.vscode) {
             vscode.scaffoldVSCodeContent(this.generator, this.extensionConfig);
         }
 
         switch (extensionType) {
-            case inputConfig.boilerplatePromptValue:
+            case ProjectTypes.boilerplate:
                 this.generator.log(yosay('Just the basic boilerplate'));
                 break;
 
-            case inputConfig.cliPromptValue:
-                cli.scaffoldCliProject(this.generator, this.extensionConfig);
-                break;
-
-            case inputConfig.expressApiPromptValue:
+            case ProjectTypes.expressApi:
                 express.scaffoldExpressApiProject(this.generator, this.extensionConfig);
                 break;
 
-            case inputConfig.vstsTaskPromptValue:
+            case ProjectTypes.vstsTask:
                 vsts.scaffoldVSTSTaskProject(this.generator, this.extensionConfig);
                 break;
 
-            case inputConfig.chatbotPromptValue:
+            case ProjectTypes.chatbot:
                 chatbot.scaffoldChatbotProject(this.generator, this.extensionConfig);
+                break;
+
+            case ProjectTypes.cli:
+                cli.scaffoldCliProject(this.generator, this.extensionConfig);
                 break;
 
             default:
