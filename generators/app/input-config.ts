@@ -34,7 +34,7 @@ const prompts: inquirer.Question[] = [
                 value: boilerplatePromptValue
             },
             {
-                name: 'New CLI App',
+                name: 'New CLI App (Not Yet Supported)',
                 value: cliPromptValue
             },
             {
