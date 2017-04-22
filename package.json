@@ -60,7 +60,7 @@
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
   },
   "pre-commit": [
-    "build",
+    "build"
   ],
   "devDependencies": {
     "@types/chai": "^3.4.35",
