@@ -5,6 +5,7 @@ import YeomanGenerator = require('yeoman-generator');
 
 import inputConfig = require('./input-config');
 import pathHelpers = require('./path-helpers');
+import ProjectTypes = require('./project-types');
 
 /**
  * Scaffolds the VS Code content.
@@ -26,10 +27,11 @@ export const scaffoldVSCodeContent = (generator: YeomanGenerator, extensionConfi
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot() + '/.vscode', context);
 
     const launch = generator.fs.readJSON(path.join(generator.destinationRoot(), '.vscode/launch.json'), {});
+    const projectType: ProjectTypes = +ProjectTypes[context.type];
 
-    if (context.type === inputConfig.chatbotPromptValue) {
+    if (projectType === ProjectTypes.chatbot) {
         launch.configurations[0].program = '${workspaceRoot}/src/server.ts';
-    } else if (context.type === inputConfig.expressApiPromptValue) {
+    } else if (projectType === ProjectTypes.expressApi) {
         launch.configurations[0].program = '${workspaceRoot}/src/app.ts';
     }
 

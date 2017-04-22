@@ -7,7 +7,7 @@ import Sinon = require('sinon');
 import yeomanAssert = require('yeoman-assert');
 import YeomanGenerator = require('yeoman-generator');
 
-import inputConfig = require('./../../../generators/app/input-config');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 /**
@@ -32,9 +32,10 @@ suite('Index/Express Project Component Integration Tests:', () => {
 
     suite('Express API Option Tests:', () => {
         const expressAppName = 'api app';
-        const appType = inputConfig.expressApiPromptValue;
+        const appType = ProjectTypes[ProjectTypes.expressApi];
         const appDescription = 'brand new express API';
         const dockerUser = 'testUser';
+        const author = 'hemingway';
         const expressFiles = [
             '.dockerignore',
             'build.sh',
@@ -49,7 +50,8 @@ suite('Index/Express Project Component Integration Tests:', () => {
                     appName: expressAppName,
                     description: appDescription,
                     type: appType,
-                    dockerUser: dockerUser
+                    dockerUser: dockerUser,
+                    author: author
                 })
                 .toPromise();
         });
@@ -66,6 +68,10 @@ suite('Index/Express Project Component Integration Tests:', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + expressAppName);
         });
 
+        test('Should inject author name correctly into package.json', () => {
+            yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
+        });
+
         test('Should inject image name correctly into the build.sh file when the Express API option is selected', () => {
             yeomanAssert.fileContent('build.sh', dockerUser + '/' + expressAppName);
         });
@@ -76,7 +82,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: expressAppName,
                         description: appDescription,
-                        type: inputConfig.expressApiPromptValue
+                        type: ProjectTypes[ProjectTypes.expressApi]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -96,7 +102,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: expressAppName,
                         description: appDescription,
-                        type: inputConfig.expressApiPromptValue
+                        type: ProjectTypes[ProjectTypes.expressApi]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -112,7 +118,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.expressApiPromptValue,
+                    type: ProjectTypes[ProjectTypes.expressApi],
                     installDependencies: true
                 })
                 .toPromise()
@@ -128,7 +134,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: expressAppName,
                     description: appDescription,
-                    type: inputConfig.expressApiPromptValue,
+                    type: ProjectTypes[ProjectTypes.expressApi],
                     installDependencies: false
                 })
                 .toPromise()
@@ -152,7 +158,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: 'exp-api',
                     description: appDescription,
-                    type: inputConfig.expressApiPromptValue,
+                    type: ProjectTypes[ProjectTypes.expressApi],
                     vscode: false
                 })
                 .toPromise()

@@ -1,22 +1,16 @@
 'use strict';
 
 import inquirer = require('inquirer');
-
-const boilerplatePromptValue = 'boilerplate';
-const cliPromptValue = 'cli';
-const expressApiPromptValue = 'express-api';
-const vstsTaskPromptValue = 'vsts-task';
-const chatbotPromptValue = 'chatbot';
-
-const isExpressApiProject = (response) => {
-    return response['type'] === expressApiPromptValue;
-};
+import ProjectTypes = require('./project-types');
+import promptHelpers = require('./prompt-helpers');
 
 const prompts: inquirer.Question[] = [
     {
         type: 'input',
         name: 'appName',
-        message: 'The name of your app'
+        message: 'The name of your app',
+        // tslint:disable-next-line:no-invalid-this
+        default: this.appName
     },
     {
         type: 'input',
@@ -24,30 +18,36 @@ const prompts: inquirer.Question[] = [
         message: 'The description of your app'
     },
     {
+        type: 'input',
+        name: 'author',
+        message: 'The author of this app',
+        default: 'me'
+    },
+    {
         type: 'list',
         name: 'type',
         message: 'What type of app is this?',
-        default: boilerplatePromptValue,
+        default: ProjectTypes[ProjectTypes.boilerplate],
         choices: [
             {
                 name: 'New App with just the boilerplate',
-                value: boilerplatePromptValue
+                value: ProjectTypes[ProjectTypes.boilerplate]
             },
             {
-                name: 'New CLI App',
-                value: cliPromptValue
+                name: 'New CLI App (Not Yet Supported)',
+                value: ProjectTypes[ProjectTypes.cli]
             },
             {
                 name: 'New API App with Express and Docker',
-                value: expressApiPromptValue
+                value: ProjectTypes[ProjectTypes.expressApi]
             },
             {
                 name: 'New VSTS Task',
-                value: vstsTaskPromptValue
+                value: ProjectTypes[ProjectTypes.vstsTask]
             },
             {
                 name: 'New Chatbot',
-                value: chatbotPromptValue
+                value: ProjectTypes[ProjectTypes.chatbot]
             }
         ]
     },
@@ -58,11 +58,11 @@ const prompts: inquirer.Question[] = [
         default: true
     },
     {
-        when: isExpressApiProject,
+        when: promptHelpers.isExpressApiProject,
         type: 'input',
         name: 'dockerUser',
         message: 'What is your Docker Hub User Id?',
-        default: 'user'
+        default: promptHelpers.getDockerUserValue
     },
     {
         type: 'confirm',
@@ -73,11 +73,5 @@ const prompts: inquirer.Question[] = [
 ];
 
 export = {
-    prompts: prompts,
-    boilerplatePromptValue: boilerplatePromptValue,
-    cliPromptValue: cliPromptValue,
-    chatbotPromptValue: chatbotPromptValue,
-    expressApiPromptValue: expressApiPromptValue,
-    vstsTaskPromptValue: vstsTaskPromptValue,
-    isExpressApiProject: isExpressApiProject
+    prompts: prompts
 }

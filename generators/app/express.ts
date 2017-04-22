@@ -15,7 +15,6 @@ import pathHelpers = require('./path-helpers');
 const buildExpressContext = (extensionConfig: any): any => {
     const context = extensionConfig;
     context.dot = true;
-    context.author = 'me'; // this can be moved to the core generator
 
     return context;
 };

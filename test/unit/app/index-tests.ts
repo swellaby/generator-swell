@@ -10,7 +10,6 @@ const yeomanEnvironment = require('yeoman-environment');
 import YeomanGenerator = require('yeoman-generator');
 
 import Index = require('././../../../generators/app/index');
-import inputConfig = require('./../../../generators/app/input-config');
 import SwellabyGenerator = require('./../../../generators/app/swellaby-generator');
 import testHelpers = require('./../test-helpers');
 

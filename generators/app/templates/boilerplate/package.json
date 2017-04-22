@@ -6,7 +6,7 @@
     "repository": {},
     "author": {
         "url": "",
-        "name": "",
+        "name": <%-JSON.stringify(author)%>,
         "email": ""
     },
     "contributors": [

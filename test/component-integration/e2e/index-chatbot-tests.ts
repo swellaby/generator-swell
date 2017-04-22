@@ -4,10 +4,10 @@ import fs = require('fs');
 import helpers = require('yeoman-test');
 import path = require('path');
 import Sinon = require('sinon');
-
 import YeomanGenerator = require('yeoman-generator');
 import yeomanAssert = require('yeoman-assert');
-import inputConfig = require('./../../../generators/app/input-config');
+
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
 /**
@@ -32,8 +32,9 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
 
     suite('Chatbot Option Tests:', () => {
         const chatbotAppName = 'chatbot app';
-        const appType = inputConfig.chatbotPromptValue;
+        const appType = ProjectTypes[ProjectTypes.chatbot];
         const appDescription = 'brand new chatbot';
+        const author = 'hemingway';
         const chatbotFiles = [
             './src/bot.ts',
             './src/config.ts',
@@ -49,7 +50,8 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                     appName: chatbotAppName,
                     description: appDescription,
                     type: appType,
-                    vscode: true
+                    vscode: true,
+                    author: author
                 })
                 .toPromise();
         });
@@ -66,13 +68,17 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + chatbotAppName);
         });
 
+        test('Should inject author name correctly into package.json', () => {
+            yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
+        });
+
         test('Should create and scaffold into a new directory if the specified app name differs from'
             + 'the current directory with the Chatbot option', (done) => {
                 helpers.run(testHelpers.generatorRoot)
                     .withPrompts({
                         appName: chatbotAppName,
                         description: appDescription,
-                        type: inputConfig.chatbotPromptValue
+                        type: ProjectTypes[ProjectTypes.chatbot]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -92,7 +98,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                     .withPrompts({
                         appName: chatbotAppName,
                         description: appDescription,
-                        type: inputConfig.chatbotPromptValue
+                        type: ProjectTypes[ProjectTypes.chatbot]
                     })
                     .toPromise()
                     .then((dir) => {
@@ -108,7 +114,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: chatbotAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: ProjectTypes[ProjectTypes.chatbot],
                     installDependencies: true
                 })
                 .toPromise()
@@ -124,7 +130,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: chatbotAppName,
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: ProjectTypes[ProjectTypes.chatbot],
                     installDependencies: false
                 })
                 .toPromise()
@@ -148,7 +154,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: 'fo',
                     description: appDescription,
-                    type: inputConfig.chatbotPromptValue,
+                    type: ProjectTypes[ProjectTypes.chatbot],
                     vscode: false
                 })
                 .toPromise()

@@ -6,8 +6,8 @@ import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
-import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 import vscode = require('./../../../generators/app/vscode');
 
@@ -38,7 +38,7 @@ suite('VS Code Tests:', () => {
     const extensionConfig = {
         appName: 'not important',
         description: 'ditto',
-        type: inputConfig.boilerplatePromptValue,
+        type: ProjectTypes[ProjectTypes.boilerplate],
         taskId: 'foo',
         category: 'foobar',
         dot: false
@@ -147,7 +147,7 @@ suite('VS Code Tests:', () => {
                 return launchSettings;
             });
 
-            extensionConfig.type = inputConfig.boilerplatePromptValue;
+            extensionConfig.type = ProjectTypes[ProjectTypes.boilerplate];
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorFsReadJsonStub.calledWith(launchJson, {}));
             assert.deepEqual(launchSettings.configurations[0].program, undefined);
@@ -162,7 +162,7 @@ suite('VS Code Tests:', () => {
                 return launchSettings;
             });
 
-            extensionConfig.type = inputConfig.cliPromptValue;
+            extensionConfig.type = ProjectTypes[ProjectTypes.cli];
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorFsReadJsonStub.calledWith(launchJson, {}));
             assert.deepEqual(launchSettings.configurations[0].program, undefined);
@@ -177,7 +177,7 @@ suite('VS Code Tests:', () => {
                 return launchSettings;
             });
 
-            extensionConfig.type = inputConfig.vstsTaskPromptValue;
+            extensionConfig.type = ProjectTypes[ProjectTypes.vstsTask];
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorFsReadJsonStub.calledWith(launchJson, {}));
             assert.deepEqual(launchSettings.configurations[0].program, undefined);
@@ -192,7 +192,7 @@ suite('VS Code Tests:', () => {
                 return launchSettings;
             });
 
-            extensionConfig.type = inputConfig.chatbotPromptValue;
+            extensionConfig.type = ProjectTypes[ProjectTypes.chatbot];
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorFsReadJsonStub.calledWith(launchJson, {}));
             assert.deepEqual(launchSettings.configurations[0].program, '${workspaceRoot}/src/server.ts');
@@ -207,7 +207,7 @@ suite('VS Code Tests:', () => {
                 return launchSettings;
             });
 
-            extensionConfig.type = inputConfig.expressApiPromptValue;
+            extensionConfig.type = ProjectTypes[ProjectTypes.expressApi];
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorFsReadJsonStub.calledWith(launchJson, {}));
             assert.deepEqual(launchSettings.configurations[0].program, '${workspaceRoot}/src/app.ts');
