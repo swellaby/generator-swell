@@ -206,4 +206,33 @@ suite('Prompt Helpers Suite:', () => {
             assert.deepEqual(result, true);
         });
     });
+
+    suite('getAuthorValue Tests: ', () => {
+        const defaultDockerUser = 'myDockerHubId';
+
+        test('Should return default docker user value when the response param is null', () => {
+            assert.deepEqual(promptHelpers.getDockerUserValue(null), defaultDockerUser);
+        });
+
+        test('Should return default docker user value when the response param is undefined', () => {
+            assert.deepEqual(promptHelpers.getDockerUserValue(undefined), defaultDockerUser);
+        });
+
+        test('Should return default docker user value when the response param is an empty object', () => {
+            assert.deepEqual(promptHelpers.getDockerUserValue({}), defaultDockerUser);
+        });
+
+        test('Should return default docker user value when the response author is null', () => {
+            assert.deepEqual(promptHelpers.getDockerUserValue({ author: null }), defaultDockerUser);
+        });
+
+        test('Should return default docker user value when the response author is undefined', () => {
+            assert.deepEqual(promptHelpers.getDockerUserValue({ author: undefined }), defaultDockerUser);
+        });
+
+        test('Should return the author value when the response has a valid author value', () => {
+            const author = 'me';
+            assert.deepEqual(promptHelpers.getDockerUserValue({ author: author }), author);
+        });
+    });
 });

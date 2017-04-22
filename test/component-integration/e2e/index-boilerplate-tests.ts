@@ -34,6 +34,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         const baseAppName = 'baseOptionApp';
         const appType = ProjectTypes[ProjectTypes.boilerplate];
         const appDescription = 'this is a test description';
+        const author = 'hemingway';
 
         suiteSetup(() => {
             return helpers.run(testHelpers.generatorRoot)
@@ -41,7 +42,8 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                     appName: baseAppName,
                     description: appDescription,
                     type: appType,
-                    vscode: true
+                    vscode: true,
+                    author: author
                 })
                 .toPromise();
         });
@@ -52,6 +54,10 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
 
         test('Should inject the App Name into the README.md file when the Base option is selected', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + baseAppName);
+        });
+
+        test('Should inject author name correctly into package.json', () => {
+            yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
         });
 
         test('Should init a new git repository when the destination directory does not have a .git directory', (done) => {

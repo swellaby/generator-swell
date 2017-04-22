@@ -4,17 +4,13 @@ import inquirer = require('inquirer');
 import ProjectTypes = require('./project-types');
 import promptHelpers = require('./prompt-helpers');
 
-const boilerplatePromptValue = 'boilerplate';
-const cliPromptValue = 'cli';
-const expressApiPromptValue = 'express-api';
-const vstsTaskPromptValue = 'vsts-task';
-const chatbotPromptValue = 'chatbot';
-
 const prompts: inquirer.Question[] = [
     {
         type: 'input',
         name: 'appName',
-        message: 'The name of your app'
+        message: 'The name of your app',
+        // tslint:disable-next-line:no-invalid-this
+        default: this.appName
     },
     {
         type: 'input',
@@ -22,10 +18,16 @@ const prompts: inquirer.Question[] = [
         message: 'The description of your app'
     },
     {
+        type: 'input',
+        name: 'author',
+        message: 'The author of this app',
+        default: 'me'
+    },
+    {
         type: 'list',
         name: 'type',
         message: 'What type of app is this?',
-        default: boilerplatePromptValue,
+        default: ProjectTypes[ProjectTypes.boilerplate],
         choices: [
             {
                 name: 'New App with just the boilerplate',
@@ -60,7 +62,7 @@ const prompts: inquirer.Question[] = [
         type: 'input',
         name: 'dockerUser',
         message: 'What is your Docker Hub User Id?',
-        default: 'user'
+        default: promptHelpers.getDockerUserValue
     },
     {
         type: 'confirm',
@@ -73,9 +75,3 @@ const prompts: inquirer.Question[] = [
 export = {
     prompts: prompts
 }
-
-    // boilerplatePromptValue: boilerplatePromptValue,
-    // cliPromptValue: cliPromptValue,
-    // chatbotPromptValue: chatbotPromptValue,
-    // expressApiPromptValue: expressApiPromptValue,
-    // vstsTaskPromptValue: vstsTaskPromptValue

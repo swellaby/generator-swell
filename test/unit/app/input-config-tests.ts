@@ -12,19 +12,21 @@ const assert = chai.assert;
  */
 suite('Input Config Suite:', () => {
     let sandbox;
-    const expectedNumPrompts = 6;
+    const expectedNumPrompts = 7;
     const appNamePromptKey = 'appName';
     const appNameIndex = 0;
     const descriptionPromptKey = 'description';
     const descriptionIndex = 1;
+    const authorPromptKey = 'author';
+    const authorPromptIndex = 2;
     const appTypePromptKey = 'type';
-    const appTypeIndex = 2;
+    const appTypeIndex = 3;
     const vscodePromptKey = 'vscode';
-    const vscodeIndex = 3;
+    const vscodeIndex = 4;
     const dockerUserPromptKey = 'dockerUser';
-    const dockerUserIndex = 4;
+    const dockerUserIndex = 5;
     const dependenciesPromptKey = 'installDependencies';
-    const dependenciesIndex = 5;
+    const dependenciesIndex = 6;
 
     setup(() => {
         sandbox = sinon.sandbox.create();
@@ -70,6 +72,24 @@ suite('Input Config Suite:', () => {
 
         test('Should have the correct prompt name', () => {
             assert.deepEqual(prompt.name, descriptionPromptKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+    });
+
+    suite('Author Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[authorPromptIndex];
+        const expectedMessage = 'The author of this app';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, authorPromptKey);
         });
 
         test('Should have the correct message that describes the prompt', () => {

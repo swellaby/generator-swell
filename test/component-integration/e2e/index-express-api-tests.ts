@@ -35,6 +35,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
         const appType = ProjectTypes[ProjectTypes.expressApi];
         const appDescription = 'brand new express API';
         const dockerUser = 'testUser';
+        const author = 'hemingway';
         const expressFiles = [
             '.dockerignore',
             'build.sh',
@@ -49,7 +50,8 @@ suite('Index/Express Project Component Integration Tests:', () => {
                     appName: expressAppName,
                     description: appDescription,
                     type: appType,
-                    dockerUser: dockerUser
+                    dockerUser: dockerUser,
+                    author: author
                 })
                 .toPromise();
         });
@@ -64,6 +66,10 @@ suite('Index/Express Project Component Integration Tests:', () => {
 
         test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + expressAppName);
+        });
+
+        test('Should inject author name correctly into package.json', () => {
+            yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
         });
 
         test('Should inject image name correctly into the build.sh file when the Express API option is selected', () => {

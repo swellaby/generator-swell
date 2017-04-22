@@ -34,6 +34,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
         const chatbotAppName = 'chatbot app';
         const appType = ProjectTypes[ProjectTypes.chatbot];
         const appDescription = 'brand new chatbot';
+        const author = 'hemingway';
         const chatbotFiles = [
             './src/bot.ts',
             './src/config.ts',
@@ -49,7 +50,8 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                     appName: chatbotAppName,
                     description: appDescription,
                     type: appType,
-                    vscode: true
+                    vscode: true,
+                    author: author
                 })
                 .toPromise();
         });
@@ -64,6 +66,10 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
 
         test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + chatbotAppName);
+        });
+
+        test('Should inject author name correctly into package.json', () => {
+            yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from'

@@ -38,6 +38,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
     suite('VSTS Task Project Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = ProjectTypes[ProjectTypes.vstsTask];
+        const author = 'hemingway';
         const appDescription = 'this is an awesome vsts task';
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
             'Task project :( The VSTS files were not added to the project.';
@@ -47,7 +48,8 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 .withPrompts({
                     appName: vstsAppName,
                     description: appDescription,
-                    type: appType
+                    type: appType,
+                    author: author
                 })
                 .toPromise();
         });
@@ -73,6 +75,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
         test('Should inject the App Name into the README.md file when the VSTS option is selected', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + vstsAppName);
+        });
+
+        test('Should inject author name correctly into package.json', () => {
+            yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
+        });
+
+        test('Should inject author name correctly into task.json', () => {
+            yeomanAssert.fileContent('task.json', '"author": "' + author + '"');
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the'

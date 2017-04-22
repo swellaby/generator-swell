@@ -64,3 +64,17 @@ export const isExpressApiProject = (response) => {
 export const isVSTSTaskProject = (response) => {
     return isProjectType(response, ProjectTypes[ProjectTypes.vstsTask]);
 };
+
+/**
+ * Helper used to get the value of for the docker user, defaulting to
+ * the value the user specified for the author prompt.
+ * @param response
+ */
+export const getDockerUserValue = (response) => {
+    const dockerUser = 'myDockerHubId';
+    if (!response) {
+        return dockerUser;
+    }
+
+    return response['author'] || dockerUser;
+};

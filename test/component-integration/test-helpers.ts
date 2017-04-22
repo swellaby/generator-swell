@@ -6,6 +6,7 @@ import YeomanGenerator = require('yeoman-generator');
 
 export const generatorRoot = path.join(__dirname, './../../generators/app');
 export const readmeFileName = 'README.md';
+export const packageJson = 'package.json';
 export const yoDestinationPathFunctionName = 'destinationPath';
 
 export const boilerplateFiles = [
