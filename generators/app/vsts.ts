@@ -17,7 +17,6 @@ const buildVSTSContext = (extensionConfig: any): any => {
     const context = extensionConfig;
     context.dot = true;
     context.taskId = uuid.v4();
-    context.author = 'me'; // this can be moved to the core generator
     context.category = 'Utility'; // from new prompt
 
     return context;

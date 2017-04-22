@@ -6,7 +6,6 @@ import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 
 import boilerplate = require('./../../../generators/app/boilerplate');
-import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
 import testHelpers = require('./../test-helpers');
 

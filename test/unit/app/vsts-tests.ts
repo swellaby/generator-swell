@@ -7,8 +7,8 @@ import uuid = require('uuid');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
-import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 import vsts = require('./../../../generators/app/vsts');
 
@@ -62,7 +62,7 @@ suite('VSTS Project Tests:', () => {
      */
     suite('scaffoldVSTSTaskProject Tests:', () => {
         const vstsAppName = 'vsts task';
-        const appType = inputConfig.vstsTaskPromptValue;
+        const appType = ProjectTypes[ProjectTypes.vstsTask];
         const appDescription = 'this is an awesome vsts task';
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
             'Task project :( The VSTS files were not added to the project.'

@@ -14,6 +14,7 @@ import cli = require('./../../../generators/app/cli');
 import express = require('./../../../generators/app/express');
 import inputConfig = require('./../../../generators/app/input-config');
 import pathHelpers = require('./../../../generators/app/path-helpers');
+import ProjectTypes = require('./../../../generators/app/project-types');
 import SwellabyGenerator = require('./../../../generators/app/swellaby-generator');
 import testHelpers = require('./../test-helpers');
 import vscode = require('./../../../generators/app/vscode');
@@ -54,7 +55,7 @@ suite('Swellaby Generator Tests:', () => {
     const greetingMessage = 'Welcome to the Swellaby Generator!';
     const generationErrorMessage = 'Encountered an unexpected error while creating ' +
         'your new project. Please try again.';
-    let appType = inputConfig.boilerplatePromptValue;
+    const appType = ProjectTypes[ProjectTypes.boilerplate];
     const appName = 'test';
     const extensionConfig = {
         appName: appName,
@@ -292,7 +293,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold the correct project when the user specifies cli project', (done: () => void) => {
-        changeProjectType(inputConfig.cliPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.cli]);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
             assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
@@ -306,7 +307,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold the correct project when the user specifies express api project', (done: () => void) => {
-        changeProjectType(inputConfig.expressApiPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.expressApi]);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
             assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
@@ -320,7 +321,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold the correct project when the user specifies vsts task project', (done: () => void) => {
-        changeProjectType(inputConfig.vstsTaskPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.vstsTask]);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
             assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
@@ -334,7 +335,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold the correct project when the user specifies chatbot project', (done: () => void) => {
-        changeProjectType(inputConfig.chatbotPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.chatbot]);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
             assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
@@ -369,7 +370,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should not scaffold vs code files when the user declines with the cli selection', (done: () => void) => {
-        changeProjectType(inputConfig.cliPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.cli]);
         swellabyGenerator.createProject().then(() => {
             assert.isFalse(vsCodeScaffoldStub.called);
             done();
@@ -377,7 +378,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should not scaffold vs code files when the user declines with the express api selection', (done: () => void) => {
-        changeProjectType(inputConfig.expressApiPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.expressApi]);
         swellabyGenerator.createProject().then(() => {
             assert.isFalse(vsCodeScaffoldStub.called);
             done();
@@ -385,7 +386,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should not scaffold vs code files when the user declines with the vsts task selection', (done: () => void) => {
-        changeProjectType(inputConfig.vstsTaskPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.vstsTask]);
         swellabyGenerator.createProject().then(() => {
             assert.isFalse(vsCodeScaffoldStub.called);
             done();
@@ -393,7 +394,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should not scaffold vs code files when the user declines with the chatbot selection', (done: () => void) => {
-        changeProjectType(inputConfig.chatbotPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.chatbot]);
         swellabyGenerator.createProject().then(() => {
             assert.isFalse(vsCodeScaffoldStub.called);
             done();
@@ -417,7 +418,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold vs code files when the user accepts with the cli selection', (done: () => void) => {
-        changeProjectType(inputConfig.cliPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.cli]);
         changeVsCodeUsage(true);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
@@ -426,7 +427,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold vs code files when the user accepts with the express api selection', (done: () => void) => {
-        changeProjectType(inputConfig.expressApiPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.expressApi]);
         changeVsCodeUsage(true);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
@@ -435,7 +436,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold vs code files when the user accepts with the vsts task selection', (done: () => void) => {
-        changeProjectType(inputConfig.vstsTaskPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.vstsTask]);
         changeVsCodeUsage(true);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
@@ -444,7 +445,7 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should scaffold vs code files when the user accepts with the chatbot selection', (done: () => void) => {
-        changeProjectType(inputConfig.chatbotPromptValue);
+        changeProjectType(ProjectTypes[ProjectTypes.chatbot]);
         changeVsCodeUsage(true);
         swellabyGenerator.createProject().then(() => {
             assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));

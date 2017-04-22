@@ -4,6 +4,7 @@ import sinon = require('sinon');
 import chai = require('chai');
 
 import inputConfig = require('./../../../generators/app/input-config');
+import ProjectTypes = require('./../../../generators/app/project-types');
 const assert = chai.assert;
 
 /**
@@ -11,19 +12,21 @@ const assert = chai.assert;
  */
 suite('Input Config Suite:', () => {
     let sandbox;
-    const expectedNumPrompts = 6;
+    const expectedNumPrompts = 7;
     const appNamePromptKey = 'appName';
     const appNameIndex = 0;
     const descriptionPromptKey = 'description';
     const descriptionIndex = 1;
+    const authorPromptKey = 'author';
+    const authorPromptIndex = 2;
     const appTypePromptKey = 'type';
-    const appTypeIndex = 2;
+    const appTypeIndex = 3;
     const vscodePromptKey = 'vscode';
-    const vscodeIndex = 3;
+    const vscodeIndex = 4;
     const dockerUserPromptKey = 'dockerUser';
-    const dockerUserIndex = 4;
+    const dockerUserIndex = 5;
     const dependenciesPromptKey = 'installDependencies';
-    const dependenciesIndex = 5;
+    const dependenciesIndex = 6;
 
     setup(() => {
         sandbox = sinon.sandbox.create();
@@ -80,6 +83,24 @@ suite('Input Config Suite:', () => {
         });
     });
 
+    suite('Author Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[authorPromptIndex];
+        const expectedMessage = 'The author of this app';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, authorPromptKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+    });
+
     suite('Type Prompt Tests:', () => {
         const prompt = inputConfig.prompts[appTypeIndex];
         const expectedMessage = 'What type of app is this?';
@@ -103,7 +124,7 @@ suite('Input Config Suite:', () => {
             const boilerplateIndex = 0;
             const boilerplateName = 'New App with just the boilerplate';
             const cliIndex = 1;
-            const cliName = 'New CLI App';
+            const cliName = 'New CLI App (Not Yet Supported)';
             const expressApiIndex = 2;
             const expressApiName = 'New API App with Express and Docker';
             const vstsIndex = 3;
@@ -131,7 +152,7 @@ suite('Input Config Suite:', () => {
                 });
 
                 test('Should have the correct choice value', () => {
-                    assert.deepEqual(choice.value, 'boilerplate');
+                    assert.deepEqual(choice.value, ProjectTypes[ProjectTypes.boilerplate]);
                 });
             });
 
@@ -143,7 +164,7 @@ suite('Input Config Suite:', () => {
                 });
 
                 test('Should have the correct choice value', () => {
-                    assert.deepEqual(choice.value, 'cli');
+                    assert.deepEqual(choice.value, ProjectTypes[ProjectTypes.cli]);
                 });
             });
 
@@ -155,7 +176,7 @@ suite('Input Config Suite:', () => {
                 });
 
                 test('Should have the correct choice value', () => {
-                    assert.deepEqual(choice.value, 'express-api');
+                    assert.deepEqual(choice.value, ProjectTypes[ProjectTypes.expressApi]);
                 });
             });
 
@@ -167,7 +188,7 @@ suite('Input Config Suite:', () => {
                 });
 
                 test('Should have the correct choice value', () => {
-                    assert.deepEqual(choice.value, 'vsts-task');
+                    assert.deepEqual(choice.value, ProjectTypes[ProjectTypes.vstsTask]);
                 });
             });
 
@@ -179,7 +200,7 @@ suite('Input Config Suite:', () => {
                 });
 
                 test('Should have the correct choice value', () => {
-                    assert.deepEqual(choice.value, 'chatbot');
+                    assert.deepEqual(choice.value, ProjectTypes[ProjectTypes.chatbot]);
                 });
             });
         });
@@ -218,33 +239,6 @@ suite('Input Config Suite:', () => {
 
         test('Should be the correct type of prompt', () => {
             assert.deepEqual(prompt.type, expectedPromptType);
-        });
-    });
-
-    suite('IsExpressApiProject Tests:', () => {
-        test('Should return false when the project type is boilerplate', () => {
-            const actual = inputConfig.isExpressApiProject({ type: inputConfig.boilerplatePromptValue});
-            assert.deepEqual(actual, false);
-        });
-
-        test('Should return false when the project type is Chatbot', () => {
-            const actual = inputConfig.isExpressApiProject({ type: inputConfig.chatbotPromptValue});
-            assert.deepEqual(actual, false);
-        });
-
-        test('Should return false when the project type is CLI', () => {
-            const actual = inputConfig.isExpressApiProject({ type: inputConfig.cliPromptValue});
-            assert.deepEqual(actual, false);
-        });
-
-        test('Should return false when the project type is VSTS Task', () => {
-            const actual = inputConfig.isExpressApiProject({ type: inputConfig.vstsTaskPromptValue});
-            assert.deepEqual(actual, false);
-        });
-
-        test('Should return true when the project type is Express API', () => {
-            const actual = inputConfig.isExpressApiProject({ type: inputConfig.expressApiPromptValue});
-            assert.deepEqual(actual, true);
         });
     });
 
