@@ -85,4 +85,3 @@ Here are some things you should know:
 [coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
 [generator-usage-overview-url]: https://github.com/swellaby/generator-swell/blob/master/docs/USAGE-OVERVIEW.md
 [guidelines]: ./CONTRIBUTING.md
-
