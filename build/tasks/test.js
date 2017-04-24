@@ -32,6 +32,7 @@ gulp.task('run-unit-tests', ['pre-unit-tests', 'eslint'], function(cb) {
         }))
         .on('error', function (err) {
             console.error(err);
+            process.exit(1);
         })
         .pipe(istanbul.writeReports({
             reporters: istanbulConfig.reporters,
@@ -84,6 +85,7 @@ gulp.task('run-component-integration-tests', ['pre-component-integration-tests',
         }))
         .on('error', function (err) {
             console.error(err);
+            process.exit(1);
         })
         .pipe(istanbul.writeReports({
             reporters: istanbulConfig.reporters,

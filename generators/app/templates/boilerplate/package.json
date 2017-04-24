@@ -28,7 +28,7 @@
         "transpile": "gulp transpile"
     },
     "pre-commit": [
-        "build",
+        "build"
     ],
     "devDependencies": {
         "@types/node": "^7.0.5",
