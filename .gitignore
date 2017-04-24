@@ -15,3 +15,5 @@ generators/**/*.js*
 test/**/*.js*
 !generators/app/templates/**/*.js
 !generators/app/templates/**/*.json
+generator-swell*.tar*
+generator-swell*.tgz*
