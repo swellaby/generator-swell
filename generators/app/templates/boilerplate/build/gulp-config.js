@@ -1,8 +1,9 @@
 'use strict';
 
 var path = require('path');
-var srcRoot = './src';
+var srcRoot = './generators/app';
 var testRoot = './test';
+var notTemplates = '!' + srcRoot + '/templates/**';
 var typescriptDefinitions = './node_modules/@types/*/index.d.ts';
 var tsconfig = './tsconfig.json';
 
@@ -11,22 +12,29 @@ module.exports = {
     root: srcRoot,
     allJavascript: [
         './**/*.js',
-        '!node_modules/**'
+        '!node_modules/**',
+        notTemplates
     ],
     allTranspiledJavascript: [
         srcRoot + '/**/*.js*',
-        testRoot + '/**/*.js*'
+        testRoot + '/**/*.js*',
+        notTemplates     
     ],
-    appTranspiledJavaScript: srcRoot + '/**/*.js',
+    appTranspiledJavaScript: [
+        srcRoot + '/**/*.js',
+        notTemplates              
+    ],
     javascriptUnitTests: testRoot + '/unit/**/*.js',
+    javascriptComponentIntegrationTests: testRoot + '/component-integration/**/*.js',
     allTypescript: [
         srcRoot + '/**/*.ts',
-        testRoot + '/**/*-tests.ts',
-        typescriptDefinitions       
+        testRoot + '/**/*.ts',
+        typescriptDefinitions,
+        notTemplates
     ],
     appTypescript: [
         srcRoot + '/**/*.ts',
-        testRoot + '/**/*-tests.ts',
+        notTemplates
     ],
     typescriptCompilerOptions: tsconfig
 };
