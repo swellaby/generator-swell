@@ -20,10 +20,11 @@
         "build": "gulp clean tslint transpile eslint check-security enforce-code-coverage",
         "check-security": "gulp check-security",
         "clean": "gulp clean",
+        "component-test": "gulp run-component-integration-tests",
         "enforce-code-coverage": "gulp enforce-code-coverage",
         "gulp": "gulp",
         "lint": "gulp tslint eslint",
-        "show-unit-test-coverage": "gulp show-unittest-coverage-report",
+        "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
         "test": "gulp enforce-code-coverage check-security",
         "transpile": "gulp transpile"
     },
