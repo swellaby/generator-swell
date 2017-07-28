@@ -72,7 +72,7 @@
     "@types/mkdirp": "^0.3.29",
     "@types/mocha": "^2.2.40",
     "@types/node": "^7.0.8",
-    "@types/request": "^0.0.41",
+    "@types/request": "^0.0.45",
     "@types/sinon": "^1.16.35",
     "@types/uuid": "^2.0.29",
     "@types/yeoman-generator": "^1.0.1",
