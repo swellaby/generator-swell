@@ -2,6 +2,7 @@
 /node_modules/
 .ntvs_analysis.dat*
 npm-debug*
+package-lock.json
 
 # Istanbul
 **/coverage/
