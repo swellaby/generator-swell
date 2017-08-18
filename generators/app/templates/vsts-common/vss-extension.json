@@ -1,0 +1,61 @@
+{
+    "manifestVersion": 1,
+    "id": "",
+    "version": "0.0.1",
+    "name": <%- JSON.stringify(appName) %>,
+    "publisher": <%- JSON.stringify(author) %>,
+    "description": <%- JSON.stringify(description) %>,
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "icons": {
+        "default": "extension-icon.png"
+    },
+    "scopes": [
+        ""
+    ],
+    "categories": [
+        ""
+    ],
+    "branding": {
+        "color": "rgb(34, 34, 34)",
+        "theme": "dark"
+    },
+    "content": {
+        "details": {
+            "path": "EXTENSION.md"
+        },
+        "license": {
+            "path": ""
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": ""
+        },
+        "support": {
+            "uri": ""
+        }
+    },
+    "repository": {
+        "type": "git",
+        "uri": ""
+    },
+    "contributions": [
+        {
+            "id": "",
+            "type": "",
+            "description": "",
+            "targets": [
+                ""
+            ],
+            "properties": {
+                "name": ""
+            }
+        }
+    ],
+    "files": [
+    ]
+}

@@ -17,7 +17,7 @@ const buildVSTSContext = (extensionConfig: any): any => {
     const context = extensionConfig;
     context.dot = true;
     context.taskId = uuid.v4();
-    context.category = 'Utility'; // from new prompt
+    context.taskCategory = 'Utility'; // from new prompt
 
     return context;
 };

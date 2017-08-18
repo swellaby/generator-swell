@@ -5,7 +5,7 @@
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,
   "helpMarkDown": "Replace with markdown to show in help",
-  "category": <%- JSON.stringify(category) %>,
+  "category": <%- JSON.stringify(taskCategory) %>,
   "visibility": [
     "Build",
     "Release"
