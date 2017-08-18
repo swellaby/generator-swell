@@ -14,12 +14,16 @@ import pathHelpers = require('./path-helpers');
  */
 // tslint:disable-next-line:no-any
 const buildVSTSContext = (extensionConfig: any): any => {
-    const context = extensionConfig;
-    context.dot = true;
-    context.taskId = uuid.v4();
-    context.taskCategory = 'Utility'; // from new prompt
+    // const context = extensionConfig;
+    // context.dot = true;
+    // context.taskId = uuid.v4();
+    // context.taskCategory = 'Utility'; // from new prompt
 
-    return context;
+    // return context;
+    extensionConfig.dot = true;
+    extensionConfig.taskId = uuid.v4();
+    extensionConfig.taskCategory = 'Utility';
+    return extensionConfig;
 };
 
 /**

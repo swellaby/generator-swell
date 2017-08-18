@@ -20,7 +20,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
     let installDependenciesCommandStub: Sinon.SinonStub;
     const vstsCommonFiles = [
         'extension-icon.png',
-        'OVERVIEW.md',
+        'EXTENSION.md',
         'vss-extension.json'
     ];
 

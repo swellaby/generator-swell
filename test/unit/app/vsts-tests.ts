@@ -71,7 +71,7 @@ suite('VSTS Project Tests:', () => {
             description: appDescription,
             appType: appType,
             taskId: 'foo',
-            category: 'foobar',
+            taskCategory: 'foobar',
             dot: false
         };
 
@@ -146,7 +146,7 @@ suite('VSTS Project Tests:', () => {
             vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
             assert.deepEqual(extensionConfig.taskId, taskId);
             assert.deepEqual(extensionConfig.dot, true);
-            assert.deepEqual(extensionConfig.category, 'Utility');
+            assert.deepEqual(extensionConfig.taskCategory, 'Utility');
         });
 
         test('Should scaffold the VSTS Task content when the generator and config are valid', () => {
