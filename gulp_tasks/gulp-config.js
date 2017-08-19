@@ -4,7 +4,7 @@ var path = require('path');
 var srcRoot = './generators/app';
 var testRoot = './test';
 var notTemplates = '!' + srcRoot + '/templates/**';
-var typescriptDefinitions = './node_modules/@types/*/index.d.ts';
+// var typescriptDefinitions = './node_modules/@types/*/index.d.ts';
 var tsconfig = './tsconfig.json';
 
 module.exports = {
@@ -29,7 +29,6 @@ module.exports = {
     allTypescript: [
         srcRoot + '/**/*.ts',
         testRoot + '/**/*.ts',
-        typescriptDefinitions,
         notTemplates
     ],
     appTypescript: [
