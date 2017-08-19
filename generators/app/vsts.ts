@@ -36,7 +36,7 @@ const buildVSTSContext = (extensionConfig: any): any => {
 const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => {
     generator.sourceRoot(pathHelpers.vstsCommonRoot);
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
-}
+};
 
 /**
  * Scaffolds the VSTS Task project type

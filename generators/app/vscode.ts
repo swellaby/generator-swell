@@ -36,4 +36,4 @@ export const scaffoldVSCodeContent = (generator: YeomanGenerator, extensionConfi
     }
 
     generator.fs.writeJSON(path.join(generator.destinationRoot(), '.vscode/launch.json'), launch);
-}
+};

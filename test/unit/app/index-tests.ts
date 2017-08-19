@@ -7,7 +7,7 @@ const findUp = require('find-up');
 import path = require('path');
 import Sinon = require('sinon');
 const yeomanEnvironment = require('yeoman-environment');
-import YeomanGenerator = require('yeoman-generator');
+const yeomanGenerator = require('yeoman-generator');
 
 import Index = require('././../../../generators/app/index');
 import SwellabyGenerator = require('./../../../generators/app/swellaby-generator');
@@ -45,11 +45,11 @@ suite('Index Tests:', () => {
         yeomanEnvironmentForceUpdate = sandbox.stub(yeomanEnvironment, 'enforceUpdate');
         fileEditorCreateStub = sandbox.stub(fileEditor, 'create');
         findUpSyncStub = sandbox.stub(findUp, 'sync');
-        generatorOptionStub = sandbox.stub(YeomanGenerator.prototype, 'option');
-        generatorDetermineAppNameStub = sandbox.stub(YeomanGenerator.prototype, 'determineAppname');
-        generatorGetStorageStub = sandbox.stub(YeomanGenerator.prototype, '_getStorage');
-        generatorGetGlobalStorageStub = sandbox.stub(YeomanGenerator.prototype, '_getGlobalStorage');
-        generatorSourceRootStub = sandbox.stub(YeomanGenerator.prototype, 'sourceRoot');
+        generatorOptionStub = sandbox.stub(yeomanGenerator.prototype, 'option');
+        generatorGetStorageStub = sandbox.stub(yeomanGenerator.prototype, '_getStorage').callsFake(() => null);
+        generatorGetGlobalStorageStub = sandbox.stub(yeomanGenerator.prototype, '_getGlobalStorage');
+        generatorDetermineAppNameStub = sandbox.stub(yeomanGenerator.prototype, 'determineAppname');
+        generatorSourceRootStub = sandbox.stub(yeomanGenerator.prototype, 'sourceRoot');
         pathJoinStub = sandbox.stub(path, 'join');
         pathDirnameStub = sandbox.stub(path, 'dirname');
         swellabyGeneratorCreateProjectStub = sandbox.stub(SwellabyGenerator.prototype, 'createProject');

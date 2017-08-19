@@ -53,4 +53,4 @@ export const scaffoldExpressApiProject = (generator: YeomanGenerator, extensionC
             }
         }
     );
-}
+};

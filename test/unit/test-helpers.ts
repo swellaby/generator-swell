@@ -74,10 +74,13 @@ export const generatorStub: yeoman = {
 
 export const fsStatStub: fs.Stats = {
     atime: null,
+    atimeMs: null,
     birthtime: null,
+    birthtimeMs: null,
     blksize: null,
     blocks: null,
     ctime: null,
+    ctimeMs: null,
     dev: null,
     gid: null,
     ino: null,
@@ -90,11 +93,12 @@ export const fsStatStub: fs.Stats = {
     isSymbolicLink: () => { return null; },
     mode: null,
     mtime: null,
+    mtimeMs: null,
     nlink: null,
     rdev: null,
     size: null,
     uid: null
-}
+};
 
 // export const swellabyGeneratorStub: SwellabyGenerator = {
 //     extensionConfig: {},

@@ -18,4 +18,4 @@ export const scaffoldCliProject = (generator: YeomanGenerator, extensionConfig: 
     }
 
     generator.log(yosay('New CLI coming... but not yet. The CLI Project is not yet supported'));
-}
+};

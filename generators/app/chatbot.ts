@@ -49,4 +49,4 @@ export const scaffoldChatbotProject = (generator: YeomanGenerator, extensionConf
             '@types/restify': '^2.0.35'
         }
     });
-}
+};

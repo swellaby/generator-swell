@@ -28,4 +28,4 @@ export const scaffoldBoilerplateContent = (generator: YeomanGenerator, extension
     generator.fs.move(path.join(destRoot, 'npmignore'), path.join(destRoot, '.npmignore'));
     generator.fs.move(path.join(destRoot, 'eslintignore'), path.join(destRoot, '.eslintignore'));
     generator.fs.move(path.join(destRoot, 'eslintrc.js'), path.join(destRoot, '.eslintrc.js'));
-}
+};

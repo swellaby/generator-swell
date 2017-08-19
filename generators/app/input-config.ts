@@ -74,4 +74,4 @@ const prompts: inquirer.Question[] = [
 
 export = {
     prompts: prompts
-}
+};

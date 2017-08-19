@@ -18,7 +18,7 @@ const isProjectType = (response, projectType) => {
     }
 
     return response['type'] === projectType;
-}
+};
 
 /**
  * Helper used for conditional prompts when the user selects a Boilerplate Project.
