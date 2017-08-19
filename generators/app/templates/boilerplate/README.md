@@ -1,7 +1,7 @@
 # <%= appName %> README
+<%= description %> 
 
-
-
+<br />
 Initially created by this [swell generator][parent-generator-url]!
 
 

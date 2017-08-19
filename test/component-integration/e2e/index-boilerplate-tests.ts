@@ -20,7 +20,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
     let installDependenciesCommandStub: Sinon.SinonStub;
 
     setup(() => {
-        sandbox = Sinon.sandbox.create()
+        sandbox = Sinon.sandbox.create();
         gitInitCommandStub = testHelpers.createGitInitStub(sandbox);
         npmInstallCommandStub = testHelpers.createNpmInstallStub(sandbox);
         installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(sandbox);
@@ -54,6 +54,10 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
 
         test('Should inject the App Name into the README.md file when the Base option is selected', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + baseAppName);
+        });
+
+        test('Should inject the description into the README.md file when the Base option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, appDescription);
         });
 
         test('Should inject author name correctly into package.json', () => {

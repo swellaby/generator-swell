@@ -20,14 +20,14 @@ var unitTestLocalBranchCoverageThreshold = 100;
 var unitTestLocalLineCoverageThreshold = 100;
 var unitTestLocalFunctionCoverageThreshold = 100;
 
-var componentIntegrationTestGlobalStatementCoverageThreshold = 85;
-var componentIntegrationTestGlobalBranchCoverageThreshold = 80;
-var componentIntegrationTestGlobalLineCoverageThreshold = 85;
-var componentIntegrationTestGlobalFunctionCoverageThreshold = 100;
+var componentIntegrationTestGlobalStatementCoverageThreshold = 75;
+var componentIntegrationTestGlobalBranchCoverageThreshold = 75;
+var componentIntegrationTestGlobalLineCoverageThreshold = 75;
+var componentIntegrationTestGlobalFunctionCoverageThreshold = 75;
 
-var componentIntegrationTestLocalStatementCoverageThreshold = 65;
+var componentIntegrationTestLocalStatementCoverageThreshold = 50;
 var componentIntegrationTestLocalBranchCoverageThreshold = 0;
-var componentIntegrationTestLocalLineCoverageThreshold = 65;
+var componentIntegrationTestLocalLineCoverageThreshold = 50;
 var componentIntegrationTestLocalFunctionCoverageThreshold = 0;
 
 var includeUntested = true;
