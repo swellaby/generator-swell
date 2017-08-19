@@ -9,7 +9,8 @@ addons:
   srcclr: true
   codeclimate:
     repo_token: $CODECLIMATE_REPO_TOKEN
-  sonarqube:
+  sonarcloud:
+    organization: "swellaby"
     token:
       secure: $SONAR_TOKEN
 
