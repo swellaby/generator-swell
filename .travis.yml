@@ -42,5 +42,5 @@ script:
     - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
 
 after_success:
-    - codeclimate-test-reporter < coverage/unit/lcov.info
-    - coveralls < coverage/unit/lcov.info
+    - codeclimate-test-reporter < .coverage/unit/lcov.info
+    - coveralls < .coverage/unit/lcov.info
