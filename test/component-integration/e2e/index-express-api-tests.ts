@@ -20,7 +20,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
     let installDependenciesCommandStub: Sinon.SinonStub;
 
     setup(() => {
-        sandbox = Sinon.sandbox.create()
+        sandbox = Sinon.sandbox.create();
         gitInitCommandStub = testHelpers.createGitInitStub(sandbox);
         npmInstallCommandStub = testHelpers.createNpmInstallStub(sandbox);
         installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(sandbox);
@@ -30,6 +30,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
+    // eslint-disable-next-line max-statements
     suite('Express API Option Tests:', () => {
         const expressAppName = 'api app';
         const appType = ProjectTypes[ProjectTypes.expressApi];
@@ -45,15 +46,14 @@ suite('Index/Express Project Component Integration Tests:', () => {
         ];
 
         suiteSetup(() => {
-            return helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: expressAppName,
-                    description: appDescription,
-                    type: appType,
-                    dockerUser: dockerUser,
-                    author: author
-                })
-                .toPromise();
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: appType,
+                dockerUser: dockerUser,
+                author: author
+            };
+            return helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise();
         });
 
         test('Should create all the correct boilerplate files when the Express API option is selected', () => {
@@ -76,73 +76,62 @@ suite('Index/Express Project Component Integration Tests:', () => {
             yeomanAssert.fileContent('build.sh', dockerUser + '/' + expressAppName);
         });
 
-        test('Should create and scaffold into a new directory if the specified app name differs from the'
-            + 'current directory with the Express API option', (done) => {
-                helpers.run(testHelpers.generatorRoot)
-                    .withPrompts({
-                        appName: expressAppName,
-                        description: appDescription,
-                        type: ProjectTypes[ProjectTypes.expressApi]
-                    })
-                    .toPromise()
-                    .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), expressAppName);
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
-                        done();
-                    });
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Express API option', (done) => {
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.expressApi]
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
+                yeomanAssert.equal(path.basename(process.cwd()), expressAppName);
+                yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, expressAppName));
+                done();
+            });
         });
 
-        test('Should scaffold into the current directory when the specified app name matches the current'
-            + 'directory name with the Express API option', (done) => {
-                sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                    return path.join(process.cwd(), expressAppName);
-                });
-
-                helpers.run(testHelpers.generatorRoot)
-                    .withPrompts({
-                        appName: expressAppName,
-                        description: appDescription,
-                        type: ProjectTypes[ProjectTypes.expressApi]
-                    })
-                    .toPromise()
-                    .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        yeomanAssert.noFile(path.join(process.cwd(), expressAppName));
-                        done();
-                    });
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Express API option', (done) => {
+            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+                return path.join(process.cwd(), expressAppName);
+            });
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.expressApi]
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
+                yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
+                yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                yeomanAssert.noFile(path.join(process.cwd(), expressAppName));
+                done();
+            });
         });
 
         test('Should install dependencies if user confirms with the Express API option selected', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: expressAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.expressApi],
-                    installDependencies: true
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(npmInstallCommandStub.called, true);
-                    yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
-                    done();
-                });
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.expressApi],
+                installDependencies: true
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(npmInstallCommandStub.called, true);
+                yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
+                done();
+            });
         });
 
         test('Should not install dependencies if user declines with the Express API option selected', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: expressAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.expressApi],
-                    installDependencies: false
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(npmInstallCommandStub.called, false);
-                    yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
-                    done();
-                });
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.expressApi],
+                installDependencies: false
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(npmInstallCommandStub.called, false);
+                yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
+                done();
+            });
         });
 
         test('Should create all the correct VS Code files when the vscode option is selected', () => {
@@ -154,18 +143,66 @@ suite('Index/Express Project Component Integration Tests:', () => {
         });
 
         test('Should not add VS Code files if the user declines the vscode option', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: 'exp-api',
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.expressApi],
-                    vscode: false
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.noFile(testHelpers.vsCodeFiles);
-                    done();
-                });
+            const prompts = {
+                appName: 'exp-api',
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.expressApi],
+                vscode: false
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.noFile(testHelpers.vsCodeFiles);
+                done();
+            });
+        });
+
+        test('Should init a new git repository when the destination directory does not have a .git directory', (done) => {
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(gitInitCommandStub.called, true);
+                done();
+            });
+        });
+
+        test('Should init a new git repository when the destination directory has a file entitled \'.git\'', (done) => {
+            // this stub is to ensure that the tmp directory (see below) creates the .git directory in
+            // the same directory as the destinationRoot of the generator.
+            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+                return path.join(process.cwd(), expressAppName);
+            });
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).inTmpDir((dir) => {
+                fs.writeFileSync(path.join(dir, '.git'), null);
+            }).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(gitInitCommandStub.called, true);
+                done();
+            });
+        });
+
+        test('Should not init a new git repository when the destination directory already has a git repo initialized', (done) => {
+            // this stub is to ensure that the tmp directory (see below) creates the .git directory in
+            // the same directory as the destinationRoot of the generator.
+            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+                return path.join(process.cwd(), expressAppName);
+            });
+            const prompts = {
+                appName: expressAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).inTmpDir((dir) => {
+                fs.mkdirSync(path.join(path.resolve(dir), '.git'));
+            }).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(gitInitCommandStub.called, false);
+                done();
+            });
         });
     });
 });

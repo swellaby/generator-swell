@@ -76,6 +76,7 @@ suite('Boilerplate Tests:', () => {
     /**
      * Contains unit tests for the scaffoldBoilerplateContent function.
      */
+    // eslint-disable-next-line max-statements
     suite('scaffoldBoilerplateContent Tests:', () => {
         test('Should display an error message when the generator is null and the config is null', () => {
             boilerplate.scaffoldBoilerplateContent(null, null);
@@ -141,6 +142,12 @@ suite('Boilerplate Tests:', () => {
         test('Should set correct values on the config', () => {
             boilerplate.scaffoldBoilerplateContent(generatorStub, extensionConfig);
             assert.deepEqual(extensionConfig.dot, true);
+        });
+
+        test('Should set correct destination root', () => {
+            boilerplate.scaffoldBoilerplateContent(generatorStub, extensionConfig);
+            assert.isTrue(generatorDestinationRootStub.called);
+            assert.isTrue(pathResolveStub.calledWith(destRoot));
         });
 
         test('Should scaffold git ignore file correctly', () => {

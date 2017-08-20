@@ -2,6 +2,8 @@
 <%= description %> 
 
 <br />
+
+### Generator
 Initially created by this [swell generator][parent-generator-url]!
 
 

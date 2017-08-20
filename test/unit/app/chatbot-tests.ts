@@ -52,7 +52,8 @@ suite('Chatbot Tests:', () => {
     /**
      * Contains unit tests for the scaffoldChatbotProject function.
      */
-    suite('scaffoldChatbotProject Tests:', () => {
+    // eslint-disable-next-line max-statements
+     suite('scaffoldChatbotProject Tests:', () => {
          const extensionConfig = {
             appName: 'a',
             description: 'abc',
@@ -133,6 +134,8 @@ suite('Chatbot Tests:', () => {
                 return packageJson;
             });
             chatbot.scaffoldChatbotProject(generatorStub, extensionConfig);
+            assert.isTrue(generatorDestinationRootStub.called);
+            assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 dependencies: {
                     'botbuilder': '^3.4.4',

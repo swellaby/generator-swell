@@ -30,6 +30,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
+    // eslint-disable-next-line max-statements
     suite('Boilerplate Option Tests:', () => {
         const baseAppName = 'baseOptionApp';
         const appType = ProjectTypes[ProjectTypes.boilerplate];
@@ -37,15 +38,14 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         const author = 'hemingway';
 
         suiteSetup(() => {
-            return helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: appType,
-                    vscode: true,
-                    author: author
-                })
-                .toPromise();
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: appType,
+                vscode: true,
+                author: author
+            };
+            return helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise();
         });
 
         test('Should create all the correct boilerplate files when the Base option is selected', () => {
@@ -65,17 +65,15 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         });
 
         test('Should init a new git repository when the destination directory does not have a .git directory', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.boilerplate]
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(gitInitCommandStub.called, true);
-                    done();
-                });
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(gitInitCommandStub.called, true);
+                done();
+            });
         });
 
         test('Should init a new git repository when the destination directory has a file entitled \'.git\'', (done) => {
@@ -84,21 +82,17 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
             sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), baseAppName);
             });
-
-            helpers.run(testHelpers.generatorRoot)
-                .inTmpDir((dir) => {
-                    fs.writeFileSync(path.join(dir, '.git'), null);
-                })
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.boilerplate]
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(gitInitCommandStub.called, true);
-                    done();
-                });
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).inTmpDir((dir) => {
+                fs.writeFileSync(path.join(dir, '.git'), null);
+            }).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(gitInitCommandStub.called, true);
+                done();
+            });
         });
 
         test('Should not init a new git repository when the destination directory already has a git repo initialized', (done) => {
@@ -107,92 +101,76 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
             sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), baseAppName);
             });
-
-            helpers.run(testHelpers.generatorRoot)
-                .inTmpDir((dir) => {
-                    fs.mkdirSync(path.join(path.resolve(dir), '.git'));
-                })
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.boilerplate]
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(gitInitCommandStub.called, false);
-                    done();
-                });
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).inTmpDir((dir) => {
+                fs.mkdirSync(path.join(path.resolve(dir), '.git'));
+            }).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(gitInitCommandStub.called, false);
+                done();
+            });
         });
 
-        test('Should create and scaffold into a new directory if the specified app name'
-            + 'differs from the current directory with the Base option',
-            (done) => {
-                helpers.run(testHelpers.generatorRoot)
-                    .withPrompts({
-                        appName: baseAppName,
-                        description: appDescription,
-                        type: ProjectTypes[ProjectTypes.boilerplate]
-                    })
-                    .toPromise()
-                    .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), baseAppName);
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, baseAppName));
-                        done();
-                    });
+        test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the Base option', (done) => {
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
+                yeomanAssert.equal(path.basename(process.cwd()), baseAppName);
+                yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, baseAppName));
+                done();
+            });
         });
 
-        test('Should scaffold into the current directory when the specified app name matches'
-            + 'the current directory name with the Base option',
-            (done) => {
-                sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                    return path.join(process.cwd(), baseAppName);
-                });
+        test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option', (done) => {
+            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+                return path.join(process.cwd(), baseAppName);
+            });
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate]
+            };
 
-                helpers.run(testHelpers.generatorRoot)
-                    .withPrompts({
-                        appName: baseAppName,
-                        description: appDescription,
-                        type: ProjectTypes[ProjectTypes.boilerplate]
-                    })
-                    .toPromise()
-                    .then((dir) => {
-                        yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
-                        yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
-                        yeomanAssert.noFile(path.join(process.cwd(), baseAppName));
-                        done();
-                    });
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
+                yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
+                yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                yeomanAssert.noFile(path.join(process.cwd(), baseAppName));
+                done();
+            });
         });
 
         test('Should install dependencies if user confirms with the Base option selected', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.boilerplate],
-                    installDependencies: true
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(npmInstallCommandStub.called, true);
-                    yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
-                    done();
-                });
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate],
+                installDependencies: true
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(npmInstallCommandStub.called, true);
+                yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
+                done();
+            });
         });
 
         test('Should not install dependencies if user declines with the Base option selected', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: baseAppName,
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.boilerplate],
-                    installDependencies: false
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.deepEqual(npmInstallCommandStub.called, false);
-                    yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
-                    done();
-                });
+            const prompts = {
+                appName: baseAppName,
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate],
+                installDependencies: false
+            };
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.deepEqual(npmInstallCommandStub.called, false);
+                yeomanAssert.deepEqual(installDependenciesCommandStub.called, false);
+                done();
+            });
         });
 
         test('Should create all the correct VS Code files when the vscode option is selected', () => {
@@ -204,18 +182,17 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         });
 
         test('Should not add VS Code files if the user declines the vscode option', (done) => {
-            helpers.run(testHelpers.generatorRoot)
-                .withPrompts({
-                    appName: 'fo',
-                    description: appDescription,
-                    type: ProjectTypes[ProjectTypes.boilerplate],
-                    vscode: false
-                })
-                .toPromise()
-                .then(() => {
-                    yeomanAssert.noFile(testHelpers.vsCodeFiles);
-                    done();
-                });
+            const prompts = {
+                appName: 'fo',
+                description: appDescription,
+                type: ProjectTypes[ProjectTypes.boilerplate],
+                vscode: false
+            };
+
+            helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then(() => {
+                yeomanAssert.noFile(testHelpers.vsCodeFiles);
+                done();
+            });
         });
     });
 });
