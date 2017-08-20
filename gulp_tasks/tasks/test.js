@@ -2,15 +2,15 @@
 // Related to: https://github.com/Microsoft/TypeScript/issues/13270
 'use strict';
 
-var gulp = require('gulp');
-var browserOpen = require('gulp-open');
-var istanbul = require('gulp-istanbul');
-var mocha = require('gulp-mocha');
-var nsp = require('gulp-nsp');
+const gulp = require('gulp');
+const browserOpen = require('gulp-open');
+const istanbul = require('gulp-istanbul');
+const mocha = require('gulp-mocha');
+const nsp = require('gulp-nsp');
 
-var gulpConfig = require('./../gulp-config');
-var istanbulConfig = require('./../istanbul-config');
-var mochaConfig = require('./../mocha-config');
+const gulpConfig = require('./../gulp-config');
+const istanbulConfig = require('./../istanbul-config');
+const mochaConfig = require('./../mocha-config');
 
 gulp.task('check-security', function(cb) {
     nsp({package: gulpConfig.packageJSON}, cb);

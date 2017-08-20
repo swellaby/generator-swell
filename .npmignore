@@ -1,7 +1,9 @@
 /build/
 /coverage/
+/.coverage/
 /test/
 /testresults/
+/.testresults/
 /.codeclimate.yml
 /.eslintignore
 /.eslintrc.js
