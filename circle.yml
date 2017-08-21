@@ -22,6 +22,6 @@ test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit
     - mkdir -p $CIRCLE_TEST_REPORTS/coverage
-    - cp testresults/unit-test-results.xml $CIRCLE_TEST_REPORTS/junit/unit-test-results.xml
-    - cp -R coverage/unit $CIRCLE_TEST_REPORTS/coverage
+    - cp .testresults/unit-test-results.xml $CIRCLE_TEST_REPORTS/junit/unit-test-results.xml
+    - cp -R .coverage/unit $CIRCLE_TEST_REPORTS/coverage
     - bash <(curl -s https://codecov.io/bash)

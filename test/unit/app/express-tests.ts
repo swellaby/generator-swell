@@ -52,6 +52,7 @@ suite('Express Project Tests:', () => {
         sandbox.restore();
     });
 
+    // eslint-disable-next-line max-statements
     suite('scaffoldExpressApiProject Tests:', () => {
         const extensionConfig = {
             appName: 'e',
@@ -151,6 +152,8 @@ suite('Express Project Tests:', () => {
                 return packageJson;
             });
             express.scaffoldExpressApiProject(generatorStub, extensionConfig);
+            assert.isTrue(generatorDestinationRootStub.called);
+            assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 scripts: {
                     'docker-build': 'bash build.sh',

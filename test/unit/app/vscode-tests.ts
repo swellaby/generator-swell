@@ -19,7 +19,6 @@ const assert = Chai.assert;
 suite('VS Code Tests:', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
     let generatorStub: YeomanGenerator;
-    const taskId = '626c88e3-1e13-4663-abdc-5658b0757b80';
     const sourceRootBase = 'templates/vsts-common';
     const sourceRoot = sourceRootBase + '/**/*';
     const destRootBase = 'project-foo';
@@ -28,7 +27,6 @@ suite('VS Code Tests:', () => {
     // tslint:disable-next-line:no-any
     const launchSettings: any = { configurations: [ { program: undefined }]};
     let consoleErrorStub: Sinon.SinonStub;
-    let generatorLogStub: Sinon.SinonStub;
     let generatorSourceRootStub: Sinon.SinonStub;
     let generatorFsCopyTplStub: Sinon.SinonStub;
     let generatorFsReadJsonStub: Sinon.SinonStub;
@@ -39,7 +37,6 @@ suite('VS Code Tests:', () => {
         appName: 'not important',
         description: 'ditto',
         type: ProjectTypes[ProjectTypes.boilerplate],
-        taskId: 'foo',
         category: 'foobar',
         dot: false
     };
@@ -47,7 +44,6 @@ suite('VS Code Tests:', () => {
     setup(() => {
         consoleErrorStub = sandbox.stub(console, 'error');
         generatorStub = testHelpers.generatorStub;
-        generatorLogStub = sandbox.stub(generatorStub, 'log');
         generatorSourceRootStub = sandbox.stub(generatorStub, 'sourceRoot').callsFake(() => {
             return sourceRootBase;
         });
@@ -60,7 +56,7 @@ suite('VS Code Tests:', () => {
         pathJoinStub = sandbox.stub(path, 'join');
     });
     const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to scaffold the VS Code ' +
-        'content :( The VS Code files were not added to the project.'
+        'content :( The VS Code files were not added to the project.';
 
     teardown(() => {
         sandbox.restore();
@@ -69,6 +65,7 @@ suite('VS Code Tests:', () => {
     /**
      * Contains unit tests for the scaffoldVSCodeContent function.
      */
+    // eslint-disable-next-line max-statements
     suite('scaffoldVSCodeContent Tests:', () => {
         test('Should display an error message when the generator is null and the extension config is null', () => {
             vscode.scaffoldVSCodeContent(null, null);
@@ -129,7 +126,7 @@ suite('VS Code Tests:', () => {
             assert.deepEqual(extensionConfig.dot, true);
         });
 
-        test('Should scaffold the VSTS Task content when the generator and config are valid', () => {
+        test('Should scaffold the VS Code content when the generator and config are valid', () => {
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorSourceRootStub.calledWith(pathHelpers.vscodeRoot));
             assert.isTrue(generatorFsCopyTplStub.calledWith(
@@ -150,6 +147,8 @@ suite('VS Code Tests:', () => {
             extensionConfig.type = ProjectTypes[ProjectTypes.boilerplate];
             vscode.scaffoldVSCodeContent(generatorStub, extensionConfig);
             assert.isTrue(generatorFsReadJsonStub.calledWith(launchJson, {}));
+            assert.isTrue(generatorDestinationRootStub.called);
+            assert.isTrue(pathJoinStub.calledWith(destRootBase, '.vscode/launch.json'));
             assert.deepEqual(launchSettings.configurations[0].program, undefined);
             assert.isTrue(generatorFsWriteJsonStub.calledWith(launchJson, launchSettings));
         });

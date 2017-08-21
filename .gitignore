@@ -9,8 +9,13 @@ package-lock.json
 
 # Code Coverage
 **/coverage/
+.coverage
 
 **/testresults/
+.testresults
+
+vsts-publish/
+.vsts-publish/
 
 generators/**/*.js*
 test/**/*.js*

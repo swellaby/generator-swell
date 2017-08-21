@@ -1,11 +1,18 @@
+/*eslint quotes: ["error", "single"]*/
+// Related to: https://github.com/Microsoft/TypeScript/issues/13270
 'use strict';
+
+const path = require('path');
+const testResultsRootDirectoryPath = path.resolve('./.testresults');
+const unitTestResultsFile = testResultsRootDirectoryPath + '/unit-test-results.xml';
+const componentIntegrationTestResultsFile = testResultsRootDirectoryPath + '/component-integration-test-results.xml';
 
 module.exports = {
     unitTestTimeout: 2000,
     unitTestReporter: 'mocha-multi',
     unitTestReporterOptions: {
         'xunit': {
-            stdout: './testresults/unit-test-results.xml',
+            stdout: unitTestResultsFile,
             options: {
                 verbose: true,
             }
@@ -19,7 +26,7 @@ module.exports = {
     componentIntegrationTestReporter: 'mocha-multi',
     componentIntegrationTestReporterOptions: {
         'xunit': {
-            stdout: './testresults/component-integration-test-results.xml',
+            stdout: componentIntegrationTestResultsFile,
             options: {
                 verbose: true,
             }

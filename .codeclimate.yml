@@ -25,6 +25,8 @@ ratings:
     - test
 exclude_paths:
 - coverage
+- .coverage
 - testresults
+- .testresults
 - node_modules
 - "generators/app/templates/**/*"

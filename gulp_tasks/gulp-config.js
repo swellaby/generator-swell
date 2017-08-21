@@ -1,11 +1,12 @@
+/*eslint quotes: ["error", "single"]*/
+// Related to: https://github.com/Microsoft/TypeScript/issues/13270
 'use strict';
 
-var path = require('path');
-var srcRoot = './generators/app';
-var testRoot = './test';
-var notTemplates = '!' + srcRoot + '/templates/**';
-// var typescriptDefinitions = './node_modules/@types/*/index.d.ts';
-var tsconfig = './tsconfig.json';
+const path = require('path');
+const srcRoot = './generators/app';
+const testRoot = './test';
+const notTemplates = '!' + srcRoot + '/templates/**';
+const tsconfig = './tsconfig.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),

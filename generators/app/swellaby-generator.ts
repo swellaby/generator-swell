@@ -53,6 +53,7 @@ class SwellabyGenerator {
             this.validateGitRepository();
             this.scaffoldProjectContent();
             this.installDependencies();
+            // eslint-disable-next-line no-unused-vars
         }).catch((err: Error) => {
             this.generator.log('Encountered an unexpected error while creating your ' +
                 'new project. Please try again.');

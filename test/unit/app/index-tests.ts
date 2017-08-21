@@ -22,6 +22,12 @@ suite('Index Tests:', () => {
     const sandbox = Sinon.sandbox.create();
     let index: Index;
     let swellabyGeneratorCreateProjectStub: Sinon.SinonStub;
+    // The below stubs on the internal yeoman generators stubs are leveraged
+    // in order to take over the execution flow that occurs internally, on-start
+    // within the core yeoman library. It is necessary to stub these to perform
+    // true unit tests.
+    // tslint:disable-next-line
+    /* eslint-disable no-unused-vars */
     let yeomanEnvironmentForceUpdate: Sinon.SinonStub;
     let fileEditorCreateStub: Sinon.SinonStub;
     let findUpSyncStub: Sinon.SinonStub;
@@ -32,6 +38,8 @@ suite('Index Tests:', () => {
     let generatorSourceRootStub: Sinon.SinonStub;
     let pathJoinStub: Sinon.SinonStub;
     let pathDirnameStub: Sinon.SinonStub;
+    // tslint:disable-next-line
+    /* eslint-enable no-unused-vars */
     const options = {
         env: {
             adapter: {
@@ -41,7 +49,11 @@ suite('Index Tests:', () => {
         resolved: 'foo'
     };
 
-    setup(() => {
+    /**
+     * Helper function for stubbing internal Yo Generator functions in order
+     * to take control of execution flow.
+     */
+    const stubInternalGeneratorFunctions = () => {
         yeomanEnvironmentForceUpdate = sandbox.stub(yeomanEnvironment, 'enforceUpdate');
         fileEditorCreateStub = sandbox.stub(fileEditor, 'create');
         findUpSyncStub = sandbox.stub(findUp, 'sync');
@@ -50,6 +62,10 @@ suite('Index Tests:', () => {
         generatorGetGlobalStorageStub = sandbox.stub(yeomanGenerator.prototype, '_getGlobalStorage');
         generatorDetermineAppNameStub = sandbox.stub(yeomanGenerator.prototype, 'determineAppname');
         generatorSourceRootStub = sandbox.stub(yeomanGenerator.prototype, 'sourceRoot');
+    };
+
+    setup(() => {
+        stubInternalGeneratorFunctions();
         pathJoinStub = sandbox.stub(path, 'join');
         pathDirnameStub = sandbox.stub(path, 'dirname');
         swellabyGeneratorCreateProjectStub = sandbox.stub(SwellabyGenerator.prototype, 'createProject');

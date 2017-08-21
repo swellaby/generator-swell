@@ -34,7 +34,8 @@ suite('CLI Project Tests:', () => {
     /**
      * Contains unit tests for the scaffoldCliProject function.
      */
-    suite('scaffoldCliProject Tests:', () => {
+    // eslint-disable-next-line max-statements
+     suite('scaffoldCliProject Tests:', () => {
         const extensionConfig = {
             appName: 'a',
             description: 'abc',

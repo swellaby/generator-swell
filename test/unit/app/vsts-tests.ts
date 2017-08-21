@@ -60,12 +60,13 @@ suite('VSTS Project Tests:', () => {
     /**
      * Contains unit tests for the scaffoldVSTSTaskProject function.
      */
+    // eslint-disable-next-line max-statements
     suite('scaffoldVSTSTaskProject Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = ProjectTypes[ProjectTypes.vstsTask];
         const appDescription = 'this is an awesome vsts task';
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
-            'Task project :( The VSTS files were not added to the project.'
+            'Task project :( The VSTS files were not added to the project.';
         const extensionConfig = {
             appName: vstsAppName,
             description: appDescription,
@@ -147,6 +148,8 @@ suite('VSTS Project Tests:', () => {
             assert.deepEqual(extensionConfig.taskId, taskId);
             assert.deepEqual(extensionConfig.dot, true);
             assert.deepEqual(extensionConfig.taskCategory, 'Utility');
+            assert.isTrue(uuidV4Stub.called);
+            assert.deepEqual(extensionConfig.taskId, taskId);
         });
 
         test('Should scaffold the VSTS Task content when the generator and config are valid', () => {
@@ -164,6 +167,8 @@ suite('VSTS Project Tests:', () => {
                 return packageJson;
             });
             vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
+            assert.isTrue(generatorDestinationRootStub.called);
+            assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 dependencies: {
                     'request': '^2.79.0',

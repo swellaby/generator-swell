@@ -1,4 +1,4 @@
-' use strict';
+'use strict';
 
 import Chai = require('chai');
 import fs = require('fs');
@@ -100,7 +100,7 @@ suite('Swellaby Generator Tests:', () => {
             return undefined;
         });
         generatorNpmInstallStub = sandbox.stub(generatorStub, 'npmInstall');
-    }
+    };
 
     const setupFileSystemStubs = () => {
         mkdirpSyncStub = sandbox.stub(mkdirp, 'sync');
@@ -118,7 +118,7 @@ suite('Swellaby Generator Tests:', () => {
             return fsStatsStub;
         });
         fsUnlinkSyncStub = sandbox.stub(fs, 'unlinkSync');
-    }
+    };
 
     const setupScaffolderHelperStubs = () => {
         boilerplateScaffoldStub = sandbox.stub(boilerplate, 'scaffoldBoilerplateContent').callsFake(() => { return; });
@@ -127,28 +127,28 @@ suite('Swellaby Generator Tests:', () => {
         expressScaffoldExpressApiProjectStub = sandbox.stub(express, 'scaffoldExpressApiProject').callsFake(() => { return; });
         vstsScaffoldVstsTaskProjectStub = sandbox.stub(vsts, 'scaffoldVSTSTaskProject').callsFake(() => { return; });
         chatbotScaffoldChatbotProjectStub = sandbox.stub(chatbot, 'scaffoldChatbotProject').callsFake(() => { return; });
-    }
+    };
 
     const updatePromptSettings = () => {
         generatorPromptStub.callsFake(() => {
             return Promise.resolve(extensionConfig);
         });
-    }
+    };
 
     const changeProjectType = (projectType) => {
         extensionConfig.type = projectType;
         updatePromptSettings();
-    }
+    };
 
     const changeVsCodeUsage = (useVsCode: boolean) => {
         extensionConfig.vscode = useVsCode;
         updatePromptSettings();
-    }
+    };
 
     const changeDependencyInstallSetting = (installDependencies: boolean) => {
         extensionConfig.installDependencies = installDependencies;
         updatePromptSettings();
-    }
+    };
 
     setup(() => {
         generatorStub = testHelpers.generatorStub;
