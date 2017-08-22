@@ -1,14 +1,17 @@
+/*eslint quotes: ["error", "single"]*/
+// Related to: https://github.com/Microsoft/TypeScript/issues/13270'
 'use strict';
 
-var gulp = require('gulp');
-var sourceMaps = require('gulp-sourcemaps');
-var tsc = require('gulp-typescript');
-var gulpConfig = require('./../gulp-config');
+const gulp = require('gulp');
+const sourceMaps = require('gulp-sourcemaps');
+const tsc = require('gulp-typescript');
+const gulpConfig = require('./../gulp-config');
 
 gulp.task('transpile', ['clean'], function() {
-    var tsResult = gulp.src(gulpConfig.allTypescript, { base: '.' })
+    const tsProject = tsc.createProject(gulpConfig.typescriptCompilerOptions);
+    const tsResult = gulp.src(gulpConfig.allTypescript, { base: '.' })
         .pipe(sourceMaps.init())
-        .pipe(tsc(gulpConfig.typescriptCompilerOptions))
+        .pipe(tsProject())
         .on('error', function(err) {
             throw new Error('TypeScript transpilation error: ' + err);
         });

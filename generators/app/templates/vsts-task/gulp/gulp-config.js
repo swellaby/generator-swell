@@ -4,12 +4,20 @@
 
 const path = require('path');
 const srcRoot = './src';
+const vstsPublishRoot = './.vsts-publish';
 const testRoot = './test';
 const tsconfig = './tsconfig.json';
 
 module.exports = {
-    packageJSON: path.resolve('./package.json'),
+    packageJSON: path.resolve('package.json'),
     root: srcRoot,
+    vstsPublishRoot: vstsPublishRoot,
+    vstsPublishSrc: vstsPublishRoot + '/src',
+    vstsTaskContent: [
+        './task.json',
+        './package.json',
+        './icon.png'
+    ],
     allJavascript: [
         './**/*.js',
         '!node_modules/**',
@@ -30,5 +38,5 @@ module.exports = {
     appTypescript: [
         srcRoot + '/**/*.ts',
     ],
-    typescriptCompilerOptions: path.resolve(tsconfig)
+    typescriptCompilerOptions: tsconfig
 };

@@ -39,10 +39,10 @@ module.exports = {
         'linebreak-style': [
             'off'
         ],
-        quotes: [
-            'error',
-            'single'
-        ],
+        // quotes: [
+        //     'error',
+        //     'single'
+        // ],
         semi: [
             'error',
             'always'
@@ -56,7 +56,7 @@ module.exports = {
                 'max': 10
             },
             {
-                'ignoreTopLevelFunctions': false
+                'ignoreTopLevelFunctions': true
             }
         ],
         "require-yield": [

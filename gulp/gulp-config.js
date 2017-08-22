@@ -15,7 +15,7 @@ const notTemplates = notTemplateRoot + '/**';
 const tsconfig = './tsconfig.json';
 
 module.exports = {
-    packageJSON: path.resolve('package.json'),
+    packageJSON: path.resolve('./package.json'),
     root: srcRoot,
     templateJavascript: [
         templatesRootPath + '/**/*.js'
@@ -48,5 +48,5 @@ module.exports = {
     templateTypescript: [
         templatesRootPath + '/**/*.ts'
     ],
-    typescriptCompilerOptions: tsconfig
+    typescriptCompilerOptions: path.resolve(tsconfig)
 };

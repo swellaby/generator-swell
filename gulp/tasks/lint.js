@@ -28,7 +28,7 @@ gulp.task('eslint-templates', ['transpile'], function () {
  * Helper function for setting up TypeScript linting.
  */
 const createTypescriptProject = () => {
-    const program = tslint.Linter.createProgram('./tsconfig.json');
+    const program = tslint.Linter.createProgram(gulpConfig.typescriptCompilerOptions);
     program.formatter = 'verbose';
     program.rulesDirectory = 'node_modules/tslint-microsoft-contrib';
 
