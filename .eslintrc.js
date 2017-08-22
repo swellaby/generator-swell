@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
     env: {
         browser: false,
@@ -69,5 +70,5 @@ module.exports = {
     // Custom Globals
     globals: {
    
-    }    
+    }
 };

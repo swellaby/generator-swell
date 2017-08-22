@@ -27,7 +27,7 @@ suite('Bot Suite -', () => {
     let sut: Bot;
     let sandbox: Sinon.SinonSandbox;
     const univseralBot = {
-        dialog: () => { return null }
+        dialog: () => { return null; }
     };
     const dialog = {
         onDefault: () => { return null; },

@@ -59,7 +59,7 @@
     "check-security": "gulp check-security",
     "enforce-code-coverage": "gulp enforce-code-coverage",
     "gulp": "gulp",
-    "lint": "gulp tslint eslint",
+    "lint": "gulp tslint eslint eslint-templates tslint-templates",
     "show-component-integration-test-coverage": "gulp show-component-integration-test-coverage-report",
     "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
     "test": "gulp enforce-code-coverage check-security",

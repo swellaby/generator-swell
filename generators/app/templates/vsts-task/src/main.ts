@@ -24,7 +24,7 @@ const validateInputs = (inputA, inputB): boolean => {
     }
 
     return true;
-}
+};
 
 /**
  *
@@ -48,7 +48,7 @@ const addInputs = async (inputA, inputB) => {
             tl.error('Something failed! Error message: ' + error.message);
         });
     }
-}
+};
 
 /**
  *
@@ -62,7 +62,7 @@ export const executeTask = async () => {
     console.log('You said: ' + exampleMessageParameter);
 
     await addInputs(inputAParameter, inputBParameter);
-}
+};
 
 export const getTeamProjectCount = async () => {
     // Examples of accessing system variables.
@@ -77,7 +77,7 @@ export const getTeamProjectCount = async () => {
         tl.error('Something failed! Error message: ' + err.message);
         tl.setResult(tl.TaskResult.Failed, 'Addition failed, math is broken :(');
     }
-}
+};
 
 // These two methods invocated for illustrative purposes. These could just as easily have been
 // broken down into two separate tasks (and probably should be).

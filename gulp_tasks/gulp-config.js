@@ -5,15 +5,24 @@
 const path = require('path');
 const srcRoot = './generators/app';
 const testRoot = './test';
-const notTemplates = '!' + srcRoot + '/templates/**';
+const templatesRoot = '/templates';
+const templatesRootPath = srcRoot + templatesRoot;
+const notGlob = '!';
+const nodeModulesRoot = 'node_modules';
+const notNodeModules = notGlob + nodeModulesRoot + '/**';
+const notTemplateRoot = notGlob + templatesRootPath;
+const notTemplates = notTemplateRoot + '/**';
 const tsconfig = './tsconfig.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),
     root: srcRoot,
-    allJavascript: [
+    templateJavascript: [
+        templatesRootPath + '/**/*.js'
+    ],
+    allGeneratorJavascript: [
         './**/*.js',
-        '!node_modules/**',
+        notNodeModules,
         notTemplates
     ],
     allTranspiledJavascript: [
@@ -27,7 +36,7 @@ module.exports = {
     ],
     javascriptUnitTests: testRoot + '/unit/**/*.js',
     javascriptComponentIntegrationTests: testRoot + '/component-integration/**/*.js',
-    allTypescript: [
+    allGeneratorTypescript: [
         srcRoot + '/**/*.ts',
         testRoot + '/**/*.ts',
         notTemplates
@@ -35,6 +44,9 @@ module.exports = {
     appTypescript: [
         srcRoot + '/**/*.ts',
         notTemplates
+    ],
+    templateTypescript: [
+        templatesRootPath + '/**/*.ts'
     ],
     typescriptCompilerOptions: tsconfig
 };

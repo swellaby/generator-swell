@@ -8,7 +8,7 @@ const tsc = require('gulp-typescript');
 const gulpConfig = require('./../gulp-config');
 
 gulp.task('transpile', ['clean'], function() {
-    const tsResult = gulp.src(gulpConfig.allTypescript, { base: '.' })
+    const tsResult = gulp.src(gulpConfig.allGeneratorTypescript, { base: '.' })
         .pipe(sourceMaps.init())
         .pipe(tsc(gulpConfig.typescriptCompilerOptions))
         .on('error', function(err) {
