@@ -70,7 +70,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 './src/helper.ts',
                 './test/unit/main-tests.ts',
                 './test/unit/helper-tests.ts',
-                './build/tasks/package.js'
+                './gulp/tasks/package.js'
             ]);
         });
 

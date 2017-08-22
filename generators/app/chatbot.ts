@@ -42,11 +42,11 @@ export const scaffoldChatbotProject = (generator: YeomanGenerator, extensionConf
 
     generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
         dependencies: {
-            'botbuilder': '^3.4.4',
-            'restify': '^4.3.0'
+            'botbuilder': '^3.9.1',
+            'restify': '^5.2.0'
         },
         devDependencies: {
-            '@types/restify': '^2.0.35'
+            '@types/restify': '^5.0.1'
         }
     });
 };

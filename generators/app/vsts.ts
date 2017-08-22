@@ -61,11 +61,11 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
 
     generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
         dependencies: {
-            'request': '^2.79.0',
-            'vsts-task-lib': '^1.1.0'
+            'request': '^2.81.0',
+            'vsts-task-lib': '^2.0.7'
         },
         devDependencies: {
-            '@types/request': '^0.0.36'
+            '@types/request': '^2.0.2'
         }
     });
 };

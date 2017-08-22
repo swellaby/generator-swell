@@ -46,10 +46,10 @@ export const scaffoldExpressApiProject = (generator: YeomanGenerator, extensionC
                 'start': 'node src/app.js'
             },
             dependencies: {
-                'express': '^4.15.2'
+                'express': '^4.15.4'
             },
             devDependencies: {
-                '@types/express': '^4.0.35'
+                '@types/express': '^4.0.36'
             }
         }
     );

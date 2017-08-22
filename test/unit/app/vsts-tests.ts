@@ -171,11 +171,11 @@ suite('VSTS Project Tests:', () => {
             assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 dependencies: {
-                    'request': '^2.79.0',
-                    'vsts-task-lib': '^1.1.0'
+                    'request': '^2.81.0',
+                    'vsts-task-lib': '^2.0.7'
                 },
                 devDependencies: {
-                    '@types/request': '^0.0.36'
+                    '@types/request': '^2.0.2'
                 }
             }));
         });
