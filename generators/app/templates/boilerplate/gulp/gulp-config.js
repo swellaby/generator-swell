@@ -1,10 +1,9 @@
 'use strict';
 
-var path = require('path');
-var srcRoot = './src';
-var testRoot = './test';
-var typescriptDefinitions = './node_modules/@types/*/index.d.ts';
-var tsconfig = './tsconfig.json';
+const path = require('path');
+const srcRoot = './src';
+const testRoot = './test';
+const tsconfig = './tsconfig.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),
@@ -25,7 +24,6 @@ module.exports = {
     allTypescript: [
         srcRoot + '/**/*.ts',
         testRoot + '/**/*.ts',
-        typescriptDefinitions,
     ],
     appTypescript: [
         srcRoot + '/**/*.ts',

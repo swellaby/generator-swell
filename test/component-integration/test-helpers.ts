@@ -6,6 +6,9 @@ import YeomanGenerator = require('yeoman-generator');
 
 export const generatorRoot = path.join(__dirname, './../../generators/app');
 export const readmeFileName = 'README.md';
+export const readmeGeneratorOriginHeader = '### Generator';
+export const readmeGeneratorOriginText = 'Initially created by this [swell generator][parent-generator-url]!';
+export const readmeGeneratorUrlVariableText = '[parent-generator-url]: https://github.com/swellaby/generator-swell';
 export const packageJson = 'package.json';
 export const yoDestinationPathFunctionName = 'destinationPath';
 
@@ -18,14 +21,14 @@ export const boilerplateFiles = [
     'README.md',
     'tsconfig.json',
     'tslint.json',
-    './build/gulp-config.js',
-    './build/istanbul-config.js',
-    './build/mocha-config.js',
-    './build/tasks/build.js',
-    './build/tasks/build.js',
-    './build/tasks/clean.js',
-    './build/tasks/lint.js',
-    './build/tasks/test.js'
+    './gulp/gulp-config.js',
+    './gulp/istanbul-config.js',
+    './gulp/mocha-config.js',
+    './gulp/tasks/build.js',
+    './gulp/tasks/build.js',
+    './gulp/tasks/clean.js',
+    './gulp/tasks/lint.js',
+    './gulp/tasks/test.js'
 ];
 
 export const vsCodeFiles = [

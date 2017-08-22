@@ -1,37 +1,38 @@
 'use strict';
 
-var path = require('path');
+const path = require('path');
+const coverageRootDirectoryPath = path.resolve('./.coverage');
 
-var unitTestCoverageDirectory = path.resolve('./coverage/unit/');
-var unitTestCoverageReportHtmlFile = path.resolve('./coverage/unit/index.html');
+const unitTestCoverageDirectory = coverageRootDirectoryPath + '/unit/';
+const unitTestCoverageReportHtmlFile = unitTestCoverageDirectory + 'index.html';
 
-var componentIntegrationTestCoverageDirectory = path.resolve('./coverage/component-integration/');
-var componentIntegrationTestReportHtmlFile = path.resolve('./coverage/component-integration/index.html');
+const componentIntegrationTestCoverageDirectory = coverageRootDirectoryPath + '/component-integration/';
+const componentIntegrationTestReportHtmlFile = componentIntegrationTestCoverageDirectory + 'index.html';
 
 // These values determine the aggregate coverage thresholds that are applied across the entire project.
-var unitTestGlobalStatementCoverageThreshold = 100;
-var unitTestGlobalBranchCoverageThreshold = 100;
-var unitTestGlobalLineCoverageThreshold = 100;
-var unitTestGlobalFunctionCoverageThreshold = 100;
+const unitTestGlobalStatementCoverageThreshold = 100;
+const unitTestGlobalBranchCoverageThreshold = 100;
+const unitTestGlobalLineCoverageThreshold = 100;
+const unitTestGlobalFunctionCoverageThreshold = 100;
 
 // These values determine the coverage thresholds that are applied to each file individually.
-var unitTestLocalStatementCoverageThreshold = 100;
-var unitTestLocalBranchCoverageThreshold = 100;
-var unitTestLocalLineCoverageThreshold = 100;
-var unitTestLocalFunctionCoverageThreshold = 100;
+const unitTestLocalStatementCoverageThreshold = 100;
+const unitTestLocalBranchCoverageThreshold = 100;
+const unitTestLocalLineCoverageThreshold = 100;
+const unitTestLocalFunctionCoverageThreshold = 100;
 
-var componentIntegrationTestGlobalStatementCoverageThreshold = 85;
-var componentIntegrationTestGlobalBranchCoverageThreshold = 80;
-var componentIntegrationTestGlobalLineCoverageThreshold = 85;
-var componentIntegrationTestGlobalFunctionCoverageThreshold = 100;
+const componentIntegrationTestGlobalStatementCoverageThreshold = 85;
+const componentIntegrationTestGlobalBranchCoverageThreshold = 80;
+const componentIntegrationTestGlobalLineCoverageThreshold = 85;
+const componentIntegrationTestGlobalFunctionCoverageThreshold = 100;
 
-var componentIntegrationTestLocalStatementCoverageThreshold = 80;
-var componentIntegrationTestLocalBranchCoverageThreshold = 80;
-var componentIntegrationTestLocalLineCoverageThreshold = 80;
-var componentIntegrationTestLocalFunctionCoverageThreshold = 100;
+const componentIntegrationTestLocalStatementCoverageThreshold = 80;
+const componentIntegrationTestLocalBranchCoverageThreshold = 80;
+const componentIntegrationTestLocalLineCoverageThreshold = 80;
+const componentIntegrationTestLocalFunctionCoverageThreshold = 100;
 
-var includeUntested = true;
-var reporters = ['html', 'lcov', 'cobertura', 'text', 'text-summary'];
+const includeUntested = true;
+const reporters = ['html', 'lcov', 'cobertura', 'text', 'text-summary'];
 
 module.exports = {
     unitTestGlobalThresholds: {

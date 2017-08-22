@@ -20,7 +20,7 @@ engines:
     
 ratings:
     paths:
-    - "build/**/*"
+    - "gulp/**/*"
     - "generators/**/*"
     - test
 exclude_paths:

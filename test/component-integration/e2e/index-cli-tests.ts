@@ -53,6 +53,10 @@ suite('Index/CLI Project Component Integration Tests:', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + cliAppName);
         });
 
+        test('Should inject the description into the README.md file when the Base option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, appDescription);
+        });
+
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the CLI option', (done) => {
             const prompts = {
                 appName: cliAppName,

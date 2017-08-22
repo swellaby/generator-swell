@@ -64,6 +64,10 @@ suite('Index/Express Project Component Integration Tests:', () => {
             yeomanAssert.file(expressFiles);
         });
 
+        test('Should inject the description into the README.md file when the Base option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, appDescription);
+        });
+
         test('Should inject the App Name into the README.md file when the Express API option is selected', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + expressAppName);
         });

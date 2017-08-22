@@ -60,6 +60,12 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, appDescription);
         });
 
+        test('Should inject the generator origin link into the README.md file when Base option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, testHelpers.readmeGeneratorOriginHeader);
+            yeomanAssert.fileContent(testHelpers.readmeFileName, testHelpers.readmeGeneratorOriginText);
+            yeomanAssert.fileContent(testHelpers.readmeFileName, testHelpers.readmeGeneratorUrlVariableText);
+        });
+
         test('Should inject author name correctly into package.json', () => {
             yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
         });

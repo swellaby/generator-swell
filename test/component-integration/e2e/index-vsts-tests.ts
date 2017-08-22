@@ -78,6 +78,10 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + vstsAppName);
         });
 
+        test('Should inject the description into the README.md file when the Base option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, appDescription);
+        });
+
         test('Should inject author name correctly into package.json', () => {
             yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
         });
