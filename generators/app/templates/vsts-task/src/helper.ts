@@ -25,21 +25,19 @@ class Helper {
             if (!teamProjectCollectionUri || !accessToken) {
                 reject(new Error('Invalid params.'));
             }
-
-            request.get(teamProjectCollectionUri, { 'auth': { 'bearer': accessToken}},
-                // tslint:disable-next-line:no-any Need to disable this due to the callback params defined by the module
-                (err: any, response: any, data: string) => {
-                    if (!err && (response.statusCode === 200)) {
-                        try {
-                            resolve(+JSON.parse(data).count);
-                        } catch (err) {
-                            reject(new Error('Error parsing API response'));
-                        }
-                    } else {
-                        reject(new Error('Error calling API'));
+            const options = { 'auth': { 'bearer': accessToken } };
+            // tslint:disable-next-line:no-any Need to disable this due to the callback params defined by the module
+            request.get(teamProjectCollectionUri, options, (err: any, response: any, data: string) => {
+                if (!err && (response.statusCode === 200)) {
+                    try {
+                        resolve(+JSON.parse(data).count);
+                    } catch (err) {
+                        reject(new Error('Error parsing API response'));
                     }
+                } else {
+                    reject(new Error('Error calling API'));
                 }
-            );
+            });
         });
     }
 }

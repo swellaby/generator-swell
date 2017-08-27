@@ -20,7 +20,7 @@ gulp.task('tslint', function () {
     program.formatter = 'verbose';
     program.rulesDirectory = 'node_modules/tslint-microsoft-contrib';
 
-    return gulp.src(gulpConfig.allGeneratorTypescript)
+    return gulp.src(gulpConfig.allTypescript)
         .pipe(gulpTslint({ program }))
         .pipe(gulpTslint.report());
 });

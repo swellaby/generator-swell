@@ -4,7 +4,7 @@
   "friendlyName": "Replace with a friendly name",
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,
-  "helpMarkDown": "[]() Replace with markdown to show in help)",
+  "helpMarkDown": "[]() Replace with markdown to show in help",
   "category": <%- JSON.stringify(taskCategory) %>,
   "visibility": [
     "Build",
@@ -22,7 +22,7 @@
     {
       "name": "exampleMessage",
       "type": "string",
-      "label": "Message",
+      "label": "Example Message",
       "defaultValue": "Hello World",
       "required": true,
       "helpMarkDown": "Message to echo out"
@@ -30,7 +30,7 @@
     {
       "name": "favoriteNumber",
       "type": "string",
-      "label": "Input A",
+      "label": "Favorite Number",
       "defaultValue": "4",
       "required": true,
       "helpMarkDown": "Sample of numeric input."

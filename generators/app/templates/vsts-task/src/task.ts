@@ -13,10 +13,11 @@ let systemAccessToken: string;
 
 /**
  * Initializes the task for execution.
+ * @private
  */
 const initialize = () => {
     exampleMessage = tl.getInput('exampleMessage', true);
-    favoriteNumber = parseFloat(tl.getInput('inputA', true));
+    favoriteNumber = parseFloat(tl.getInput('favoriteNumber', true));
     // Note you can use 'console.log(...)' instead of echo, but we find tasks easier to unit tests with echo.
     echo = tl.tool(tl.which('echo'));
     echo.arg('-e'); // this is necessary if you want to print newline characters.
@@ -30,12 +31,14 @@ const initialize = () => {
 /**
  * Helper function for failing the task.
  * @param err
+ * @private
  */
 const failTask = (err) => {
     let errorMessage = 'Fatal error occurred.';
-    if (err) {
+    if (err && err.message) {
         errorMessage += ' Error: ' + err.message;
     }
+
     tl.error(errorMessage);
     tl.setResult(tl.TaskResult.Failed, 'Task failed. See output for error info.');
 };

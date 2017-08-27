@@ -17,7 +17,7 @@ const assert = Chai.assert;
 /**
  * Suite of tests for the functions defined in ./src/task.ts
  */
-suite('Main Suite: ', () => {
+suite('Task Suite: ', () => {
     const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
     const exampleMessageInputKey = 'exampleMessage';
     const exampleMessage = 'Hello World!';
@@ -32,6 +32,7 @@ suite('Main Suite: ', () => {
     let helperGetTeamProjectsStub: Sinon.SinonStub;
     let tlGetInputStub: Sinon.SinonStub;
     let tlGetVariableStub: Sinon.SinonStub;
+    // eslint-disable-next-line
     let tlDebugStub: Sinon.SinonStub;
     let tlErrorStub: Sinon.SinonStub;
     let tlSetResultStub: Sinon.SinonStub;
@@ -71,7 +72,6 @@ suite('Main Suite: ', () => {
         setupInputAndVariableStubs();
         tlDebugStub = sandbox.stub(tl, 'debug');
         tlErrorStub = sandbox.stub(tl, 'error');
-        tlSetResultStub = sandbox.stub(tl, 'setResult');
         tlSetResultStub = sandbox.stub(tl, 'setResult').callsFake(() => null);
         tlWhichStub = sandbox.stub(tl, 'which').callsFake(() => { return echoPath; });
         echoArgStub = sandbox.stub(echo, 'arg').callsFake(() => { return argToolRunner; });
@@ -87,22 +87,22 @@ suite('Main Suite: ', () => {
         await task.run();
         assert.isTrue(tlGetInputStub.calledWith(exampleMessageInputKey, true));
         assert.isTrue(tlGetInputStub.calledWith(favoriteNumberKey, true));
-        assert.isTrue(tlGetVariableStub.calledWith(collectionUriVariableKey, true));
-        assert.isTrue(tlGetVariableStub.calledWith(accessTokenVariableKey, true));
+        assert.isTrue(tlGetVariableStub.calledWith(collectionUriVariableKey));
+        assert.isTrue(tlGetVariableStub.calledWith(accessTokenVariableKey));
         assert.isTrue(tlWhichStub.calledWith('echo'));
         assert.isTrue(tlToolStub.calledWith(echoPath));
-        assert.isTrue(echoArgStub.calledWith('e'));
+        assert.isTrue(echoArgStub.calledWith('-e'));
     });
 
     test('Should fail the task with correct error messages when inputs are invalid', async () => {
-        tlGetInputStub.callsFake(() => { throw new Error(taskErrorMessageDetail); });
+        tlGetInputStub.withArgs(exampleMessageInputKey, true).callsFake(() => { throw new Error(taskErrorMessageDetail); });
         await task.run();
         assert.isTrue(tlErrorStub.calledWith(taskErrorFullDeatilMessage));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Failed, taskFailedMessage));
     });
 
     test('Should fail the task with correct error messages when there is no exception detail', async () => {
-        tlGetInputStub.callsFake(() => { throw new Error(); });
+        tlGetInputStub.withArgs(exampleMessageInputKey, true).callsFake(() => { throw new Error(); });
         await task.run();
         assert.isTrue(tlErrorStub.calledWith(taskErrorMessageBase));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Failed, taskFailedMessage));

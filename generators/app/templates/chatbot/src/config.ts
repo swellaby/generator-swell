@@ -1,8 +1,5 @@
 'use strict';
 
-/**
- * Defines various configuration settings
- */
 const config = {
     bot: {
         /*

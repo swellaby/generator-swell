@@ -25,3 +25,4 @@ tsd-debug.log
 
 **/testresults/
 .testresults/
+.vsts-publish

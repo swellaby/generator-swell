@@ -45,7 +45,7 @@
         "@types/request": "^2.0.2",
         "@types/sinon": "^2.3.3",
         "chai": "^4.1.1",
-        "del": "^4.1.1",
+        "del": "^3.0.0",
         "eslint": "^4.5.0",
         "gulp": "^3.9.1",
         "gulp-eslint": "^4.0.0",
