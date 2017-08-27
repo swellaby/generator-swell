@@ -39,6 +39,30 @@ const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => 
 };
 
 /**
+ * Updates the package.json file with the relevant content for th
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ */
+const addVstsTaskContentToPackageJson = (generator: YeomanGenerator) => {
+    generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
+        dependencies: {
+            'request': '^2.81.0',
+            'vsts-task-lib': '^2.0.7'
+        },
+        devDependencies: {
+            '@types/request': '^2.0.2'
+        },
+        scripts: {
+            'package-local-vsts-task': 'gulp package-vsts-task-src package-vsts-task-files',
+            'pack-up-local-vsts-task': 'npm run package-local-vsts-task && cd .vsts-publish && npm prune --production && tfx build tasks upload --task-path .',
+            'package-vsts-task': 'npm prune --production && npm run package-local-vsts-task',
+            'pack-up-vsts-task': 'npm run package-vsts-task && npm run upload-vsts-task',
+            'upload-vsts-task': 'tfx build tasks upload --task-path .vsts-publish',
+            'package-local-vsts-task-extension': 'gulp package-vsts-task-extension-files'
+        }
+    });
+};
+
+/**
  * Scaffolds the VSTS Task project type
  *
  * @param {YeomanGenerator} generator - The yeoman generator.
@@ -58,14 +82,5 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
 
     generator.sourceRoot(pathHelpers.vstsTaskRoot);
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
-
-    generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
-        dependencies: {
-            'request': '^2.81.0',
-            'vsts-task-lib': '^2.0.7'
-        },
-        devDependencies: {
-            '@types/request': '^2.0.2'
-        }
-    });
+    addVstsTaskContentToPackageJson(generator);
 };

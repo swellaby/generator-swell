@@ -26,12 +26,12 @@ const unitTestLocalFunctionCoverageThreshold = 100;
 const componentIntegrationTestGlobalStatementCoverageThreshold = 85;
 const componentIntegrationTestGlobalBranchCoverageThreshold = 80;
 const componentIntegrationTestGlobalLineCoverageThreshold = 85;
-const componentIntegrationTestGlobalFunctionCoverageThreshold = 100;
+const componentIntegrationTestGlobalFunctionCoverageThreshold = 85;
 
-const componentIntegrationTestLocalStatementCoverageThreshold = 80;
-const componentIntegrationTestLocalBranchCoverageThreshold = 80;
-const componentIntegrationTestLocalLineCoverageThreshold = 80;
-const componentIntegrationTestLocalFunctionCoverageThreshold = 100;
+const componentIntegrationTestLocalStatementCoverageThreshold = 25;
+const componentIntegrationTestLocalBranchCoverageThreshold = 25;
+const componentIntegrationTestLocalLineCoverageThreshold = 50;
+const componentIntegrationTestLocalFunctionCoverageThreshold = 50;
 
 const includeUntested = true;
 const reporters = ['html', 'lcov', 'cobertura', 'text', 'text-summary'];

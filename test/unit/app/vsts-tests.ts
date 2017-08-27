@@ -176,6 +176,14 @@ suite('VSTS Project Tests:', () => {
                 },
                 devDependencies: {
                     '@types/request': '^2.0.2'
+                },
+                scripts: {
+                    'package-local-vsts-task': 'gulp package-vsts-task-src package-vsts-task-files',
+                    'pack-up-local-vsts-task': 'npm run package-local-vsts-task && cd .vsts-publish && npm prune --production && tfx build tasks upload --task-path .', // tslint:disable
+                    'package-vsts-task': 'npm prune --production && npm run package-local-vsts-task',
+                    'pack-up-vsts-task': 'npm run package-vsts-task && npm run upload-vsts-task',
+                    'upload-vsts-task': 'tfx build tasks upload --task-path .vsts-publish',
+                    'package-local-vsts-task-extension': 'gulp package-vsts-task-extension-files'
                 }
             }));
         });

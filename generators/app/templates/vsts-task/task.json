@@ -4,7 +4,7 @@
   "friendlyName": "Replace with a friendly name",
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,
-  "helpMarkDown": "Replace with markdown to show in help",
+  "helpMarkDown": "[]() Replace with markdown to show in help)",
   "category": <%- JSON.stringify(taskCategory) %>,
   "visibility": [
     "Build",
@@ -16,8 +16,8 @@
     "Minor": "1",
     "Patch": "0"
   },
-  "minimumAgentVersion": "1.95.0",
-  "instanceNameFormat": "This is how the task displays",
+  "minimumAgentVersion": "1.95.3",
+  "instanceNameFormat": "This is how the task displays in a VSTS build or release definition",
   "inputs": [
     {
       "name": "exampleMessage",
@@ -28,25 +28,17 @@
       "helpMarkDown": "Message to echo out"
     },
     {
-      "name": "inputA",
+      "name": "favoriteNumber",
       "type": "string",
       "label": "Input A",
-      "defaultValue": "2.5",
+      "defaultValue": "4",
       "required": true,
-      "helpMarkDown": "Sample of numeric input. This value will be added with the value provided for Input B"
-    },
-    {
-      "name": "inputB",
-      "type": "string",
-      "label": "Input B",
-      "defaultValue": "3",
-      "required": true,
-      "helpMarkDown": "Sample of numeric input. This value will be added with the value provided for Input A"
+      "helpMarkDown": "Sample of numeric input."
     }
   ],
   "execution": {
     "Node": {
-      "target": "src/task.js",
+      "target": "task-wrapper.js",
       "argumentFormat": ""
     }
   }

@@ -50,15 +50,15 @@ module.exports = {
         "no-console": [
             'off'
         ],
-        "max-statements": [
-            'error',
-            {
-                'max': 10
-            },
-            {
-                'ignoreTopLevelFunctions': true
-            }
-        ],
+        // "max-statements": [
+        //     'error',
+        //     {
+        //         'max': 10
+        //     },
+        //     {
+        //         'ignoreTopLevelFunctions': true
+        //     }
+        // ],
         "require-yield": [
             'off'
         ],

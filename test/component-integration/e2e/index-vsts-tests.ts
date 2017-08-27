@@ -66,11 +66,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         test('Should create all of the default VSTS Task template files', () => {
             yeomanAssert.file([
                 'task.json',
-                './src/main.ts',
+                'icon.png',
+                './src/task.ts',
                 './src/helper.ts',
-                './test/unit/main-tests.ts',
+                './test/unit/task-tests.ts',
                 './test/unit/helper-tests.ts',
-                './gulp/tasks/package.js'
+                './gulp/tasks/package.js',
+                './gulp/tasks/clean.js',
+                'task-wrapper.js'
             ]);
         });
 
