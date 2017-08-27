@@ -13,6 +13,9 @@ engines:
     - 495c562a25c81b97b22bf6d87b849681
     - 1a3e55e186eabbc236deba99cbfd92a9
     - 4f2c06a05c6ee22ba1e1d17634374772
+
+    exclude_paths:
+    - "generators/app/templates/"
     
     config:
       languages:
