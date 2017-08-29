@@ -19,6 +19,9 @@
     "categories": [
         ""
     ],
+    "gallery-flags": [
+        "Preview"
+    ],
     "branding": {
         "color": "rgb(34, 34, 34)",
         "theme": "dark"
@@ -32,10 +35,19 @@
         }
     },
     "links": {
+        "home": {
+            "uri": ""
+        },
         "getstarted": {
             "uri": ""
         },
         "support": {
+            "uri": ""
+        },
+        "repository": {
+            "uri": ""
+        },
+        "issues": {
             "uri": ""
         }
     },
@@ -45,17 +57,19 @@
     },
     "contributions": [
         {
-            "id": "",
-            "type": "",
-            "description": "",
+            "id": "custom-build-task",
+            "type": "ms.vss-distributed-task.task",
             "targets": [
-                ""
+                "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": ""
+                "name": "buildtask"
             }
         }
     ],
     "files": [
+        {
+            "path": ".vsts-publish"
+        }
     ]
 }

@@ -49,7 +49,8 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator) => {
             'vsts-task-lib': '^2.0.7'
         },
         devDependencies: {
-            '@types/request': '^2.0.2'
+            '@types/request': '^2.0.2',
+            'tfx-cli': '^0.4.9'
         },
         scripts: {
             'package-local-vsts-task': 'gulp package-vsts-task-src package-vsts-task-files',
