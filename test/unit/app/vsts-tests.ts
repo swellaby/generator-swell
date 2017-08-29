@@ -175,15 +175,17 @@ suite('VSTS Project Tests:', () => {
                     'vsts-task-lib': '^2.0.7'
                 },
                 devDependencies: {
-                    '@types/request': '^2.0.2'
+                    '@types/request': '^2.0.2',
+                    'tfx-cli': '^0.4.9'
                 },
                 scripts: {
-                    'package-local-vsts-task': 'gulp package-vsts-task-src package-vsts-task-files',
-                    'pack-up-local-vsts-task': 'npm run package-local-vsts-task && cd .vsts-publish && npm prune --production && tfx build tasks upload --task-path .', // tslint:disable
-                    'package-vsts-task': 'npm prune --production && npm run package-local-vsts-task',
-                    'pack-up-vsts-task': 'npm run package-vsts-task && npm run upload-vsts-task',
+                    'tfx-login': 'tfx login',
+                    'package-vsts-task': 'gulp package-vsts-task-src package-vsts-task-files',
                     'upload-vsts-task': 'tfx build tasks upload --task-path .vsts-publish',
-                    'package-local-vsts-task-extension': 'gulp package-vsts-task-extension-files'
+                    'pack-up-vsts-task': 'npm run package-vsts-task && npm run upload-vsts-task',
+                    'package-vsts-task-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
+                    'publish-vsts-task-extension': 'cd .vsts-publish && tfx extension publish',
+                    'pack-pub-vsts-task-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension publish'
                 }
             }));
         });

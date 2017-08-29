@@ -4,9 +4,12 @@
 
 const path = require('path');
 const srcRoot = './src';
-const vstsPublishRoot = './.vsts-publish';
 const testRoot = './test';
 const tsconfig = './tsconfig.json';
+const vstsPublishRoot = './.vsts-publish';
+const vstsPublishTaskRoot = vstsPublishRoot + '/task';
+const vstsPublishImageRoot = vstsPublishRoot + '/images';
+const vssExtensionManifest = './vss-extension.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),
@@ -18,6 +21,16 @@ module.exports = {
         './package.json',
         './icon.png'
     ],
+    vstsExtensionManifest: vssExtensionManifest,
+    vstsExtensionContent: [
+        vssExtensionManifest,
+        './README.md',
+        './EXTENSION.md'
+    ],
+    vstsExtensionImages: [
+        './extension-icon.png'
+    ],
+    vstsPublishImageRoot: vstsPublishImageRoot,
     allJavascript: [
         './**/*.js',
         '!node_modules/**',

@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "id": "",
+    "id": <%- JSON.stringify(appName) %>,
     "version": "0.0.1",
     "name": <%- JSON.stringify(appName) %>,
     "publisher": <%- JSON.stringify(author) %>,
@@ -11,7 +11,7 @@
         }
     ],
     "icons": {
-        "default": "extension-icon.png"
+        "default": "images/extension-icon.png"
     },
     "scopes": [
         ""
@@ -59,17 +59,22 @@
         {
             "id": "custom-build-task",
             "type": "ms.vss-distributed-task.task",
+            "description": "",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "buildtask"
+                "name": "task"
             }
         }
     ],
     "files": [
         {
-            "path": ".vsts-publish"
+            "path": "task"
+        },
+        {
+            "path": "images",
+            "addressable": true
         }
     ]
 }
