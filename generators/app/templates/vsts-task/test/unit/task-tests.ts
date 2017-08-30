@@ -7,10 +7,10 @@ import Sinon = require('sinon');
 import internal = require('vsts-task-lib/internal');
 Sinon.stub(internal, '_loadData').callsFake(() => null);
 import tl = require('vsts-task-lib/task');
-import trm = require('vsts-task-lib/toolrunner');
 
 import Helper = require('../../src/helper');
 import task = require('../../src/task');
+import taskLogger = require('./../../src/task-logger');
 
 const assert = Chai.assert;
 
@@ -36,25 +36,16 @@ suite('Task Suite: ', () => {
     let tlDebugStub: Sinon.SinonStub;
     let tlErrorStub: Sinon.SinonStub;
     let tlSetResultStub: Sinon.SinonStub;
-    let tlWhichStub: Sinon.SinonStub;
-    let tlToolStub: Sinon.SinonStub;
-    const echoPath = '/bin/echo';
-    const argToolRunner = <trm.ToolRunner>{ execSync: () => null };
-    const echo = {
-        arg: () => { return argToolRunner; },
-        execSync: () => null
-    };
-    let echoArgStub: Sinon.SinonStub;
+    let taskLoggerLogStub: Sinon.SinonStub;
     const taskErrorMessageBase = 'Fatal error occurred.';
     const taskErrorMessageSuffixBase = ' Error: ';
     const taskErrorMessageDetail = 'Oops!';
     const taskErrorFullDeatilMessage = taskErrorMessageBase + taskErrorMessageSuffixBase + taskErrorMessageDetail;
     const taskFailedMessage = 'Task failed. See output for error info.';
-    const newline = '\\n';
     const exampleMessageDisplayPrefix = 'Your message was: ';
-    const exampleMessageDisplay = exampleMessageDisplayPrefix + exampleMessage + newline;
+    const exampleMessageDisplay = exampleMessageDisplayPrefix + exampleMessage;
     const favoriteNumberDisplayPrefix = 'The product of your favorite number times 2 is: ';
-    const favoriteNumberDisplay = favoriteNumberDisplayPrefix + (2 * favoriteNumber) + newline;
+    const favoriteNumberDisplay = favoriteNumberDisplayPrefix + (2 * favoriteNumber);
 
     /**
      * Simple helper function to setup some stubs.
@@ -73,9 +64,7 @@ suite('Task Suite: ', () => {
         tlDebugStub = sandbox.stub(tl, 'debug');
         tlErrorStub = sandbox.stub(tl, 'error');
         tlSetResultStub = sandbox.stub(tl, 'setResult').callsFake(() => null);
-        tlWhichStub = sandbox.stub(tl, 'which').callsFake(() => { return echoPath; });
-        echoArgStub = sandbox.stub(echo, 'arg').callsFake(() => { return argToolRunner; });
-        tlToolStub = sandbox.stub(tl, 'tool').callsFake(() => { return echo; });
+        taskLoggerLogStub = sandbox.stub(taskLogger, 'log').callsFake(() => null);
         helperGetTeamProjectsStub = sandbox.stub(Helper.prototype, 'getNumTeamProjects').callsFake(() => numTeamProjects);
     });
 
@@ -89,9 +78,6 @@ suite('Task Suite: ', () => {
         assert.isTrue(tlGetInputStub.calledWith(favoriteNumberKey, true));
         assert.isTrue(tlGetVariableStub.calledWith(collectionUriVariableKey));
         assert.isTrue(tlGetVariableStub.calledWith(accessTokenVariableKey));
-        assert.isTrue(tlWhichStub.calledWith('echo'));
-        assert.isTrue(tlToolStub.calledWith(echoPath));
-        assert.isTrue(echoArgStub.calledWith('-e'));
     });
 
     test('Should fail the task with correct error messages when inputs are invalid', async () => {
@@ -111,8 +97,8 @@ suite('Task Suite: ', () => {
     test('Should still display input messages when helper call fails', async () => {
         helperGetTeamProjectsStub.callsFake(() => { throw new Error(taskErrorMessageDetail); });
         await task.run();
-        assert.isTrue(echoArgStub.calledWith(exampleMessageDisplay));
-        assert.isTrue(echoArgStub.calledWith(favoriteNumberDisplay));
+        assert.isTrue(taskLoggerLogStub.calledWith(exampleMessageDisplay));
+        assert.isTrue(taskLoggerLogStub.calledWith(favoriteNumberDisplay));
         assert.isTrue(tlErrorStub.calledWith(taskErrorFullDeatilMessage));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Failed, taskFailedMessage));
     });
@@ -123,8 +109,8 @@ suite('Task Suite: ', () => {
         const successMessage = successMessagePrefix + numTeamProjects + successMessageSuffix;
 
         await task.run();
-        assert.isTrue(echoArgStub.calledWith(exampleMessageDisplay));
-        assert.isTrue(echoArgStub.calledWith(favoriteNumberDisplay));
+        assert.isTrue(taskLoggerLogStub.calledWith(exampleMessageDisplay));
+        assert.isTrue(taskLoggerLogStub.calledWith(favoriteNumberDisplay));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Succeeded, successMessage));
     });
 });

@@ -68,9 +68,11 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 'task.json',
                 'icon.png',
                 './src/task.ts',
+                './src/task-logger.ts',
                 './src/helper.ts',
                 './test/unit/task-tests.ts',
                 './test/unit/helper-tests.ts',
+                './test/unit/task-logger-tests.ts',
                 './gulp/tasks/package.js',
                 './gulp/tasks/clean.js',
                 'task-wrapper.js'

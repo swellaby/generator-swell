@@ -15,6 +15,7 @@ module.exports = {
     packageJSON: path.resolve('package.json'),
     root: srcRoot,
     vstsPublishRoot: vstsPublishRoot,
+    vstsPublishTaskRoot: vstsPublishTaskRoot,
     vstsPublishSrc: vstsPublishRoot + '/src',
     vstsTaskContent: [
         './task.json',
