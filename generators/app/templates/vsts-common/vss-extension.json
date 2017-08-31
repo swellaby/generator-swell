@@ -16,8 +16,11 @@
     "scopes": [
         ""
     ],
-    "categories": [
+    "tags": [
         ""
+    ],
+    "categories": [
+        "Build and release"
     ],
     "gallery-flags": [
         "Preview"
@@ -45,7 +48,7 @@
             "uri": ""
         },
         "repository": {
-            "uri": ""
+            "uri": "https://insert-something-real-here"
         },
         "issues": {
             "uri": ""
@@ -53,7 +56,7 @@
     },
     "repository": {
         "type": "git",
-        "uri": ""
+        "uri": "https://insert-something-real-here"
     },
     "contributions": [
         {

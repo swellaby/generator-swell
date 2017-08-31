@@ -16,11 +16,12 @@ module.exports = {
     root: srcRoot,
     vstsPublishRoot: vstsPublishRoot,
     vstsPublishTaskRoot: vstsPublishTaskRoot,
-    vstsPublishSrc: vstsPublishRoot + '/src',
+    vstsPublishTaskSrc: vstsPublishTaskRoot + '/src',
     vstsTaskContent: [
         './task.json',
         './package.json',
-        './icon.png'
+        './icon.png',
+        './task-wrapper.js'
     ],
     vstsExtensionManifest: vssExtensionManifest,
     vstsExtensionContent: [

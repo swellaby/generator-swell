@@ -4,6 +4,7 @@
         "joelday.docthis",
         "eg2.tslint",
         "christian-kohler.path-intellisense",
-        "christian-kohler.npm-intellisense"
+        "christian-kohler.npm-intellisense",
+        "ms-vsts.team"
     ]
 }

@@ -33,7 +33,7 @@ const initialize = () => {
 const failTask = (err) => {
     let errorMessage = 'Fatal error occurred.';
     if (err && err.message) {
-        errorMessage += ' Error: ' + err.message;
+        errorMessage += ' Details: ' + err.message;
     }
 
     tl.error(errorMessage);
@@ -51,7 +51,8 @@ export const run = async () => {
         taskLogger.log('The product of your favorite number times 2 is: ' + doubleFavNumber);
         const numTeamProjects = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
         const successMessage = 'Your account has: ' + numTeamProjects + ' team projects. Your task passed, hooray!';
-
+        taskLogger.log(successMessage);
+        tl.debug('This only displays when debugging is enabled on the build/release definintion');
         tl.setResult(tl.TaskResult.Succeeded, successMessage);
     } catch (err) {
         failTask(err);

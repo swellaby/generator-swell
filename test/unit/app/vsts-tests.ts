@@ -176,12 +176,14 @@ suite('VSTS Project Tests:', () => {
                 },
                 devDependencies: {
                     '@types/request': '^2.0.2',
-                    'tfx-cli': '^0.4.9'
+                    'tfx-cli': '^0.4.9',
+                    'gulp-bump': '^2.7.0'
                 },
                 scripts: {
                     'tfx-login': 'tfx login',
                     'package-vsts-task': 'gulp package-vsts-task-src package-vsts-task-files',
-                    'upload-vsts-task': 'tfx build tasks upload --task-path .vsts-publish',
+                    'upload-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/task',
+                    'delete-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
                     'pack-up-vsts-task': 'npm run package-vsts-task && npm run upload-vsts-task',
                     'package-vsts-task-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
                     'publish-vsts-task-extension': 'cd .vsts-publish && tfx extension publish',

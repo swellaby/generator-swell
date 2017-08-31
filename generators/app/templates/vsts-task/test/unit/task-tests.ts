@@ -32,13 +32,12 @@ suite('Task Suite: ', () => {
     let helperGetTeamProjectsStub: Sinon.SinonStub;
     let tlGetInputStub: Sinon.SinonStub;
     let tlGetVariableStub: Sinon.SinonStub;
-    // eslint-disable-next-line
     let tlDebugStub: Sinon.SinonStub;
     let tlErrorStub: Sinon.SinonStub;
     let tlSetResultStub: Sinon.SinonStub;
     let taskLoggerLogStub: Sinon.SinonStub;
     const taskErrorMessageBase = 'Fatal error occurred.';
-    const taskErrorMessageSuffixBase = ' Error: ';
+    const taskErrorMessageSuffixBase = ' Details: ';
     const taskErrorMessageDetail = 'Oops!';
     const taskErrorFullDeatilMessage = taskErrorMessageBase + taskErrorMessageSuffixBase + taskErrorMessageDetail;
     const taskFailedMessage = 'Task failed. See output for error info.';
@@ -111,6 +110,8 @@ suite('Task Suite: ', () => {
         await task.run();
         assert.isTrue(taskLoggerLogStub.calledWith(exampleMessageDisplay));
         assert.isTrue(taskLoggerLogStub.calledWith(favoriteNumberDisplay));
+        assert.isTrue(taskLoggerLogStub.calledWith(successMessage));
+        assert.isTrue(tlDebugStub.calledWith('This only displays when debugging is enabled on the build/release definintion'));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Succeeded, successMessage));
     });
 });

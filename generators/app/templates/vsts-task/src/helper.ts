@@ -27,7 +27,7 @@ class Helper {
             }
             const options = { 'auth': { 'bearer': accessToken } };
             // tslint:disable-next-line:no-any Need to disable this due to the callback params defined by the module
-            request.get(teamProjectCollectionUri, options, (err: any, response: any, data: string) => {
+            request.get(teamProjectCollectionUri + '/_apis/projects', options, (err: any, response: any, data: string) => {
                 if (!err && (response.statusCode === 200)) {
                     try {
                         resolve(+JSON.parse(data).count);
