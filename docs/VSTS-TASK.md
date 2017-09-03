@@ -1,12 +1,33 @@
-# VSTS Task
-The VSTS Task project type gives you everything you need to add your own custom Build and/or Release tasks for [Visual Studio Team Services][vsts-url] (VSTS is a *free* end to end ALM platform, 
-you should definitely check it out!). Although VSTS Tasks can be written in either Node.js or PowerShell, this generator scaffolds a new project for working with Node.js. 
+# VSTS Task *** This documentation is out of date. The current generator codebase & the published package on the npm registry provide a lot more functionality. Updates to this documentation are in progress.****
+## TL;DR - Current
+Once you have created your new VSTS Task project with the generator, and installed the dependencies, you can upload your new task to your VSTS account by running:
+
+```sh
+npm run tfx-login
+npm run pack-up-vsts-task
+```
+The login script will prompt you to enter your VSTS Service Url - https://{accountName}.visualstudio.com/{collection} i.e. https://foo.visualstudio.com/defaultcollection and
+then for a [Personal Access Token][vsts-pat-url] (PAT).
+
+You can also publish your task as an extension directly to the [VSTS Marketplace][vsts-marketplace-url] by running:
+
+```sh
+npm run pack-pub-vsts-task-extension
+```
+
+You will also need to have a [VSTS Marketplace Publisher Account][vsts-publisher-extension-url] and a [PAT with access to the Marketplace][vsts-extension-pat-url] in order to be able to publish your extension. Additionally, your extension will be private by default and you will be able to share it with various VSTS accounts. If you want your extension to be public and discoverable on the Marketplace, then you will have to follow the steps to [Publicize][vsts-publicize-extension-url] your extension.
+
+## **** Old Documentation Continues Below ******
+
+The VSTS Task project type gives you everything you need to add your own custom Build and/or Release tasks for [Visual Studio Team Services][vsts-url] (VSTS is a an end to end ALM platform that can be used for *free*. You should definitely check it out!). Although VSTS Tasks can be written in either Node.js or PowerShell, this generator scaffolds a new project for working with Node.js. 
   
 As with other project types, the generator will also give you all of the [boilerplate content][boilerplate-doc], which we highly recommend reviewing as it provides the details on generator content
 that is standard across all project types like testing, linting, and more. You can also review the [high level usage overview][usage-overview-url] for more details about using the generator.
 
 ## Directory Structure & Content
 The generator will create a new VSTS Task project that has the following content:  
+  
+*** Very outdated directory structure and content***
   
 ![VSTS Task Directory Structure][vsts-dir-structure-img]
 
@@ -85,3 +106,8 @@ to a VSTS account where you have the necessary permissions. This is accomplished
 [main.ts-img]: vsts-main.png
 [helper.ts-img]: vsts-helper.png
 [boilerplate-testing-section]: BOILERPLATE.md#testing
+[vsts-pat-url]: https://www.visualstudio.com/en-us/docs/setup-admin/team-services/use-personal-access-tokens-to-authenticate
+[vsts-extension-pat-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/publish/command-line#acquire-a-personal-access-token
+[vsts-marketplace-url]: https://marketplace.visualstudio.com/
+[vsts-publicize-extension-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/publish/publicize
+[vsts-publisher-extension-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/publish/overview#create-a-publisher

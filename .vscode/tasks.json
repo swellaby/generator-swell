@@ -30,6 +30,15 @@
             ]
         },
         {
+            "taskName": "transpile",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "transpile"
+            ]
+        },
+        {
             "taskName": "build",
             "args": [
                 "npm",

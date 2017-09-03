@@ -8,7 +8,7 @@ The following types of projects are supported:
 - [Node.js API with Express & Docker][express-api-doc-url]
 - [VSTS Task][vsts-task-doc-url]
 - [Chatbot][chatbot-doc-url]
-- [Angular 2][angular-doc-url] (planned)
+- [Angular 4][angular-doc-url] (planned)
 - [Aurelia][aurelia-doc-url] (planned)
 
 
@@ -54,7 +54,7 @@ generator supports the following types of projects:
 - [Node.js API with Express & Docker][express-api-doc-url]
 - [VSTS Task][vsts-task-doc-url]
 - [Chatbot][chatbot-doc-url]
-- [Angular 2][angular-doc-url] (planned)
+- [Angular 4][angular-doc-url] (planned)
 - [Aurelia][aurelia-doc-url] (planned)
 
 #### Visual Studio Code  
@@ -81,4 +81,4 @@ if you would like.
 [chatbot-doc-url]: CHATBOT.md
 [angular-doc-url]: ANGULAR.md
 [aurelia-doc-url]: AURELIA.md
-[vscode-doc-url]: vscode.md
+[vscode-doc-url]: VSCODE.md

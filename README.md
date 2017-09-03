@@ -2,8 +2,8 @@
 
 **** Note this is currently in Alpha ****  
   
-Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url], Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
-others out there, but we wanted one that gave us a 100% of what we need. Pull Requests we like (and that pass all the automated gates) will be happily accepted.
+Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] (Chatbots, VSTS Extensions, and more) plus Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
+others out there, but we wanted one that gave us a 100% of what we need. Pull Requests are encouraged and will be happily accepted (provided they pass the automated gates!).
 
 [![NPM Stats Badge][nodeico-badge]][npmjs-package-url]  
   
