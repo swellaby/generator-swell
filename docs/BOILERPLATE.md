@@ -86,9 +86,32 @@ By default, the tests use Mocha's TDD testing interface with a 2 second timeout,
 as the xunit reporter to write the test results to a file in the xunit format (which can be used to import/upload the results into certain CI/build tools). This configuration is defined
 in the `mocha-config.js` file within the `gulp` directory.
 
+### Test Results
+
+The test results files (xunit/junit xml files) from mocha will be placed in a `.testresults` directory in the root of your project. Note that this directory will be hidden from view in [VS Code][vscode-doc] if you tell the generator to include VS Code content in your new project:
+
+- `.testresults/unit-test-results.xml` will contain the junit/xunit compatible unit test results.
+- `.testresults/component-integration-test-results.xml` will contain the junit/xunit compatible unit test results.
+
+![Test Results][testresults-directory-image]
+
 ### Coverage
-Code coverage is calculated and enforced with [Istanbul][istanbul-url]. The values for the reporters, coverage thresholds, and more are defined in the file `istanbul-config.js` 
-within the `gulp` directory.
+Code coverage is calculated and enforced with [Istanbul][istanbul-url]. The values for the reporters, coverage thresholds, and more are defined in the file `istanbul-config.js` within the `gulp` directory.  
+
+The follow code coverage reports are configured to be used in your project:  
+
+- *html*
+- *lcov*
+- *cobertura*
+- *text*
+- *text-summary*
+
+Code coverage information that is written to a file will be placed within the `.coverage` directory in the root of your project. Note that this directory will be hidden from view in [VS Code][vscode-doc] if you tell the generator to include VS Code content in your new project:
+
+- `.coverage/unit` Directory will contain all of the coverage reports from your unit tests.
+- `.coverage/component-integration` Directory will contain all of the coverage reports from your component integration tests.
+
+![Coverage Results][coverage-directory-image]
 
 ## Git Hooks
 The generator adds modules that allow you to leverage the client side [git hooks][git-hooks-url] in order to perform various validation steps. Currently, the generator configures
@@ -159,3 +182,5 @@ The generator creates the following npm scripts for your project:
 [npm-scripts-section]: BOILERPLATE.md#npm-scripts
 [vscode-doc]: VSCODE.md
 [git-hook-enhancement-issue]: https://github.com/swellaby/generator-swell/issues/94
+[coverage-directory-image]: images/coverage-directory.png "Coverage directory"
+[testresults-directory-image]: images/testresults-directory.png "Test Results directory"
