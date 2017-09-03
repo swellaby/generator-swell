@@ -38,6 +38,7 @@ script:
     - nvm use 6
     - npm run build
     - nvm use node
+    - node -v
     - npm run build
     - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
 
