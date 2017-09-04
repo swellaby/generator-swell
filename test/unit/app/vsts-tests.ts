@@ -186,8 +186,10 @@ suite('VSTS Project Tests:', () => {
                     'delete-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
                     'pack-up-vsts-task': 'npm run package-vsts-task && npm run upload-vsts-task',
                     'package-vsts-task-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
+                    'bump-package-vsts-task-extension': 'gulp bump-package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
                     'publish-vsts-task-extension': 'cd .vsts-publish && tfx extension publish',
-                    'pack-pub-vsts-task-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension publish'
+                    'bump-pack-pub-vsts-task-extension': 'gulp bump-package-vsts-task-extension-files && npm run publish-vsts-task-extension',
+                    'pack-pub-vsts-task-extension': 'gulp package-vsts-task-extension-files && npm run publish-vsts-task-extension'
                 }
             }));
         });

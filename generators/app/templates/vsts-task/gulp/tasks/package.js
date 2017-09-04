@@ -40,7 +40,12 @@ gulp.task('bump-vsts-task-extension-version', function () {
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('package-vsts-task-extension-files', ['package-vsts-task-files', 'package-vsts-task-src', 'bump-vsts-task-extension-version', 'package-vsts-extension-images'], function () {
+gulp.task('bump-package-vsts-task-extension-files', ['package-vsts-task-files', 'package-vsts-task-src', 'bump-vsts-task-extension-version', 'package-vsts-extension-images'], function () {
+    return gulp.src(gulpConfig.vstsExtensionContent)
+        .pipe(gulp.dest(gulpConfig.vstsPublishRoot));
+});
+
+gulp.task('package-vsts-task-extension-files', ['package-vsts-task-files', 'package-vsts-task-src', 'package-vsts-extension-images'], function () {
     return gulp.src(gulpConfig.vstsExtensionContent)
         .pipe(gulp.dest(gulpConfig.vstsPublishRoot));
 });

@@ -4,7 +4,7 @@ if you only want these files. See the [high level usage overview][usage-overview
 
 ## Directory Structure & Files
 The generator will create the following boilerplate directory structure and files for you. Note that if you pick a different project type, then the generator may
-create additional files and/or directories for you. Also note that you won't have the 'node_modules' directory if you tell the generator to not install dependencies for your project (*and if you tell the generator you want [VS Code content][vscode-doc], then the node_modules directory will be hidden by default*) 
+create additional files and/or directories for you. Also note that you won't have the 'node_modules' directory if you tell the generator to not install dependencies for your project (*and if you tell the generator you want [VS Code content][vscode-doc], then the node_modules directory will be hidden by default in VS Code*) 
   
 Here is what you will see in VS Code if you have the generator include VS Code Files (*again note that node_modules is intentionally hidden in VS Code settings*):  
 ![VS Code Directory Structure][boilerplate-vscode-dir-image]    
@@ -140,6 +140,12 @@ Scripts can be executed via the shorthand:
 ```sh
 npm run *script name*
 ```  
+
+For example:
+```sh
+npm run build
+npm run lint
+```
   
 The generator creates the following npm scripts for your project:
 
