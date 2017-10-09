@@ -60,20 +60,20 @@
     },
     "contributions": [
         {
-            "id": "custom-build-task",
+            "id": "sampletask",
             "type": "ms.vss-distributed-task.task",
             "description": "",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "task"
+                "name": "tasks/sampletask"
             }
         }
     ],
     "files": [
         {
-            "path": "task"
+            "path": "tasks/sampletask"
         },
         {
             "path": "images",

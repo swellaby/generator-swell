@@ -1,7 +1,7 @@
 {
   "id": <%- JSON.stringify(taskId) %>,
   "name": <%- JSON.stringify(appName) %>,
-  "friendlyName": "Replace with a friendly name",
+  "friendlyName": "Sample Task",
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,
   "helpMarkDown": "[]() Replace with markdown to show in help",
@@ -17,7 +17,7 @@
     "Patch": "0"
   },
   "minimumAgentVersion": "1.95.3",
-  "instanceNameFormat": "This is how the task displays in a VSTS build or release definition",
+  "instanceNameFormat": "custom sample task",
   "inputs": [
     {
       "name": "exampleMessage",

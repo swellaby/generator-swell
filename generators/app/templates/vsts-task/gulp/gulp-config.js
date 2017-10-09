@@ -3,25 +3,23 @@
 'use strict';
 
 const path = require('path');
-const srcRoot = './src';
+const taskSrcRoot = './tasks';
 const testRoot = './test';
 const tsconfig = './tsconfig.json';
 const vstsPublishRoot = './.vsts-publish';
-const vstsPublishTaskRoot = vstsPublishRoot + '/task';
+const vstsPublishTasksRoot = vstsPublishRoot + '/tasks';
 const vstsPublishImageRoot = vstsPublishRoot + '/images';
 const vssExtensionManifest = './vss-extension.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),
-    root: srcRoot,
+    root: taskSrcRoot,
     vstsPublishRoot: vstsPublishRoot,
-    vstsPublishTaskRoot: vstsPublishTaskRoot,
-    vstsPublishTaskSrc: vstsPublishTaskRoot + '/src',
+    vstsPublishTasksRoot: vstsPublishTasksRoot,
     vstsTaskContent: [
-        './task.json',
-        './package.json',
-        './icon.png',
-        './task-wrapper.js'
+        taskSrcRoot + '/**/task.json',
+        taskSrcRoot + '/**/icon.png',
+        taskSrcRoot + '/**/*.js',
     ],
     vstsExtensionManifest: vssExtensionManifest,
     vstsExtensionContent: [
@@ -38,20 +36,24 @@ module.exports = {
         '!node_modules/**',
     ],
     allTranspiledJavascript: [
-        srcRoot + '/**/*.js*',
+        taskSrcRoot + '/**/*.js*',
         testRoot + '/**/*.js*',
+        '!' + taskSrcRoot + '/**/*task-wrapper.js',
+        '!' + taskSrcRoot + '/**/*task.json' 
     ],
     appTranspiledJavaScript: [
-        srcRoot + '/**/*.js',          
+        taskSrcRoot + '/**/*.js',
+        '!' + taskSrcRoot + '/**/*task-wrapper.js',
+        '!' + taskSrcRoot + '/**/*task.json'   
     ],
     javascriptUnitTests: testRoot + '/unit/**/*.js',
     javascriptComponentIntegrationTests: testRoot + '/component-integration/**/*.js',
     allTypescript: [
-        srcRoot + '/**/*.ts',
+        taskSrcRoot + '/**/*.ts',
         testRoot + '/**/*.ts',
     ],
     appTypescript: [
-        srcRoot + '/**/*.ts',
+        taskSrcRoot + '/**/*.ts',
     ],
     typescriptCompilerOptions: tsconfig
 };

@@ -7,10 +7,10 @@ import Sinon = require('sinon');
 import internal = require('vsts-task-lib/internal');
 Sinon.stub(internal, '_loadData').callsFake(() => null);
 import tl = require('vsts-task-lib/task');
+import log = require('loglevel');
 
-import Helper = require('../../src/helper');
-import task = require('../../src/task');
-import taskLogger = require('./../../src/task-logger');
+import Helper = require('../../../tasks/sampletask/helper');
+import task = require('../../../tasks/sampletask/task');
 
 const assert = Chai.assert;
 
@@ -35,7 +35,7 @@ suite('Task Suite: ', () => {
     let tlDebugStub: Sinon.SinonStub;
     let tlErrorStub: Sinon.SinonStub;
     let tlSetResultStub: Sinon.SinonStub;
-    let taskLoggerLogStub: Sinon.SinonStub;
+    let logInfoStub: Sinon.SinonStub;
     const taskErrorMessageBase = 'Fatal error occurred.';
     const taskErrorMessageSuffixBase = ' Details: ';
     const taskErrorMessageDetail = 'Oops!';
@@ -45,6 +45,7 @@ suite('Task Suite: ', () => {
     const exampleMessageDisplay = exampleMessageDisplayPrefix + exampleMessage;
     const favoriteNumberDisplayPrefix = 'The product of your favorite number times 2 is: ';
     const favoriteNumberDisplay = favoriteNumberDisplayPrefix + (2 * favoriteNumber);
+    // let logInfoStub2: Sinon.SinonStub;
 
     /**
      * Simple helper function to setup some stubs.
@@ -56,6 +57,7 @@ suite('Task Suite: ', () => {
         tlGetVariableStub = sandbox.stub(tl, 'getVariable');
         tlGetVariableStub.withArgs(collectionUriVariableKey, true).callsFake(() => collectionUri);
         tlGetVariableStub.withArgs(accessTokenVariableKey, true).callsFake(() => accessToken);
+        // logInfoStub2 = sandbox.stub(log, 'info');
     };
 
     setup(() => {
@@ -63,7 +65,7 @@ suite('Task Suite: ', () => {
         tlDebugStub = sandbox.stub(tl, 'debug');
         tlErrorStub = sandbox.stub(tl, 'error');
         tlSetResultStub = sandbox.stub(tl, 'setResult').callsFake(() => null);
-        taskLoggerLogStub = sandbox.stub(taskLogger, 'log').callsFake(() => null);
+        logInfoStub = sandbox.stub(log, 'info').callsFake(() => null);
         helperGetTeamProjectsStub = sandbox.stub(Helper.prototype, 'getNumTeamProjects').callsFake(() => numTeamProjects);
     });
 
@@ -96,8 +98,8 @@ suite('Task Suite: ', () => {
     test('Should still display input messages when helper call fails', async () => {
         helperGetTeamProjectsStub.callsFake(() => { throw new Error(taskErrorMessageDetail); });
         await task.run();
-        assert.isTrue(taskLoggerLogStub.calledWith(exampleMessageDisplay));
-        assert.isTrue(taskLoggerLogStub.calledWith(favoriteNumberDisplay));
+        assert.isTrue(logInfoStub.calledWith(exampleMessageDisplay));
+        assert.isTrue(logInfoStub.calledWith(favoriteNumberDisplay));
         assert.isTrue(tlErrorStub.calledWith(taskErrorFullDeatilMessage));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Failed, taskFailedMessage));
     });
@@ -108,9 +110,9 @@ suite('Task Suite: ', () => {
         const successMessage = successMessagePrefix + numTeamProjects + successMessageSuffix;
 
         await task.run();
-        assert.isTrue(taskLoggerLogStub.calledWith(exampleMessageDisplay));
-        assert.isTrue(taskLoggerLogStub.calledWith(favoriteNumberDisplay));
-        assert.isTrue(taskLoggerLogStub.calledWith(successMessage));
+        assert.isTrue(logInfoStub.calledWith(exampleMessageDisplay));
+        assert.isTrue(logInfoStub.calledWith(favoriteNumberDisplay));
+        assert.isTrue(logInfoStub.calledWith(successMessage));
         assert.isTrue(tlDebugStub.calledWith('This only displays when debugging is enabled on the build/release definintion'));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Succeeded, successMessage));
     });

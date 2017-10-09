@@ -4,7 +4,7 @@ import Chai = require('chai');
 import Sinon = require('sinon');
 import request = require('request');
 
-import Helper = require('../../src/helper');
+import Helper = require('../../../tasks/sampletask/helper');
 
 const assert = Chai.assert;
 

@@ -1,9 +1,10 @@
 'use strict';
 
 import tl = require('vsts-task-lib/task');
+import log = require('loglevel');
+log.enableAll();
 
 import Helper = require('./helper');
-import taskLogger = require('./task-logger');
 
 let helper: Helper;
 let favoriteNumber: number;
@@ -46,12 +47,12 @@ const failTask = (err) => {
 export const run = async () => {
     try {
         initialize();
-        taskLogger.log('Your message was: ' + exampleMessage);
+        log.info('Your message was: ' + exampleMessage);
         const doubleFavNumber = favoriteNumber * 2;
-        taskLogger.log('The product of your favorite number times 2 is: ' + doubleFavNumber);
+        log.info('The product of your favorite number times 2 is: ' + doubleFavNumber);
         const numTeamProjects = await helper.getNumTeamProjects(collectionUri, systemAccessToken);
         const successMessage = 'Your account has: ' + numTeamProjects + ' team projects. Your task passed, hooray!';
-        taskLogger.log(successMessage);
+        log.info(successMessage);
         tl.debug('This only displays when debugging is enabled on the build/release definintion');
         tl.setResult(tl.TaskResult.Succeeded, successMessage);
     } catch (err) {

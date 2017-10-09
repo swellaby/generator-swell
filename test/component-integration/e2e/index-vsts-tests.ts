@@ -35,7 +35,6 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('VSTS Task Project Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = ProjectTypes[ProjectTypes.vstsTask];
@@ -65,17 +64,15 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
         test('Should create all of the default VSTS Task template files', () => {
             yeomanAssert.file([
-                'task.json',
-                'icon.png',
-                './src/task.ts',
-                './src/task-logger.ts',
-                './src/helper.ts',
-                './test/unit/task-tests.ts',
-                './test/unit/helper-tests.ts',
-                './test/unit/task-logger-tests.ts',
+                './tasks/sampletask/task.json',
+                './tasks/sampletask/icon.png',
+                './tasks/sampletask/task.ts',
+                './tasks/sampletask/helper.ts',
+                './tasks/sampletask/task-wrapper.js',
+                './test/unit/sampletask/task-tests.ts',
+                './test/unit/sampletask/helper-tests.ts',
                 './gulp/tasks/package.js',
-                './gulp/tasks/clean.js',
-                'task-wrapper.js'
+                './gulp/tasks/clean.js'
             ]);
         });
 
@@ -92,7 +89,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         });
 
         test('Should inject author name correctly into task.json', () => {
-            yeomanAssert.fileContent('task.json', '"author": "' + author + '"');
+            yeomanAssert.fileContent('./tasks/sampletask/task.json', '"author": "' + author + '"');
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', (done) => {
