@@ -1,42 +1,80 @@
 # VSTS Task
-The VSTS Task project type gives you everything you need to build your own custom Build/Release tasks for [Visual Studio Team Services][vsts-url]. The generator provides you with a new project containing a functional sample task, as well as everything you need to [package and upload][pack-pub-section] your tasks to your VSTS Accounts, and to [package and publish][pack-pub-section] your tasks to the [VSTS Marketplace][vsts-marketplace-url] if you want to share your work with others!
+The VSTS Task project type gives you everything you need to build your own custom Build/Release tasks for [Visual Studio Team Services][vsts-url]. The generator provides you with a new project containing a working sample task, as well as everything you need to [package and upload][pack-pub-section] your tasks to your VSTS Accounts, and to [package and publish][pack-pub-section] your task(s) to the [VSTS Marketplace][vsts-marketplace-url] as an extension if you want to share your work with others!
 
 If you are unfamiliar with VSTS, check out the [VSTS overview][about-vsts-section] at the bottom of this doc.
 
 ## Overview  
-As with other project types, the generator will also give you all of the [boilerplate content][boilerplate-doc], which we highly recommend reviewing as it provides the details on generator content
-that is standard across all project types like testing, linting, and more. You can also review the [high level usage overview][usage-overview-url] for more details about using the generator.
+As with all other project types, the generator will give you all of the [boilerplate content][boilerplate-doc], which we highly recommend reviewing as it provides the details on generator content
+that is standard across all project types like testing, linting, and more. You can also review the [high level usage overview][usage-overview-url] for more details about how to run/use the generator.
 
-## Directory Structure & Content
-The generator will create a new VSTS Task project with the directory structure and content outlined below (*note the below image includes the [VS Code settings][vscode-doc] provided by the generator*):  
+Content in this document:
+
+- [Directory structure][directory-structure-section]
+- [VSTS Extension files][vsts-extension-files-section]
+- [VSTS Task Content][task-content-section]
+- [Tests][unit-test-section]
+- [Debugging][debugging-section]
+
+## Directory Structure
+The generator will create a new VSTS Task project with the directory structure and content outlined below (*note the below image includes the optional [VS Code settings][vscode-doc] provided by the generator*):  
   
 ![VSTS Task Directory Structure][vsts-dir-structure-img]
 
 This includes:
 
 - (optionally) VS Code content.
-- Common [Boilerplate][boilerplate-doc] content with npm scripts, gulp tasks, and more.
-- [Standard VSTS files][standard-files-section].
-- [Source code][task-source-section] for the task implementation.
+- Common [Boilerplate][boilerplate-standard-section] content with npm scripts, gulp tasks, and more.
+- [Standard VSTS files][vsts-extension-files-section].
+- [Source code][task-content-section] for the task implementation.
 - [Unit tests][unit-test-section] for the task source code.
-- [Packaging and publishing][pack-pub-section] capabilities to package your task, upload it to your VSTS account, and publish it to the VSTS marketplace.
+- [Packaging and publishing][pack-pub-section] capabilities to package your task(s), upload it to your VSTS account, and publish it to the VSTS marketplace.
 
-It is also worth nothing that the initial structure provided by the generator is based on only having a single build task. If you end up deciding to bundle multiple tasks within the same project/extension, then you will need to make some minor modifications to the directory structure. See the below section on [multiple task support][multi-task-section] for additional details.
+The directory structure layout:
+- (optionally) `.vscode` directory with the [VS Code settings][vscode-doc]
+- `gulp` directory with configuration and gulp tasks. The [Boilerplate][boilerplate-building-section] documentation contains details about the common/shared gulp information, and the [below][scripts-section] has details on the additional gulp tasks for the VSTS task project type.
+- `tasks` directory which is the root directory for each individual VSTS task (each contained within a subdirectory under `tasks`).
+- `test` directory which contains all the various tests for your task code. 
+- several common files at the root of the project directory. Many of these are the common files as described in the [Boilerplate documentation][boilerplate-doc], as well as the [required VSTS extension files][vsts-extension-files-section]
 
-### Standard Files
-All of the standard files outlined in the [boilerplate doc][boilerplate-standard-section] are included, along with a few VSTS task/extension specific files:
+## VSTS Extension Standard Files
+There are 3 common files that are required to define an Extension for VSTS, and the generator creates them for you at the root of your new project:
 
-- *extension-icon.png* - This is the image/icon that will represent your extension on the VSTS Marketplace.
-- *EXTENSION.md* - Contains the information/page that will be displayed for your extension in the VSTS Marketplace.
+- `extension-icon.png` - This is the image/icon that will represent your extension on the VSTS Marketplace.
+- `EXTENSION.md` - Contains the information/page that will be displayed for your extension in the VSTS Marketplace.
+- `vss-extension.json` - Defines your extension configuration, which is required if you choose to package and publish your task(s) to the VSTS Marketplace for others to consume. More details on this file can be found in the [next section][vss-extension-section] below.
+
+### vss-extension.json
+This is the file that defines your extension once published to the [VSTS Marketplace][vsts-marketplace-url]. See the official [VSTS Extension manifest reference guide][vsts-extension-manifest-url] for more details about the content of the file and how it is used. We recommend that you update the following fields at a minimum in `vss-extension.json` in order to accurately define your own extension:
+
+- *name* - This will be defaulted to the value you gave to the generator for your app name.
+- *publisher* - This will be defaulted to the value you gave to the generator for your app author. It will need to map to the [VSTS publisher account][vsts-publisher-extension-url] you create on the VSTS Marketplace in order to be able to publish.
+- *tags* - Add whatever tags are applicable in order to accurately represent and categorize your extension
+- *gallery-flags* - This will be defaulted to a single flag: 'Preview'. If you choose to make your extension Paid then you will need to add the appropriate flags. When and if you decide to make your extension public/discoverable by others, then you will have to add the 'Public' flag. Note that you will have to get your [Publisher account verified][vsts-publicize-extension-url] in order to be able to publicise your extensions on the marketplace.
+
+## VSTS Task Content and Source
+The initial project structure created by the generator has a `tasks` directory at the project root. This is intended to be the root directory where you place the source code and content for each task. This is a very common practice and is the driver of all the tasks/scripts the generator places into your new projects. You can also add additional tasks (following the same pattern) if you'd like. See the [below section][multi-task-section] for more details on working with multiple tasks.
+
+Note that you can refactor the directory structure if you'd like, but be aware that will break much of the existing gulp configuration and npm scripts (so you'll have to modify all of those too). 
+
+![VSTS Sample Task][vsts-sample-task-dir-img]
+
+The generator provides you with a functional sample task (contained in `tasks/sampletask`) that provides examples of doing common activities. It also includes corresponding unit tests for the sample task. You can modify these source files to build your own task, or you can delete them entirely. 
+
+ This sample content shows various patterns and ways of performing activities within the VSTS build/release context. For example, how to retrieve input parameters, how to to interact with VSTS using the OAuth token, displaying information to users, failing or passing a task, using async/await, how to break up the functionality, and more.
+
+The initial sample task does two basic things:
+- retreive the input parameters defined in the definition, and do something with them.
+- tell the user how many Team Projects exist in the VSTS account.
+
+The sample task, just like any custom VSTS task you write, is made up of the [standard required][standard-task-files-section] VSTS task files as well as the [actual source code][task-source-files-section] that perform the tasks functions.
+
+### Standard Task Files
+Each individual task (build and release) in VSTS is defined in two core files, and the `sampletask` example has these predefined with the information you gave the generator.
+
 - *icon.png* - The icon for your task. This is what will be displayed for your task within VSTS.
-- *task-wrapper.js* - Helper file used to execute your task within a VSTS build or release.
-- *task.json* - Defines your task.
-- *vss-extension.json* - Defines your extension configuration, which is required if you choose to package and publish your task(s) to the VSTS Marketplace for others to consume.
+- *task.json* - Defines a task. More details about this file can be found [below][task-json-section].
 
-#### task-wrapper.js
-This is a nearly empty file that exists only for starting your task within the VSTS build/release flow. The `task.json` file has the Node execution target set to this file, resulting in the equivalent of a `node task-wrapper.js` which executes your task. It exists so that the [Task source file][task-source-file] can be structured in such a way to easily facilitate unit testing. 
-
-#### task.json
+### task.json
 This file defines your task for VSTS. See the official [VSTS Task Manifest documentation][vsts-task-manifest-url] for more details about the content of this file and how it is used. We recommend that you update the following fields at a minimum in `task.json` in order to accurately define your own task:
 
 - *name* - This will be defaulted to the value you gave to the generator for your app name.
@@ -45,54 +83,28 @@ This file defines your task for VSTS. See the official [VSTS Task Manifest docum
 - *instanceNameFormat* - This is the value that will be applied to your task once an instance has been added to a build/release definition. 
 - *inputs* - The sample task created adds two sample inputs that show how to take string/text and numerical input for your task.
 
-#### vss-extension.json
-This is the file that defines your extension once published to the [VSTS Marketplace][vsts-marketplace-url]. See the official [VSTS Extension manifest reference guide][vsts-extension-manifest-url] for more details about the content of the file and how it is used. We recommend that you update the following fields at a minimum in `vss-extension.json` in order to accurately define your own extension:
+### Sample Task Source
+The task source is broken into 3 different files within the task directory (`task/sampletask`) :
 
-- *name* - This will be defaulted to the value you gave to the generator for your app name.
-- *publisher* - This will be defaulted to the value you gave to the generator for your app author. It will need to map to the [VSTS publisher account][vsts-publisher-extension-url] you create on the VSTS Marketplace in order to be able to publish.
-- *tags* - Add whatever tags are applicable in order to accurately represent and categorize your extension
-- *gallery-flags* - This will be defaulted to a single flag: 'Preview'. If you choose to make your extension Paid then you will need to add the appropriate flags. When and if you decide to make your extension public/discoverable by others, then you will have to add the 'Public' flag. Note that you will have to get your [Publisher account verified][vsts-publicize-extension-url] in order to be able to publicise your extensions on the marketplace.
-
-### Task Source Code
-The generator provides you with a functional sample task that provides examples of doing common activities. It also includes corresponding unit tests for the sample task. You can modify these source files to build your own task, or you can delete them entirely 
-
- This sample content shows various patterns and ways of performing activities within the VSTS build/release context. For example, how to retrieve input parameters, how to to interact with VSTS using the OAuth token, displaying information to users, failing or passing a task, using async/await, how to break up the functionality, and more.
-
-The initial task does two basic things:
-- retreive the input parameters from the user and do something with them
-- tell the user how many Team Projects exist in the VSTS account.
-
-The task source is broken into 3 different files under the `src` directory:
-
-- *task.ts*
-- *task-logger.ts*
-- *helper.ts*
+- `task.ts`
+- `task-wrapper.js`
+- `helper.ts`
 
 #### task.ts
-The `task.ts` file is the main entry point for execution of your task. It includes an import of the [vsts-task-lib][] library, which is used to interface directly with the VSTS build/release context. It will do things like access the user input parameters, display status/debug/error/etc. messages to the user, and ultimately determine whether or not the task should be marked as successful or failed. It will typically leverage other functions/classes/etc. defined in other files to do most of the work of the task.
+The `task.ts` file is the main entry point for execution of your task. It includes an import of the [vsts-task-lib][vsts-task-lib-repo-url] library, which is used to interface directly with the VSTS build/release context. It will do things like access the user input parameters, display status/debug/error/etc. messages to the user, and ultimately determine whether or not the task should be marked as successful or failed. It will typically leverage other functions/classes/etc. defined in other files to do most of the work of the task.
 
 Note that `task.ts` exports a single function (`run`) and that the `task.ts` file does **_not_** contain any invocations of the `run` function (for example there is no `run();` anywhere). We do this so that it it is possible to actually run unit tests against the code within the `task.ts` file. It would be very difficult to do true unit tests if there were, because you could not easily control/stub/mock the external touchpoints. 
 
-Instead, there is a `task-wrapper.js` file (in the root of your project) that will run the task. 
+Instead, the `task-wrapper.js` file handles the actual execution of the task. 
+
+#### task-wrapper.js
+
+This is a nearly empty file that exists only for starting your task within the VSTS build/release flow. The `task.json` file has the Node execution target set to this file, resulting in the equivalent of a `node task-wrapper.js` which executes your task. It exists so that the [Task source file][task-source-file] can be structured in such a way to easily facilitate unit testing. We use this pattern for all of our tasks so that we can fully unit test all of our task code.
 
 #### helper.ts
 The Helper class defined in the `helper.ts` file is a simple example of a helper class that provides some functionality which is consumed by `task.ts`. The class exposes a single method that provides the ability to determine the number of Team Projects that exist on the specified VSTS account.
-
-#### task-logger.ts
-
-The 'main.ts' file is the main executable that is called by the VSTS task runner engine. This is where build information, variables, etc. can be obtained by interacting with the VSTS task system.
-Think of this main file as the entry point to begin the process of executing your task. However, the bulk of the work for your task should be performed by other classes/files. This is demonstrated by 
-the 'main.ts' file interacting with a Helper class defined in the 'helper.ts' file. 
   
-The 'main.ts' shows how you can get inputs (via build variables and user defined parameter values), use those inputs to perform various operations, and display info/output. The 'helper.ts' file 
-defines the Helper class which performs a couple of basic operations, while using ES6 promises: basic addition of two numbers and getting the number of Team Projects in the account by interacting 
-with the VSTS APIs.  
-  
-![VSTS Task Main.ts][main.ts-img]  
-  
-![VSTS Task Helper.ts][helper.ts-img]  
-
-### Unit Tests
+## Unit Tests
 The generator creates corresponding suites of tests for the aforementioned example classes/files, along with all the basic plumbing. 
 This plumbing allows you to run the tests from an npm script as well as directly through a gulp task. You can find more details about the tests, code coverage, and more in 
 [the common testing documentation][boilerplate-testing-section]. Note that running the tests will automatically transpile your code for you, so there is no need to run any tasks manually
@@ -103,9 +115,9 @@ You can kick off your unit tests via:
 npm test
 ```  
 
-### Debugging/Validating
+## Debugging & Validating
 Due to the nature of the VSTS tasks, there isn't really a "localhost" equivalent to validate the functionality of your task. The easiest way (that we know of) is to simply publish your task
-to a VSTS account where you have the necessary permissions. This is accomplished via the CLI Utility (tfx)
+to a VSTS account where you have the necessary permissions. 
 
 
 ### Packaging & Publishing
@@ -153,8 +165,9 @@ VSTS is a an end to end ALM platform that you can start using for *free*. You sh
 [vsts-url]: https://www.visualstudio.com/team-services/
 [boilerplate-doc]: BOILERPLATE.md
 [vsts-dir-structure-img]: images/vsts-task-dir-structure.png
+[vsts-sample-task-dir-img]: images/vsts-sample-task-dir-structure.png
 [boilerplate-standard-section]: BOILERPLATE.md#standard-files
-[boilerplate-building=section]: BOILERPLATE.md#gulp-&-building
+[boilerplate-building-section]: BOILERPLATE.md#gulp-&-building
 [main.ts-img]: vsts-main.png
 [helper.ts-img]: vsts-helper.png
 [boilerplate-testing-section]: BOILERPLATE.md#testing
@@ -165,13 +178,22 @@ VSTS is a an end to end ALM platform that you can start using for *free*. You sh
 [vsts-publisher-extension-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/publish/overview#create-a-publisher
 [vscode-doc]: VSCODE.md
 [pack-pub-section]: VSTS-TASK.md#packaging-&-publishing
-[about-vstfs-section]: VSTS-TASK.md#about-vsts
+[about-vsts-section]: VSTS-TASK.md#about-vsts
 [standard-files-section]: VSTS-TASK.md#standard-files
 [task-source-section]: VSTS-TASK.md#task-source-code
-[task-source-file]: VSTS-TASK.md#task.ts
+[task-source-file]: VSTS-TASK.md#taskts
 [unit-test-section]: VSTS-TASK.md#unit-tests
+[debugging-section]: VSTS-TASK.md#debugging
 [vsts-task-manifest-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/build-task-schema
 [vsts-extension-manifest-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/manifest 
 [vsts-build-task-tutorial-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/add-build-task 
 [vsts-marketplace-publisher-url]: https://marketplace.visualstudio.com/manage/
 [multi-task-section]: VSTS-TASK.md#multiple-task
+[directory-structure-section]: VSTS-TASK.md#directory-structure
+[vsts-extension-files-section]: VSTS-TASK.md#vsts-extension-standard-files
+[task-content-section]: VSTS-TASK.md#vsts-task-content-and-source
+[standard-task-files-section]: VSTS-TASK.md#standard-task-files
+[task-source-files-section]: VSTS-TASK.md#sample-task-source
+[vss-extension-section]: VSTS-TASK.md#vss-extensionjson
+[task-json-section]: VSTS-TASK.md#taskjson
+[vsts-task-lib-repo-url]: https://github.com/Microsoft/vsts-task-lib
