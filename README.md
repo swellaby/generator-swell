@@ -1,5 +1,5 @@
 # generator-swell **** Currently in Alpha ****  
-
+!! New Version !!  
 **** Note this is currently in Alpha ****  
   
 Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] (Chatbots, VSTS Extensions, and more) plus Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
