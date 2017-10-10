@@ -53,13 +53,13 @@
     "type": "git"
   },
   "scripts": {
-    "build": "gulp clean transpile check-security enforce-code-coverage tslint eslint",
+    "build": "gulp clean transpile tslint eslint eslint-templates tslint-templates check-security enforce-code-coverage",
     "clean": "gulp clean",
     "gated-build": "gulp jshint eslint check-security run-unit-tests enforce-code-coverage",
     "check-security": "gulp check-security",
     "enforce-code-coverage": "gulp enforce-code-coverage",
     "gulp": "gulp",
-    "lint": "gulp tslint eslint",
+    "lint": "gulp tslint eslint eslint-templates tslint-templates",
     "show-component-integration-test-coverage": "gulp show-component-integration-test-coverage-report",
     "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
     "test": "gulp enforce-code-coverage check-security",

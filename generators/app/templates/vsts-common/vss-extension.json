@@ -1,6 +1,6 @@
 {
     "manifestVersion": 1,
-    "id": "",
+    "id": <%- JSON.stringify(appName) %>,
     "version": "0.0.1",
     "name": <%- JSON.stringify(appName) %>,
     "publisher": <%- JSON.stringify(author) %>,
@@ -11,13 +11,19 @@
         }
     ],
     "icons": {
-        "default": "extension-icon.png"
+        "default": "images/extension-icon.png"
     },
     "scopes": [
         ""
     ],
-    "categories": [
+    "tags": [
         ""
+    ],
+    "categories": [
+        "Build and release"
+    ],
+    "gallery-flags": [
+        "Preview"
     ],
     "branding": {
         "color": "rgb(34, 34, 34)",
@@ -32,30 +38,46 @@
         }
     },
     "links": {
+        "home": {
+            "uri": ""
+        },
         "getstarted": {
             "uri": ""
         },
         "support": {
             "uri": ""
+        },
+        "repository": {
+            "uri": "https://insert-something-real-here"
+        },
+        "issues": {
+            "uri": ""
         }
     },
     "repository": {
         "type": "git",
-        "uri": ""
+        "uri": "https://insert-something-real-here"
     },
     "contributions": [
         {
-            "id": "",
-            "type": "",
+            "id": "sampletask",
+            "type": "ms.vss-distributed-task.task",
             "description": "",
             "targets": [
-                ""
+                "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": ""
+                "name": "tasks/sampletask"
             }
         }
     ],
     "files": [
+        {
+            "path": "tasks/sampletask"
+        },
+        {
+            "path": "images",
+            "addressable": true
+        }
     ]
 }

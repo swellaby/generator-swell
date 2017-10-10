@@ -34,6 +34,23 @@ suite('VSTS Project Tests:', () => {
     let generatorFsExtendJsonStub: Sinon.SinonStub;
     let uuidV4Stub: Sinon.SinonStub;
     let pathJoinStub: Sinon.SinonStub;
+    const vstsTaskScripts = {
+        'tfx-login': 'tfx login',
+        'create-task': 'cd tasks && tfx build tasks create',
+        'package-vsts-tasks': 'gulp package-vsts-tasks',
+        'upload-vsts-task': 'tfx build tasks upload --task-path ',
+        'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sampletask',
+        'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
+        'delete-vsts-task': 'tfx build tasks delete --task-id ',
+        'upload-all-vsts-tasks': 'npm run upload-sample-vsts-task',
+        'pack-up-single-vsts-task': 'npm run package-vsts-tasks && npm run upload-vsts-task',
+        'pack-up-vsts-tasks': 'npm run package-vsts-tasks && npm run upload-all-vsts-tasks',
+        'package-vsts-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
+        'bump-package-vsts-extension': 'gulp bump-package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
+        'publish-vsts-extension': 'cd .vsts-publish && tfx extension publish',
+        'bump-pack-pub-vsts-extension': 'gulp bump-package-vsts-task-extension-files && npm run publish-vsts-extension',
+        'pack-pub-vsts-extension': 'gulp package-vsts-task-extension-files && npm run publish-vsts-extension'
+    };
 
     setup(() => {
         consoleErrorStub = sandbox.stub(console, 'error');
@@ -171,12 +188,17 @@ suite('VSTS Project Tests:', () => {
             assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 dependencies: {
-                    'request': '^2.79.0',
-                    'vsts-task-lib': '^1.1.0'
+                    'loglevel': '^1.5.0',
+                    'request': '^2.83.0',
+                    'vsts-task-lib': '^2.1.0'
                 },
                 devDependencies: {
-                    '@types/request': '^0.0.36'
-                }
+                    '@types/request': '^2.0.4',
+                    'copy-node-modules': '^1.0.2',
+                    'gulp-bump': '^2.8.0',
+                    'tfx-cli': '^0.4.11'
+                },
+                scripts: vstsTaskScripts
             }));
         });
     });

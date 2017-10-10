@@ -4,7 +4,7 @@ os:
   - linux
 
 addons:
-  srcclr: true
+  # srcclr: true
   codeclimate:
     repo_token: $CODECLIMATE_REPO_TOKEN
   sonarcloud:

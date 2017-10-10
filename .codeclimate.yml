@@ -6,13 +6,16 @@ engines:
     enabled: true
     exclude_fingerprints:
     # exclude the istanbul threshold enforcer of both global and local threshold levels
-    - a97caa1d667999959d27f6f90a0b7721
     # gulp tasks for unit vs component tests
-    - f8177affa3e5e9ffbedecb408ff57288
-    - 58e16481760d5542bcdbc5482f9898f6
-    - 495c562a25c81b97b22bf6d87b849681
-    - 1a3e55e186eabbc236deba99cbfd92a9
-    - 4f2c06a05c6ee22ba1e1d17634374772
+    - 9285d6fcf5369c809cfe5b3156acb938
+    - 5bb0daa86b94d2f6183a1cade4472208
+    - 5b7b69cb869e0957899d820e04ae431a
+    - dc963c6315208c61d8be21fa0f980216
+    - ad5fd5eac5821c15b7a67d31d23e1f6c
+
+
+    exclude_paths:
+    - "generators/app/templates/"
     
     config:
       languages:
@@ -20,8 +23,9 @@ engines:
     
 ratings:
     paths:
-    - "build/**/*"
+    - "gulp/**/*"
     - "generators/**/*"
+    - "!generators/app/templates/**/*"
     - test
 exclude_paths:
 - coverage

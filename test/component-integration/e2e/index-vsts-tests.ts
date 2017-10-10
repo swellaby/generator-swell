@@ -35,7 +35,6 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('VSTS Task Project Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = ProjectTypes[ProjectTypes.vstsTask];
@@ -65,12 +64,15 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
         test('Should create all of the default VSTS Task template files', () => {
             yeomanAssert.file([
-                'task.json',
-                './src/main.ts',
-                './src/helper.ts',
-                './test/unit/main-tests.ts',
-                './test/unit/helper-tests.ts',
-                './build/tasks/package.js'
+                './tasks/sampletask/task.json',
+                './tasks/sampletask/icon.png',
+                './tasks/sampletask/task.ts',
+                './tasks/sampletask/helper.ts',
+                './tasks/sampletask/task-wrapper.js',
+                './test/unit/sampletask/task-tests.ts',
+                './test/unit/sampletask/helper-tests.ts',
+                './gulp/tasks/package.js',
+                './gulp/tasks/clean.js'
             ]);
         });
 
@@ -78,12 +80,16 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             yeomanAssert.fileContent(testHelpers.readmeFileName, '# ' + vstsAppName);
         });
 
+        test('Should inject the description into the README.md file when the Base option is selected', () => {
+            yeomanAssert.fileContent(testHelpers.readmeFileName, appDescription);
+        });
+
         test('Should inject author name correctly into package.json', () => {
             yeomanAssert.fileContent(testHelpers.packageJson, '"name": "' + author + '"');
         });
 
         test('Should inject author name correctly into task.json', () => {
-            yeomanAssert.fileContent('task.json', '"author": "' + author + '"');
+            yeomanAssert.fileContent('./tasks/sampletask/task.json', '"author": "' + author + '"');
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', (done) => {

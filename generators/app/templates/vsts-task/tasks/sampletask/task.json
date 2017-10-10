@@ -1,0 +1,45 @@
+{
+  "id": <%- JSON.stringify(taskId) %>,
+  "name": <%- JSON.stringify(appName) %>,
+  "friendlyName": "Sample Task",
+  "description": <%- JSON.stringify(description) %>,
+  "author": <%- JSON.stringify(author) %>,
+  "helpMarkDown": "[]() Replace with markdown to show in help",
+  "category": <%- JSON.stringify(taskCategory) %>,
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [],
+  "version": {
+    "Major": "0",
+    "Minor": "1",
+    "Patch": "0"
+  },
+  "minimumAgentVersion": "1.95.3",
+  "instanceNameFormat": "custom sample task",
+  "inputs": [
+    {
+      "name": "exampleMessage",
+      "type": "string",
+      "label": "Example Message",
+      "defaultValue": "Hello World",
+      "required": true,
+      "helpMarkDown": "Message to echo out"
+    },
+    {
+      "name": "favoriteNumber",
+      "type": "string",
+      "label": "Favorite Number",
+      "defaultValue": "4",
+      "required": true,
+      "helpMarkDown": "Sample of numeric input."
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "task-wrapper.js",
+      "argumentFormat": ""
+    }
+  }
+}

@@ -1,3 +1,4 @@
+'use strict';
 module.exports = {
     env: {
         browser: false,
@@ -38,10 +39,10 @@ module.exports = {
         'linebreak-style': [
             'off'
         ],
-        quotes: [
-            'error',
-            'single'
-        ],
+        // quotes: [
+        //     'error',
+        //     'single'
+        // ],
         semi: [
             'error',
             'always'
@@ -49,15 +50,15 @@ module.exports = {
         "no-console": [
             'off'
         ],
-        "max-statements": [
-            'error',
-            {
-                'max': 10
-            },
-            {
-                'ignoreTopLevelFunctions': false
-            }
-        ],
+        // "max-statements": [
+        //     'error',
+        //     {
+        //         'max': 10
+        //     },
+        //     {
+        //         'ignoreTopLevelFunctions': true
+        //     }
+        // ],
         "require-yield": [
             'off'
         ],

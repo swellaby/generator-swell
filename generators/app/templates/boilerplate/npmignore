@@ -1,7 +1,7 @@
-/build/
-/coverage/
+/gulp/
+/.coverage/
 /test/
-/testresults/
+/.testresults/
 /.eslintignore
 /.eslintrc.js
 /gulpfile.js

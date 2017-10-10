@@ -11,7 +11,8 @@
         "experimentalDecorators": true,
         "removeComments": false,
         "noImplicitAny": false,
-        "importHelpers": true
+        "importHelpers": true,
+        "allowJs":  true
     }
 }
 

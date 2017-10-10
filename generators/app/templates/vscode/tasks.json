@@ -4,11 +4,38 @@
     "showOutput": "silent",
     "tasks": [
         {
-            "taskName": "package install",
+            "taskName": "install dependencies",
             "suppressTaskName": true,
             "args": [
                 "npm",
                 "install"
+            ]
+        },
+        {
+            "taskName": "clean",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "clean"
+            ]
+        },
+        {
+            "taskName": "lint",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "lint"
+            ]
+        },
+        {
+            "taskName": "transpile",
+            "suppressTaskName": true,
+            "args": [
+                "npm",
+                "run",
+                "transpile"
             ]
         },
         {
@@ -22,7 +49,7 @@
             "isBuildCommand": true
         },
         {
-            "taskName": "test",
+            "taskName": "unit test",
             "args": [
                 "npm",
                 "run",
@@ -31,12 +58,12 @@
             "problemMatcher": "$tsc"
         },
         {
-            "taskName": "clean",
+            "taskName": "unit test coverage",
             "suppressTaskName": true,
             "args": [
                 "npm",
                 "run",
-                "clean"
+                "show-unit-test-coverage"
             ]
         },
         {
