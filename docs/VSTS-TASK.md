@@ -5,7 +5,7 @@ If you are unfamiliar with VSTS, check out the [VSTS overview][about-vsts-sectio
 
 ## Overview  
 As with all other project types, the generator will give you all of the [boilerplate content][boilerplate-doc], which we highly recommend reviewing as it provides the details on generator content
-that is standard across all project types like testing, linting, and more. You can also review the [high level usage overview][usage-overview-url] for more details about how to run/use the generator.
+that is standard across all project types like testing, linting, and more. You can also review the [high level usage overview][usage-overview-url] for more details about how to actually run/use the generator.
 
 ## Contents
 
@@ -18,20 +18,24 @@ that is standard across all project types like testing, linting, and more. You c
 - [Debugging][debugging-section]
 - [Packaging and publishing][pack-pub-section]
 - [Scripts][scripts-section]
+- [Multiple Tasks][multi-task-section]
+- [About VSTS][about-vsts-section]
 
 
 ## Quick Start
-These steps assume you have already created a new project using the generator
+These steps assume you have already created a new project using the generator. If you have not, you need to first run the generator to create a new VSTS task project as outlined [here][usage-overview-url]
+
+Steps:
 
 1. `npm install` - install dependencies if you haven't already done so
 2. Create a [personal access token (PAT)][vsts-pat-url] *
 3. `npm run tfx-login`  
-    a. enter your target VSTS account (included with TPC), i.e. https://youraccount.visualstudio.com/defaultcollection  
+    a. enter your target VSTS account (include the TPC), i.e. https://youraccount.visualstudio.com/defaultcollection  
     b. enter the PAT you created in step 2
 
 Now you can go straight to the [packaging-and-publishing][pack-pub-section] section to upload the sampletask to your VSTS account and/or publish it as an extension to the [VSTS Marketplace][vsts-marketplace-url]
 
-*PAT note - You will need to create the PAT with the [appropriate scopes][vsts-extension-pat-url] under an account that has access to upload build tasks to the target VSTS account(s) i.e. needs to be in the top level Agent Pool Administrators group for the account to manipulate tasks.
+*PAT note - You will need to create the PAT with the [appropriate scopes][vsts-extension-pat-url] under an account that has access to upload build tasks to the target VSTS account(s) i.e. the account needs to be in the top level Agent Pool Administrators group for the account to manipulate tasks, including uploading and removing custom tasks.
 
 [Back to table of contents][contents-section]
 
@@ -40,7 +44,7 @@ The initial project structure created by the generator is immediately ready for 
 
 Your new project contains a real/working task example (more details [here][task-content-section]). Future versions of the generator will include both the sample/example task, as well as an empty starting task for use. For now though, you will want to go through the below steps to configure/modify the sample task in your project to perform your desired action(s). 
 
-Once you are ready to start writing your own task (including going through the first 3 steps above in the [Quick start section][quickstart-section]), you will need to decide whether you want to use the sample content as a starting point, or if you want to delete it entirely. 
+Once you are ready to start writing your own task (including going through the first 3 steps above in the [Quick start section][quickstart-section]), you will need to decide whether you want to use the sample content as a starting point, or if you want to delete all of the sample task content entirely. 
 
 We'd recommend building off the sample content. Once you make the below modifications the task will be all yours!
 
@@ -176,24 +180,43 @@ The generator configures your project with [gulp tasks and scripts][scripts-sect
 [Back to table of contents][contents-section]
 
 ## Packaging and Publishing
-You can then run the following command to upload the sample task:
+The new project created by your generator contains capabilities to support both your inner dev-loop, as well as packaging and publishing the final result VSTS accounts and/or the [VSTS Marketplace][vsts-marketplace-url] to share with others. 
+
+Make sure you've executed the `tfx-login` script (details [here][tfx-login-section]) before running the below commands.
+
+### Commands
+The following command will package and upload your tasks to a VSTS account
 ```sh
 npm run pack-up-vsts-tasks
 ```
-Also note that you will need to manually bump the version (patch, minor, or major) in the [task.json][task-json-section] file for each task prior to uploading. We're [working][gulp-vsts-bump-url] on a gulp plugin to automate that process and will add it to the generator as soon as we're done.
+Check the [pack-up-vsts-tasks][pack-up-vsts-tasks-section] script documentation for more details.
 
-
-Or this command to packge the sample task as an extension, and publish it to your Marketplace account (note you will again be prompted to enter your PAT)
+This command will packge the sample task as an extension, and publish it to your Marketplace account (note you will again be prompted to enter your PAT)
 ```sh
 npm run bump-pack-pub-vsts-extension
 ```
+Check the [bump-pack-pub-vsts-extension][bump-pack-pub-vsts-extension-section] script documentation for more details.
 
+### VSTS Pipeline Publishing
+You can also set up build/release pipelines in your VSTS to account using [this plugin][vsts-dev-tools-extension-url] to get your extension to the VSTS Marketplace (we do and recommend it!). You can (and should) use many of the [npm scripts][scripts-section] in your project in conjunction with this plugin.
+
+For simplicity, we recommend that you configure your definition to *first* run the [bump-package-vsts-extension][bump-package-vsts-extension-section] script (via an npm step) and then run the *Publish Extension* task. 
+
+- On the 'Input file type' field you should pick the 'VSIX file' option
+- On the VSIX file you should enter `.vsts-publish/*.vsix`
+- We recommend you *do* check the 'Override task version' field which will automatically bump the task versions for each of your tasks within the extension.
+
+### Additional Notes
 *PAT note - You will need to create the PAT with the [appropriate scopes][vsts-extension-pat-url] under an account that has access to upload build tasks to the target VSTS account(s) i.e. needs to be in the top level Agent Pool Administrators group for the account to manipulate tasks.
+
+*Also note that you will need to manually bump the version (patch, minor, or major) in the [task.json][task-json-section] file for each task prior to distributing them (unless you are publishing your tasks as a VSTS extension following the [VSTS Pipeline model described above])[vsts-pipeline-publishing-section]. If you don't bump the version then you will see errors when you attempt to directly upload tasks, and un-bumped tasks in an extension will be ignored by the build/release agents (they won't download the new versions of your task). We're [working][gulp-vsts-bump-url] on a gulp plugin to automate that process and will add it to the generator as soon as we're done. Contributions are welcome :) 
+
+*You will also need to have a [VSTS Marketplace Publisher Account][vsts-publisher-extension-url] and a [PAT with access to the Marketplace][vsts-extension-pat-url] in order to be able to publish your extension. Additionally, your extension will be private by default and you will be able to share it with various VSTS accounts. If you want your extension to be public and discoverable on the Marketplace, then you will have to follow the steps to [Publicize][vsts-publicize-extension-url] your extension.
 
 [Back to table of contents][contents-section]
 
 ## Scripts
-The generator creates your project with the standard [tasks and scripts][boilerplate-building-section] that exist in all projects, and it also includes several specialized tasks/scripts for VSTS content. These are defined in various gulp tasks, but all the functionality is wrapped via a specialized npm script (so you can run them via an `npm run script-name`).  
+The generator creates your project with the [standard tasks and scripts][boilerplate-building-section] that exist in all projects, and it also includes several specialized tasks/scripts for VSTS content. These are defined in various gulp tasks, but all the functionality is wrapped via a specialized npm script (so you can run them via an `npm run script-name`).  
 
 We recommend checking out the [quick start info][quickstart-section] for the basic details 
 
@@ -364,33 +387,320 @@ npm run publish-vsts-extension
 ### bump-pack-pub-vsts-extension
 This script will handle the entire workflow for you by automatically packaging up your tasks into an extension, bumping your extension version, and then publishing it to the Marketplace (note you will again be prompted to enter your PAT).
 
-We recommend using this script heavily if you are packaging your tasks as an extension that you want to share
+We recommend using this script heavily if you are packaging your tasks as an extension that you want to share.
 
 ```sh
-npm run bump-package-vsts-extension
+npm run bump-pack-pub-vsts-extension
 ```
 [Back to the top of Scripts][scripts-section]
 
-### old
-You will also need to have a [VSTS Marketplace Publisher Account][vsts-publisher-extension-url] and a [PAT with access to the Marketplace][vsts-extension-pat-url] in order to be able to publish your extension. Additionally, your extension will be private by default and you will be able to share it with various VSTS accounts. If you want your extension to be public and discoverable on the Marketplace, then you will have to follow the steps to [Publicize][vsts-publicize-extension-url] your extension.
+### pack-pub-vsts-extension
+This script is identical to the [bump-pack-pub-vsts-extension][bump-pack-pub-vsts-extension-section] script except that it does *_not_* automatically bump the version of the extension for you. 
+
+The primary use case for this script would be for instances where you want to manually manage the version of the extension package.
+
+```sh
+npm run pack-pub-vsts-extension
+```
+[Back to the top of Scripts][scripts-section]
+
   
 #### Transpiling
-The TypeScript source code needs to be transpiled to JavaScript prior to publishing. You won't likely ever need to explicitly trigger transpilation directly as it will happen automatically as part of the gulp workflows like running your tests, packaging up your task, uploading your task to VSTS, publishing to the VSTS Marketplace, etc. This 
+The source code for your project is intended to be written in TypeScript, which needs to be transpiled to JavaScript prior to publishing. All of the scripts referenced above and in the [boilerplate documentation][boilerplate-building-section] will automatically handle the transpile step for you, so there isn't a need to run this directly yourself.
 
 However, there is an npm script available that you can run if you want to run a simple transpile. It can be done via the below npm script (or gulp if you really want) as outlined in the 
-[boilerplate documentation][boilerplate-building=section].  
+[boilerplate documentation][boilerplate-building-section].  
 
 ```sh
 npm run transpile
 ```  
+[Back to the top of Scripts][scripts-section]
 
-## 
+## Multiple Tasks
+Your new project created by the generator fully supports having multiple VSTS tasks within it. There's three core steps for adding additional tasks:
 
-### Multiple Tasks
+1) Create the new task directory & content
+2) Create/update npm scripts for new task
+3) Update the extension manifest to have your new task included in the extension.
 
+### Creating a new task
+The generator adds an npm script to your project that you can use to automate the creation of a new task. You can simply execute the `npm run create-task` script, and it will drop a new task in the main `tasks` directory. The documentation for the create-task script can be found [here][create-task-section]. We will add future functionality to the generator so that you won't have to go through the below steps, but for now this npm script uses the tfx-cli and you will need to tweak the output.
 
-### About VSTS
+Once you run the script:
+```sh
+npm run create-task
+```  
+
+It will launch the tfx-cli which will prompt you to enter a few fields about your task:  
+![Create Task][vsts-create-task-img] 
+
+After entering in your information you should see a success message similar the the one below (note your task id will be different):
+![][vsts-new-task-success-img]  
+
+Within the `tasks` directory you will also see a new directory has been created with the name you specified for the 'task name' prompt before. I entered `newtask` for the task name, so that is the directory in the below screenshot.
+  
+![][vsts-tfx-new-dir-structure-img]  
+
+We'd recommend making some updates to this new directory:  
+- delete the `sample.ps1` and `sample.js` files. 
+- copy in the `task-wrapper.js` file from the `tasks/sampletask/` directory
+- create a new file called `task.js` and add a `run` function, just like the task in `tasks/sampletask/task.js`
+- create a corresponding directory under `test/unit` for example `test/unit/newtask/` to contain the unit tests for your new task
+- update the `execution` field in the generated `task.json` file:
+
+It will initially look like this:
+```json
+"execution": {
+    "Node": {
+      "target": "sample.js",
+      "argumentFormat": ""
+    },
+    "PowerShell3": {
+      "target": "sample.ps1"
+    }
+  }
+```  
+but you should modify it to the below configuration (or copy & paste if that is easier)
+
+```json
+"execution": {
+    "Node": {
+      "target": "task-wrapper.js",
+      "argumentFormat": ""
+    }
+  }
+```
+
+### NPM Scripts for new task
+Next you should add two npm scripts to your `package.json` file to have specific scripts to upload and remove your new task directly from a VSTS account. You will first need to get your task id, either from the new `task.json` file or from the previous command output.
+
+Within the new `task.json` file, the id is the first field listed, and my task id is `9db07570-ad6c-11e7-95c6-175962d604be` (yours will be different): 
+```json
+{
+  "id": "9db07570-ad6c-11e7-95c6-175962d604be",
+  "name": "newtask",
+  "friendlyName": "my new task",
+  "description": "novelty item",
+  "author": "me",
+  ...
+}
+```
+
+Next you will use your taskname and the id to create your new npm scripts. Note that you can name your npm scripts whatever you would like
+
+```json
+...
+"scripts": { 
+...
+"upload-new-vsts-task": "tfx build tasks upload --task-path .vsts-publish/tasks/*your-task-name*",
+"delete-new-vsts-task": "tfx build tasks delete --task-id *your-task-id*",
+...
+},
+...
+```
+
+My task id was `9db07570-ad6c-11e7-95c6-175962d604be` and the directory name of my new task was `newtask` so my scripts would look like this:
+
+```json
+"scripts": { 
+...
+"upload-new-vsts-task": "tfx build tasks upload --task-path .vsts-publish/tasks/newtask",
+"delete-new-vsts-task": "tfx build tasks delete --task-id 9db07570-ad6c-11e7-95c6-175962d604be",
+...
+}
+```
+The last npm script you will need to update is the `upload-all-vsts-tasks` script to ensure that it will run the new upload script you just created. 
+
+Originally, it will only contain the `npm run upload-sample-vsts-task` script:
+
+```json
+...
+"scripts": { 
+...
+"upload-all-vsts-tasks": "npm run upload-sample-vsts-task",
+...
+},
+...
+```
+You will need to update it to also run the script you created above for your new task. I called my task `upload-new-vsts-task` so mine would look like:
+
+```json
+...
+"scripts": { 
+...
+"upload-all-vsts-tasks": "npm run upload-sample-vsts-task && npm run upload-new-vsts-task",
+...
+},
+...
+```
+
+### Update Extension Manifest
+After you complete the above steps you will be able manage your new task for everything related to packaging and uploading to a VSTS account. However, if you try to package your extension, it won't include your new task because it isn't listed in your extension manifest at the root of your project. You will need to update your manifest configuration in the [vss-extension.json][vss-extension-section] file to include your new task.
+
+In order to do this, you will need to add your task as a `contribution` to the extension, and also update the `files` collection to include the new task directory. These can be found at the very bottom of the `vss-extension.json` file. The initial `vss-extension.json` file created by the generator will look like this:
+```json
+...
+"contributions": [
+        {
+            "id": "sampletask",
+            "type": "ms.vss-distributed-task.task",
+            "description": "",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "tasks/sampletask"
+            }
+        }
+    ],
+    "files": [
+        {
+            "path": "tasks/sampletask"
+        },
+        {
+            "path": "images",
+            "addressable": true
+        }
+    ]
+}
+```
+
+You will use your new task id and path to your new task directory to make the updates. For `contributions`, you will create a new object like this, but with your task name and path included:
+
+```json
+,
+{
+    "id": "*your-task-name-here*",
+    "type": "ms.vss-distributed-task.task",
+    "description": "",
+    "targets": [
+        "ms.vss-distributed-task.tasks"
+    ],
+    "properties": {
+        "name": "tasks/*your-task-directory*"
+    }
+}
+```
+My task name was `newtask`, and my task directory is `tasks/newtask` so mine would look like this:
+```json
+,
+{
+    "id": "newtask",
+    "type": "ms.vss-distributed-task.task",
+    "description": "",
+    "targets": [
+        "ms.vss-distributed-task.tasks"
+    ],
+    "properties": {
+        "name": "tasks/newtask"
+    }
+}
+```
+You will copy and paste this into the `contributions` collection, and should have something similar to this:
+
+```json
+"contributions": [
+    {
+        "id": "sampletask",
+        "type": "ms.vss-distributed-task.task",
+        "description": "",
+        "targets": [
+            "ms.vss-distributed-task.tasks"
+        ],
+        "properties": {
+            "name": "tasks/sampletask"
+        }
+    },
+    {
+        "id": "newtask",
+        "type": "ms.vss-distributed-task.task",
+        "description": "",
+        "targets": [
+            "ms.vss-distributed-task.tasks"
+        ],
+        "properties": {
+            "name": "tasks/newtask"
+        }
+    }
+],
+```
+Next you will need to add the directory path of your task to the `files` collection using your task directory:
+```json
+{
+    "path": "tasks/*your-task-directory*"
+},
+```
+
+My task directory was `tasks/newtask` so mine would look like this:
+```json
+{
+    "path": "tasks/newtask"
+},
+```
+After plugging that into the `files` collection, you should have something like this:
+```json
+"files": [
+    {
+        "path": "tasks/sampletask"
+    },
+    {
+        "path": "tasks/newtask"
+    },
+    {
+        "path": "images",
+        "addressable": true
+    }
+]
+```
+You've finished! The bottom of your `vss-extension.json` file should look something similar to this now:
+
+```json
+...
+"contributions": [
+    {
+        "id": "sampletask",
+        "type": "ms.vss-distributed-task.task",
+        "description": "",
+        "targets": [
+            "ms.vss-distributed-task.tasks"
+        ],
+        "properties": {
+            "name": "tasks/sampletask"
+        }
+    },
+    {
+        "id": "newtask",
+        "type": "ms.vss-distributed-task.task",
+        "description": "",
+        "targets": [
+            "ms.vss-distributed-task.tasks"
+        ],
+        "properties": {
+            "name": "tasks/newtask"
+        }
+    }
+],
+"files": [
+    {
+        "path": "tasks/sampletask"
+    },
+    {
+        "path": "tasks/newtask"
+    },
+    {
+        "path": "images",
+        "addressable": true
+    }
+]
+...
+```
+
+[Back to table of contents][contents-section]
+
+## About VSTS
 VSTS is a an end to end ALM platform that you can start using for *free*. It gives users/teams everything they need to plan & manage work, collaborate on source code (unlimited private git repos + a centralized VCS repo), automate builds and deployments/releases, track bugs, manage tests cases, and more! It also integrates fabulously with a ton of other platforms (including GitHub) so you should definitely check it out. Both the build and release system in VSTS are driven off of tasks that perform some action. Although VSTS Tasks can be written in either Node.js or PowerShell, this generator scaffolds a new project for working with Node.js. 
+
+[Back to table of contents][contents-section]
 
 [usage-overview-url]: USAGE-OVERVIEW.md
 [vsts-url]: https://www.visualstudio.com/team-services/
@@ -421,7 +731,7 @@ VSTS is a an end to end ALM platform that you can start using for *free*. It giv
 [vsts-extension-manifest-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/manifest 
 [vsts-build-task-tutorial-url]: https://www.visualstudio.com/en-us/docs/integrate/extensions/develop/add-build-task 
 [vsts-marketplace-publisher-url]: https://marketplace.visualstudio.com/manage/
-[multi-task-section]: VSTS-TASK.md#multiple-task
+[multi-task-section]: VSTS-TASK.md#multiple-tasks
 [directory-structure-section]: VSTS-TASK.md#directory-structure
 [vsts-extension-files-section]: VSTS-TASK.md#vsts-extension-standard-files
 [task-content-section]: VSTS-TASK.md#vsts-task-content-and-source
@@ -451,3 +761,8 @@ VSTS is a an end to end ALM platform that you can start using for *free*. It giv
 [gulp-vsts-bump-url]: https://github.com/swellaby/gulp-vsts-bump
 [get-started-vss-extension-img]: images/vsts-task-get-started-vss-extension.png
 [contents-section]: VSTS-TASK.md#contents
+[vsts-dev-tools-extension-url]: https://marketplace.visualstudio.com/items?itemName=ms-devlabs.vsts-developer-tools-build-tasks
+[vsts-pipeline-publishing-section]: VSTS-TASK.md#vsts-pipeline-publishing
+[vsts-create-task-img]: images/vsts-task-create-task.png
+[vsts-new-task-success-img]: images/vsts-new-tfx-success.png
+[vsts-tfx-new-dir-structure-img]: images/vsts-new-tfx-dir-structure.png
