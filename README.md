@@ -2,7 +2,7 @@
 !! New Version !!  
 **** Note this is currently in Alpha ****  
   
-Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] (Chatbots, VSTS Extensions, and more) plus Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
+Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] ([Chatbots][chatbot-docs], [VSTS Extensions][vsts-docs], and more) plus Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests are encouraged and will be happily accepted (provided they pass the automated gates!).
 
 [![NPM Stats Badge][nodeico-badge]][npmjs-package-url]  
@@ -85,3 +85,5 @@ Here are some things you should know:
 [coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
 [generator-usage-overview-url]: https://github.com/swellaby/generator-swell/blob/master/docs/USAGE-OVERVIEW.md
 [guidelines]: ./CONTRIBUTING.md
+[chatbot-docs]: docs/CHATBOT.md
+[vsts-docs]: docs/VSTS-TASK.md

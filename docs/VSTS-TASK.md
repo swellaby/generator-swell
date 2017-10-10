@@ -434,7 +434,8 @@ npm run create-task
 It will launch the tfx-cli which will prompt you to enter a few fields about your task:  
 ![Create Task][vsts-create-task-img] 
 
-After entering in your information you should see a success message similar the the one below (note your task id will be different):
+After entering in your information you should see a success message similar the the one below (note your task id will be different):  
+
 ![][vsts-new-task-success-img]  
 
 Within the `tasks` directory you will also see a new directory has been created with the name you specified for the 'task name' prompt before. I entered `newtask` for the task name, so that is the directory in the below screenshot.
