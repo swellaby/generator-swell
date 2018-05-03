@@ -118,7 +118,7 @@
     "path": "^0.12.7",
     "tslib": "^1.7.1",
     "uuid": "^3.1.0",
-    "yeoman-generator": "^1.1.1",
+    "yeoman-generator": "^2.0.5",
     "yosay": "^2.0.1"
   }
 }
