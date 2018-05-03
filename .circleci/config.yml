@@ -1,12 +1,8 @@
-"" 
 version: 2
 jobs:
   build:
     docker:
       - image: circleci/node:8
-
-    environment:
-        COVERALLS_SERVICE_NAME: "circleci"
 
     working_directory: ~/repo
 
@@ -16,11 +12,10 @@ jobs:
           keys:
           - v0-dependencies-{{ checksum "package-lock.json" }}
           - v0-dependencies-
-      - restore_cache:
-          keys:
-          - sonar-cache
 
-      - run: npm install
+      - run: npm i
+      - run: npm i -g codecov
+
 
       - save_cache:
           paths:
@@ -36,6 +31,6 @@ jobs:
       - store_test_results:
           path: .testresults/unit
 
-      - run:
-          name: codecov
-          command: bash <(curl -s https://codecov.io/bash)
+      # - run:
+      #     name: codecov
+      #     command: bash <(curl -s https://codecov.io/bash)
