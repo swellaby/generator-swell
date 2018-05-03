@@ -17,7 +17,7 @@ const assert = Chai.assert;
  * Contains unit tests for the functions in express.ts
  */
 suite('Express Project Tests:', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let consoleErrorStub: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
     let generatorLogStub: Sinon.SinonStub;

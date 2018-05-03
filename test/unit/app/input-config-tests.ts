@@ -29,7 +29,7 @@ suite('Input Config Suite:', () => {
     const dependenciesIndex = 6;
 
     setup(() => {
-        sandbox = sinon.sandbox.create();
+        sandbox = sinon.createSandbox();
     });
     teardown(() => {
         sandbox.restore();

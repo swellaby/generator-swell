@@ -17,7 +17,7 @@ const assert = Chai.assert;
  * Contains unit tests for the functions in vscode.ts
  */
 suite('VS Code Tests:', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let generatorStub: YeomanGenerator;
     const sourceRootBase = 'templates/vsts-common';
     const sourceRoot = sourceRootBase + '/**/*';

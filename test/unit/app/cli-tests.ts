@@ -17,7 +17,7 @@ const assert = Chai.assert;
  * Contains unit tests for the functions in cli.ts
  */
 suite('CLI Project Tests:', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let consoleErrorSpy: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
     let generatorLogStub: Sinon.SinonStub;

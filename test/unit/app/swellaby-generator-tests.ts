@@ -27,7 +27,7 @@ const assert = Chai.assert;
  * in swellaby-generator.ts
  */
 suite('Swellaby Generator Tests:', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let swellabyGenerator: SwellabyGenerator;
     let generatorStub: YeomanGenerator;
     let consoleErrorStub: Sinon.SinonStub;

@@ -25,7 +25,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
     ];
 
     setup(() => {
-        sandbox = Sinon.sandbox.create();
+        sandbox = Sinon.createSandbox();
         gitInitCommandStub = testHelpers.createGitInitStub(sandbox);
         npmInstallCommandStub = testHelpers.createNpmInstallStub(sandbox);
         installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(sandbox);
