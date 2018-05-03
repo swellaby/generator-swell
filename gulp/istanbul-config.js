@@ -1,5 +1,3 @@
-/*eslint quotes: ["error", "single"]*/
-// Related to: https://github.com/Microsoft/TypeScript/issues/13270
 'use strict';
 
 const path = require('path');
@@ -42,7 +40,7 @@ module.exports = {
         branchCoverageThreshold: unitTestGlobalBranchCoverageThreshold,
         lineCoverageThreshold: unitTestGlobalLineCoverageThreshold,
         functionCoverageThreshold: unitTestGlobalFunctionCoverageThreshold
-    }, 
+    },
     unitTestLocalThresholds: {
         statementCoverageThreshold: unitTestLocalStatementCoverageThreshold,
         branchCoverageThreshold: unitTestLocalBranchCoverageThreshold,

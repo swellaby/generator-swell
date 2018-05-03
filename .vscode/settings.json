@@ -1,8 +1,8 @@
 {
     "vsicons.presets.angular": false,
     "files.exclude": {
-        "/**/*.js": { "when": "$(basename).ts" },
-        "/**/*.map": { "when": "$(basename).map" },
+        "**/*.js": { "when": "$(basename).ts" },
+        "**/*.map": { "when": "$(basename).map" },
         "npm-debug.log": true,
         "node_modules": true,
         ".coverage": true,

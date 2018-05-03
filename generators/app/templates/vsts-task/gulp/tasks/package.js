@@ -25,7 +25,7 @@ gulp.task('copy-dependencies', ['clean-vsts-task-publish'], function (done) {
         if (err) {
             console.error(err);
             process.exit(1);
-        }     
+        }
         done();
     });
 });
