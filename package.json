@@ -1,6 +1,6 @@
 {
   "name": "generator-swell",
-  "version": "0.16.1-alpha",
+  "version": "0.16.2-alpha",
   "description": "Yeoman generator for various types of Node, Angular, and Aurelia projects with TypeScript",
   "license": "MIT",
   "author": {
@@ -68,9 +68,6 @@
     "validate": "npm ls",
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
   },
-  "pre-commit": [
-    "build"
-  ],
   "devDependencies": {
     "@swellaby/eslint-config": "^1.1.3",
     "@swellaby/tslint-config": "^1.0.4",
@@ -98,11 +95,10 @@
     "gulp-sourcemaps": "^2.6.1",
     "gulp-tslint": "^8.1.2",
     "gulp-typescript": "^3.2.1",
+    "husky": "^1.0.0-rc.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.5.0",
     "mocha-multi": "^0.11.0",
-    "path": "^0.12.7",
-    "pre-commit": "^1.2.2",
     "require-dir": "^0.3.2",
     "sinon": "^3.2.1",
     "tslint": "^5.6.0",
@@ -112,10 +108,9 @@
     "yeoman-test": "^1.7.0"
   },
   "dependencies": {
-    "deep-extend": "^0.5.0",
+    "deep-extend": "^0.5.1",
     "glob": "^7.1.2",
     "mkdirp": "^0.5.1",
-    "path": "^0.12.7",
     "tslib": "^1.7.1",
     "uuid": "^3.1.0",
     "yeoman-generator": "^1.1.1",
