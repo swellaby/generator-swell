@@ -68,9 +68,6 @@
     "validate": "npm ls",
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
   },
-  "pre-commit": [
-    "build"
-  ],
   "devDependencies": {
     "@types/chai": "^4.0.3",
     "@types/deep-extend": "^0.4.30",
