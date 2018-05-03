@@ -39,12 +39,12 @@ module.exports = {
         taskSrcRoot + '/**/*.js*',
         testRoot + '/**/*.js*',
         '!' + taskSrcRoot + '/**/*task-wrapper.js',
-        '!' + taskSrcRoot + '/**/*task.json' 
+        '!' + taskSrcRoot + '/**/*task.json'
     ],
     appTranspiledJavaScript: [
         taskSrcRoot + '/**/*.js',
         '!' + taskSrcRoot + '/**/*task-wrapper.js',
-        '!' + taskSrcRoot + '/**/*task.json'   
+        '!' + taskSrcRoot + '/**/*task.json'
     ],
     javascriptUnitTests: testRoot + '/unit/**/*.js',
     javascriptComponentIntegrationTests: testRoot + '/component-integration/**/*.js',

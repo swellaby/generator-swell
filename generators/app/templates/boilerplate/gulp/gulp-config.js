@@ -1,5 +1,3 @@
-/*eslint quotes: ["error", "single"]*/
-// Related to: https://github.com/Microsoft/TypeScript/issues/13270'
 'use strict';
 
 const path = require('path');
@@ -19,7 +17,7 @@ module.exports = {
         testRoot + '/**/*.js*',
     ],
     appTranspiledJavaScript: [
-        srcRoot + '/**/*.js',          
+        srcRoot + '/**/*.js',
     ],
     javascriptUnitTests: testRoot + '/unit/**/*.js',
     javascriptComponentIntegrationTests: testRoot + '/component-integration/**/*.js',

@@ -1,11 +1,12 @@
 'use strict';
+
 module.exports = {
     env: {
         browser: false,
         commonjs: true,
         node: true,
         mocha: true,
-        "shared-node-browser": false,
+        'shared-node-browser': false,
         es6: true,
         worker: false,
         amd: false,
@@ -33,7 +34,7 @@ module.exports = {
             'error',
             4,
             {
-                "SwitchCase": 1
+                SwitchCase: 1
             }
         ],
         'linebreak-style': [
@@ -47,10 +48,10 @@ module.exports = {
             'error',
             'always'
         ],
-        "no-console": [
+        'no-console': [
             'off'
         ],
-        // "max-statements": [
+        // 'max-statements': [
         //     'error',
         //     {
         //         'max': 10
@@ -59,17 +60,16 @@ module.exports = {
         //         'ignoreTopLevelFunctions': true
         //     }
         // ],
-        "require-yield": [
+        'require-yield': [
             'off'
         ],
         strict: [
             'error',
             'global'
         ]
-        
     },
     // Custom Globals
     globals: {
 
-    }    
+    }
 };

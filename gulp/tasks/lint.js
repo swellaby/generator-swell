@@ -1,5 +1,3 @@
-/*eslint quotes: ["error", "single"]*/
-// Related to: https://github.com/Microsoft/TypeScript/issues/13270
 'use strict';
 
 const gulp = require('gulp');
@@ -37,7 +35,7 @@ const createTypescriptProject = () => {
 
 gulp.task('tslint', function () {
     const program = createTypescriptProject();
-    
+
     return gulp.src(gulpConfig.allGeneratorTypescript)
         .pipe(gulpTslint({ program }))
         .pipe(gulpTslint.report());
@@ -45,7 +43,7 @@ gulp.task('tslint', function () {
 
 gulp.task('tslint-templates', function () {
     const program = createTypescriptProject();
-    
+
     return gulp.src(gulpConfig.templateTypescript)
         .pipe(gulpTslint({ program }))
         .pipe(gulpTslint.report());

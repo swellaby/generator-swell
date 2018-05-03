@@ -1,5 +1,3 @@
-/*eslint quotes: ["error", "single"]*/
-// Related to: https://github.com/Microsoft/TypeScript/issues/13270
 'use strict';
 
 const gulp = require('gulp');
@@ -39,7 +37,7 @@ gulp.task('run-unit-tests', ['pre-unit-tests', 'eslint'], function(cb) {
         .pipe(istanbul.writeReports({
             reporters: istanbulConfig.reporters,
             dir: istanbulConfig.unitTestCoverageDirectory
-        }))        
+        }))
         .on('end', cb);
 });
 
@@ -91,7 +89,7 @@ gulp.task('run-component-integration-tests', ['pre-component-integration-tests',
         .pipe(istanbul.writeReports({
             reporters: istanbulConfig.reporters,
             dir: istanbulConfig.componentIntegrationTestCoverageDirectory
-        }))        
+        }))
         .on('end', cb);
 });
 

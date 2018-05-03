@@ -69,6 +69,8 @@
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
   },
   "devDependencies": {
+    "@swellaby/eslint-config": "^1.1.3",
+    "@swellaby/tslint-config": "^1.0.4",
     "@types/chai": "^4.0.3",
     "@types/deep-extend": "^0.4.30",
     "@types/glob": "^5.0.31",
