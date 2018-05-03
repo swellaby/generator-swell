@@ -19,7 +19,7 @@ const assert = Chai.assert;
  * Contains unit tests for the main generator defined in index.ts
  */
 suite('Index Tests:', () => {
-    const sandbox = Sinon.sandbox.create();
+    const sandbox = Sinon.createSandbox();
     let index: Index;
     let swellabyGeneratorCreateProjectStub: Sinon.SinonStub;
     // The below stubs on the internal yeoman generators stubs are leveraged

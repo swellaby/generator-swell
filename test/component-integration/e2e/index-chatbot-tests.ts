@@ -20,7 +20,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
     let installDependenciesCommandStub: Sinon.SinonStub;
 
     setup(() => {
-        sandbox = Sinon.sandbox.create();
+        sandbox = Sinon.createSandbox();
         gitInitCommandStub = testHelpers.createGitInitStub(sandbox);
         npmInstallCommandStub = testHelpers.createNpmInstallStub(sandbox);
         installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(sandbox);

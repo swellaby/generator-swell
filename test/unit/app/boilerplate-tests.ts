@@ -15,7 +15,7 @@ const assert = Chai.assert;
  * Contains unit tests for the functions in boilerplate.ts
  */
 suite('Boilerplate Tests:', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let consoleErrorStub: Sinon.SinonSpy;
     let generatorStub: YeomanGenerator;
     const extensionConfig = {

@@ -18,7 +18,7 @@ const assert = Chai.assert;
  * Contains unit tests for the functions in vsts.ts
  */
 suite('VSTS Project Tests:', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let generatorStub: YeomanGenerator;
     const descriptionMessage = 'A new task to make a great platform even better';
     const taskId = '626c88e3-1e13-4663-abdc-5658b0757b80';
