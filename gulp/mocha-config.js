@@ -2,8 +2,8 @@
 
 const path = require('path');
 const testResultsRootDirectoryPath = path.resolve('./.testresults');
-const unitTestResultsFile = testResultsRootDirectoryPath + '/unit-test-results.xml';
-const componentIntegrationTestResultsFile = testResultsRootDirectoryPath + '/component-integration-test-results.xml';
+const unitTestResultsFile = testResultsRootDirectoryPath + '/unit/xunit.xml';
+const componentIntegrationTestResultsFile = testResultsRootDirectoryPath + '/component/xunit.xml';
 
 module.exports = {
     unitTestTimeout: 2000,
