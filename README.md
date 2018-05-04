@@ -30,7 +30,7 @@ npm i --prod -g generator-swell
 ### Prerequisites
 This should be pretty obvious, but just in case here is what you will need:
 
-- [Node.js][nodejs-url] We are developing on 7.x, but we also run our tests against 4.x, 5.x, 6.x, and 7.x
+- [Node.js][nodejs-url] We are developing on 8.x, but we also run our tests against 6.x, 8.x and 9.x
 - [Yeoman][yeoman-url] 
 
 If you don't have [Yeoman][yeoman-url] installed globally (note, you may need to use sudo):
