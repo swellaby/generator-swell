@@ -27,7 +27,6 @@ before_script:
 
 install:  
     - npm install
-    - npm install -g codeclimate-test-reporter coveralls
     - nvm install 10
     - nvm install 9
     - nvm install 8
@@ -45,5 +44,6 @@ script:
     - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
 
 after_success:
+    - npm install -g codeclimate-test-reporter coveralls
     - codeclimate-test-reporter < .coverage/unit/lcov.info
     - coveralls < .coverage/unit/lcov.info
