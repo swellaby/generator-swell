@@ -1,7 +1,7 @@
 # generator-swell **** Currently in Alpha ****    
 **** Note this is currently in Alpha ****  
   
-Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] ([Chatbots][chatbot-docs], [VSTS Extensions][vsts-docs], and more) plus Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
+Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] ([Chatbots][chatbot-docs], [VSTS Extensions][vsts-docs], and more) plus coming soon: Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests are encouraged and will be happily accepted (provided they pass the automated gates!).
 
 [![NPM Stats Badge][nodeico-badge]][npmjs-package-url]  
@@ -24,7 +24,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 
 Ensure you have the necessary prerequisites outlined below. Then install the generator globally (note, you may need to use sudo):
 ```sh
-npm i --prod -g generator-swell
+npm i -g generator-swell
 ```
 
 ### Prerequisites
