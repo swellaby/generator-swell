@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v0-dependencies-{{ checksum "package-lock.json" }}
+          - v0-dependencies-
+
+      - run: npm i
+      - run: sudo npm i -g codecov
+
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v0-dependencies-{{ checksum "package-lock.json" }}
+        
+      - run: 
+          name: build
+          command: npm run build
+      - store_artifacts:
+          path: .coverage/unit/
+          prefix: coverage
+      - store_test_results:
+          path: .testresults/unit
+
+      # - run:
+      #     name: codecov
+      #     command: bash <(curl -s https://codecov.io/bash)

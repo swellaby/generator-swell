@@ -1,8 +1,7 @@
-# generator-swell **** Currently in Alpha ****  
-!! New Version !!  
+# generator-swell **** Currently in Alpha ****    
 **** Note this is currently in Alpha ****  
   
-Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] ([Chatbots][chatbot-docs], [VSTS Extensions][vsts-docs], and more) plus Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
+Highly opinionated [Yeoman][yeoman-url] generator for various types of [Node.js][nodejs-url] ([Chatbots][chatbot-docs], [VSTS Extensions][vsts-docs], and more) plus coming soon: Angular and Aurelia projects with [TypeScript][typescript-url]. Yes, there are
 others out there, but we wanted one that gave us a 100% of what we need. Pull Requests are encouraged and will be happily accepted (provided they pass the automated gates!).
 
 [![NPM Stats Badge][nodeico-badge]][npmjs-package-url]  
@@ -11,6 +10,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![npm][npmjs-downloads-badge]][npmjs-package-url]  
   
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
+[![AppVeyor Status][appveyor-badge]][appveyor-url]
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
 [![Code Climate Badge][code-climate-status-badge]][code-climate-url]
 [![Codecov Badge][codecov-badge]][codecov-url]
@@ -24,13 +24,13 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 
 Ensure you have the necessary prerequisites outlined below. Then install the generator globally (note, you may need to use sudo):
 ```sh
-npm i --prod -g generator-swell
+npm i -g generator-swell
 ```
 
 ### Prerequisites
 This should be pretty obvious, but just in case here is what you will need:
 
-- [Node.js][nodejs-url] We are developing on 7.x, but we also run our tests against 4.x, 5.x, 6.x, and 7.x
+- [Node.js][nodejs-url] We are developing on 8.x, but we also run our tests against 6.x, 8.x and 9.x
 - [Yeoman][yeoman-url] 
 
 If you don't have [Yeoman][yeoman-url] installed globally (note, you may need to use sudo):
@@ -64,6 +64,8 @@ Here are some things you should know:
 [git-download-url]: https://git-scm.com/download
 [travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swell.svg?branch=master
 [travis-ci-url]: https://travis-ci.org/swellaby/generator-swell
+[appveyor-badge]: https://ci.appveyor.com/api/projects/status/9cxyoaw8ob2684o4?svg=true
+[appveyor-url]: https://ci.appveyor.com/project/swellaby/generator-swell
 [circle-ci-build-status-badge]: https://circleci.com/gh/swellaby/generator-swell.svg?style=shield
 [circle-ci-url]: https://circleci.com/gh/swellaby/generator-swell
 [code-climate-status-badge]: https://codeclimate.com/github/swellaby/generator-swell/badges/gpa.svg
