@@ -31,6 +31,6 @@ jobs:
       - store_test_results:
           path: .testresults/unit
 
-      # - run:
-      #     name: codecov
-      #     command: bash <(curl -s https://codecov.io/bash)
+      - run:
+          name: codecov
+          command: bash <(curl -s https://codecov.io/bash)
