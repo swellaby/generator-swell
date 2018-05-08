@@ -2,40 +2,22 @@
 
 This page provides some general guidelines for contriubting to the Swellaby Generator.  
 
-2 Things you should keep in mind:  
-
-1. Dont be an idiot!
-2. Have Fun!  
-
 ## Topics
 
-* [Reporting issues](#reporting-issues)
+* [Opening issues](#opening-issues)
 * [Feature requests](#feature-requests)
 * [Contribution tips and guidelines](#contribution-tips-and-guidelines)
 
-## Reporting issues
+## Opening Issues
+First make sure that the issue has not already been reported. If you find that your issue has already been reported, you can subscribe to that issue so that you will be notified of updates. If you'd like to vote on an existing issue, use the reaction/emoji features. Please do not leave random "+1" or "I have this too" comments, as they don't help resolve the issue. The being said, if you have additional information or suggestions feel free to post that.
 
-You can help out a lot by reporting any issues you encounter when using the generator [here](https://github.com/swellaby/generator-swell/issues).  
+Click the below links to create a new issue:
 
-First make sure that the issue has not already been reported. If you find that your issue has already been reported, 
-you can subscribe to that issue so that you will be notified of updates. Do *not* leave random "+1" or "I have this 
-too" comments, as they don't help resolve the issue. The being said, if you have additional information or suggestions 
-feel free to post that.
-
-When reporting issues, always include:
-
-* The output of `node --version`.
-* The output of `npm --version`.
-* The output of `yo --version`.
-* The version of the swellaby generator you are using (if you are unsure how to do this: `npm install -g get-pkg-version && get-pkg-version generator-swell`)
-* Your Operating System  
-* As detailed steps as possible to recreate the issue  
+- [Report a bug][create-bug-url]
+- [Request an enhancement or feature][create-enhancement-url]
+- [Ask a question][create-question-url]
 
 **Be sure to scrub any sensetive information if you include logs**  
-
-## Feature requests
-Feature requests are welcome. We may take a request and implement it, we may ask if you want to implement it, and we may reject it. 
-Please first check to make sure the feature has not already been requested (or implemented).
 
 ## Contribution tips and guidelines
 
@@ -46,6 +28,10 @@ please open an issue before working on it.
 
 Pull requests will need to pass a number of automated gates before being considered for approval. After the automated gates pass, 
 the pull request will be reviewed by one or more core callaborators before being merged.  
+
+Swellaby members should create a branch within the repository, make changes there, and then submit a PR. 
+
+Outside contributors should fork the repository, make changes in the fork, and then submit a PR.
 
 ### Commit Messages
 
@@ -67,3 +53,7 @@ The rules:
 3. All code must pass the eslint rules defined [here](./.eslintrc.js)
 4. Inline linter exceptions or rule changes can be *requested* in the relevant pull request
 5. Documentation should be updated to reflect new features being add and/or behaviour changes  
+
+[create-bug-url]: https://github.com/swellaby/generator-swell/issues/new?template=BUG_TEMPLATE.md&labels=bug,unreviewed&title=Bug:%20
+[create-question-url]: https://github.com/swellaby/generator-swell/issues/new?template=QUESTION_TEMPLATE.md&labels=question,unreviewed&title=Q:%20
+[create-enhancement-url]: https://github.com/swellaby/generator-swell/issues/new?template=ENHANCEMENT_TEMPLATE.md&labels=enhancement,unreviewed&title=E:%20
