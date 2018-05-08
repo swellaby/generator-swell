@@ -9,7 +9,7 @@ This page provides some general guidelines for contriubting to the Swellaby Gene
 * [Contribution tips and guidelines](#contribution-tips-and-guidelines)
 
 ## Opening Issues
-First make sure that the issue has not already been reported. If you find that your issue has already been reported, you can subscribe to that issue so that you will be notified of updates. Do not leave random "+1" or "I have this too" comments, as they don't help resolve the issue. The being said, if you have additional information or suggestions feel free to post that.
+First make sure that the issue has not already been reported. If you find that your issue has already been reported, you can subscribe to that issue so that you will be notified of updates. If you'd like to vote on an existing issue, use the reaction/emoji features. Please do not leave random "+1" or "I have this too" comments, as they don't help resolve the issue. The being said, if you have additional information or suggestions feel free to post that.
 
 Click the below links to create a new issue:
 
