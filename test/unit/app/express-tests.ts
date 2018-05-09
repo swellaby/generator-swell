@@ -160,10 +160,10 @@ suite('Express Project Tests:', () => {
                     'start': 'node src/app.js'
                 },
                 dependencies: {
-                    'express': '^4.15.4'
+                    'express': '^4.16.3'
                 },
                 devDependencies: {
-                    '@types/express': '^4.0.36'
+                    '@types/express': '^4.11.1'
                 }
             }));
         });

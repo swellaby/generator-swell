@@ -138,11 +138,11 @@ suite('Chatbot Tests:', () => {
             assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 dependencies: {
-                    'botbuilder': '^3.9.1',
-                    'restify': '^5.2.0'
+                    'botbuilder': '^3.15.0',
+                    'restify': '^7.1.1'
                 },
                 devDependencies: {
-                    '@types/restify': '^5.0.1'
+                    '@types/restify': '^5.0.7'
                 }
             }));
         });
