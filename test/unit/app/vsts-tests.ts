@@ -188,15 +188,15 @@ suite('VSTS Project Tests:', () => {
             assert.isTrue(pathJoinStub.calledWith(destRoot));
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
                 dependencies: {
-                    'loglevel': '^1.5.0',
-                    'request': '^2.83.0',
-                    'vsts-task-lib': '^2.1.0'
+                    'loglevel': '^1.6.1',
+                    'request': '^2.85.0',
+                    'vsts-task-lib': '^2.4.0'
                 },
                 devDependencies: {
-                    '@types/request': '^2.0.4',
-                    'copy-node-modules': '^1.0.2',
-                    'gulp-bump': '^2.8.0',
-                    'tfx-cli': '^0.4.11'
+                    '@types/request': '^2.47.0',
+                    'copy-node-modules': '^1.0.4',
+                    'gulp-bump': '^3.1.1',
+                    'tfx-cli': '^0.5.10'
                 },
                 scripts: vstsTaskScripts
             }));
