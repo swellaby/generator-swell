@@ -25,7 +25,6 @@ const assert = Chai.assert;
  */
 suite('Bot Suite -', () => {
     let sut: Bot;
-    let sandbox: Sinon.SinonSandbox;
     const univseralBot = {
         dialog: () => { return null; }
     };
@@ -45,31 +44,29 @@ suite('Bot Suite -', () => {
     let dialogMatchStub: Sinon.SinonStub;
 
     const setupStubs = () => {
-        botStub = sandbox.stub(builder, 'UniversalBot');
-        recognizerStub = sandbox.stub(builder, 'LuisRecognizer');
-        dialogStub = sandbox.stub(builder, 'IntentDialog');
-        rootDialogStub = sandbox.stub(univseralBot, 'dialog');
-        dialogOnDefaultStub = sandbox.stub(dialog, 'onDefault');
-        dialogMatchStub = sandbox.stub(dialog, 'matches');
+        botStub = Sinon.stub(builder, 'UniversalBot');
+        recognizerStub = Sinon.stub(builder, 'LuisRecognizer');
+        dialogStub = Sinon.stub(builder, 'IntentDialog');
+        rootDialogStub = Sinon.stub(univseralBot, 'dialog');
+        dialogOnDefaultStub = Sinon.stub(dialog, 'onDefault');
+        dialogMatchStub = Sinon.stub(dialog, 'matches');
         botStub.returns(univseralBot);
         recognizerStub.returns(recognizer);
         dialogStub.returns(dialog);
     };
 
     setup(() => {
-        sandbox = Sinon.sandbox.create();
         setupStubs();
         sut = new Bot();
     });
 
     teardown(() => {
-        sandbox.restore();
         sut = null;
     });
 
     suite('initializeForConsole Tests -', () => {
         setup(() => {
-            connectorStub = sandbox.stub(builder, 'ConsoleConnector');
+            connectorStub = Sinon.stub(builder, 'ConsoleConnector');
             connectorStub.returns(connector);
         });
 
@@ -95,7 +92,7 @@ suite('Bot Suite -', () => {
 
     suite('initializeForWeb Tests -', () => {
         setup(() => {
-            connectorStub = sandbox.stub(builder, 'ChatConnector');
+            connectorStub = Sinon.stub(builder, 'ChatConnector');
             connectorStub.returns(connector);
         });
 
