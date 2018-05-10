@@ -23,13 +23,14 @@
         "url": ""
     },
     "scripts": {
-        "build": "gulp clean tslint transpile eslint check-security enforce-code-coverage",
+        "build": "gulp clean tslint transpile eslint enforce-code-coverage && npm run nsp",
         "check-security": "gulp check-security",
         "clean": "gulp clean",
         "component-test": "gulp run-component-integration-tests",
         "enforce-code-coverage": "gulp enforce-code-coverage",
         "gulp": "gulp",
         "lint": "gulp tslint eslint",
+        "nsp": "nsp check --threshold 5",
         "show-component-integration-test-coverage": "gulp show-component-integration-test-coverage-report",
         "show-unit-test-coverage": "gulp show-unit-test-coverage-report",
         "test": "gulp enforce-code-coverage check-security",

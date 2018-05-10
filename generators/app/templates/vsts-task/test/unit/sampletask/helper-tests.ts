@@ -17,17 +17,15 @@ suite('Helper Suite -', () => {
     suite('getNumTeamProjects Suite -', () => {
         let teamProjectCollectionUri;
         let accessToken;
-        const sandbox = Sinon.sandbox.create();
         let getStub: Sinon.SinonStub;
 
         setup(() => {
-            getStub = sandbox.stub(request, 'get');
+            getStub = Sinon.stub(request, 'get');
         });
 
         teardown(() => {
             teamProjectCollectionUri = null;
             accessToken = null;
-            sandbox.restore();
         });
 
         test('Detects missing teamProjectCollectionUri -', (done: () => void) => {
