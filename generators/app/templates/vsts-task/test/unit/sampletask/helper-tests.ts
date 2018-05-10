@@ -17,13 +17,15 @@ suite('Helper Suite -', () => {
     suite('getNumTeamProjects Suite -', () => {
         let teamProjectCollectionUri;
         let accessToken;
+        const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
         let getStub: Sinon.SinonStub;
 
         setup(() => {
-            getStub = Sinon.stub(request, 'get');
+            getStub = sandbox.stub(request, 'get');
         });
 
         teardown(() => {
+            sandbox.restore();
             teamProjectCollectionUri = null;
             accessToken = null;
         });
@@ -78,6 +80,8 @@ suite('Helper Suite -', () => {
                 assert.equal(count, res.count);
                 assert.isTrue(getStub.called);
                 done();
+            }).catch(err => {
+                throw err;
             });
         });
     });

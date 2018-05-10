@@ -41,7 +41,7 @@ suite('Index/Express Project Component Integration Tests:', () => {
             '.dockerignore',
             'build.sh',
             'Dockerfile',
-            './build/tasks/package.js',
+            './gulp/tasks/package.js',
             './src/app.ts'
         ];
 
