@@ -18,7 +18,6 @@ const assert = Chai.assert;
  * Suite of tests for the functions defined in ./src/task.ts
  */
 suite('Task Suite: ', () => {
-    const sandbox: Sinon.SinonSandbox = Sinon.sandbox.create();
     const exampleMessageInputKey = 'exampleMessage';
     const exampleMessage = 'Hello World!';
     const favoriteNumberKey = 'favoriteNumber';
@@ -51,10 +50,10 @@ suite('Task Suite: ', () => {
      * Simple helper function to setup some stubs.
      */
     const setupInputAndVariableStubs = () => {
-        tlGetInputStub = sandbox.stub(tl, 'getInput');
+        tlGetInputStub = Sinon.stub(tl, 'getInput');
         tlGetInputStub.withArgs(exampleMessageInputKey, true).callsFake(() => exampleMessage);
         tlGetInputStub.withArgs(favoriteNumberKey, true).callsFake(() => favoriteNumberStr);
-        tlGetVariableStub = sandbox.stub(tl, 'getVariable');
+        tlGetVariableStub = Sinon.stub(tl, 'getVariable');
         tlGetVariableStub.withArgs(collectionUriVariableKey, true).callsFake(() => collectionUri);
         tlGetVariableStub.withArgs(accessTokenVariableKey, true).callsFake(() => accessToken);
         // logInfoStub2 = sandbox.stub(log, 'info');
@@ -62,15 +61,11 @@ suite('Task Suite: ', () => {
 
     setup(() => {
         setupInputAndVariableStubs();
-        tlDebugStub = sandbox.stub(tl, 'debug');
-        tlErrorStub = sandbox.stub(tl, 'error');
-        tlSetResultStub = sandbox.stub(tl, 'setResult').callsFake(() => null);
-        logInfoStub = sandbox.stub(log, 'info').callsFake(() => null);
-        helperGetTeamProjectsStub = sandbox.stub(Helper.prototype, 'getNumTeamProjects').callsFake(() => numTeamProjects);
-    });
-
-    teardown(() => {
-        sandbox.restore();
+        tlDebugStub = Sinon.stub(tl, 'debug');
+        tlErrorStub = Sinon.stub(tl, 'error');
+        tlSetResultStub = Sinon.stub(tl, 'setResult').callsFake(() => null);
+        logInfoStub = Sinon.stub(log, 'info').callsFake(() => null);
+        helperGetTeamProjectsStub = Sinon.stub(Helper.prototype, 'getNumTeamProjects').callsFake(() => numTeamProjects);
     });
 
     test('Should correctly initialize parameters', async () => {
