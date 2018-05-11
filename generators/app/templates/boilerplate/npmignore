@@ -1,10 +1,11 @@
 gulp/
 .coverage/
-test/
 .testresults/
+.vscode/
+.github/
+test/
 .eslintignore
 .eslintrc.js
 gulpfile.js
-.npmignore
 tsconfig.json
 tslint.json

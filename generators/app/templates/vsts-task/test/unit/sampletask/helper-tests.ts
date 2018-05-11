@@ -70,19 +70,15 @@ suite('Helper Suite -', () => {
             });
         });
 
-        test('Gets Proper Count - ', (done: () => void) => {
+        test('Gets Proper Count - ', async () => {
             teamProjectCollectionUri = 'uri';
             accessToken = 'token';
 
             const res = { count: 4 };
             getStub.yields(null, { statusCode: 200 }, JSON.stringify(res));
-            sut.getNumTeamProjects(teamProjectCollectionUri, accessToken).then((count) => {
-                assert.equal(count, res.count);
-                assert.isTrue(getStub.called);
-                done();
-            }).catch(err => {
-                throw err;
-            });
+            const count = await sut.getNumTeamProjects(teamProjectCollectionUri, accessToken);
+            assert.equal(count, res.count);
+            assert.isTrue(getStub.called);
         });
     });
 });

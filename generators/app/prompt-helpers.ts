@@ -1,5 +1,5 @@
 'use strict';
-
+/* tslint:disable:no-string-literal */
 import ProjectTypes = require('./project-types');
 
 /**

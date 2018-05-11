@@ -3,22 +3,21 @@
 import fs = require('fs');
 import path = require('path');
 import yeoman = require('yeoman-generator');
-import SwellabyGenerator = require('../../generators/app/index');
 
 export const generatorRoot = path.join(__dirname, './../../../generators/app');
 
 const fsStats: yeoman.MemFsEditor = {
     commit: null,
     copy: null,
-    copyTpl: () => { return null; },
+    copyTpl: () => null,
     delete: null,
     exists: null,
-    extendJSON: () => { return null; },
-    move: () => { return null; },
+    extendJSON: () => null,
+    move: () => null,
     read: null,
-    readJSON: () => { return null; },
+    readJSON: () => null,
     write: null,
-    writeJSON: () => { return null; }
+    writeJSON: () => null
 };
 export const generatorStub: yeoman = <yeoman> {
         // args: 'foo',
@@ -28,20 +27,20 @@ export const generatorStub: yeoman = <yeoman> {
     // config: storage,
     fs: fsStats,
     // options: null,
-    log: () => { return null; },
+    log: () => null,
     // argument: null,
     // composeWith: null,
-    destinationPath: () => { return __dirname; },
-    destinationRoot: () => { return __dirname; },
+    destinationPath: () => __dirname,
+    destinationRoot: () => __dirname,
     // determineAppname: null,
     // option: null,
     // eslint-disable-next-line
-    prompt: (questions) => { return Promise.prototype; },
+    prompt: (questions) => Promise.prototype,
     // registerTransformStream: null,
     // rootGeneratorName: null,
     // rootGeneratorVersion: null,
     // run: null,
-    sourceRoot: () => { return __dirname; },
+    sourceRoot: () => __dirname,
     // templatePath: () => { return __dirname; },
     // argumentsHelp: null,
     // desc: null,
@@ -57,7 +56,7 @@ export const generatorStub: yeoman = <yeoman> {
     // installDependencies: null,
     // listenerCount: null,
     // listeners: null,
-    npmInstall: () => { return null; },
+    npmInstall: () => null,
     // on: null,
     // once: null,
     // prependListener: null,
@@ -68,7 +67,7 @@ export const generatorStub: yeoman = <yeoman> {
     // setMaxListeners: null,
     // spawnCommand: null,
     // eslint-disable-next-line
-    spawnCommandSync: (command, args, opt) => { return null; }
+    spawnCommandSync: (command, args, opt) => null
     // yarnInstall: null
 };
 
@@ -84,13 +83,13 @@ export const fsStatStub: fs.Stats = {
     dev: null,
     gid: null,
     ino: null,
-    isBlockDevice: () => { return null; },
-    isCharacterDevice: () => { return null; },
-    isDirectory: () => { return null; },
-    isFIFO: () => { return null; },
-    isFile: () => { return null; },
-    isSocket: () => { return null; },
-    isSymbolicLink: () => { return null; },
+    isBlockDevice: () => null,
+    isCharacterDevice: () => null,
+    isDirectory: () => null,
+    isFIFO: () => null,
+    isFile: () => null,
+    isSocket: () => null,
+    isSymbolicLink: () => null,
     mode: null,
     mtime: null,
     mtimeMs: null,

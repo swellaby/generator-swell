@@ -43,7 +43,7 @@ suite('Index Tests:', () => {
     const options = {
         env: {
             adapter: {
-                log: () => { return ''; }
+                log: () => ''
             }
         },
         resolved: 'foo'
