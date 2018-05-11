@@ -47,7 +47,6 @@ suite('Input Config Suite:', () => {
         assert.deepEqual(inputConfig.prompts[dependenciesIndex].name, dependenciesPromptKey);
     });
 
-    // eslint-disable-next-line max-statements
     suite('App Name Prompt Tests:', () => {
         const prompt = inputConfig.prompts[appNameIndex];
         const expectedMessage = 'The name of your app';
@@ -66,7 +65,6 @@ suite('Input Config Suite:', () => {
         });
     });
 
-    // eslint-disable-next-line max-statements
     suite('Description Prompt Tests:', () => {
         const prompt = inputConfig.prompts[descriptionIndex];
         const expectedMessage = 'The description of your app';
@@ -85,7 +83,6 @@ suite('Input Config Suite:', () => {
         });
     });
 
-    // eslint-disable-next-line max-statements
     suite('Author Prompt Tests:', () => {
         const prompt = inputConfig.prompts[authorPromptIndex];
         const expectedMessage = 'The author of this app';
@@ -104,7 +101,6 @@ suite('Input Config Suite:', () => {
         });
     });
 
-    // eslint-disable-next-line max-statements
     suite('Type Prompt Tests:', () => {
         const prompt = inputConfig.prompts[appTypeIndex];
         const expectedMessage = 'What type of app is this?';
@@ -122,7 +118,6 @@ suite('Input Config Suite:', () => {
             assert.deepEqual(prompt.type, expectedPromptType);
         });
 
-        // eslint-disable-next-line max-statements
         suite('Choices Tests:', () => {
             const choices = inputConfig.prompts[appTypeIndex].choices;
             const expectedNumberOfChoices = 5;
@@ -211,7 +206,6 @@ suite('Input Config Suite:', () => {
         });
     });
 
-    // eslint-disable-next-line max-statements
     suite('Add VSCode Files Prompt Tests:', () => {
         const prompt = inputConfig.prompts[vscodeIndex];
         const expectedMessage = 'Do you use Visual Studio Code?';
@@ -230,7 +224,6 @@ suite('Input Config Suite:', () => {
         });
     });
 
-    // eslint-disable-next-line max-statements
     suite('Docker User Prompt Tests', () => {
         const prompt = inputConfig.prompts[dockerUserIndex];
         const expectedMessage = 'What is your Docker Hub User Id?';
@@ -249,7 +242,6 @@ suite('Input Config Suite:', () => {
         });
     });
 
-    // eslint-disable-next-line max-statements
     suite('Install Dependencies Prompt Tests:', () => {
         const prompt = inputConfig.prompts[dependenciesIndex];
         const expectedMessage = 'Do you want me to install dependencies for you?';

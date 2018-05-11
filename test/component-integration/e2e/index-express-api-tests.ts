@@ -30,7 +30,6 @@ suite('Index/Express Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('Express API Option Tests:', () => {
         const expressAppName = 'api app';
         const appType = ProjectTypes[ProjectTypes.expressApi];

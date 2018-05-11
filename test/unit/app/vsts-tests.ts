@@ -77,7 +77,6 @@ suite('VSTS Project Tests:', () => {
     /**
      * Contains unit tests for the scaffoldVSTSTaskProject function.
      */
-    // eslint-disable-next-line max-statements
     suite('scaffoldVSTSTaskProject Tests:', () => {
         const vstsAppName = 'vsts task';
         const appType = ProjectTypes[ProjectTypes.vstsTask];

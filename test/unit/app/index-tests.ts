@@ -11,7 +11,6 @@ const yeomanGenerator = require('yeoman-generator');
 
 import Index = require('././../../../generators/app/index');
 import SwellabyGenerator = require('./../../../generators/app/swellaby-generator');
-import testHelpers = require('./../test-helpers');
 
 const assert = Chai.assert;
 
@@ -26,6 +25,7 @@ suite('Index Tests:', () => {
     // in order to take over the execution flow that occurs internally, on-start
     // within the core yeoman library. It is necessary to stub these to perform
     // true unit tests.
+    // tslint:disable:no-unused-variable
     // tslint:disable-next-line
     /* eslint-disable no-unused-vars */
     let yeomanEnvironmentForceUpdate: Sinon.SinonStub;
@@ -40,6 +40,7 @@ suite('Index Tests:', () => {
     let pathDirnameStub: Sinon.SinonStub;
     // tslint:disable-next-line
     /* eslint-enable no-unused-vars */
+    // tslint:enable:no-unused-variable
     const options = {
         env: {
             adapter: {
@@ -75,9 +76,9 @@ suite('Index Tests:', () => {
         sandbox.restore();
     });
 
-    test('Should invoke the createProject method defined by the SwellabyGenerator', () => {
+    test('Should invoke the createProject method defined by the SwellabyGenerator', async () => {
         index = new Index([], options);
-        index.execute();
+        await index.execute();
         assert.isTrue(swellabyGeneratorCreateProjectStub.called);
     });
 });

@@ -8,6 +8,7 @@
         ".coverage": true,
         ".testresults": true,
         "coverage": true,
-        "testresults": true
+        "testresults": true,
+        "**/*.tgz*": true
     }
 } 

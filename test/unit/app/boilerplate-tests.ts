@@ -76,7 +76,6 @@ suite('Boilerplate Tests:', () => {
     /**
      * Contains unit tests for the scaffoldBoilerplateContent function.
      */
-    // eslint-disable-next-line max-statements
     suite('scaffoldBoilerplateContent Tests:', () => {
         test('Should display an error message when the generator is null and the config is null', () => {
             boilerplate.scaffoldBoilerplateContent(null, null);

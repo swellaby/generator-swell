@@ -30,7 +30,6 @@ suite('Index/CLI Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('CLI Option Tests: ', () => {
         const cliAppName = 'cli app';
         const appType = ProjectTypes[ProjectTypes.cli];

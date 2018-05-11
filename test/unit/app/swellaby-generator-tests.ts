@@ -161,20 +161,20 @@ suite('Swellaby Generator Tests:', () => {
         generatorStub = null;
     });
 
-    test('Should display the fatal error message with a null generator', () => {
+    test('Should display the fatal error message with a null generator', async () => {
         swellabyGenerator = new SwellabyGenerator(null);
-        swellabyGenerator.createProject();
+        await swellabyGenerator.createProject();
         assert.isTrue(consoleErrorStub.calledWith(fatalErrorMessag));
     });
 
-    test('Should display the fatal error message with an undefined generator', () => {
+    test('Should display the fatal error message with an undefined generator', async () => {
         swellabyGenerator = new SwellabyGenerator(undefined);
-        swellabyGenerator.createProject();
+        await swellabyGenerator.createProject();
         assert.isTrue(consoleErrorStub.calledWith(fatalErrorMessag));
     });
 
-    test('Should greet the user with the correct message', () => {
-        swellabyGenerator.createProject();
+    test('Should greet the user with the correct message', async () => {
+        await swellabyGenerator.createProject();
         assert.isTrue(generatorLogStub.calledWith(yosay(greetingMessage)));
     });
 
@@ -416,6 +416,15 @@ suite('Swellaby Generator Tests:', () => {
     });
 
     test('Should install dependencies when the user accepts', async () => {
+        changeDependencyInstallSetting(true);
+        await swellabyGenerator.createProject();
+        assert.isTrue(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));
+        assert.isTrue(generatorNpmInstallStub.called);
+        assert.isFalse(generatorLogStub.thirdCall.calledWith(declinedInstallationMessage));
+    });
+
+    test('Should not crash an npm install failure', async () => {
+        generatorNpmInstallStub.rejects();
         changeDependencyInstallSetting(true);
         await swellabyGenerator.createProject();
         assert.isTrue(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));

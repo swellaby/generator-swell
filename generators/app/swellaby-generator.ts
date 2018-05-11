@@ -186,7 +186,7 @@ class SwellabyGenerator {
 
         if (installDependencies === true) {
             this.generator.log('Installing dependencies');
-            this.generator.npmInstall();
+            this.generator.npmInstall().catch(() => null);
         } else {
             this.generator.log('You said you wanted to install dependencies yourself, so don\'t forget!');
         }

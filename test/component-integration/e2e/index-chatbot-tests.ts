@@ -30,7 +30,6 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('Chatbot Option Tests:', () => {
         const chatbotAppName = 'chatbot app';
         const appType = ProjectTypes[ProjectTypes.chatbot];

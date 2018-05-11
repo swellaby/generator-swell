@@ -1,6 +1,5 @@
 'use strict';
 
-import Sinon = require('sinon');
 import chai = require('chai');
 
 import ProjectTypes = require('./../../../generators/app/project-types');

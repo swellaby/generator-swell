@@ -52,7 +52,6 @@ suite('Chatbot Tests:', () => {
     /**
      * Contains unit tests for the scaffoldChatbotProject function.
      */
-    // eslint-disable-next-line max-statements
     suite('scaffoldChatbotProject Tests:', () => {
         const extensionConfig = {
             appName: 'a',
