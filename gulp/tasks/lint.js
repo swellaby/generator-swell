@@ -22,8 +22,12 @@ gulp.task('eslint-templates', ['transpile'], function () {
         .pipe(eslint.failAfterError());
 });
 
+const createTypescriptProject = () => {
+    return tslint.Linter.createProgram(gulpConfig.typescriptCompilerOptions);
+};
+
 gulp.task('tslint', function () {
-    const program = tslint.Linter.createProgram(gulpConfig.typescriptCompilerOptions);
+    const program = createTypescriptProject();
 
     return gulp.src(gulpConfig.allGeneratorTypescript)
         .pipe(gulpTslint({
@@ -36,7 +40,7 @@ gulp.task('tslint', function () {
 });
 
 gulp.task('tslint-templates', function () {
-    const program = tslint.Linter.createProgram(gulpConfig.typescriptCompilerOptions);
+    const program = createTypescriptProject();
 
     return gulp.src(gulpConfig.templateTypescript)
         .pipe(gulpTslint({
