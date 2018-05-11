@@ -12,8 +12,9 @@ engines:
     - 5b7b69cb869e0957899d820e04ae431a
     - dc963c6315208c61d8be21fa0f980216
     - ad5fd5eac5821c15b7a67d31d23e1f6c
-
-
+    # tslint gulp tasks for templates vs. generator source
+    - 57e2cf5620d1e84b59d387090779657a
+  
     exclude_paths:
     - "generators/app/templates/"
     
