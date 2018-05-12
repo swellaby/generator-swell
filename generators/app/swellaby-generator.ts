@@ -57,6 +57,7 @@ class SwellabyGenerator {
         }).catch((err: Error) => {
             this.generator.log('Encountered an unexpected error while creating your ' +
                 'new project. Please try again.');
+            console.log('error details: ' + err.message);
        });
     }
 
@@ -186,7 +187,8 @@ class SwellabyGenerator {
 
         if (installDependencies === true) {
             this.generator.log('Installing dependencies');
-            this.generator.npmInstall().catch(() => null);
+            // tslint:disable-next-line:no-floating-promises
+            this.generator.npmInstall();
         } else {
             this.generator.log('You said you wanted to install dependencies yourself, so don\'t forget!');
         }
