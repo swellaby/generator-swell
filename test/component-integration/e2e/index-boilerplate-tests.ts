@@ -30,7 +30,6 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('Boilerplate Option Tests:', () => {
         const baseAppName = 'baseOptionApp';
         const appType = ProjectTypes[ProjectTypes.boilerplate];

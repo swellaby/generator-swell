@@ -11,7 +11,7 @@ import chatbot = require('./chatbot');
 import cli = require('./cli');
 import express = require('./express');
 import inputConfig = require('./input-config');
-import pathHelpers = require('./path-helpers');
+// import pathHelpers = require('./path-helpers');
 import ProjectTypes = require('./project-types');
 import vscode = require('./vscode');
 import vsts = require('./vsts');
@@ -44,7 +44,7 @@ class SwellabyGenerator {
     public createProject() {
         if (!this.generator) {
             console.error('Encountered a fatal error.');
-            return;
+            return undefined;
         }
 
         this.generator.log(yosay('Welcome to the Swellaby Generator!'));
@@ -186,7 +186,7 @@ class SwellabyGenerator {
 
         if (installDependencies === true) {
             this.generator.log('Installing dependencies');
-            this.generator.npmInstall();
+            this.generator.npmInstall().catch(() => null);
         } else {
             this.generator.log('You said you wanted to install dependencies yourself, so don\'t forget!');
         }

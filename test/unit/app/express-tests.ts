@@ -52,7 +52,6 @@ suite('Express Project Tests:', () => {
         sandbox.restore();
     });
 
-    // eslint-disable-next-line max-statements
     suite('scaffoldExpressApiProject Tests:', () => {
         const extensionConfig = {
             appName: 'e',

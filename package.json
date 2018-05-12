@@ -1,6 +1,6 @@
 {
   "name": "generator-swell",
-  "version": "0.16.10-alpha",
+  "version": "0.17.9-alpha",
   "description": "Yeoman generator for various types of Node, Angular, and Aurelia projects with TypeScript",
   "license": "MIT",
   "author": {
@@ -66,7 +66,6 @@
     "test": "gulp enforce-code-coverage check-security",
     "component-test": "gulp run-component-integration-tests",
     "transpile": "gulp transpile",
-    "validate": "npm ls",
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
   },
   "devDependencies": {
@@ -78,9 +77,9 @@
     "@types/inquirer": "0.0.41",
     "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^5.2.0",
-    "@types/node": "^10.0.6",
+    "@types/node": "^10.0.8",
     "@types/request": "^2.47.0",
-    "@types/sinon": "^4.3.1",
+    "@types/sinon": "^4.3.3",
     "@types/uuid": "^3.4.3",
     "@types/yeoman-generator": "^2.0.3",
     "@types/yosay": "^0.0.29",
@@ -103,10 +102,9 @@
     "require-dir": "^1.0.0",
     "sinon": "^5.0.7",
     "tslint": "^5.10.0",
-    "tslint-microsoft-contrib": "^5.0.3",
     "typescript": "^2.8.3",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^1.7.0"
+    "yeoman-test": "^1.7.1"
   },
   "dependencies": {
     "deep-extend": "^0.5.1",

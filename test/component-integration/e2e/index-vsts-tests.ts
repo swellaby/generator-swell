@@ -41,8 +41,8 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         const author = 'hemingway';
         const appDescription = 'this is an awesome vsts task';
         // eslint-disable-next-line no-unused-vars
-        const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
-            'Task project :( The VSTS files were not added to the project.';
+        // const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
+        //     'Task project :( The VSTS files were not added to the project.';
 
         suiteSetup(() => {
             const prompts = {

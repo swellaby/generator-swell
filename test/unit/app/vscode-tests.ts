@@ -4,7 +4,6 @@ import Chai = require('chai');
 import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
-import yosay = require('yosay');
 
 import pathHelpers = require('./../../../generators/app/path-helpers');
 import ProjectTypes = require('./../../../generators/app/project-types');
@@ -24,8 +23,7 @@ suite('VS Code Tests:', () => {
     const destRootBase = 'project-foo';
     const destRoot = destRootBase + '/.vscode';
     const launchJson = destRoot + '/launch.json';
-    // tslint:disable-next-line:no-any
-    const launchSettings: any = { configurations: [ { program: undefined }]};
+    const launchSettings = { configurations: [ { program: undefined }] };
     let consoleErrorStub: Sinon.SinonStub;
     let generatorSourceRootStub: Sinon.SinonStub;
     let generatorFsCopyTplStub: Sinon.SinonStub;
@@ -65,7 +63,6 @@ suite('VS Code Tests:', () => {
     /**
      * Contains unit tests for the scaffoldVSCodeContent function.
      */
-    // eslint-disable-next-line max-statements
     suite('scaffoldVSCodeContent Tests:', () => {
         test('Should display an error message when the generator is null and the extension config is null', () => {
             vscode.scaffoldVSCodeContent(null, null);

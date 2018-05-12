@@ -22,29 +22,32 @@ gulp.task('eslint-templates', ['transpile'], function () {
         .pipe(eslint.failAfterError());
 });
 
-/**
- * Helper function for setting up TypeScript linting.
- */
 const createTypescriptProject = () => {
-    const program = tslint.Linter.createProgram(gulpConfig.typescriptCompilerOptions);
-    program.formatter = 'verbose';
-    program.rulesDirectory = 'node_modules/tslint-microsoft-contrib';
-
-    return program;
+    return tslint.Linter.createProgram(gulpConfig.typescriptCompilerOptions);
 };
 
 gulp.task('tslint', function () {
     const program = createTypescriptProject();
 
     return gulp.src(gulpConfig.allGeneratorTypescript)
-        .pipe(gulpTslint({ program }))
-        .pipe(gulpTslint.report());
+        .pipe(gulpTslint({
+            formatter: 'stylish',
+            program: program
+        }))
+        .pipe(gulpTslint.report({
+            summarizeFailureOutput: false
+        }));
 });
 
 gulp.task('tslint-templates', function () {
     const program = createTypescriptProject();
 
     return gulp.src(gulpConfig.templateTypescript)
-        .pipe(gulpTslint({ program }))
-        .pipe(gulpTslint.report());
+        .pipe(gulpTslint({
+            formatter: 'stylish',
+            program: program
+        }))
+        .pipe(gulpTslint.report({
+            summarizeFailureOutput: false
+        }));
 });

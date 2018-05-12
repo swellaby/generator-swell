@@ -17,13 +17,15 @@ suite('Helper Suite -', () => {
     suite('getNumTeamProjects Suite -', () => {
         let teamProjectCollectionUri;
         let accessToken;
+        const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
         let getStub: Sinon.SinonStub;
 
         setup(() => {
-            getStub = Sinon.stub(request, 'get');
+            getStub = sandbox.stub(request, 'get');
         });
 
         teardown(() => {
+            sandbox.restore();
             teamProjectCollectionUri = null;
             accessToken = null;
         });
@@ -68,17 +70,15 @@ suite('Helper Suite -', () => {
             });
         });
 
-        test('Gets Proper Count - ', (done: () => void) => {
+        test('Gets Proper Count - ', async () => {
             teamProjectCollectionUri = 'uri';
             accessToken = 'token';
 
             const res = { count: 4 };
             getStub.yields(null, { statusCode: 200 }, JSON.stringify(res));
-            sut.getNumTeamProjects(teamProjectCollectionUri, accessToken).then((count) => {
-                assert.equal(count, res.count);
-                assert.isTrue(getStub.called);
-                done();
-            });
+            const count = await sut.getNumTeamProjects(teamProjectCollectionUri, accessToken);
+            assert.equal(count, res.count);
+            assert.isTrue(getStub.called);
         });
     });
 });

@@ -8,7 +8,6 @@ import config = require('../config');
  * Sample class for illustration purposes
  */
 class Sample extends DialogBase {
-
     /**
      * Sets the dialogs
      */

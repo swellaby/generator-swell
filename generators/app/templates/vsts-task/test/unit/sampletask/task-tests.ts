@@ -28,6 +28,7 @@ suite('Task Suite: ', () => {
     const accessTokenVariableKey = 'System.AccessToken';
     const accessToken = 'abcdefghijklmnopqrstuvwxyz';
     const numTeamProjects = 8;
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let helperGetTeamProjectsStub: Sinon.SinonStub;
     let tlGetInputStub: Sinon.SinonStub;
     let tlGetVariableStub: Sinon.SinonStub;
@@ -43,17 +44,17 @@ suite('Task Suite: ', () => {
     const exampleMessageDisplayPrefix = 'Your message was: ';
     const exampleMessageDisplay = exampleMessageDisplayPrefix + exampleMessage;
     const favoriteNumberDisplayPrefix = 'The product of your favorite number times 2 is: ';
-    const favoriteNumberDisplay = favoriteNumberDisplayPrefix + (2 * favoriteNumber);
+    const favoriteNumberDisplay = favoriteNumberDisplayPrefix + (favoriteNumber * 2);
     // let logInfoStub2: Sinon.SinonStub;
 
     /**
      * Simple helper function to setup some stubs.
      */
     const setupInputAndVariableStubs = () => {
-        tlGetInputStub = Sinon.stub(tl, 'getInput');
+        tlGetInputStub = sandbox.stub(tl, 'getInput');
         tlGetInputStub.withArgs(exampleMessageInputKey, true).callsFake(() => exampleMessage);
         tlGetInputStub.withArgs(favoriteNumberKey, true).callsFake(() => favoriteNumberStr);
-        tlGetVariableStub = Sinon.stub(tl, 'getVariable');
+        tlGetVariableStub = sandbox.stub(tl, 'getVariable');
         tlGetVariableStub.withArgs(collectionUriVariableKey, true).callsFake(() => collectionUri);
         tlGetVariableStub.withArgs(accessTokenVariableKey, true).callsFake(() => accessToken);
         // logInfoStub2 = sandbox.stub(log, 'info');
@@ -61,11 +62,11 @@ suite('Task Suite: ', () => {
 
     setup(() => {
         setupInputAndVariableStubs();
-        tlDebugStub = Sinon.stub(tl, 'debug');
-        tlErrorStub = Sinon.stub(tl, 'error');
-        tlSetResultStub = Sinon.stub(tl, 'setResult').callsFake(() => null);
-        logInfoStub = Sinon.stub(log, 'info').callsFake(() => null);
-        helperGetTeamProjectsStub = Sinon.stub(Helper.prototype, 'getNumTeamProjects').callsFake(() => numTeamProjects);
+        tlDebugStub = sandbox.stub(tl, 'debug');
+        tlErrorStub = sandbox.stub(tl, 'error');
+        tlSetResultStub = sandbox.stub(tl, 'setResult').callsFake(() => null);
+        logInfoStub = sandbox.stub(log, 'info').callsFake(() => null);
+        helperGetTeamProjectsStub = sandbox.stub(Helper.prototype, 'getNumTeamProjects').callsFake(() => numTeamProjects);
     });
 
     test('Should correctly initialize parameters', async () => {
@@ -74,6 +75,10 @@ suite('Task Suite: ', () => {
         assert.isTrue(tlGetInputStub.calledWith(favoriteNumberKey, true));
         assert.isTrue(tlGetVariableStub.calledWith(collectionUriVariableKey));
         assert.isTrue(tlGetVariableStub.calledWith(accessTokenVariableKey));
+    });
+
+    teardown(() => {
+        sandbox.restore();
     });
 
     test('Should fail the task with correct error messages when inputs are invalid', async () => {

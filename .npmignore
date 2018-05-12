@@ -1,5 +1,5 @@
-/build/
-/gulp/
+build/
+gulp/
 coverage/
 .coverage/
 test/
@@ -23,3 +23,11 @@ generators/**/*.ts
 !generators/app/templates/**/*.ts
 appveyor.yml
 backup.circle.yml
+tsconfig.json
+tslint.json
+newtslint.json
+oldtslint.json
+*.tgz*
+*.tar*
+CONTRIBUTING.md
+.huskyrc.json

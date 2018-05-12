@@ -12,8 +12,8 @@ import boilerplate = require('./../../../generators/app/boilerplate');
 import chatbot = require('./../../../generators/app/chatbot');
 import cli = require('./../../../generators/app/cli');
 import express = require('./../../../generators/app/express');
-import inputConfig = require('./../../../generators/app/input-config');
-import pathHelpers = require('./../../../generators/app/path-helpers');
+// import inputConfig = require('./../../../generators/app/input-config');
+// import pathHelpers = require('./../../../generators/app/path-helpers');
 import ProjectTypes = require('./../../../generators/app/project-types');
 import SwellabyGenerator = require('./../../../generators/app/swellaby-generator');
 import testHelpers = require('./../test-helpers');
@@ -96,9 +96,7 @@ suite('Swellaby Generator Tests:', () => {
         generatorPromptStub = sandbox.stub(generatorStub, 'prompt').callsFake(() => {
             return Promise.resolve(extensionConfig);
         });
-        generatorSpawnCommandSyncStub = sandbox.stub(generatorStub, 'spawnCommandSync').callsFake(() => {
-            return undefined;
-        });
+        generatorSpawnCommandSyncStub = sandbox.stub(generatorStub, 'spawnCommandSync').callsFake(() => null);
         generatorNpmInstallStub = sandbox.stub(generatorStub, 'npmInstall');
     };
 
@@ -113,10 +111,8 @@ suite('Swellaby Generator Tests:', () => {
         pathResolveStub = sandbox.stub(path, 'resolve').onFirstCall().callsFake(() => {
             return resolvedGitPath;
         });
-        fsIsFileStub = sandbox.stub(fsStatsStub, 'isFile').callsFake(() => { return false; });
-        fsStatSyncStub = sandbox.stub(fs, 'statSync').callsFake(() => {
-            return fsStatsStub;
-        });
+        fsIsFileStub = sandbox.stub(fsStatsStub, 'isFile').callsFake(() => false);
+        fsStatSyncStub = sandbox.stub(fs, 'statSync').callsFake(() => fsStatsStub);
         fsUnlinkSyncStub = sandbox.stub(fs, 'unlinkSync');
     };
 
@@ -165,46 +161,42 @@ suite('Swellaby Generator Tests:', () => {
         generatorStub = null;
     });
 
-    test('Should display the fatal error message with a null generator', () => {
+    test('Should display the fatal error message with a null generator', async () => {
         swellabyGenerator = new SwellabyGenerator(null);
-        swellabyGenerator.createProject();
+        await swellabyGenerator.createProject();
         assert.isTrue(consoleErrorStub.calledWith(fatalErrorMessag));
     });
 
-    test('Should display the fatal error message with an undefined generator', () => {
+    test('Should display the fatal error message with an undefined generator', async () => {
         swellabyGenerator = new SwellabyGenerator(undefined);
-        swellabyGenerator.createProject();
+        await swellabyGenerator.createProject();
         assert.isTrue(consoleErrorStub.calledWith(fatalErrorMessag));
     });
 
-    test('Should greet the user with the correct message', () => {
-        swellabyGenerator.createProject();
+    test('Should greet the user with the correct message', async () => {
+        await swellabyGenerator.createProject();
         assert.isTrue(generatorLogStub.calledWith(yosay(greetingMessage)));
     });
 
-    test('Should display the correct error message when an exception occurs during scaffolding', (done: () => void) => {
-        generatorPromptStub.callsFake(() => { return Promise.reject(new Error('oops')); });
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(generatorLogStub.firstCall.calledWith(yosay(greetingMessage)));
-            assert.isTrue(generatorLogStub.secondCall.calledWith(generationErrorMessage));
-            done();
-        });
+    test('Should display the correct error message when an exception occurs during scaffolding', async () => {
+        generatorPromptStub.callsFake(() => Promise.reject(new Error('oops')));
+        await swellabyGenerator.createProject();
+        assert.isTrue(generatorLogStub.firstCall.calledWith(yosay(greetingMessage)));
+        assert.isTrue(generatorLogStub.secondCall.calledWith(generationErrorMessage));
     });
 
-    test('Should not create a subdirectory if the cwd name matches the supplied app name', (done: () => void) => {
+    test('Should not create a subdirectory if the cwd name matches the supplied app name', async () => {
         const destPathReturnValue = 'foobaroo';
         generatorDestinationPathStub.onSecondCall().callsFake(() => {
             return destPathReturnValue;
         });
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(generatorLogStub.secondCall.calledWith(newDirMessage));
-            assert.isFalse(mkdirpSyncStub.called);
-            assert.isFalse(generatorDestinationRootStub.calledWith(destPathReturnValue));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isFalse(generatorLogStub.secondCall.calledWith(newDirMessage));
+        assert.isFalse(mkdirpSyncStub.called);
+        assert.isFalse(generatorDestinationRootStub.calledWith(destPathReturnValue));
     });
 
-    test('Should create a subdirectory if the cwd name does not match the supplied app name', (done: () => void) => {
+    test('Should create a subdirectory if the cwd name does not match the supplied app name', async () => {
         const destPathReturnValue = 'foobaroo';
         pathBasenameStub.callsFake(() => {
             return 'not the same as the app name';
@@ -212,272 +204,231 @@ suite('Swellaby Generator Tests:', () => {
         generatorDestinationPathStub.onSecondCall().callsFake(() => {
             return destPathReturnValue;
         });
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(generatorDestinationPathStub.firstCall.calledWith());
-            assert.isTrue(generatorLogStub.secondCall.calledWith(newDirMessage));
-            assert.isTrue(mkdirpSyncStub.calledWith(appName, null));
-            assert.isTrue(generatorDestinationRootStub.calledWith(destPathReturnValue));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(generatorDestinationPathStub.firstCall.calledWith());
+        assert.isTrue(generatorLogStub.secondCall.calledWith(newDirMessage));
+        assert.isTrue(mkdirpSyncStub.calledWith(appName, null));
+        assert.isTrue(generatorDestinationRootStub.calledWith(destPathReturnValue));
     });
 
-    test('Should not attempt to initialize an existing git repository', (done: () => void) => {
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
-            assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
-            assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
-            assert.isFalse(generatorLogStub.thirdCall.calledWith(initGitRepoMessage));
-            assert.isFalse(fsUnlinkSyncStub.called);
-            assert.isFalse(generatorLogStub.secondCall.calledWith(initGitRepoMessage));
-            assert.isFalse(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
-            done();
-        });
+    test('Should not attempt to initialize an existing git repository', async () => {
+        await swellabyGenerator.createProject();
+        assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
+        assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
+        assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
+        assert.isFalse(generatorLogStub.thirdCall.calledWith(initGitRepoMessage));
+        assert.isFalse(fsUnlinkSyncStub.called);
+        assert.isFalse(generatorLogStub.secondCall.calledWith(initGitRepoMessage));
+        assert.isFalse(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
     });
 
-    test('Should initiallize a git repo and delete the .git file when a file named .git is found', (done: () => void) => {
-        fsIsFileStub.callsFake(() => { return true; });
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
-            assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
-            assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
-            assert.isTrue(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
-            assert.isTrue(fsUnlinkSyncStub.called);
-            assert.isTrue(generatorLogStub.thirdCall.calledWith(initGitRepoMessage));
-            assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
-            done();
-        });
+    test('Should initiallize a git repo and delete the .git file when a file named .git is found', async () => {
+        fsIsFileStub.callsFake(() => true);
+        await swellabyGenerator.createProject();
+        assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
+        assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
+        assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
+        assert.isTrue(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
+        assert.isTrue(fsUnlinkSyncStub.called);
+        assert.isTrue(generatorLogStub.thirdCall.calledWith(initGitRepoMessage));
+        assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
     });
 
-    test('Should initialize a git repo when there is no .git directory present', (done: () => void) => {
+    test('Should initialize a git repo when there is no .git directory present', async () => {
         fsStatSyncStub.throws(new Error('EONET: not found'));
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
-            assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
-            assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
-            assert.isFalse(fsUnlinkSyncStub.called);
-            assert.isTrue(generatorLogStub.secondCall.calledWith(initGitRepoMessage));
-            assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
+        assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
+        assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
+        assert.isFalse(fsUnlinkSyncStub.called);
+        assert.isTrue(generatorLogStub.secondCall.calledWith(initGitRepoMessage));
+        assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
     });
 
-    test('Should display an error when the git repo initialization fails', (done: () => void) => {
+    test('Should display an error when the git repo initialization fails', async () => {
         fsStatSyncStub.throws(new Error('EONET: not found'));
         generatorSpawnCommandSyncStub.throws(new Error('command not found'));
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
-            assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
-            assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
-            assert.isFalse(fsUnlinkSyncStub.called);
-            assert.isTrue(generatorLogStub.secondCall.calledWith(initGitRepoMessage));
-            assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
-            assert.isTrue(generatorLogStub.thirdCall.calledWith(gitInitFailedMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(pathResolveStub.firstCall.calledWith(destinationRootBase));
+        assert.isTrue(pathJoinStub.firstCall.calledWith(resolvedGitPath, '.git'));
+        assert.isTrue(fsStatSyncStub.firstCall.calledWith(joinedGitPath));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(gitFileFoundMessage));
+        assert.isFalse(fsUnlinkSyncStub.called);
+        assert.isTrue(generatorLogStub.secondCall.calledWith(initGitRepoMessage));
+        assert.isTrue(generatorSpawnCommandSyncStub.calledWith('git', ['init', '--quiet']));
+        assert.isTrue(generatorLogStub.thirdCall.calledWith(gitInitFailedMessage));
     });
 
-    test('Should scaffold the correct project when the user specifies boilerplate', (done: () => void) => {
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
-            assert.isTrue(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
-            assert.isFalse(cliScaffoldCliProjectStub.called);
-            assert.isFalse(expressScaffoldExpressApiProjectStub.called);
-            assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
-            assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
-            assert.isFalse(generatorLogStub.thirdCall.calledWith(unknownProjectTypeMessage));
-            done();
-        });
+    test('Should scaffold the correct project when the user specifies boilerplate', async () => {
+        await swellabyGenerator.createProject();
+        assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
+        assert.isTrue(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
+        assert.isFalse(cliScaffoldCliProjectStub.called);
+        assert.isFalse(expressScaffoldExpressApiProjectStub.called);
+        assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
+        assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
+        assert.isFalse(generatorLogStub.thirdCall.calledWith(unknownProjectTypeMessage));
     });
 
-    test('Should scaffold the correct project when the user specifies cli project', (done: () => void) => {
+    test('Should scaffold the correct project when the user specifies cli project', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.cli]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
-            assert.isTrue(cliScaffoldCliProjectStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(expressScaffoldExpressApiProjectStub.called);
-            assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
-            assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
-            assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
+        assert.isTrue(cliScaffoldCliProjectStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(expressScaffoldExpressApiProjectStub.called);
+        assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
+        assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
+        assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
     });
 
-    test('Should scaffold the correct project when the user specifies express api project', (done: () => void) => {
+    test('Should scaffold the correct project when the user specifies express api project', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.expressApi]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
-            assert.isFalse(cliScaffoldCliProjectStub.called);
-            assert.isTrue(expressScaffoldExpressApiProjectStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
-            assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
-            assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
+        assert.isFalse(cliScaffoldCliProjectStub.called);
+        assert.isTrue(expressScaffoldExpressApiProjectStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
+        assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
+        assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
     });
 
-    test('Should scaffold the correct project when the user specifies vsts task project', (done: () => void) => {
+    test('Should scaffold the correct project when the user specifies vsts task project', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.vstsTask]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
-            assert.isFalse(cliScaffoldCliProjectStub.called);
-            assert.isFalse(expressScaffoldExpressApiProjectStub.called);
-            assert.isTrue(vstsScaffoldVstsTaskProjectStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
-            assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
+        assert.isFalse(cliScaffoldCliProjectStub.called);
+        assert.isFalse(expressScaffoldExpressApiProjectStub.called);
+        assert.isTrue(vstsScaffoldVstsTaskProjectStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
+        assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
     });
 
-    test('Should scaffold the correct project when the user specifies chatbot project', (done: () => void) => {
+    test('Should scaffold the correct project when the user specifies chatbot project', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.chatbot]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
-            assert.isFalse(cliScaffoldCliProjectStub.called);
-            assert.isFalse(expressScaffoldExpressApiProjectStub.called);
-            assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
-            assert.isTrue(chatbotScaffoldChatbotProjectStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
+        assert.isFalse(cliScaffoldCliProjectStub.called);
+        assert.isFalse(expressScaffoldExpressApiProjectStub.called);
+        assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
+        assert.isTrue(chatbotScaffoldChatbotProjectStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
     });
 
-    test('Should display the correct project when the project type cannot be determined', (done: () => void) => {
+    test('Should display the correct project when the project type cannot be determined', async () => {
         changeProjectType('asdfasdfasdf');
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
-            assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
-            assert.isFalse(cliScaffoldCliProjectStub.called);
-            assert.isFalse(expressScaffoldExpressApiProjectStub.called);
-            assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
-            assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
-            assert.isTrue(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(boilerplateScaffoldStub.calledWith(generatorStub, extensionConfig));
+        assert.isFalse(generatorLogStub.secondCall.calledWith(yosay(boilerplateMessage)));
+        assert.isFalse(cliScaffoldCliProjectStub.called);
+        assert.isFalse(expressScaffoldExpressApiProjectStub.called);
+        assert.isFalse(vstsScaffoldVstsTaskProjectStub.called);
+        assert.isFalse(chatbotScaffoldChatbotProjectStub.called);
+        assert.isTrue(generatorLogStub.secondCall.calledWith(unknownProjectTypeMessage));
     });
 
-    test('Should not scaffold vs code files when the user declines with boilerplate selection', (done: () => void) => {
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(vsCodeScaffoldStub.called);
-            done();
-        });
+    test('Should not scaffold vs code files when the user declines with boilerplate selection', async () => {
+        await swellabyGenerator.createProject();
+        assert.isFalse(vsCodeScaffoldStub.called);
     });
 
-    test('Should not scaffold vs code files when the user declines with the cli selection', (done: () => void) => {
+    test('Should not scaffold vs code files when the user declines with the cli selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.cli]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(vsCodeScaffoldStub.called);
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isFalse(vsCodeScaffoldStub.called);
     });
 
-    test('Should not scaffold vs code files when the user declines with the express api selection', (done: () => void) => {
+    test('Should not scaffold vs code files when the user declines with the express api selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.expressApi]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(vsCodeScaffoldStub.called);
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isFalse(vsCodeScaffoldStub.called);
     });
 
-    test('Should not scaffold vs code files when the user declines with the vsts task selection', (done: () => void) => {
+    test('Should not scaffold vs code files when the user declines with the vsts task selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.vstsTask]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(vsCodeScaffoldStub.called);
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isFalse(vsCodeScaffoldStub.called);
     });
 
-    test('Should not scaffold vs code files when the user declines with the chatbot selection', (done: () => void) => {
+    test('Should not scaffold vs code files when the user declines with the chatbot selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.chatbot]);
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(vsCodeScaffoldStub.called);
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isFalse(vsCodeScaffoldStub.called);
     });
 
-    test('Should not scaffold vs code files when the user declines with an unknown project selection', (done: () => void) => {
+    test('Should not scaffold vs code files when the user declines with an unknown project selection', async () => {
         changeProjectType('986asdfasdf');
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(vsCodeScaffoldStub.called);
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isFalse(vsCodeScaffoldStub.called);
     });
 
-    test('Should scaffold vs code files when the user accepts with boilerplate selection', (done: () => void) => {
+    test('Should scaffold vs code files when the user accepts with boilerplate selection', async () => {
         changeVsCodeUsage(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
     });
 
-    test('Should scaffold vs code files when the user accepts with the cli selection', (done: () => void) => {
+    test('Should scaffold vs code files when the user accepts with the cli selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.cli]);
         changeVsCodeUsage(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
     });
 
-    test('Should scaffold vs code files when the user accepts with the express api selection', (done: () => void) => {
+    test('Should scaffold vs code files when the user accepts with the express api selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.expressApi]);
         changeVsCodeUsage(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
     });
 
-    test('Should scaffold vs code files when the user accepts with the vsts task selection', (done: () => void) => {
+    test('Should scaffold vs code files when the user accepts with the vsts task selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.vstsTask]);
         changeVsCodeUsage(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
     });
 
-    test('Should scaffold vs code files when the user accepts with the chatbot selection', (done: () => void) => {
+    test('Should scaffold vs code files when the user accepts with the chatbot selection', async () => {
         changeProjectType(ProjectTypes[ProjectTypes.chatbot]);
         changeVsCodeUsage(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
     });
 
-    test('Should scaffold vs code files when the user accepts with an unknown project selection', (done: () => void) => {
+    test('Should scaffold vs code files when the user accepts with an unknown project selection', async () => {
         changeProjectType('helloWorld');
         changeVsCodeUsage(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(vsCodeScaffoldStub.calledWith(generatorStub, extensionConfig));
     });
 
-    test('Should not install dependencies when the user declines', (done: () => void) => {
-        swellabyGenerator.createProject().then(() => {
-            assert.isFalse(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));
-            assert.isFalse(generatorNpmInstallStub.called);
-            assert.isTrue(generatorLogStub.thirdCall.calledWith(declinedInstallationMessage));
-            done();
-        });
+    test('Should not install dependencies when the user declines', async () => {
+        await swellabyGenerator.createProject();
+        assert.isFalse(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));
+        assert.isFalse(generatorNpmInstallStub.called);
+        assert.isTrue(generatorLogStub.thirdCall.calledWith(declinedInstallationMessage));
     });
 
-    test('Should install dependencies when the user accepts', (done: () => void) => {
+    test('Should install dependencies when the user accepts', async () => {
         changeDependencyInstallSetting(true);
-        swellabyGenerator.createProject().then(() => {
-            assert.isTrue(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));
-            assert.isTrue(generatorNpmInstallStub.called);
-            assert.isFalse(generatorLogStub.thirdCall.calledWith(declinedInstallationMessage));
-            done();
-        });
+        await swellabyGenerator.createProject();
+        assert.isTrue(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));
+        assert.isTrue(generatorNpmInstallStub.called);
+        assert.isFalse(generatorLogStub.thirdCall.calledWith(declinedInstallationMessage));
+    });
+
+    test('Should not crash an npm install failure', async () => {
+        generatorNpmInstallStub.rejects();
+        changeDependencyInstallSetting(true);
+        await swellabyGenerator.createProject();
+        assert.isTrue(generatorLogStub.thirdCall.calledWith(installingDependenciesMessage));
+        assert.isTrue(generatorNpmInstallStub.called);
+        assert.isFalse(generatorLogStub.thirdCall.calledWith(declinedInstallationMessage));
     });
 });

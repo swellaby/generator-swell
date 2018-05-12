@@ -3,7 +3,6 @@
 import path = require('path');
 import YeomanGenerator = require('yeoman-generator');
 
-import inputConfig = require('./input-config');
 import pathHelpers = require('./path-helpers');
 import ProjectTypes = require('./project-types');
 

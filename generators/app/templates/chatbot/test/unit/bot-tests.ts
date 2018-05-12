@@ -1,22 +1,10 @@
 'use strict';
-/* tslint:disable:no-single-line-block-comment JSHint and ESLint need single line block comments */
-/* jshint maxstatements:false */
-// Disabled maxstatements jshint rule which errors due to
-// the test functions being embedded within the suite functions.
 
-// This is a temporary fix due to the way the TypeScript compiler currently functions
-// it converts single quotes to double quotes on import/require statements.
-/* jshint quotmark:false */
-/* eslint-disable quotes */
 import Chai = require('chai');
 import Sinon = require('sinon');
 import builder = require('botbuilder');
 
 import Bot = require('../../src/bot');
-/* eslint-enable quotes */
-/* jshint quotmark:true */
-
-/* tslint:enable:no-single-line-block-comment -- Leave this line*/
 
 const assert = Chai.assert;
 
@@ -26,15 +14,15 @@ const assert = Chai.assert;
 suite('Bot Suite -', () => {
     let sut: Bot;
     const univseralBot = {
-        dialog: () => { return null; }
+        dialog: () => null
     };
     const dialog = {
-        onDefault: () => { return null; },
-        matches: () => { return null; }
+        onDefault: () => null,
+        matches: () => null
     };
     const recognizer: builder.LuisRecognizer = null;
     const connector: builder.IConnector = null;
-
+    const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
     let botStub: Sinon.SinonStub;
     let connectorStub: Sinon.SinonStub;
     let recognizerStub: Sinon.SinonStub;
@@ -44,12 +32,12 @@ suite('Bot Suite -', () => {
     let dialogMatchStub: Sinon.SinonStub;
 
     const setupStubs = () => {
-        botStub = Sinon.stub(builder, 'UniversalBot');
-        recognizerStub = Sinon.stub(builder, 'LuisRecognizer');
-        dialogStub = Sinon.stub(builder, 'IntentDialog');
-        rootDialogStub = Sinon.stub(univseralBot, 'dialog');
-        dialogOnDefaultStub = Sinon.stub(dialog, 'onDefault');
-        dialogMatchStub = Sinon.stub(dialog, 'matches');
+        botStub = sandbox.stub(builder, 'UniversalBot');
+        recognizerStub = sandbox.stub(builder, 'LuisRecognizer');
+        dialogStub = sandbox.stub(builder, 'IntentDialog');
+        rootDialogStub = sandbox.stub(univseralBot, 'dialog');
+        dialogOnDefaultStub = sandbox.stub(dialog, 'onDefault');
+        dialogMatchStub = sandbox.stub(dialog, 'matches');
         botStub.returns(univseralBot);
         recognizerStub.returns(recognizer);
         dialogStub.returns(dialog);
@@ -61,12 +49,13 @@ suite('Bot Suite -', () => {
     });
 
     teardown(() => {
+        sandbox.restore();
         sut = null;
     });
 
     suite('initializeForConsole Tests -', () => {
         setup(() => {
-            connectorStub = Sinon.stub(builder, 'ConsoleConnector');
+            connectorStub = sandbox.stub(builder, 'ConsoleConnector');
             connectorStub.returns(connector);
         });
 
@@ -92,7 +81,7 @@ suite('Bot Suite -', () => {
 
     suite('initializeForWeb Tests -', () => {
         setup(() => {
-            connectorStub = Sinon.stub(builder, 'ChatConnector');
+            connectorStub = sandbox.stub(builder, 'ChatConnector');
             connectorStub.returns(connector);
         });
 

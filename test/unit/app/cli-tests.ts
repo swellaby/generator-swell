@@ -1,13 +1,11 @@
 'use strict';
 
 import Chai = require('chai');
-import path = require('path');
 import Sinon = require('sinon');
 import YeomanGenerator = require('yeoman-generator');
 import yosay = require('yosay');
 
 import cli = require('./../../../generators/app/cli');
-import pathHelpers = require('./../../../generators/app/path-helpers');
 import ProjectTypes = require('./../../../generators/app/project-types');
 import testHelpers = require('./../test-helpers');
 
@@ -34,8 +32,7 @@ suite('CLI Project Tests:', () => {
     /**
      * Contains unit tests for the scaffoldCliProject function.
      */
-    // eslint-disable-next-line max-statements
-     suite('scaffoldCliProject Tests:', () => {
+    suite('scaffoldCliProject Tests:', () => {
         const extensionConfig = {
             appName: 'a',
             description: 'abc',

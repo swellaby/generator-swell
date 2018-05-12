@@ -1,5 +1,4 @@
 {
-    "vsicons.presets.angular": false,
     "files.exclude": {
         "**/*.js": { "when": "$(basename).ts" },
         "**/*.map": { "when": "$(basename).map" },
@@ -8,6 +7,11 @@
         ".coverage": true,
         ".testresults": true,
         "coverage": true,
-        "testresults": true
+        "testresults": true,
+        "**/*.tgz*": true
+    },
+    "eslint.options": {
+        "configFile": "./.eslintrc.js",
+        "ignorePath": "./.eslintignore"
     }
 } 

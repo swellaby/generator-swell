@@ -1,6 +1,5 @@
 'use strict';
 
-import Sinon = require('sinon');
 import chai = require('chai');
 
 import ProjectTypes = require('./../../../generators/app/project-types');
@@ -26,27 +25,27 @@ suite('Prompt Helpers Suite:', () => {
         });
 
         test('Should return true when the response type is a Boilerplate project', () => {
-            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.boilerplate]});
+            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.boilerplate] });
             assert.deepEqual(result, true);
         });
 
         test('Should return false when the response type is a Chatbot project', () => {
-            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.chatbot]});
+            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.chatbot] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a CLI project', () => {
-            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.cli]});
+            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.cli] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is an Express API project', () => {
-            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.expressApi]});
+            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.expressApi] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a VSTS Task project', () => {
-            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.vstsTask]});
+            const result = promptHelpers.isBoilerplateOnlyProject({ type: ProjectTypes[ProjectTypes.vstsTask] });
             assert.deepEqual(result, false);
         });
     });
@@ -65,27 +64,27 @@ suite('Prompt Helpers Suite:', () => {
         });
 
         test('Should return false when the response type is a Boilerplate project', () => {
-            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.boilerplate]});
+            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.boilerplate] });
             assert.deepEqual(result, false);
         });
 
         test('Should return true when the response type is a Chatbot project', () => {
-            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.chatbot]});
+            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.chatbot] });
             assert.deepEqual(result, true);
         });
 
         test('Should return false when the response type is a CLI project', () => {
-            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.cli]});
+            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.cli] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is an Express API project', () => {
-            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.expressApi]});
+            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.expressApi] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a VSTS Task project', () => {
-            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.vstsTask]});
+            const result = promptHelpers.isChatbotProject({ type: ProjectTypes[ProjectTypes.vstsTask] });
             assert.deepEqual(result, false);
         });
     });
@@ -104,27 +103,27 @@ suite('Prompt Helpers Suite:', () => {
         });
 
         test('Should return false when the response type is a Boilerplate project', () => {
-            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.boilerplate]});
+            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.boilerplate] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a Chatbot project', () => {
-            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.chatbot]});
+            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.chatbot] });
             assert.deepEqual(result, false);
         });
 
         test('Should return true when the response type is a CLI project', () => {
-            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.cli]});
+            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.cli] });
             assert.deepEqual(result, true);
         });
 
         test('Should return false when the response type is an Express API project', () => {
-            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.expressApi]});
+            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.expressApi] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a VSTS Task project', () => {
-            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.vstsTask]});
+            const result = promptHelpers.isCLIProject({ type: ProjectTypes[ProjectTypes.vstsTask] });
             assert.deepEqual(result, false);
         });
     });
@@ -143,27 +142,27 @@ suite('Prompt Helpers Suite:', () => {
         });
 
         test('Should return false when the response type is a Boilerplate project', () => {
-            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.boilerplate]});
+            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.boilerplate] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a Chatbot project', () => {
-            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.chatbot]});
+            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.chatbot] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a CLI project', () => {
-            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.cli]});
+            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.cli] });
             assert.deepEqual(result, false);
         });
 
         test('Should return true when the response type is an Express API project', () => {
-            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.expressApi]});
+            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.expressApi] });
             assert.deepEqual(result, true);
         });
 
         test('Should return false when the response type is a VSTS Task project', () => {
-            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.vstsTask]});
+            const result = promptHelpers.isExpressApiProject({ type: ProjectTypes[ProjectTypes.vstsTask] });
             assert.deepEqual(result, false);
         });
     });
@@ -182,27 +181,27 @@ suite('Prompt Helpers Suite:', () => {
         });
 
         test('Should return false when the response type is a Boilerplate project', () => {
-            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.boilerplate]});
+            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.boilerplate] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a Chatbot project', () => {
-            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.chatbot]});
+            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.chatbot] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is a CLI project', () => {
-            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.cli]});
+            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.cli] });
             assert.deepEqual(result, false);
         });
 
         test('Should return false when the response type is an Express API project', () => {
-            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.expressApi]});
+            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.expressApi] });
             assert.deepEqual(result, false);
         });
 
         test('Should return true when the response type is a VSTS Task project', () => {
-            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.vstsTask]});
+            const result = promptHelpers.isVSTSTaskProject({ type: ProjectTypes[ProjectTypes.vstsTask] });
             assert.deepEqual(result, true);
         });
     });
