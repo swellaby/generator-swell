@@ -195,7 +195,8 @@ suite('VSTS Project Tests:', () => {
                     '@types/request': '^2.47.0',
                     'copy-node-modules': '^1.0.4',
                     'gulp-bump': '^3.1.1',
-                    'tfx-cli': '^0.5.10'
+                    'tfx-cli': '^0.5.10',
+                    'gulp-vsts-bump': '^1.0.5'
                 },
                 scripts: vstsTaskScripts
             }));

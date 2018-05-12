@@ -8,6 +8,7 @@ const vstsPublishRoot = './.vsts-publish';
 const vstsPublishTasksRoot = vstsPublishRoot + '/tasks';
 const vstsPublishImageRoot = vstsPublishRoot + '/images';
 const vssExtensionManifest = './vss-extension.json';
+const taskManifestFiles = taskSrcRoot + '/**/task.json';
 
 module.exports = {
     packageJSON: path.resolve('package.json'),
@@ -15,11 +16,12 @@ module.exports = {
     vstsPublishRoot: vstsPublishRoot,
     vstsPublishTasksRoot: vstsPublishTasksRoot,
     vstsTaskContent: [
-        taskSrcRoot + '/**/task.json',
+        taskManifestFiles,
         taskSrcRoot + '/**/icon.png',
         taskSrcRoot + '/**/*.js',
     ],
     vstsExtensionManifest: vssExtensionManifest,
+    vstsTaskManifestFiles: taskManifestFiles,
     vstsExtensionContent: [
         vssExtensionManifest,
         './README.md',

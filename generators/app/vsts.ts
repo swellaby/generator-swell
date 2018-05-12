@@ -37,12 +37,6 @@ const getVstsTaskNpmScripts = (context) => {
  */
 // tslint:disable-next-line:no-any
 const buildVSTSContext = (extensionConfig: any): any => {
-    // const context = extensionConfig;
-    // context.dot = true;
-    // context.taskId = uuid.v4();
-    // context.taskCategory = 'Utility'; // from new prompt
-
-    // return context;
     extensionConfig.dot = true;
     extensionConfig.taskId = uuid.v4();
     extensionConfig.taskCategory = 'Utility';
@@ -78,7 +72,8 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: an
             '@types/request': '^2.47.0',
             'copy-node-modules': '^1.0.4',
             'gulp-bump': '^3.1.1',
-            'tfx-cli': '^0.5.10'
+            'tfx-cli': '^0.5.10',
+            'gulp-vsts-bump': '^1.0.5'
         },
         scripts: vstsTaskNpmScripts
     });

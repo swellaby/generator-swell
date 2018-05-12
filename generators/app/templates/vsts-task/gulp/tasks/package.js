@@ -1,7 +1,6 @@
 'use strict';
 
 const gulp = require('gulp');
-const bump = require('gulp-bump');
 const copyNodeModules = require('copy-node-modules');
 const fs = require('fs');
 const path = require('path');
@@ -47,13 +46,7 @@ gulp.task('package-vsts-extension-images', ['clean-vsts-task-publish', 'copy-dep
         .pipe(gulp.dest(gulpConfig.vstsPublishImageRoot));
 });
 
-gulp.task('bump-vsts-task-extension-version', function () {
-    return gulp.src(gulpConfig.vstsExtensionManifest)
-        .pipe(bump())
-        .pipe(gulp.dest('./'));
-});
-
-gulp.task('bump-package-vsts-task-extension-files', ['package-vsts-tasks', 'bump-vsts-task-extension-version', 'package-vsts-extension-images'], function () {
+gulp.task('bump-package-vsts-task-extension-files', ['package-vsts-tasks', 'bump-all', 'package-vsts-extension-images'], function () {
     return gulp.src(gulpConfig.vstsExtensionContent)
         .pipe(gulp.dest(gulpConfig.vstsPublishRoot));
 });
