@@ -39,7 +39,7 @@ suite('VSTS Project Tests:', () => {
         'create-task': 'cd tasks && tfx build tasks create',
         'package-vsts-tasks': 'gulp package-vsts-tasks',
         'upload-vsts-task': 'tfx build tasks upload --task-path ',
-        'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sampletask',
+        'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sample',
         'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
         'delete-vsts-task': 'tfx build tasks delete --task-id ',
         'upload-all-vsts-tasks': 'npm run upload-sample-vsts-task',
@@ -87,7 +87,7 @@ suite('VSTS Project Tests:', () => {
             appName: vstsAppName,
             description: appDescription,
             appType: appType,
-            taskId: 'foo',
+            sampleTaskId: 'foo',
             taskCategory: 'foobar',
             dot: false
         };
@@ -161,11 +161,10 @@ suite('VSTS Project Tests:', () => {
 
         test('Should add the correct task id and category options', () => {
             vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
-            assert.deepEqual(extensionConfig.taskId, taskId);
             assert.deepEqual(extensionConfig.dot, true);
             assert.deepEqual(extensionConfig.taskCategory, 'Utility');
             assert.isTrue(uuidV4Stub.called);
-            assert.deepEqual(extensionConfig.taskId, taskId);
+            assert.deepEqual(extensionConfig.sampleTaskId, taskId);
         });
 
         test('Should scaffold the VSTS Task content when the generator and config are valid', () => {

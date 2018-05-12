@@ -7,19 +7,41 @@ import yosay = require('yosay');
 
 import pathHelpers = require('./path-helpers');
 
+const buildTaskNpmScripts = (taskName: string, taskId: string, uploadTaskScriptName: string, deleteTaskScriptName: string) => {
+    const uploadTaskScriptValue = `tfx build tasks upload --task-path .vsts-publish/tasks/${taskName}`;
+    const deleteTaskScriptValue = `tfx build tasks delete --task-id ${taskId}`;
+    const scripts = {};
+    scripts[uploadTaskScriptName] = uploadTaskScriptValue;
+    scripts[deleteTaskScriptName] = deleteTaskScriptValue;
+
+    return scripts;
+};
+
+const getNpmTaskScriptNames = (taskName: string) => {
+    const uploadTaskScriptName = `upload-${taskName}-vsts-task`;
+    const deleteTaskScriptName = `delete-${taskName}-vsts-task`;
+
+    return {
+        uploadTaskScriptName: uploadTaskScriptName,
+        deleteTaskScriptName: deleteTaskScriptName
+    };
+};
+
 /**
  * Returns the npm script values for a VSTS task project.
  */
 const getVstsTaskNpmScripts = (context) => {
-    return {
+    const taskName = 'sample';
+    const taskScriptNames = getNpmTaskScriptNames(taskName);
+    const taskScripts = buildTaskNpmScripts(taskName, context.sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
+    taskScripts['upload-all-vsts-tasks'] = `npm run ${taskScriptNames.uploadTaskScriptName}`;
+
+    const baseScripts = {
         'tfx-login': 'tfx login',
         'create-task': 'cd tasks && tfx build tasks create',
         'package-vsts-tasks': 'gulp package-vsts-tasks',
         'upload-vsts-task': 'tfx build tasks upload --task-path ',
-        'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sampletask',
-        'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + context.taskId,
         'delete-vsts-task': 'tfx build tasks delete --task-id ',
-        'upload-all-vsts-tasks': 'npm run upload-sample-vsts-task',
         'pack-up-single-vsts-task': 'npm run package-vsts-tasks && npm run upload-vsts-task',
         'pack-up-vsts-tasks': 'npm run package-vsts-tasks && npm run upload-all-vsts-tasks',
         'package-vsts-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
@@ -28,6 +50,8 @@ const getVstsTaskNpmScripts = (context) => {
         'bump-pack-pub-vsts-extension': 'gulp bump-package-vsts-task-extension-files && npm run publish-vsts-extension',
         'pack-pub-vsts-extension': 'gulp package-vsts-task-extension-files && npm run publish-vsts-extension'
     };
+
+    return { ...baseScripts, ...taskScripts };
 };
 
 /**
@@ -38,7 +62,7 @@ const getVstsTaskNpmScripts = (context) => {
 // tslint:disable-next-line:no-any
 const buildVSTSContext = (extensionConfig: any): any => {
     extensionConfig.dot = true;
-    extensionConfig.taskId = uuid.v4();
+    extensionConfig.sampleTaskId = uuid.v4();
     extensionConfig.taskCategory = 'Utility';
     return extensionConfig;
 };

@@ -64,13 +64,13 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
         test('Should create all of the default VSTS Task template files', () => {
             yeomanAssert.file([
-                './tasks/sampletask/task.json',
-                './tasks/sampletask/icon.png',
-                './tasks/sampletask/task.ts',
-                './tasks/sampletask/helper.ts',
-                './tasks/sampletask/task-wrapper.js',
-                './test/unit/sampletask/task-tests.ts',
-                './test/unit/sampletask/helper-tests.ts',
+                './tasks/sample/task.json',
+                './tasks/sample/icon.png',
+                './tasks/sample/task.ts',
+                './tasks/sample/helper.ts',
+                './tasks/sample/task-wrapper.js',
+                './test/unit/sample/task-tests.ts',
+                './test/unit/sample/helper-tests.ts',
                 './gulp/tasks/package.js',
                 './gulp/tasks/clean.js'
             ]);
@@ -89,7 +89,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         });
 
         test('Should inject author name correctly into task.json', () => {
-            yeomanAssert.fileContent('./tasks/sampletask/task.json', '"author": "' + author + '"');
+            yeomanAssert.fileContent('./tasks/sample/task.json', '"author": "' + author + '"');
         });
 
         test('Should create and scaffold into a new directory if the specified app name differs from the current directory with the VSTS option', (done) => {

@@ -14,7 +14,8 @@
         "default": "images/extension-icon.png"
     },
     "scopes": [
-        ""
+        "vso.extension",
+        "vso.profile"
     ],
     "tags": [
         ""
