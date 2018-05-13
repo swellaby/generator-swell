@@ -9,8 +9,8 @@ Sinon.stub(internal, '_loadData').callsFake(() => null);
 import tl = require('vsts-task-lib/task');
 import log = require('loglevel');
 
-import Helper = require('../../../tasks/sampletask/helper');
-import task = require('../../../tasks/sampletask/task');
+import Helper = require('../../../tasks/sample/helper');
+import task = require('../../../tasks/sample/task');
 
 const assert = Chai.assert;
 

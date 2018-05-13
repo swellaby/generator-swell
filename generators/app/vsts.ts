@@ -7,6 +7,17 @@ import yosay = require('yosay');
 
 import pathHelpers = require('./path-helpers');
 
+/**
+ * Builds the npm scripts for a VSTS task.
+ *
+ * @param {string} taskName - The name of the task.
+ * @param {string} taskId - The unique ID of the task.
+ * @param {string} uploadTaskScriptName - The name of the npm script for uploading the task.
+ * @param {string} deleteTaskScriptName - The name of the npm script for deleting the task.
+ *
+ * @private
+ * @returns {Object}
+ */
 const buildTaskNpmScripts = (taskName: string, taskId: string, uploadTaskScriptName: string, deleteTaskScriptName: string) => {
     const uploadTaskScriptValue = `tfx build tasks upload --task-path .vsts-publish/tasks/${taskName}`;
     const deleteTaskScriptValue = `tfx build tasks delete --task-id ${taskId}`;
@@ -17,7 +28,15 @@ const buildTaskNpmScripts = (taskName: string, taskId: string, uploadTaskScriptN
     return scripts;
 };
 
-const getNpmTaskScriptNames = (taskName: string) => {
+/**
+ * Creates the npm script names for the task.
+ *
+ * @param {string} taskName - The name of the task.
+ *
+ * @private
+ * @returns {Object}
+ */
+const createNpmTaskScriptNames = (taskName: string) => {
     const uploadTaskScriptName = `upload-${taskName}-vsts-task`;
     const deleteTaskScriptName = `delete-${taskName}-vsts-task`;
 
@@ -32,7 +51,7 @@ const getNpmTaskScriptNames = (taskName: string) => {
  */
 const getVstsTaskNpmScripts = (context) => {
     const taskName = 'sample';
-    const taskScriptNames = getNpmTaskScriptNames(taskName);
+    const taskScriptNames = createNpmTaskScriptNames(taskName);
     const taskScripts = buildTaskNpmScripts(taskName, context.sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
     taskScripts['upload-all-vsts-tasks'] = `npm run ${taskScriptNames.uploadTaskScriptName}`;
 
