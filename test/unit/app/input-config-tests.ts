@@ -21,10 +21,10 @@ suite('Input Config Suite:', () => {
     const authorPromptIndex = 2;
     const appTypePromptKey = 'type';
     const appTypeIndex = 3;
-    const vscodePromptKey = 'vscode';
-    const vscodeIndex = 4;
     const dockerUserPromptKey = 'dockerUser';
-    const dockerUserIndex = 5;
+    const dockerUserIndex = 4;
+    const vscodePromptKey = 'vscode';
+    const vscodeIndex = 5;
     const dependenciesPromptKey = 'installDependencies';
     const dependenciesIndex = 6;
 

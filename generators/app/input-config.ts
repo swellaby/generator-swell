@@ -52,17 +52,17 @@ const prompts: inquirer.Question[] = [
         ]
     },
     {
-        type: 'confirm',
-        name: 'vscode',
-        message: 'Do you use Visual Studio Code?',
-        default: true
-    },
-    {
         when: promptHelpers.isExpressApiProject,
         type: 'input',
         name: 'dockerUser',
         message: 'What is your Docker Hub User Id?',
         default: promptHelpers.getDockerUserValue
+    },
+    {
+        type: 'confirm',
+        name: 'vscode',
+        message: 'Do you use Visual Studio Code?',
+        default: true
     },
     {
         type: 'confirm',

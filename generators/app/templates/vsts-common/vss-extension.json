@@ -58,27 +58,5 @@
     "repository": {
         "type": "git",
         "uri": "https://insert-something-real-here"
-    },
-    "contributions": [
-        {
-            "id": "sampletask",
-            "type": "ms.vss-distributed-task.task",
-            "description": "",
-            "targets": [
-                "ms.vss-distributed-task.tasks"
-            ],
-            "properties": {
-                "name": "tasks/sampletask"
-            }
-        }
-    ],
-    "files": [
-        {
-            "path": "tasks/sampletask"
-        },
-        {
-            "path": "images",
-            "addressable": true
-        }
-    ]
+    }
 }

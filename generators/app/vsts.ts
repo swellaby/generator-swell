@@ -46,11 +46,40 @@ const createNpmTaskScriptNames = (taskName: string) => {
     };
 };
 
+const buildExtensionTaskContribution = (taskName: string) => {
+    return {
+        'id': `${taskName}`,
+        'type': 'ms.vss-distributed-task.task',
+        'description': '',
+        'targets': [
+            'ms.vss-distributed-task.tasks'
+        ],
+        'properties': {
+            'name': `tasks/${taskName}`
+        }
+    };
+};
+
+const getExtensionImageFiles = () => {
+    return {
+        'path': 'images'
+    };
+};
+
+const buildExtensionTaskFiles = (taskName: string) => {
+    return {
+        'path': `tasks/${taskName}`
+    };
+};
+
 /**
  * Returns the npm script values for a VSTS task project.
  */
 const getVstsTaskNpmScripts = (context) => {
     const taskName = 'sample';
+    buildExtensionTaskFiles(taskName);
+    getExtensionImageFiles();
+    buildExtensionTaskContribution(taskName);
     const taskScriptNames = createNpmTaskScriptNames(taskName);
     const taskScripts = buildTaskNpmScripts(taskName, context.sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
     taskScripts['upload-all-vsts-tasks'] = `npm run ${taskScriptNames.uploadTaskScriptName}`;
@@ -143,4 +172,14 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
     generator.sourceRoot(pathHelpers.vstsTaskRoot);
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
     addVstsTaskContentToPackageJson(generator, context);
+    // generator.fs.copyTpl(generator.sourceRoot() + '/gulp/*', generator.destinationRoot(), context);
+
+    // const tasks: string[] = [];
+
+    // if (extensionConfig.includeSampleVstsTask) {
+    //     tasks.push('sample');
+    // }
+    // tasks.push('taskone');
+
+    // addVstsTaskContentToPackageJson(generator, context, tasks);
 };
