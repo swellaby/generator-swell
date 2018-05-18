@@ -12,7 +12,7 @@ const assert = chai.assert;
  */
 suite('Input Config Suite:', () => {
     let sandbox;
-    const expectedNumPrompts = 7;
+    const expectedNumPrompts = 9;
     const appNamePromptKey = 'appName';
     const appNameIndex = 0;
     const descriptionPromptKey = 'description';
@@ -24,9 +24,9 @@ suite('Input Config Suite:', () => {
     const dockerUserPromptKey = 'dockerUser';
     const dockerUserIndex = 4;
     const vscodePromptKey = 'vscode';
-    const vscodeIndex = 5;
+    const vscodeIndex = 7;
     const dependenciesPromptKey = 'installDependencies';
-    const dependenciesIndex = 6;
+    const dependenciesIndex = 8;
 
     setup(() => {
         sandbox = sinon.createSandbox();

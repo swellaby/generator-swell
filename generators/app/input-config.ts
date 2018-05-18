@@ -59,6 +59,20 @@ const prompts: inquirer.Question[] = [
         default: promptHelpers.getDockerUserValue
     },
     {
+        when: promptHelpers.isVSTSTaskProject,
+        type: 'confirm',
+        name: 'includeSampleVstsTask',
+        message: 'Do you want me to include a sample VSTS task?',
+        default: true
+    },
+    {
+        when: promptHelpers.isVSTSTaskProject,
+        type: 'input',
+        name: 'taskOneName',
+        message: 'What would you like to name the first VSTS task?',
+        default: true
+    },
+    {
         type: 'confirm',
         name: 'vscode',
         message: 'Do you use Visual Studio Code?',

@@ -151,6 +151,21 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: an
     });
 };
 
+const scaffoldVstsTaskContent = (generator: YeomanGenerator, extensionConfig: any) => {
+    // for each task:
+    // copy src&test content to target directory
+    // update task.json with content
+    // create task scripts
+    // append task upload/delete to catch alls
+    // append package.json scripts objects with task upload/delete scripts
+    // :rof
+    // if sample task
+    generator.sourceRoot(pathHelpers.vstsTaskRoot);
+    // generator.fs.copyTpl(generator.sourceRoot() + '/gulp/*', generator.destinationRoot(), context);
+    generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), extensionConfig);
+    addVstsTaskContentToPackageJson(generator, extensionConfig);
+};
+
 /**
  * Scaffolds the VSTS Task project type
  *
@@ -168,18 +183,5 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
     generator.log(yosay('A new task to make a great platform even better'));
     const context = buildVSTSContext(extensionConfig);
     scaffoldSharedVSTSContent(generator, context);
-
-    generator.sourceRoot(pathHelpers.vstsTaskRoot);
-    generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
-    addVstsTaskContentToPackageJson(generator, context);
-    // generator.fs.copyTpl(generator.sourceRoot() + '/gulp/*', generator.destinationRoot(), context);
-
-    // const tasks: string[] = [];
-
-    // if (extensionConfig.includeSampleVstsTask) {
-    //     tasks.push('sample');
-    // }
-    // tasks.push('taskone');
-
-    // addVstsTaskContentToPackageJson(generator, context, tasks);
+    scaffoldVstsTaskContent(generator, context);
 };
