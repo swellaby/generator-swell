@@ -70,7 +70,7 @@ const prompts: inquirer.Question[] = [
         type: 'input',
         name: 'taskOneName',
         message: 'What would you like to name the first VSTS task?',
-        default: true
+        default: 'taskOne'
     },
     {
         type: 'confirm',

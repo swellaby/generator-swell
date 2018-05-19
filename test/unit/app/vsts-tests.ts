@@ -39,17 +39,19 @@ suite('VSTS Project Tests:', () => {
         'create-task': 'cd tasks && tfx build tasks create',
         'package-vsts-tasks': 'gulp package-vsts-tasks',
         'upload-vsts-task': 'tfx build tasks upload --task-path ',
-        'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sample',
-        'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
         'delete-vsts-task': 'tfx build tasks delete --task-id ',
-        'upload-all-vsts-tasks': 'npm run upload-sample-vsts-task',
         'pack-up-single-vsts-task': 'npm run package-vsts-tasks && npm run upload-vsts-task',
         'pack-up-vsts-tasks': 'npm run package-vsts-tasks && npm run upload-all-vsts-tasks',
         'package-vsts-extension': 'gulp package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
         'bump-package-vsts-extension': 'gulp bump-package-vsts-task-extension-files && cd .vsts-publish && tfx extension create',
         'publish-vsts-extension': 'cd .vsts-publish && tfx extension publish',
         'bump-pack-pub-vsts-extension': 'gulp bump-package-vsts-task-extension-files && npm run publish-vsts-extension',
-        'pack-pub-vsts-extension': 'gulp package-vsts-task-extension-files && npm run publish-vsts-extension'
+        'pack-pub-vsts-extension': 'gulp package-vsts-task-extension-files && npm run publish-vsts-extension',
+        'upload-taskOne-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/taskOne',
+        'delete-taskOne-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
+        'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sample',
+        'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
+        'upload-all-vsts-tasks': 'npm run upload-taskOne-vsts-task && npm run upload-sample-vsts-task'
     };
 
     setup(() => {
@@ -89,7 +91,9 @@ suite('VSTS Project Tests:', () => {
             appType: appType,
             sampleTaskId: 'foo',
             taskCategory: 'foobar',
-            dot: false
+            dot: false,
+            includeSampleVstsTask: true,
+            taskOneName: 'taskOne'
         };
 
         test('Should display an error message when the generator is null and the extension config is null', () => {

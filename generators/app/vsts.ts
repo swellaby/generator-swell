@@ -75,14 +75,14 @@ const buildExtensionTaskFiles = (taskName: string) => {
 /**
  * Returns the npm script values for a VSTS task project.
  */
-const getVstsTaskNpmScripts = (context) => {
-    const taskName = 'sample';
-    buildExtensionTaskFiles(taskName);
-    getExtensionImageFiles();
-    buildExtensionTaskContribution(taskName);
-    const taskScriptNames = createNpmTaskScriptNames(taskName);
-    const taskScripts = buildTaskNpmScripts(taskName, context.sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
-    taskScripts['upload-all-vsts-tasks'] = `npm run ${taskScriptNames.uploadTaskScriptName}`;
+const getVstsTaskNpmScripts = (context, taskScripts) => {
+    // const taskName = 'sample';
+    // buildExtensionTaskFiles(taskName);
+    // getExtensionImageFiles();
+    // buildExtensionTaskContribution(taskName);
+    // const taskScriptNames = createNpmTaskScriptNames(taskName);
+    // const taskScripts = buildTaskNpmScripts(taskName, context.sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
+    // taskScripts['upload-all-vsts-tasks'] = `npm run ${taskScriptNames.uploadTaskScriptName}`;
 
     const baseScripts = {
         'tfx-login': 'tfx login',
@@ -132,8 +132,8 @@ const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => 
  * @param {YeomanGenerator} generator - The yeoman generator.
  */
 // tslint:disable-next-line:no-any
-const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: any) => {
-    const vstsTaskNpmScripts = getVstsTaskNpmScripts(context);
+const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: any, taskScripts) => {
+    const vstsTaskNpmScripts = getVstsTaskNpmScripts(context, taskScripts);
     generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
         dependencies: {
             'loglevel': '^1.6.1',
@@ -151,19 +151,61 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: an
     });
 };
 
-const scaffoldVstsTaskContent = (generator: YeomanGenerator, extensionConfig: any) => {
-    // for each task:
-    // copy src&test content to target directory
-    // update task.json with content
-    // create task scripts
-    // append task upload/delete to catch alls
-    // append package.json scripts objects with task upload/delete scripts
-    // :rof
-    // if sample task
+const scaffoldVstsTaskBoilerplate = (taskName: string, taskId: string, generator: YeomanGenerator, extensionConfig: any) => {
     generator.sourceRoot(pathHelpers.vstsTaskRoot);
-    // generator.fs.copyTpl(generator.sourceRoot() + '/gulp/*', generator.destinationRoot(), context);
-    generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), extensionConfig);
-    addVstsTaskContentToPackageJson(generator, extensionConfig);
+    const srcTaskBoilerplate = generator.sourceRoot() + '/tasks/boilerplate/';
+    extensionConfig.taskName = taskName;
+    extensionConfig.taskId = taskId;
+    const dest = generator.destinationRoot() + `/tasks/${taskName}/`;
+    generator.fs.copyTpl(srcTaskBoilerplate + 'task.json', dest + 'task.json', extensionConfig);
+    generator.fs.copyTpl(srcTaskBoilerplate + 'task-wrapper.js', dest + 'task-wrapper.js', extensionConfig);
+    generator.fs.copyTpl(srcTaskBoilerplate + 'icon.png', dest + 'icon.png', extensionConfig);
+};
+
+// tslint:disable:max-func-body-length
+// eslint-disable-next-line
+const scaffoldVstsTasks = (generator: YeomanGenerator, extensionConfig: any) => {
+    const taskNames: string[] = [ extensionConfig.taskOneName ];
+    const extensionContributions = [];
+    const extensionFiles = [ getExtensionImageFiles() ];
+    const maxNumTasks = 1;
+    let uploadAllTaskScriptValue = '';
+    let vstsTaskScripts = {};
+    for (let i = 1; i < maxNumTasks + 1; i++) {
+        const taskName = taskNames[i - 1];
+        const taskId = uuid.v4();
+        scaffoldVstsTaskBoilerplate(taskName, taskId, generator, extensionConfig);
+        extensionFiles.push(buildExtensionTaskFiles(taskName));
+        extensionContributions.push(buildExtensionTaskContribution(taskName));
+        const taskScriptNames = createNpmTaskScriptNames(taskName);
+        const taskScripts = buildTaskNpmScripts(taskName, taskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
+        // if (i > 1) {
+        //     uploadAllTaskScriptValue += ' && ';
+        // }
+        uploadAllTaskScriptValue += `npm run ${taskScriptNames.uploadTaskScriptName}`;
+        vstsTaskScripts = { ...vstsTaskScripts, ...taskScripts };
+    }
+
+    if (extensionConfig.includeSampleVstsTask) {
+        const sampleTaskName = 'sample';
+        const sampleTaskId = uuid.v4();
+        scaffoldVstsTaskBoilerplate(sampleTaskName, sampleTaskId, generator, extensionConfig);
+        extensionFiles.push(buildExtensionTaskFiles(sampleTaskName));
+        extensionContributions.push(buildExtensionTaskContribution(sampleTaskName));
+        const taskScriptNames = createNpmTaskScriptNames(sampleTaskName);
+        const taskScripts = buildTaskNpmScripts(sampleTaskName, sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
+        generator.fs.copyTpl(generator.sourceRoot() + `/tasks/${sampleTaskName}/**/*`, generator.destinationRoot() + `/tasks/${sampleTaskName}/`, extensionConfig);
+        generator.fs.copyTpl(generator.sourceRoot() + `/test/unit/${sampleTaskName}/**/*`, generator.destinationRoot() + `/test/unit/${sampleTaskName}/`, extensionConfig);
+        uploadAllTaskScriptValue += ` && npm run ${taskScriptNames.uploadTaskScriptName}`;
+        vstsTaskScripts = { ...vstsTaskScripts, ...taskScripts };
+    }
+    vstsTaskScripts['upload-all-vsts-tasks'] = uploadAllTaskScriptValue;
+    generator.fs.copyTpl(generator.sourceRoot() + '/gulp/**/*', generator.destinationRoot() + '/gulp/', extensionConfig);
+    generator.fs.extendJSON(path.join(generator.destinationRoot(), 'vss-extension.json'), {
+        files: extensionFiles,
+        contributions: extensionContributions
+    });
+    addVstsTaskContentToPackageJson(generator, extensionConfig, vstsTaskScripts);
 };
 
 /**
@@ -183,5 +225,5 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
     generator.log(yosay('A new task to make a great platform even better'));
     const context = buildVSTSContext(extensionConfig);
     scaffoldSharedVSTSContent(generator, context);
-    scaffoldVstsTaskContent(generator, context);
+    scaffoldVstsTasks(generator, context);
 };
