@@ -49,7 +49,9 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 appName: vstsAppName,
                 description: appDescription,
                 type: appType,
-                author: author
+                author: author,
+                includeSampleVstsTask: true,
+                taskOneName: 'taskOne'
             };
             return helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise();
         });
