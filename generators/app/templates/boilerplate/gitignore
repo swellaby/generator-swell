@@ -21,6 +21,8 @@ tsd-debug.log
 /bin/**/*.js*
 /out/
 /dist/
+tasks/**/*.js*
+!tasks/**/task-wrapper.js
 
 **/testresults/
 .testresults/

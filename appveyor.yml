@@ -1,8 +1,15 @@
+skip_branch_with_pr: true
+build: off
+version: "{build}"
+
 environment:
   matrix:
     - nodejs_version: "6"
     - nodejs_version: "8"
     - nodejs_version: "9"
+
+matrix:
+  fast_finish: true
 
 install:
   - ps: Install-Product node $env:nodejs_version
@@ -11,6 +18,10 @@ install:
 test_script:
   - npm run build
 
-build: off
-
-version: "{build}"
+for:
+-
+  matrix:
+    only:
+      - nodejs_version: "9"
+  after_test:
+  - ps: (New-Object 'System.Net.WebClient').UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\.testresults\unit\xunit.xml))
