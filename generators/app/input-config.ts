@@ -60,17 +60,74 @@ const prompts: inquirer.Question[] = [
     },
     {
         when: promptHelpers.isVSTSTaskProject,
-        type: 'confirm',
-        name: 'includeSampleVstsTask',
-        message: 'Do you want me to include a sample VSTS task?',
-        default: true
+        type: 'list',
+        name: 'vstsTaskCount',
+        message: 'How many VSTS Tasks do you want?',
+        default: 1,
+        choices: [
+            {
+                name: '1',
+                value: 1
+            },
+            {
+                name: '2',
+                value: 2
+            },
+            {
+                name: '3',
+                value: 3
+            },
+            {
+                name: '4',
+                value: 4
+            },
+            {
+                name: '5',
+                value: 5
+            }
+        ]
     },
     {
         when: promptHelpers.isVSTSTaskProject,
         type: 'input',
-        name: 'taskOneName',
+        name: 'task1Name',
         message: 'What would you like to name the first VSTS task?',
         default: 'taskOne'
+    },
+    {
+        when: promptHelpers.isRequestedVstsTaskCountGreaterThanOne,
+        type: 'input',
+        name: 'task2Name',
+        message: 'What would you like to name the second VSTS task?',
+        default: 'taskTwo'
+    },
+    {
+        when: promptHelpers.isRequestedVstsTaskCountGreaterThanTwo,
+        type: 'input',
+        name: 'task3Name',
+        message: 'What would you like to name the third VSTS task?',
+        default: 'taskThree'
+    },
+    {
+        when: promptHelpers.isRequestedVstsTaskCountGreaterThanThree,
+        type: 'input',
+        name: 'task4Name',
+        message: 'What would you like to name the fourth VSTS task?',
+        default: 'taskFourth'
+    },
+    {
+        when: promptHelpers.isRequestedVstsTaskCountGreaterThanFour,
+        type: 'input',
+        name: 'task5Name',
+        message: 'What would you like to name the fifth VSTS task?',
+        default: 'taskFifth'
+    },
+    {
+        when: promptHelpers.isVSTSTaskProject,
+        type: 'confirm',
+        name: 'includeSampleVstsTask',
+        message: 'Do you want me to include a sample VSTS task?',
+        default: true
     },
     {
         type: 'confirm',

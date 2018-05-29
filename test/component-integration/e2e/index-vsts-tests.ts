@@ -51,7 +51,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 type: appType,
                 author: author,
                 includeSampleVstsTask: true,
-                taskOneName: 'taskOne'
+                task1Name: 'taskOne'
             };
             return helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise();
         });

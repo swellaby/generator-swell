@@ -93,7 +93,7 @@ suite('VSTS Project Tests:', () => {
             taskCategory: 'foobar',
             dot: false,
             includeSampleVstsTask: true,
-            taskOneName: 'taskOne'
+            task1Name: 'taskOne'
         };
 
         test('Should display an error message when the generator is null and the extension config is null', () => {
@@ -168,7 +168,6 @@ suite('VSTS Project Tests:', () => {
             assert.deepEqual(extensionConfig.dot, true);
             assert.deepEqual(extensionConfig.taskCategory, 'Utility');
             assert.isTrue(uuidV4Stub.called);
-            assert.deepEqual(extensionConfig.sampleTaskId, taskId);
         });
 
         test('Should scaffold the VSTS Task content when the generator and config are valid', () => {
@@ -188,7 +187,7 @@ suite('VSTS Project Tests:', () => {
             vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
             assert.isTrue(generatorDestinationRootStub.called);
             assert.isTrue(pathJoinStub.calledWith(destRoot));
-            assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, {
+            const expected = {
                 dependencies: {
                     'loglevel': '^1.6.1',
                     'request': '^2.85.0',
@@ -202,7 +201,8 @@ suite('VSTS Project Tests:', () => {
                     'gulp-vsts-bump': '^1.0.5'
                 },
                 scripts: vstsTaskScripts
-            }));
+            };
+            assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
         });
     });
 });

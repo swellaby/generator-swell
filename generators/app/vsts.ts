@@ -7,15 +7,11 @@ import yosay = require('yosay');
 
 import pathHelpers = require('./path-helpers');
 
-const taskNames: string[] = [];
 const extensionContributions = [];
 const extensionFiles = [];
-const maxNumTasks = 1;
 let uploadAllTaskScriptValue = '';
 let vstsTaskScripts = {};
-
-// = [ extensionConfig.taskOneName ];
-// = [ extensionConfig.taskOneName ];
+const DEFAULT_MAX_TASKS = 1;
 
 /**
  * Builds the npm scripts for a VSTS task.
@@ -56,6 +52,13 @@ const createNpmTaskScriptNames = (taskName: string) => {
     };
 };
 
+/**
+ * Builds the task object to be added to the contribution array in the
+ * extension manifest.
+ *
+ * @param {string} taskName - The name of the task.
+ * @returns {Object}
+ */
 const buildExtensionTaskContribution = (taskName: string) => {
     return {
         'id': `${taskName}`,
@@ -70,12 +73,20 @@ const buildExtensionTaskContribution = (taskName: string) => {
     };
 };
 
+/**
+ * Returns the image files object to be added to the extension manifest.
+ * @returns {Object}
+ */
 const getExtensionImageFiles = () => {
     return {
         'path': 'images'
     };
 };
 
+/**
+ * Builds the task files object to be added to the extension manifest.
+ * @returns {Object}
+ */
 const buildExtensionTaskFiles = (taskName: string) => {
     return {
         'path': `tasks/${taskName}`
@@ -84,16 +95,9 @@ const buildExtensionTaskFiles = (taskName: string) => {
 
 /**
  * Returns the npm script values for a VSTS task project.
+ * @returns {Object}
  */
 const getVstsTaskNpmScripts = (context, taskScripts) => {
-    // const taskName = 'sample';
-    // buildExtensionTaskFiles(taskName);
-    // getExtensionImageFiles();
-    // buildExtensionTaskContribution(taskName);
-    // const taskScriptNames = createNpmTaskScriptNames(taskName);
-    // const taskScripts = buildTaskNpmScripts(taskName, context.sampleTaskId, taskScriptNames.uploadTaskScriptName, taskScriptNames.deleteTaskScriptName);
-    // taskScripts['upload-all-vsts-tasks'] = `npm run ${taskScriptNames.uploadTaskScriptName}`;
-
     const baseScripts = {
         'tfx-login': 'tfx login',
         'create-task': 'cd tasks && tfx build tasks create',
@@ -116,11 +120,10 @@ const getVstsTaskNpmScripts = (context, taskScripts) => {
  * Creates the context needed for scaffolding the VSTS Task.
  *
  * @param {JSON} extensionConfig - The configuration specified for generation.
+ * @returns {Object}
  */
-// tslint:disable-next-line:no-any
-const buildVSTSContext = (extensionConfig: any): any => {
+const buildVSTSContext = (extensionConfig) => {
     extensionConfig.dot = true;
-    extensionConfig.sampleTaskId = uuid.v4();
     extensionConfig.taskCategory = 'Utility';
     return extensionConfig;
 };
@@ -129,10 +132,9 @@ const buildVSTSContext = (extensionConfig: any): any => {
  * Scaffolds the content that is common for all VSTS projects.
  *
  * @param {YeomanGenerator} generator - The yeoman generator.
- * @param {JSON} extensionConfig - The configuration specified for generation.
+ * @param {Object} extensionConfig - The configuration specified for generation.
  */
-// tslint:disable-next-line:no-any
-const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => {
+const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context) => {
     generator.sourceRoot(pathHelpers.vstsCommonRoot);
     generator.fs.copyTpl(generator.sourceRoot() + '/**/*', generator.destinationRoot(), context);
 };
@@ -141,10 +143,9 @@ const scaffoldSharedVSTSContent = (generator: YeomanGenerator, context: any) => 
  * Updates the package.json file with the relevant content for th
  * @param {YeomanGenerator} generator - The yeoman generator.
  */
-// tslint:disable-next-line:no-any
-const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: any, taskScripts) => {
+const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context, taskScripts) => {
     const vstsTaskNpmScripts = getVstsTaskNpmScripts(context, taskScripts);
-    generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), {
+    const extension = {
         dependencies: {
             'loglevel': '^1.6.1',
             'request': '^2.85.0',
@@ -158,9 +159,18 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context: an
             'gulp-vsts-bump': '^1.0.5'
         },
         scripts: vstsTaskNpmScripts
-    });
+    };
+    generator.fs.extendJSON(path.join(generator.destinationRoot(), 'package.json'), extension);
 };
 
+/**
+ * Scaffolds the boilerplate content for the new VSTS Task.
+ *
+ * @param {string} taskName - The name of the task.
+ * @param {string} taskId - The id of the task.
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ * @param {Object} extensionConfig - The configuration specified for generation.
+ */
 const scaffoldVstsTaskBoilerplate = (taskName: string, taskId: string, generator: YeomanGenerator, extensionConfig: any) => {
     generator.sourceRoot(pathHelpers.vstsTaskRoot);
     const srcTaskBoilerplate = generator.sourceRoot() + '/tasks/boilerplate/';
@@ -172,6 +182,13 @@ const scaffoldVstsTaskBoilerplate = (taskName: string, taskId: string, generator
     generator.fs.copyTpl(srcTaskBoilerplate + 'icon.png', dest + 'icon.png', extensionConfig);
 };
 
+/**
+ * Updates the various manifest files with the dynamically generated content.
+ *
+ * @param {string} taskName - The name of the task.
+ * @param {string} taskId - The id of the task.
+ * @param {boolean} isFirstTask - Indicates whether this task is the first task that has been scaffolded.
+ */
 const updateManifests = (taskName: string, taskId: string, isFirstTask: boolean) => {
     extensionFiles.push(buildExtensionTaskFiles(taskName));
     extensionContributions.push(buildExtensionTaskContribution(taskName));
@@ -184,25 +201,53 @@ const updateManifests = (taskName: string, taskId: string, isFirstTask: boolean)
     vstsTaskScripts = { ...vstsTaskScripts, ...taskScripts };
 };
 
-// tslint:disable:max-func-body-length
-// eslint-disable-next-line
-const scaffoldVstsTasks = (generator: YeomanGenerator, extensionConfig: any) => {
-    for (let i = 1; i < maxNumTasks + 1; i++) {
-        const taskName = taskNames[i - 1];
-        const taskId = uuid.v4();
-        scaffoldVstsTaskBoilerplate(taskName, taskId, generator, extensionConfig);
-        const isFirstTask = (i === 1);
-        updateManifests(taskName, taskId, isFirstTask);
+/**
+ * Scaffolds a new custom VSTS Task.
+ *
+ * @param {string} taskName - The name of the task.
+ * @param {boolean} isFirstTask - Indicates whether this task is the first task that has been scaffolded.
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ * @param {Object} extensionConfig - The configuration specified for generation.
+ */
+const scaffoldVstsTask = (taskName: string, isFirstTask: boolean, generator: YeomanGenerator, extensionConfig) => {
+    const taskId = uuid.v4();
+    scaffoldVstsTaskBoilerplate(taskName, taskId, generator, extensionConfig);
+    updateManifests(taskName, taskId, isFirstTask);
+};
+
+/**
+ * Scaffolds a new sample VSTS Task.
+ *
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ * @param {Object} extensionConfig - The configuration specified for generation.
+ */
+const scaffoldSampleVstsTask = (generator: YeomanGenerator, extensionConfig) => {
+    const sampleTaskName = 'sample';
+    scaffoldVstsTask(sampleTaskName, false, generator, extensionConfig);
+    generator.fs.copyTpl(generator.sourceRoot() + `/tasks/${sampleTaskName}/**/*`, generator.destinationRoot() + `/tasks/${sampleTaskName}/`, extensionConfig);
+    generator.fs.copyTpl(generator.sourceRoot() + `/test/unit/${sampleTaskName}/**/*`, generator.destinationRoot() + `/test/unit/${sampleTaskName}/`, extensionConfig);
+};
+
+/**
+ * Scaffolds the VSTS Task content based on the user specified input.
+ *
+ * @param {YeomanGenerator} generator - The yeoman generator.
+ * @param {Object} extensionConfig - The configuration specified for generation.
+ */
+const scaffoldVstsTasks = (generator: YeomanGenerator, extensionConfig) => {
+    const numTasks = extensionConfig.vstsTaskCount || DEFAULT_MAX_TASKS;
+    for (let i = 1; i < numTasks + 1; i++) {
+        const taskName = extensionConfig[`task${i}Name`];
+        if (taskName) {
+            const isFirstTask = (i === 1);
+            scaffoldVstsTask(taskName, isFirstTask, generator, extensionConfig);
+        }
     }
 
     if (extensionConfig.includeSampleVstsTask) {
-        const sampleTaskName = 'sample';
-        const sampleTaskId = uuid.v4();
-        generator.fs.copyTpl(generator.sourceRoot() + `/tasks/${sampleTaskName}/**/*`, generator.destinationRoot() + `/tasks/${sampleTaskName}/`, extensionConfig);
-        generator.fs.copyTpl(generator.sourceRoot() + `/test/unit/${sampleTaskName}/**/*`, generator.destinationRoot() + `/test/unit/${sampleTaskName}/`, extensionConfig);
-        scaffoldVstsTaskBoilerplate(sampleTaskName, sampleTaskId, generator, extensionConfig);
-        updateManifests(sampleTaskName, sampleTaskId, false);
+        scaffoldSampleVstsTask(generator, extensionConfig);
     }
+
     vstsTaskScripts['upload-all-vsts-tasks'] = uploadAllTaskScriptValue;
     generator.fs.copyTpl(generator.sourceRoot() + '/gulp/**/*', generator.destinationRoot() + '/gulp/', extensionConfig);
     generator.fs.extendJSON(path.join(generator.destinationRoot(), 'vss-extension.json'), {
@@ -212,9 +257,10 @@ const scaffoldVstsTasks = (generator: YeomanGenerator, extensionConfig: any) => 
     addVstsTaskContentToPackageJson(generator, extensionConfig, vstsTaskScripts);
 };
 
-const initialize = (extensionConfig) => {
-    taskNames.length = 0;
-    taskNames.push(extensionConfig.taskOneName);
+/**
+ * Initializes the global fields in preparation for scaffolding.
+ */
+const initialize = () => {
     extensionContributions.length = 0;
     extensionFiles.length = 0;
     extensionFiles.push(getExtensionImageFiles());
@@ -228,8 +274,7 @@ const initialize = (extensionConfig) => {
  * @param {YeomanGenerator} generator - The yeoman generator.
  * @param {JSON} extensionConfig - The configuration specified for generation.
  */
-// tslint:disable-next-line:no-any
-export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionConfig: any) => {
+export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionConfig) => {
     if (!generator || !extensionConfig) {
         console.error('Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
             'Task project :( The VSTS files were not added to the project.');
@@ -237,7 +282,7 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
     }
 
     generator.log(yosay('A new task to make a great platform even better'));
-    initialize(extensionConfig);
+    initialize();
     const context = buildVSTSContext(extensionConfig);
     scaffoldSharedVSTSContent(generator, context);
     scaffoldVstsTasks(generator, context);

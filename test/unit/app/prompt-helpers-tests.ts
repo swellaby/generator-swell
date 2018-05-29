@@ -234,4 +234,314 @@ suite('Prompt Helpers Suite:', () => {
             assert.deepEqual(promptHelpers.getDockerUserValue({ author: author }), author);
         });
     });
+
+    suite('isRequestedVstsTaskCountGreaterThan Tests:', () => {
+        test('Should return false when response parameter is null', () => {
+            const response = null;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is undefined', () => {
+            const response = undefined;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is an empty object', () => {
+            const response = {};
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Boilerplate project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.boilerplate] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Chatbot project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.chatbot] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a CLI project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.cli] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is an Express API project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.expressApi] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 0);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is equal', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 2 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 2);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is less than', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 3 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 4);
+            assert.isFalse(result);
+        });
+
+        test('Should return true when for VSTS Task project when the comparator is greater', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 3 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThan(response, 2);
+            assert.isTrue(result);
+        });
+    });
+
+    suite('isRequestedVstsTaskCountGreaterThanOne Tests:', () => {
+        test('Should return false when response parameter is null', () => {
+            const response = null;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is undefined', () => {
+            const response = undefined;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is an empty object', () => {
+            const response = {};
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Boilerplate project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.boilerplate] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Chatbot project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.chatbot] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a CLI project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.cli] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is an Express API project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.expressApi] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is equal', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 1 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is less than', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 0 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return true when for VSTS Task project when the comparator is greater', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 3 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanOne(response);
+            assert.isTrue(result);
+        });
+    });
+
+    suite('isRequestedVstsTaskCountGreaterThanTwo Tests:', () => {
+        test('Should return false when response parameter is null', () => {
+            const response = null;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is undefined', () => {
+            const response = undefined;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is an empty object', () => {
+            const response = {};
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Boilerplate project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.boilerplate] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Chatbot project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.chatbot] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a CLI project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.cli] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is an Express API project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.expressApi] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is equal', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 2 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is less than', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 1 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return true when for VSTS Task project when the comparator is greater', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 3 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanTwo(response);
+            assert.isTrue(result);
+        });
+    });
+
+    suite('isRequestedVstsTaskCountGreaterThanThree Tests:', () => {
+        test('Should return false when response parameter is null', () => {
+            const response = null;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is undefined', () => {
+            const response = undefined;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is an empty object', () => {
+            const response = {};
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Boilerplate project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.boilerplate] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Chatbot project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.chatbot] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a CLI project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.cli] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is an Express API project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.expressApi] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is equal', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 3 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is less than', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 2 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return true when for VSTS Task project when the comparator is greater', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 4 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isTrue(result);
+        });
+    });
+
+    suite('isRequestedVstsTaskCountGreaterThanFour Tests:', () => {
+        test('Should return false when response parameter is null', () => {
+            const response = null;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is undefined', () => {
+            const response = undefined;
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response parameter is an empty object', () => {
+            const response = {};
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Boilerplate project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.boilerplate] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a Chatbot project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.chatbot] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanThree(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is a CLI project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.cli] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when the response type is an Express API project', () => {
+            const response = { type: ProjectTypes[ProjectTypes.expressApi] };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is equal', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 4 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return false when for VSTS Task project when the comparator is less than', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 3 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isFalse(result);
+        });
+
+        test('Should return true when for VSTS Task project when the comparator is greater', () => {
+            const response = { type: ProjectTypes[ProjectTypes.vstsTask], vstsTaskCount: 5 };
+            const result = promptHelpers.isRequestedVstsTaskCountGreaterThanFour(response);
+            assert.isTrue(result);
+        });
+    });
 });

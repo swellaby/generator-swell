@@ -23,6 +23,7 @@ tsd-debug.log
 /dist/
 tasks/**/*.js*
 !tasks/**/task-wrapper.js
+!tasks/**/task.json
 
 **/testresults/
 .testresults/
