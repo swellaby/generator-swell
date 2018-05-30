@@ -34,7 +34,7 @@ suite('VSTS Project Tests:', () => {
     let generatorFsExtendJsonStub: Sinon.SinonStub;
     let uuidV4Stub: Sinon.SinonStub;
     let pathJoinStub: Sinon.SinonStub;
-    const vstsTaskScripts = {
+    const baseVstsTaskScripts = {
         'tfx-login': 'tfx login',
         'create-task': 'cd tasks && tfx build tasks create',
         'package-vsts-tasks': 'gulp package-vsts-tasks',
@@ -48,10 +48,33 @@ suite('VSTS Project Tests:', () => {
         'bump-pack-pub-vsts-extension': 'gulp bump-package-vsts-task-extension-files && npm run publish-vsts-extension',
         'pack-pub-vsts-extension': 'gulp package-vsts-task-extension-files && npm run publish-vsts-extension',
         'upload-taskOne-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/taskOne',
-        'delete-taskOne-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
+        'delete-taskOne-vsts-task': 'tfx build tasks delete --task-id ' + taskId
+    };
+
+    const sampleTaskScripts = {
         'upload-sample-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/sample',
-        'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId,
+        'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId
+    };
+
+    const baseUploadAllTasksScript = {
         'upload-all-vsts-tasks': 'npm run upload-taskOne-vsts-task && npm run upload-sample-vsts-task'
+    };
+
+    const singleTaskScripts = { ...baseVstsTaskScripts, ...sampleTaskScripts };
+
+    const packageJsonDependencies = {
+        dependencies: {
+            'loglevel': '^1.6.1',
+            'request': '^2.85.0',
+            'vsts-task-lib': '^2.4.0'
+        },
+        devDependencies: {
+            '@types/request': '^2.47.0',
+            'copy-node-modules': '^1.0.4',
+            'gulp-bump': '^3.1.1',
+            'tfx-cli': '^0.5.10',
+            'gulp-vsts-bump': '^1.0.5'
+        }
     };
 
     setup(() => {
@@ -85,6 +108,7 @@ suite('VSTS Project Tests:', () => {
         const appDescription = 'this is an awesome vsts task';
         const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
             'Task project :( The VSTS files were not added to the project.';
+        const task2Name = 'mySecondTask';
         const extensionConfig = {
             appName: vstsAppName,
             description: appDescription,
@@ -93,7 +117,13 @@ suite('VSTS Project Tests:', () => {
             taskCategory: 'foobar',
             dot: false,
             includeSampleVstsTask: true,
-            task1Name: 'taskOne'
+            task1Name: 'taskOne',
+            task2Name: task2Name
+        };
+
+        const task2Scripts = {
+            'upload-mySecondTask-vsts-task': 'tfx build tasks upload --task-path .vsts-publish/tasks/mySecondTask',
+            'delete-mySecondTask-vsts-task': 'tfx build tasks delete --task-id ' + taskId
         };
 
         test('Should display an error message when the generator is null and the extension config is null', () => {
@@ -187,21 +217,28 @@ suite('VSTS Project Tests:', () => {
             vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
             assert.isTrue(generatorDestinationRootStub.called);
             assert.isTrue(pathJoinStub.calledWith(destRoot));
-            const expected = {
-                dependencies: {
-                    'loglevel': '^1.6.1',
-                    'request': '^2.85.0',
-                    'vsts-task-lib': '^2.4.0'
-                },
-                devDependencies: {
-                    '@types/request': '^2.47.0',
-                    'copy-node-modules': '^1.0.4',
-                    'gulp-bump': '^3.1.1',
-                    'tfx-cli': '^0.5.10',
-                    'gulp-vsts-bump': '^1.0.5'
-                },
-                scripts: vstsTaskScripts
+            const packageJsonScripts = {
+                scripts: { ...singleTaskScripts, ...baseUploadAllTasksScript }
             };
+            const expected = { ...packageJsonDependencies, ...packageJsonScripts };
+            assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
+        });
+
+        test('Should add correct scripts when the user specifies multiple tasks', () => {
+            const uploadAllScriptValue = 'npm run upload-taskOne-vsts-task && ' +
+                `npm run upload-${task2Name}-vsts-task && npm run upload-sample-vsts-task`;
+            const uploadAllScript = {
+                'upload-all-vsts-tasks': uploadAllScriptValue
+            };
+            pathJoinStub.callsFake(() => {
+                return packageJson;
+            });
+            const taskScripts = {
+                scripts: { ...baseVstsTaskScripts, ...task2Scripts, ...sampleTaskScripts, ...uploadAllScript }
+            };
+            const expected = { ...packageJsonDependencies, ...taskScripts };
+            const config = { ...extensionConfig, ...{ vstsTaskCount: 2 } };
+            vsts.scaffoldVSTSTaskProject(generatorStub, config);
             assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
         });
     });

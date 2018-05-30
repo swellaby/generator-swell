@@ -15,9 +15,9 @@ import task = require('../../../tasks/sample/task');
 const assert = Chai.assert;
 
 /**
- * Suite of tests for the functions defined in ./src/task.ts
+ * Suite of tests for the functions defined in ./tasks/<%= taskName %>/task.ts
  */
-suite('Task Suite: ', () => {
+suite('<%= taskName %> Task Suite: ', () => {
     const exampleMessageInputKey = 'exampleMessage';
     const exampleMessage = 'Hello World!';
     const favoriteNumberKey = 'favoriteNumber';

@@ -174,12 +174,16 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context, ta
 const scaffoldVstsTaskBoilerplate = (taskName: string, taskId: string, generator: YeomanGenerator, extensionConfig: any) => {
     generator.sourceRoot(pathHelpers.vstsTaskRoot);
     const srcTaskBoilerplate = generator.sourceRoot() + '/tasks/boilerplate/';
+    const srcTaskTest = generator.sourceRoot() + '/test/unit/boilerplate/';
     extensionConfig.taskName = taskName;
     extensionConfig.taskId = taskId;
-    const dest = generator.destinationRoot() + `/tasks/${taskName}/`;
-    generator.fs.copyTpl(srcTaskBoilerplate + 'task.json', dest + 'task.json', extensionConfig);
-    generator.fs.copyTpl(srcTaskBoilerplate + 'task-wrapper.js', dest + 'task-wrapper.js', extensionConfig);
-    generator.fs.copyTpl(srcTaskBoilerplate + 'icon.png', dest + 'icon.png', extensionConfig);
+    const srcDest = generator.destinationRoot() + `/tasks/${taskName}/`;
+    const testDest = generator.destinationRoot() + `/test/unit/${taskName}/`;
+    generator.fs.copyTpl(srcTaskBoilerplate + 'task.json', srcDest + 'task.json', extensionConfig);
+    generator.fs.copyTpl(srcTaskBoilerplate + 'task-wrapper.js', srcDest + 'task-wrapper.js', extensionConfig);
+    generator.fs.copyTpl(srcTaskBoilerplate + 'icon.png', srcDest + 'icon.png', extensionConfig);
+    generator.fs.copyTpl(srcTaskBoilerplate + 'task.ts', srcDest + 'task.ts', extensionConfig);
+    generator.fs.copyTpl(srcTaskTest + 'task-tests.ts', testDest + 'task-tests.ts', extensionConfig);
 };
 
 /**
