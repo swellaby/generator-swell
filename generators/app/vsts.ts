@@ -172,7 +172,6 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context, ta
  * @param {Object} extensionConfig - The configuration specified for generation.
  */
 const scaffoldVstsTaskBoilerplate = (taskName: string, taskId: string, generator: YeomanGenerator, extensionConfig: any) => {
-    generator.sourceRoot(pathHelpers.vstsTaskRoot);
     const srcTaskBoilerplate = generator.sourceRoot() + '/tasks/boilerplate/';
     const srcTaskTest = generator.sourceRoot() + '/test/unit/boilerplate/';
     extensionConfig.taskName = taskName;
@@ -289,5 +288,6 @@ export const scaffoldVSTSTaskProject = (generator: YeomanGenerator, extensionCon
     initialize();
     const context = buildVSTSContext(extensionConfig);
     scaffoldSharedVSTSContent(generator, context);
+    generator.sourceRoot(pathHelpers.vstsTaskRoot);
     scaffoldVstsTasks(generator, context);
 };

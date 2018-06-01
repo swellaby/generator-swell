@@ -23,6 +23,7 @@ gulp.task('pre-unit-tests', ['transpile'], function() {
 });
 
 gulp.task('run-unit-tests', ['pre-unit-tests', 'eslint'], function(cb) {
+    // gulp.src('test/unit/app/vsts-tests.js')
     gulp.src(gulpConfig.javascriptUnitTests)
         .pipe(mocha({
             ui: mochaConfig.unitTestMochaInterface,
