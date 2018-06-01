@@ -1,17 +1,16 @@
 'use strict';
 
 import Chai = require('chai');
-import Sinon = require('sinon');
-// You need to do this prior to importing the core task lib to avoid the unccessary/undesireable
-// actions it does internally on load/import.
-import internal = require('vsts-task-lib/internal');
-Sinon.stub(internal, '_loadData').callsFake(() => null);
-import tl = require('vsts-task-lib/task');
 import log = require('loglevel');
+import Sinon = require('sinon');
+import tl = require('vsts-task-lib/task');
 
-import task = require('../../../tasks/sample/task');
+import task = require('../../../tasks/<%= taskName %>/task');
 const assert = Chai.assert;
 
+/**
+ * Suite of tests for the functions defined in ./tasks/<%= taskName %>/task.ts
+ */
 suite('<%= taskName %> Task Suite:', () => {
     let tlGetInputStub: Sinon.SinonStub;
     let tlDebugStub: Sinon.SinonStub;
@@ -42,7 +41,7 @@ suite('<%= taskName %> Task Suite:', () => {
     });
 
     test('Should fail the task correctly when an error is thrown without details', async () => {
-        tlGetInputStub.throws(null);
+        tlGetInputStub.callsFake(() => { throw null; });
         await task.run();
         assert.isTrue(tlDebugStub.calledWith(debugErrorMessagePrefix + 'unknown'));
         assert.isTrue(tlSetResultStub.calledWith(tl.TaskResult.Failed, taskFailedMessage));

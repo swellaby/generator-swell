@@ -148,15 +148,15 @@ const addVstsTaskContentToPackageJson = (generator: YeomanGenerator, context, ta
     const extension = {
         dependencies: {
             'loglevel': '^1.6.1',
-            'request': '^2.85.0',
+            'request': '^2.87.0',
             'vsts-task-lib': '^2.4.0'
         },
         devDependencies: {
             '@types/request': '^2.47.0',
             'copy-node-modules': '^1.0.4',
             'gulp-bump': '^3.1.1',
-            'tfx-cli': '^0.5.10',
-            'gulp-vsts-bump': '^1.0.5'
+            'gulp-vsts-bump': '^1.0.6',
+            'tfx-cli': '^0.5.10'
         },
         scripts: vstsTaskNpmScripts
     };

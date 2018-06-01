@@ -14,7 +14,7 @@ export const run = async () => {
         tl.debug('This only displays when debugging is enabled on the build/release definintion');
         tl.setResult(tl.TaskResult.Succeeded, 'Passed!');
     } catch (err) {
-        tl.debug('Error message details: ' + err ? err.msg : 'unknown');
+        tl.debug(`Error message details: ${err ? err.message : 'unknown'}`);
         tl.setResult(tl.TaskResult.Failed, 'Task failed. See output for error info.');
     }
 };

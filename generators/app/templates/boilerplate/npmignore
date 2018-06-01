@@ -9,3 +9,5 @@ test/
 gulpfile.js
 tsconfig.json
 tslint.json
+.taskkey
+.vsts-publish/

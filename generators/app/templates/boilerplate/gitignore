@@ -28,3 +28,4 @@ tasks/**/*.js*
 **/testresults/
 .testresults/
 .vsts-publish
+.taskkey
