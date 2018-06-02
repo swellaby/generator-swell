@@ -40,6 +40,8 @@ suite('VSTS Project Tests:', () => {
     const destRoot = 'project-foo';
     const destTaskRoot = destRoot + '/tasks/';
     const destTestRoot = destRoot + '/test/unit/';
+    const destSampleTaskSourceRoot = destTaskRoot + 'sample/';
+    const destSampleTestRoot = destTestRoot + 'sample/';
     const packageJson = destRoot + '/package.json';
     let consoleErrorStub: Sinon.SinonStub;
     let generatorLogStub: Sinon.SinonStub;
@@ -246,14 +248,16 @@ suite('VSTS Project Tests:', () => {
                 assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleEnabledConfig));
             });
 
-            // test('Should scaffold the sample task content', () => {
-            //     vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
-            //     assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, config));
-            //     assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, config));
-            //     assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, config));
-            //     assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, config));
-            //     assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, config));
-            // });
+            test('Should scaffold the sample task content', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(taskSampleSourceRoot + '**/*', destSampleTaskSourceRoot, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(taskSampleTestSourceRoot + '**/*', destSampleTestRoot, sampleEnabledConfig));
+            });
 
             test('Should add correct dependencies when the generator and config are valid', () => {
                 pathJoinStub.callsFake(() => {
