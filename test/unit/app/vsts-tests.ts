@@ -73,7 +73,7 @@ suite('VSTS Project Tests:', () => {
         'delete-sample-vsts-task': 'tfx build tasks delete --task-id ' + taskId
     };
 
-    const singleTaskScripts = { ...baseVstsTaskScripts, ...sampleTaskScripts };
+    const singleTaskWithSampleScripts = { ...baseVstsTaskScripts, ...sampleTaskScripts };
 
     const packageJsonDependencies = {
         dependencies: {
@@ -267,7 +267,7 @@ suite('VSTS Project Tests:', () => {
                 assert.isTrue(generatorDestinationRootStub.called);
                 assert.isTrue(pathJoinStub.calledWith(destRoot));
                 const packageJsonScripts = {
-                    scripts: { ...singleTaskScripts, ...baseUploadAllTasksScript }
+                    scripts: { ...singleTaskWithSampleScripts, ...baseUploadAllTasksScript }
                 };
                 const expected = { ...packageJsonDependencies, ...packageJsonScripts };
                 assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
@@ -276,7 +276,7 @@ suite('VSTS Project Tests:', () => {
             test('Should add correct scripts when the user specifies multiple tasks', () => {
                 const uploadAllScriptValue = 'npm run upload-taskOne-vsts-task && ' +
                     `npm run upload-${task2Name}-vsts-task && npm run upload-sample-vsts-task`;
-                const uploadAllScript = {
+                const uploadAllScript = { 
                     'upload-all-vsts-tasks': uploadAllScriptValue
                 };
                 pathJoinStub.callsFake(() => {
@@ -284,6 +284,75 @@ suite('VSTS Project Tests:', () => {
                 });
                 const taskScripts = {
                     scripts: { ...baseVstsTaskScripts, ...task2Scripts, ...sampleTaskScripts, ...uploadAllScript }
+                };
+                const expected = { ...packageJsonDependencies, ...taskScripts };
+                const config = { ...sampleEnabledConfig, ...{ vstsTaskCount: 2 } };
+                vsts.scaffoldVSTSTaskProject(generatorStub, config);
+                assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
+            });
+        });
+
+        suite('sample task excluded Suite:', () => {
+            const sampleEnabledConfig = { ...extensionConfig, ...{ includeSampleVstsTask: false } };
+            const baseUploadAllTasksScript = {
+                'upload-all-vsts-tasks': 'npm run upload-taskOne-vsts-task'
+            };
+
+            test('Should scaffold the common VSTS content when the generator and config are valid', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
+                assert.isTrue(generatorSourceRootStub.thirdCall.calledWith(pathHelpers.vstsTaskRoot));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(
+                    sourceRoot,
+                    destRoot,
+                    extensionConfig
+                ));
+            });
+
+            test('Should scaffold the boilerplate task content', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleEnabledConfig));
+            });
+
+            test('Should scaffold the sample task content', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleEnabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleEnabledConfig));
+                assert.isFalse(generatorFsCopyTplStub.calledWith(taskSampleSourceRoot + '**/*', destSampleTaskSourceRoot, sampleEnabledConfig));
+                assert.isFalse(generatorFsCopyTplStub.calledWith(taskSampleTestSourceRoot + '**/*', destSampleTestRoot, sampleEnabledConfig));
+            });
+
+            test('Should add correct dependencies when the generator and config are valid', () => {
+                pathJoinStub.callsFake(() => {
+                    return packageJson;
+                });
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                assert.isTrue(generatorDestinationRootStub.called);
+                assert.isTrue(pathJoinStub.calledWith(destRoot));
+                const packageJsonScripts = {
+                    scripts: { ...baseVstsTaskScripts, ...baseUploadAllTasksScript }
+                };
+                const expected = { ...packageJsonDependencies, ...packageJsonScripts };
+                assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
+            });
+
+            test('Should add correct scripts when the user specifies multiple tasks', () => {
+                const uploadAllScriptValue = 'npm run upload-taskOne-vsts-task && ' +
+                    `npm run upload-${task2Name}-vsts-task`;
+                const uploadAllScript = { 
+                    'upload-all-vsts-tasks': uploadAllScriptValue
+                };
+                pathJoinStub.callsFake(() => {
+                    return packageJson;
+                });
+                const taskScripts = {
+                    scripts: { ...baseVstsTaskScripts, ...task2Scripts, ...uploadAllScript }
                 };
                 const expected = { ...packageJsonDependencies, ...taskScripts };
                 const config = { ...sampleEnabledConfig, ...{ vstsTaskCount: 2 } };

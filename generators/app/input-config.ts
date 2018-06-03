@@ -113,14 +113,14 @@ const prompts: inquirer.Question[] = [
         type: 'input',
         name: 'task4Name',
         message: 'What would you like to name the fourth VSTS task?',
-        default: 'taskFourth'
+        default: 'taskFour'
     },
     {
         when: promptHelpers.isRequestedVstsTaskCountGreaterThanFour,
         type: 'input',
         name: 'task5Name',
         message: 'What would you like to name the fifth VSTS task?',
-        default: 'taskFifth'
+        default: 'taskFive'
     },
     {
         when: promptHelpers.isVSTSTaskProject,
