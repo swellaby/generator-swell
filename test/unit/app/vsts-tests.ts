@@ -1,6 +1,5 @@
 'use strict';
-// tslint:disable
-/* eslint-disable */
+
 import Chai = require('chai');
 import path = require('path');
 import Sinon = require('sinon');
@@ -35,8 +34,6 @@ suite('VSTS Project Tests:', () => {
     const boilerplateTaskTestsSource = taskBoilerplateTestSourceRoot + 'task-tests.ts';
     const taskSampleSourceRoot = vstsTaskSourceRootBase + '/tasks/sample/';
     const taskSampleTestSourceRoot = vstsTaskSourceRootBase + '/test/unit/sample/';
-    const sampleTaskSource = taskSampleSourceRoot + 'task.ts';
-    const sampleTaskTestsSource = taskSampleTestSourceRoot + 'task-tests.ts';
     const destRoot = 'project-foo';
     const destTaskRoot = destRoot + '/tasks/';
     const destTestRoot = destRoot + '/test/unit/';
@@ -276,7 +273,7 @@ suite('VSTS Project Tests:', () => {
             test('Should add correct scripts when the user specifies multiple tasks', () => {
                 const uploadAllScriptValue = 'npm run upload-taskOne-vsts-task && ' +
                     `npm run upload-${task2Name}-vsts-task && npm run upload-sample-vsts-task`;
-                const uploadAllScript = { 
+                const uploadAllScript = {
                     'upload-all-vsts-tasks': uploadAllScriptValue
                 };
                 pathJoinStub.callsFake(() => {
@@ -345,7 +342,7 @@ suite('VSTS Project Tests:', () => {
             test('Should add correct scripts when the user specifies multiple tasks', () => {
                 const uploadAllScriptValue = 'npm run upload-taskOne-vsts-task && ' +
                     `npm run upload-${task2Name}-vsts-task`;
-                const uploadAllScript = { 
+                const uploadAllScript = {
                     'upload-all-vsts-tasks': uploadAllScriptValue
                 };
                 pathJoinStub.callsFake(() => {
