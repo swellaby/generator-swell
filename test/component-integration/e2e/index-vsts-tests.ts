@@ -44,6 +44,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         // eslint-disable-next-line no-unused-vars
         // const invalidParamsErrorMessage = 'Oh no! Encountered an unexpected error while trying to create a new VSTS ' +
         //     'Task project :( The VSTS files were not added to the project.';
+        const sampleTaskName = 'sample';
         const task1Name = 'taskOne';
         const task2Name = 'secondTask';
         const prompts = {
@@ -54,12 +55,48 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             task1Name: task1Name,
             task2Name: task2Name
         };
-        const sampleTaskManifest = './tasks/sample/task.json';
+        const sampleTaskManifest = `./tasks/${sampleTaskName}/task.json`;
         const task1Manifest = `./tasks/${task1Name}/task.json`;
         const taskCategory = 'Utility';
 
         const sampleEnabledPrompts = { ...prompts, ...{ includeSampleVstsTask: true } };
         const sampleDisabledPrompts = { ...prompts, ...{ includeSampleVstsTask: false } };
+        const baseExtFiles = [
+            {
+                path: 'images',
+                addressable: true
+            },
+            {
+                path: `tasks/${task1Name}`
+            }
+        ];
+        const sampleTaskExtFile = {
+            path: `tasks/${sampleTaskName}`
+        };
+        // const secondTaskExtFile = {
+        //     path: `tasks/${task2Name}`
+        // };
+
+        const buildExtContribution = (taskName) => {
+            return {
+                'id': `${taskName}`,
+                'type': 'ms.vss-distributed-task.task',
+                'description': '',
+                'targets': [
+                    'ms.vss-distributed-task.tasks'
+                ],
+                'properties': {
+                    'name': `tasks/${taskName}`
+                }
+            };
+        };
+
+        const baseExtContributions = [
+            buildExtContribution(task1Name)
+        ];
+
+        const sampleTaskExContribution = buildExtContribution(sampleTaskName);
+        // const secondTaskExContribution = buildExtContribution(task2Name);
 
         suite('base Tests:', () => {
             suiteSetup(() => {
@@ -292,6 +329,18 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             test('Should inject extension description correctly into extension manifest', () => {
                 yeomanAssert.jsonFileContent(extensionManifest, { description: appDescription });
             });
+
+            test('Should inject correct files array into extension manifest', () => {
+                const expectedFiles = baseExtFiles.slice();
+                expectedFiles.push(sampleTaskExtFile);
+                yeomanAssert.jsonFileContent(extensionManifest, { files: expectedFiles });
+            });
+
+            test('Should inject correct contributions array into extension manifest', () => {
+                const expectedContributions = baseExtContributions.slice();
+                expectedContributions.push(sampleTaskExContribution);
+                yeomanAssert.jsonFileContent(extensionManifest, { contributions: expectedContributions });
+            });
         });
 
         suite('Sample VSTS Task Disabled Tests:', () => {
@@ -343,6 +392,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
             test('Should inject extension description correctly into extension manifest', () => {
                 yeomanAssert.jsonFileContent(extensionManifest, { description: appDescription });
+            });
+
+            test('Should inject correct files array into extension manifest', () => {
+                yeomanAssert.jsonFileContent(extensionManifest, { files: baseExtFiles });
+            });
+
+            test('Should inject correct contributions array into extension manifest', () => {
+                yeomanAssert.jsonFileContent(extensionManifest, { contributions: baseExtContributions });
             });
         });
     });

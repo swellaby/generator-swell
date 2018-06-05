@@ -79,7 +79,8 @@ const buildExtensionTaskContribution = (taskName: string) => {
  */
 const getExtensionImageFiles = () => {
     return {
-        'path': 'images'
+        path: 'images',
+        addressable: true
     };
 };
 
