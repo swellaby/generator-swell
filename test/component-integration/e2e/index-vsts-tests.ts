@@ -248,15 +248,15 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             });
 
             test('Should inject author name correctly into sample task.json', () => {
-                yeomanAssert.fileContent(sampleTaskManifest, `"author": "${author}"`);
+                yeomanAssert.jsonFileContent(sampleTaskManifest, { author: author });
             });
 
             test('Should inject task name correctly into sample task.json', () => {
-                yeomanAssert.fileContent(sampleTaskManifest, `"name": "sample"`);
+                yeomanAssert.jsonFileContent(sampleTaskManifest, { name: 'sample' });
             });
 
             test('Should inject task category correctly into sample task.json', () => {
-                yeomanAssert.fileContent(sampleTaskManifest, `"category": "${taskCategory}"`);
+                yeomanAssert.jsonFileContent(sampleTaskManifest, { category: taskCategory });
             });
 
             test('Should create all of the boilerplate template files for the custom task', () => {
@@ -270,27 +270,27 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             });
 
             test('Should inject author name correctly into first custom task.json', () => {
-                yeomanAssert.fileContent(task1Manifest, `"author": "${author}"`);
+                yeomanAssert.jsonFileContent(task1Manifest, { author: author });
             });
 
-            test('Should inject task name correctly into sample task.json', () => {
-                yeomanAssert.fileContent(task1Manifest, `"name": "${task1Name}"`);
+            test('Should inject task name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { name: task1Name });
             });
 
-            test('Should inject task category correctly into sample task.json', () => {
-                yeomanAssert.fileContent(task1Manifest, `"category": "${taskCategory}"`);
+            test('Should inject task category correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { category: taskCategory });
             });
 
             test('Should inject extension name correctly into extension manifest', () => {
-                yeomanAssert.fileContent(extensionManifest, `"name": "${vstsAppName}"`);
+                yeomanAssert.jsonFileContent(extensionManifest, { name: vstsAppName });
             });
 
             test('Should inject extension id correctly into extension manifest', () => {
-                yeomanAssert.fileContent(extensionManifest, `"id": "${vstsAppName}"`);
+                yeomanAssert.jsonFileContent(extensionManifest, { id: vstsAppName });
             });
 
             test('Should inject extension description correctly into extension manifest', () => {
-                yeomanAssert.fileContent(extensionManifest, `"description": "${appDescription}"`);
+                yeomanAssert.jsonFileContent(extensionManifest, { description: appDescription });
             });
         });
 
@@ -322,27 +322,27 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
             });
 
             test('Should inject author name correctly into first custom task.json', () => {
-                yeomanAssert.fileContent(task1Manifest, `"author": "${author}"`);
+                yeomanAssert.jsonFileContent(task1Manifest, { author: author });
             });
 
-            test('Should inject task name correctly into sample task.json', () => {
-                yeomanAssert.fileContent(task1Manifest, `"name": "${task1Name}"`);
+            test('Should inject task name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { name: task1Name });
             });
 
-            test('Should inject task category correctly into sample task.json', () => {
-                yeomanAssert.fileContent(task1Manifest, `"category": "${taskCategory}"`);
+            test('Should inject task category correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { category: taskCategory });
             });
 
             test('Should inject extension name correctly into extension manifest', () => {
-                yeomanAssert.fileContent(extensionManifest, `"name": "${vstsAppName}"`);
+                yeomanAssert.jsonFileContent(extensionManifest, { name: vstsAppName });
             });
 
             test('Should inject extension id correctly into extension manifest', () => {
-                yeomanAssert.fileContent(extensionManifest, `"id": "${vstsAppName}"`);
+                yeomanAssert.jsonFileContent(extensionManifest, { id: vstsAppName });
             });
 
             test('Should inject extension description correctly into extension manifest', () => {
-                yeomanAssert.fileContent(extensionManifest, `"description": "${appDescription}"`);
+                yeomanAssert.jsonFileContent(extensionManifest, { description: appDescription });
             });
         });
     });
