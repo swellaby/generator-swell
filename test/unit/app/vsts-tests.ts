@@ -40,6 +40,8 @@ suite('VSTS Project Tests:', () => {
     const destSampleTaskSourceRoot = destTaskRoot + 'sample/';
     const destSampleTestRoot = destTestRoot + 'sample/';
     const packageJson = destRoot + '/package.json';
+    const extensionManifestFileName = 'vss-extension.json';
+    const extensionManifest = `${destRoot}/${extensionManifestFileName}`;
     let consoleErrorStub: Sinon.SinonStub;
     let generatorLogStub: Sinon.SinonStub;
     let generatorSourceRootStub: Sinon.SinonStub;
@@ -121,6 +123,7 @@ suite('VSTS Project Tests:', () => {
         const task1Name = 'taskOne';
         const task2Name = 'mySecondTask';
         const task3Name = 'a-third-task';
+        const sampleTaskName = 'sample';
         const extensionConfig = {
             appName: vstsAppName,
             description: appDescription,
@@ -131,6 +134,43 @@ suite('VSTS Project Tests:', () => {
             task1Name: task1Name,
             task2Name: task2Name,
             task3Name: task3Name
+        };
+
+        const buildExtContribution = (taskName) => {
+            return {
+                'id': `${taskName}`,
+                'type': 'ms.vss-distributed-task.task',
+                'description': '',
+                'targets': [
+                    'ms.vss-distributed-task.tasks'
+                ],
+                'properties': {
+                    'name': `tasks/${taskName}`
+                }
+            };
+        };
+
+        const baseExtContributions = [
+            buildExtContribution(task1Name)
+        ];
+
+        const sampleTaskExContribution = buildExtContribution(sampleTaskName);
+        const secondTaskExContribution = buildExtContribution(task2Name);
+
+        const baseExtFiles = [
+            {
+                path: 'images',
+                addressable: true
+            },
+            {
+                path: `tasks/${task1Name}`
+            }
+        ];
+        const sampleTaskExtFile = {
+            path: `tasks/${sampleTaskName}`
+        };
+        const secondTaskExtFile = {
+            path: `tasks/${task2Name}`
         };
 
         const destTaskOneRoot = destTaskRoot + `${task1Name}/`;
@@ -146,78 +186,81 @@ suite('VSTS Project Tests:', () => {
             'delete-mySecondTask-vsts-task': 'tfx build tasks delete --task-id ' + taskId
         };
 
-        test('Should display an error message when the generator is null and the extension config is null', () => {
-            vsts.scaffoldVSTSTaskProject(null, null);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+        suite('input parameter validation Suite:', () => {
+            test('Should display an error message when the generator is null and the extension config is null', () => {
+                vsts.scaffoldVSTSTaskProject(null, null);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is null and the extension config is undefined', () => {
-            vsts.scaffoldVSTSTaskProject(null, undefined);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is null and the extension config is undefined', () => {
+                vsts.scaffoldVSTSTaskProject(null, undefined);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is null and the extension config is empty', () => {
-            vsts.scaffoldVSTSTaskProject(null, {});
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is null and the extension config is empty', () => {
+                vsts.scaffoldVSTSTaskProject(null, {});
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is null and the extension config is valid', () => {
-            vsts.scaffoldVSTSTaskProject(null, extensionConfig);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is null and the extension config is valid', () => {
+                vsts.scaffoldVSTSTaskProject(null, extensionConfig);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is undefined and the extension config is null', () => {
-            vsts.scaffoldVSTSTaskProject(undefined, null);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is undefined and the extension config is null', () => {
+                vsts.scaffoldVSTSTaskProject(undefined, null);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is undefined and the extension config is undefined', () => {
-            vsts.scaffoldVSTSTaskProject(undefined, undefined);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is undefined and the extension config is undefined', () => {
+                vsts.scaffoldVSTSTaskProject(undefined, undefined);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is undefined and the extension config is empty', () => {
-            vsts.scaffoldVSTSTaskProject(undefined, {});
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is undefined and the extension config is empty', () => {
+                vsts.scaffoldVSTSTaskProject(undefined, {});
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is undefined and the extension config is valid', () => {
-            vsts.scaffoldVSTSTaskProject(undefined, extensionConfig);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
-        test('Should display an error message when the generator is valid and the extension config is null', () => {
-            vsts.scaffoldVSTSTaskProject(generatorStub, null);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is undefined and the extension config is valid', () => {
+                vsts.scaffoldVSTSTaskProject(undefined, extensionConfig);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should display an error message when the generator is valid and the extension config is undefined', () => {
-            vsts.scaffoldVSTSTaskProject(generatorStub, undefined);
-            assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
-        });
+            test('Should display an error message when the generator is valid and the extension config is null', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, null);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should succeed when the generator is valid and the extension config is empty', () => {
-            vsts.scaffoldVSTSTaskProject(generatorStub, {});
-            assert.isFalse(consoleErrorStub.called);
-            assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
-        });
+            test('Should display an error message when the generator is valid and the extension config is undefined', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, undefined);
+                assert.isTrue(consoleErrorStub.calledWith(invalidParamsErrorMessage));
+            });
 
-        test('Should scaffold shared VSTS content when the generator is valid and the extension config is valid', () => {
-            vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
-            assert.isFalse(consoleErrorStub.called);
-            assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
-            assert.isTrue(generatorSourceRootStub.calledWith(pathHelpers.vstsCommonRoot));
-            assert.isTrue(generatorFsCopyTplStub.calledWith(
-                sourceRoot,
-                destRoot,
-                extensionConfig
-            ));
-        });
+            test('Should succeed when the generator is valid and the extension config is empty', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, {});
+                assert.isFalse(consoleErrorStub.called);
+                assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
+            });
 
-        test('Should add the correct task id and category options', () => {
-            vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
-            assert.deepEqual(extensionConfig.dot, true);
-            assert.deepEqual(extensionConfig.taskCategory, 'Utility');
-            assert.isTrue(uuidV4Stub.called);
+            test('Should scaffold shared VSTS content when the generator is valid and the extension config is valid', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
+                assert.isFalse(consoleErrorStub.called);
+                assert.isTrue(generatorLogStub.calledWith(yosay(descriptionMessage)));
+                assert.isTrue(generatorSourceRootStub.calledWith(pathHelpers.vstsCommonRoot));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(
+                    sourceRoot,
+                    destRoot,
+                    extensionConfig
+                ));
+            });
+
+            test('Should add the correct task id and category options', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, extensionConfig);
+                assert.deepEqual(extensionConfig.dot, true);
+                assert.deepEqual(extensionConfig.taskCategory, 'Utility');
+                assert.isTrue(uuidV4Stub.called);
+            });
         });
 
         suite('sample task included Suite:', () => {
@@ -256,6 +299,27 @@ suite('VSTS Project Tests:', () => {
                 assert.isTrue(generatorFsCopyTplStub.calledWith(taskSampleTestSourceRoot + '**/*', destSampleTestRoot, sampleEnabledConfig));
             });
 
+            test('Should scaffold the gulp content', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                const src = vstsTaskSourceRootBase + '/gulp/**/*';
+                const dest = destRoot + '/gulp/';
+                assert.isTrue(generatorFsCopyTplStub.calledWith(src, dest, sampleEnabledConfig));
+            });
+
+            test('Should update the extension manifest with the correct files and contributions', () => {
+                pathJoinStub.withArgs(destRoot, extensionManifestFileName).callsFake(() => extensionManifest);
+                const expectedFiles = baseExtFiles.slice();
+                expectedFiles.push(sampleTaskExtFile);
+                const expectedContributions = baseExtContributions.slice();
+                expectedContributions.push(sampleTaskExContribution);
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                assert.isTrue(pathJoinStub.calledWith(destRoot, extensionManifestFileName));
+                assert.isTrue(generatorFsExtendJsonStub.calledWith(extensionManifest, {
+                    files: expectedFiles,
+                    contributions: expectedContributions
+                }));
+            });
+
             test('Should add correct dependencies when the generator and config are valid', () => {
                 pathJoinStub.callsFake(() => {
                     return packageJson;
@@ -287,10 +351,27 @@ suite('VSTS Project Tests:', () => {
                 vsts.scaffoldVSTSTaskProject(generatorStub, config);
                 assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
             });
+
+            test('Should update the extension manifest with the correct files and contributions with multiple tasks', () => {
+                pathJoinStub.withArgs(destRoot, extensionManifestFileName).callsFake(() => extensionManifest);
+                const expectedFiles = baseExtFiles.slice();
+                expectedFiles.push(secondTaskExtFile);
+                expectedFiles.push(sampleTaskExtFile);
+                const expectedContributions = baseExtContributions.slice();
+                expectedContributions.push(secondTaskExContribution);
+                expectedContributions.push(sampleTaskExContribution);
+                const config = { ...sampleEnabledConfig, ...{ vstsTaskCount: 2 } };
+                vsts.scaffoldVSTSTaskProject(generatorStub, config);
+                assert.isTrue(pathJoinStub.calledWith(destRoot, extensionManifestFileName));
+                assert.isTrue(generatorFsExtendJsonStub.calledWith(extensionManifest, {
+                    files: expectedFiles,
+                    contributions: expectedContributions
+                }));
+            });
         });
 
         suite('sample task excluded Suite:', () => {
-            const sampleEnabledConfig = { ...extensionConfig, ...{ includeSampleVstsTask: false } };
+            const sampleDisabledConfig = { ...extensionConfig, ...{ includeSampleVstsTask: false } };
             const baseUploadAllTasksScript = {
                 'upload-all-vsts-tasks': 'npm run upload-taskOne-vsts-task'
             };
@@ -306,30 +387,47 @@ suite('VSTS Project Tests:', () => {
             });
 
             test('Should scaffold the boilerplate task content', () => {
-                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleEnabledConfig));
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleDisabledConfig);
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleDisabledConfig));
             });
 
             test('Should scaffold the sample task content', () => {
-                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleEnabledConfig));
-                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleEnabledConfig));
-                assert.isFalse(generatorFsCopyTplStub.calledWith(taskSampleSourceRoot + '**/*', destSampleTaskSourceRoot, sampleEnabledConfig));
-                assert.isFalse(generatorFsCopyTplStub.calledWith(taskSampleTestSourceRoot + '**/*', destSampleTestRoot, sampleEnabledConfig));
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleDisabledConfig);
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskManifestSource, destTaskOneTaskManifest, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskWrapperSource, destTaskOneTaskWrapper, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskIconSource, destTaskOneTaskIcon, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskSource, destTaskOneTask, sampleDisabledConfig));
+                assert.isTrue(generatorFsCopyTplStub.calledWith(boilerplateTaskTestsSource, destTaskOneTaskTests, sampleDisabledConfig));
+                assert.isFalse(generatorFsCopyTplStub.calledWith(taskSampleSourceRoot + '**/*', destSampleTaskSourceRoot, sampleDisabledConfig));
+                assert.isFalse(generatorFsCopyTplStub.calledWith(taskSampleTestSourceRoot + '**/*', destSampleTestRoot, sampleDisabledConfig));
+            });
+
+            test('Should scaffold the gulp content', () => {
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleDisabledConfig);
+                const src = vstsTaskSourceRootBase + '/gulp/**/*';
+                const dest = destRoot + '/gulp/';
+                assert.isTrue(generatorFsCopyTplStub.calledWith(src, dest, sampleDisabledConfig));
+            });
+
+            test('Should update the extension manifest with the correct files and contributions', () => {
+                pathJoinStub.withArgs(destRoot, extensionManifestFileName).callsFake(() => extensionManifest);
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleDisabledConfig);
+                assert.isTrue(pathJoinStub.calledWith(destRoot, extensionManifestFileName));
+                assert.isTrue(generatorFsExtendJsonStub.calledWith(extensionManifest, {
+                    files: baseExtFiles,
+                    contributions: baseExtContributions
+                }));
             });
 
             test('Should add correct dependencies when the generator and config are valid', () => {
                 pathJoinStub.callsFake(() => {
                     return packageJson;
                 });
-                vsts.scaffoldVSTSTaskProject(generatorStub, sampleEnabledConfig);
+                vsts.scaffoldVSTSTaskProject(generatorStub, sampleDisabledConfig);
                 assert.isTrue(generatorDestinationRootStub.called);
                 assert.isTrue(pathJoinStub.calledWith(destRoot));
                 const packageJsonScripts = {
@@ -352,9 +450,24 @@ suite('VSTS Project Tests:', () => {
                     scripts: { ...baseVstsTaskScripts, ...task2Scripts, ...uploadAllScript }
                 };
                 const expected = { ...packageJsonDependencies, ...taskScripts };
-                const config = { ...sampleEnabledConfig, ...{ vstsTaskCount: 2 } };
+                const config = { ...sampleDisabledConfig, ...{ vstsTaskCount: 2 } };
                 vsts.scaffoldVSTSTaskProject(generatorStub, config);
                 assert.isTrue(generatorFsExtendJsonStub.calledWith(packageJson, expected));
+            });
+
+            test('Should update the extension manifest with the correct files and contributions with multiple tasks', () => {
+                pathJoinStub.withArgs(destRoot, extensionManifestFileName).callsFake(() => extensionManifest);
+                const config = { ...sampleDisabledConfig, ...{ vstsTaskCount: 2 } };
+                const expectedFiles = baseExtFiles.slice();
+                expectedFiles.push(secondTaskExtFile);
+                const expectedContributions = baseExtContributions.slice();
+                expectedContributions.push(secondTaskExContribution);
+                vsts.scaffoldVSTSTaskProject(generatorStub, config);
+                assert.isTrue(pathJoinStub.calledWith(destRoot, extensionManifestFileName));
+                assert.isTrue(generatorFsExtendJsonStub.calledWith(extensionManifest, {
+                    files: expectedFiles,
+                    contributions: expectedContributions
+                }));
             });
         });
     });

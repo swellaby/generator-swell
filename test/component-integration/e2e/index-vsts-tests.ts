@@ -57,6 +57,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         };
         const sampleTaskManifest = `./tasks/${sampleTaskName}/task.json`;
         const task1Manifest = `./tasks/${task1Name}/task.json`;
+        const task2Manifest = `./tasks/${task2Name}/task.json`;
         const taskCategory = 'Utility';
 
         const sampleEnabledPrompts = { ...prompts, ...{ includeSampleVstsTask: true } };
@@ -73,9 +74,9 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         const sampleTaskExtFile = {
             path: `tasks/${sampleTaskName}`
         };
-        // const secondTaskExtFile = {
-        //     path: `tasks/${task2Name}`
-        // };
+        const secondTaskExtFile = {
+            path: `tasks/${task2Name}`
+        };
 
         const buildExtContribution = (taskName) => {
             return {
@@ -96,7 +97,7 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
         ];
 
         const sampleTaskExContribution = buildExtContribution(sampleTaskName);
-        // const secondTaskExContribution = buildExtContribution(task2Name);
+        const secondTaskExContribution = buildExtContribution(task2Name);
 
         suite('base Tests:', () => {
             suiteSetup(() => {
@@ -400,6 +401,107 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
             test('Should inject correct contributions array into extension manifest', () => {
                 yeomanAssert.jsonFileContent(extensionManifest, { contributions: baseExtContributions });
+            });
+        });
+
+        suite('Multiple VSTS Tasks Tests:', () => {
+            const multipleVstsTasksPrompts = { ...sampleEnabledPrompts, ...{ vstsTaskCount: 2 } };
+            suiteSetup(() => {
+                return helpers.run(testHelpers.generatorRoot).withPrompts(multipleVstsTasksPrompts).toPromise();
+            });
+
+            test('Should create all of the sample VSTS Task template files', () => {
+                yeomanAssert.file([
+                    sampleTaskManifest,
+                    './tasks/sample/icon.png',
+                    './tasks/sample/task.ts',
+                    './tasks/sample/helper.ts',
+                    './tasks/sample/task-wrapper.js',
+                    './test/unit/sample/task-tests.ts',
+                    './test/unit/sample/helper-tests.ts'
+                ]);
+            });
+
+            test('Should inject author name correctly into sample task.json', () => {
+                yeomanAssert.jsonFileContent(sampleTaskManifest, { author: author });
+            });
+
+            test('Should inject task name correctly into sample task.json', () => {
+                yeomanAssert.jsonFileContent(sampleTaskManifest, { name: 'sample' });
+            });
+
+            test('Should inject task category correctly into sample task.json', () => {
+                yeomanAssert.jsonFileContent(sampleTaskManifest, { category: taskCategory });
+            });
+
+            test('Should create all of the boilerplate template files for the first custom task', () => {
+                yeomanAssert.file([
+                    task1Manifest,
+                    `./tasks/${task1Name}/icon.png`,
+                    `./tasks/${task1Name}/task.ts`,
+                    `./tasks/${task1Name}/task-wrapper.js`,
+                    `./test/unit/${task1Name}/task-tests.ts`
+                ]);
+            });
+
+            test('Should inject author name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { author: author });
+            });
+
+            test('Should inject task name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { name: task1Name });
+            });
+
+            test('Should inject task category correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { category: taskCategory });
+            });
+
+            test('Should create all of the boilerplate template files for the second custom task', () => {
+                yeomanAssert.file([
+                    task2Manifest,
+                    `./tasks/${task2Name}/icon.png`,
+                    `./tasks/${task2Name}/task.ts`,
+                    `./tasks/${task2Name}/task-wrapper.js`,
+                    `./test/unit/${task2Name}/task-tests.ts`
+                ]);
+            });
+
+            test('Should inject author name correctly into second custom task.json', () => {
+                yeomanAssert.jsonFileContent(task2Manifest, { author: author });
+            });
+
+            test('Should inject task name correctly into second custom task.json', () => {
+                yeomanAssert.jsonFileContent(task2Manifest, { name: task2Name });
+            });
+
+            test('Should inject task category correctly into second custom task.json', () => {
+                yeomanAssert.jsonFileContent(task2Manifest, { category: taskCategory });
+            });
+
+            test('Should inject extension name correctly into extension manifest', () => {
+                yeomanAssert.jsonFileContent(extensionManifest, { name: vstsAppName });
+            });
+
+            test('Should inject extension id correctly into extension manifest', () => {
+                yeomanAssert.jsonFileContent(extensionManifest, { id: vstsAppName });
+            });
+
+            test('Should inject extension description correctly into extension manifest', () => {
+                yeomanAssert.jsonFileContent(extensionManifest, { description: appDescription });
+            });
+
+            test('Should inject correct files array into extension manifest', () => {
+                const expectedFiles = baseExtFiles.slice();
+                expectedFiles.push(secondTaskExtFile);
+                expectedFiles.push(sampleTaskExtFile);
+                yeomanAssert.jsonFileContent(extensionManifest, { files: expectedFiles });
+            });
+
+            test('Should inject correct contributions array into extension manifest', () => {
+                const expectedContributions = baseExtContributions.slice();
+                expectedContributions.push(secondTaskExContribution);
+                expectedContributions.push(sampleTaskExContribution);
+                yeomanAssert.jsonFileContent(extensionManifest, { contributions: expectedContributions });
             });
         });
     });
