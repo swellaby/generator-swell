@@ -11,6 +11,9 @@ environment:
 matrix:
   fast_finish: true
 
+cache:
+  - node_modules -> package-lock.json
+
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
