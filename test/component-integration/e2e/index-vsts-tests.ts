@@ -315,6 +315,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 yeomanAssert.jsonFileContent(task1Manifest, { name: task1Name });
             });
 
+            test('Should inject task friendly name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { friendlyName: task1Name });
+            });
+
+            test('Should inject task instance name format correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { instanceNameFormat: task1Name });
+            });
+
             test('Should inject task category correctly into first custom task.json', () => {
                 yeomanAssert.jsonFileContent(task1Manifest, { category: taskCategory });
             });
@@ -387,6 +395,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 yeomanAssert.jsonFileContent(extensionManifest, { name: vstsAppName });
             });
 
+            test('Should inject task friendly name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { friendlyName: task1Name });
+            });
+
+            test('Should inject task instance name format correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { instanceNameFormat: task1Name });
+            });
+
             test('Should inject extension id correctly into extension manifest', () => {
                 yeomanAssert.jsonFileContent(extensionManifest, { id: vstsAppName });
             });
@@ -452,6 +468,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
                 yeomanAssert.jsonFileContent(task1Manifest, { name: task1Name });
             });
 
+            test('Should inject task friendly name correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { friendlyName: task1Name });
+            });
+
+            test('Should inject task instance name format correctly into first custom task.json', () => {
+                yeomanAssert.jsonFileContent(task1Manifest, { instanceNameFormat: task1Name });
+            });
+
             test('Should inject task category correctly into first custom task.json', () => {
                 yeomanAssert.jsonFileContent(task1Manifest, { category: taskCategory });
             });
@@ -472,6 +496,14 @@ suite('Index/VSTS Project Component Integration Tests:', () => {
 
             test('Should inject task name correctly into second custom task.json', () => {
                 yeomanAssert.jsonFileContent(task2Manifest, { name: task2Name });
+            });
+
+            test('Should inject task friendly name correctly into second custom task.json', () => {
+                yeomanAssert.jsonFileContent(task2Manifest, { friendlyName: task2Name });
+            });
+
+            test('Should inject task instance name format correctly into second custom task.json', () => {
+                yeomanAssert.jsonFileContent(task2Manifest, { instanceNameFormat: task2Name });
             });
 
             test('Should inject task category correctly into second custom task.json', () => {

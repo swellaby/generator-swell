@@ -53,7 +53,7 @@ suite('VSTS Project Tests:', () => {
     const baseVstsTaskScripts = {
         'tfx-login': 'tfx login',
         'create-task': 'cd tasks && tfx build tasks create',
-        'package-vsts-tasks': 'gulp package-vsts-tasks',
+        'package-vsts-tasks': 'gulp bump-task-version package-vsts-tasks',
         'upload-vsts-task': 'tfx build tasks upload --task-path ',
         'delete-vsts-task': 'tfx build tasks delete --task-id ',
         'pack-up-single-vsts-task': 'npm run package-vsts-tasks && npm run upload-vsts-task',

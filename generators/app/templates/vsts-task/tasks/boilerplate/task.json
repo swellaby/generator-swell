@@ -1,10 +1,12 @@
 {
   "id": <%- JSON.stringify(taskId) %>,
   "name": <%- JSON.stringify(taskName) %>,
+  "friendlyName": <%- JSON.stringify(taskName) %>,
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,
   "helpMarkDown": "[]() Replace with markdown to show in help",
   "category": <%- JSON.stringify(taskCategory) %>,
+  "instanceNameFormat": <%- JSON.stringify(taskName) %>,
   "visibility": [
     "Build",
     "Release"
