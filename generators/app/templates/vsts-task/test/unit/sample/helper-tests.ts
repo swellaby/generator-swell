@@ -4,17 +4,17 @@ import Chai = require('chai');
 import Sinon = require('sinon');
 import request = require('request');
 
-import Helper = require('../../../tasks/sampletask/helper');
+import Helper = require('../../../tasks/sample/helper');
 
 const assert = Chai.assert;
 
 /**
- * Suite of tests for Helper class defined in /src/helper.ts
+ * Suite of tests for Helper class defined in ./tasks/<%-taskName%>/helper.ts
  */
-suite('Helper Suite -', () => {
+suite('<%= taskName %> Helper Suite:', () => {
     const sut = new Helper();
 
-    suite('getNumTeamProjects Suite -', () => {
+    suite('getNumTeamProjects Suite:', () => {
         let teamProjectCollectionUri;
         let accessToken;
         const sandbox: Sinon.SinonSandbox = Sinon.createSandbox();
@@ -30,7 +30,7 @@ suite('Helper Suite -', () => {
             accessToken = null;
         });
 
-        test('Detects missing teamProjectCollectionUri -', (done: () => void) => {
+        test('Should reject with error when missing teamProjectCollectionUri', (done: () => void) => {
             teamProjectCollectionUri = undefined;
             accessToken = 'token';
             sut.getNumTeamProjects(teamProjectCollectionUri, accessToken).catch((err) => {
@@ -39,7 +39,7 @@ suite('Helper Suite -', () => {
             });
         });
 
-        test('Detects missing accessToken -', (done: () => void) => {
+        test('Should reject with error when missing accessToken', (done: () => void) => {
             teamProjectCollectionUri = 'uri';
             accessToken = undefined;
             sut.getNumTeamProjects(teamProjectCollectionUri, accessToken).catch((err) => {
@@ -48,7 +48,7 @@ suite('Helper Suite -', () => {
             });
         });
 
-        test('Handles failed request - ', (done: () => void) => {
+        test('Should reject with error when there is a failed request - ', (done: () => void) => {
             teamProjectCollectionUri = 'uri';
             accessToken = 'token';
             getStub.yields(null, { statusCode: 500 }, null);
@@ -59,7 +59,7 @@ suite('Helper Suite -', () => {
             });
         });
 
-        test('Handles bad response - ', (done: () => void) => {
+        test('Should reject with error when API call returns bad response', (done: () => void) => {
             teamProjectCollectionUri = 'uri';
             accessToken = 'token';
             getStub.yields(null, { statusCode: 200 }, null);
@@ -70,7 +70,7 @@ suite('Helper Suite -', () => {
             });
         });
 
-        test('Gets Proper Count - ', async () => {
+        test('Should resolve with correct count when the API call succeeds', async () => {
             teamProjectCollectionUri = 'uri';
             accessToken = 'token';
 

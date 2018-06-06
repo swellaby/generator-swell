@@ -1,4 +1,7 @@
 # VSTS Task
+```
+Note that the VSTS Task Project has been enhanced to provide better support for multiple tasks. As such some of the below documentation sections are a bit out of date (the section on multiple tasks for example). 
+```
 The VSTS Task project type gives you everything you need to build your own custom Build/Release tasks for [Visual Studio Team Services][vsts-url]. The generator provides you with a new project containing a working sample task, as well as everything you need to [package and upload][pack-pub-section] your tasks to your VSTS Accounts, and to [package and publish][pack-pub-section] your task(s) to the [VSTS Marketplace][vsts-marketplace-url] as an extension if you want to share your work with others!
 
 If you are unfamiliar with VSTS, check out the [VSTS overview][about-vsts-section] at the bottom of this doc.

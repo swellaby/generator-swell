@@ -5,8 +5,8 @@ os:
 
 addons:
   # srcclr: true
-  codeclimate:
-    repo_token: $CODECLIMATE_REPO_TOKEN
+  # codeclimate:
+  #   repo_token: $CODECLIMATE_REPO_TOKEN
   jdk:
     - oraclejdk8
   sonarcloud:
@@ -45,5 +45,5 @@ script:
 
 after_success:
     - npm install -g codeclimate-test-reporter coveralls
-    - codeclimate-test-reporter < .coverage/unit/lcov.info
+    # - codeclimate-test-reporter < .coverage/unit/lcov.info
     - coveralls < .coverage/unit/lcov.info

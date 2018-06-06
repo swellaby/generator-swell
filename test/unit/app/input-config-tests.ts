@@ -5,6 +5,8 @@ import chai = require('chai');
 
 import inputConfig = require('./../../../generators/app/input-config');
 import ProjectTypes = require('./../../../generators/app/project-types');
+import PromptHelpers = require('./../../../generators/app/prompt-helpers');
+
 const assert = chai.assert;
 
 /**
@@ -12,7 +14,7 @@ const assert = chai.assert;
  */
 suite('Input Config Suite:', () => {
     let sandbox;
-    const expectedNumPrompts = 7;
+    const expectedNumPrompts = 14;
     const appNamePromptKey = 'appName';
     const appNameIndex = 0;
     const descriptionPromptKey = 'description';
@@ -21,12 +23,26 @@ suite('Input Config Suite:', () => {
     const authorPromptIndex = 2;
     const appTypePromptKey = 'type';
     const appTypeIndex = 3;
-    const vscodePromptKey = 'vscode';
-    const vscodeIndex = 4;
     const dockerUserPromptKey = 'dockerUser';
-    const dockerUserIndex = 5;
+    const dockerUserIndex = 4;
+    const vstsTaskCountPromptKey = 'vstsTaskCount';
+    const vstsTaskCountIndex = 5;
+    const vstsTask1NameKey = 'task1Name';
+    const vstsTask1NameIndex = 6;
+    const vstsTask2NameKey = 'task2Name';
+    const vstsTask2NameIndex = 7;
+    const vstsTask3NameKey = 'task3Name';
+    const vstsTask3NameIndex = 8;
+    const vstsTask4NameKey = 'task4Name';
+    const vstsTask4NameIndex = 9;
+    const vstsTask5NameKey = 'task5Name';
+    const vstsTask5NameIndex = 10;
+    const vstsSampleTaskKey = 'includeSampleVstsTask';
+    const vstsSampleTaskIndex = 11;
+    const vscodePromptKey = 'vscode';
+    const vscodeIndex = 12;
     const dependenciesPromptKey = 'installDependencies';
-    const dependenciesIndex = 6;
+    const dependenciesIndex = 13;
 
     setup(() => {
         sandbox = sinon.createSandbox();
@@ -44,6 +60,14 @@ suite('Input Config Suite:', () => {
         assert.deepEqual(inputConfig.prompts[descriptionIndex].name, descriptionPromptKey);
         assert.deepEqual(inputConfig.prompts[appTypeIndex].name, appTypePromptKey);
         assert.deepEqual(inputConfig.prompts[dockerUserIndex].name, dockerUserPromptKey);
+        assert.deepEqual(inputConfig.prompts[vstsTaskCountIndex].name, vstsTaskCountPromptKey);
+        assert.deepEqual(inputConfig.prompts[vstsTask1NameIndex].name, vstsTask1NameKey);
+        assert.deepEqual(inputConfig.prompts[vstsTask2NameIndex].name, vstsTask2NameKey);
+        assert.deepEqual(inputConfig.prompts[vstsTask3NameIndex].name, vstsTask3NameKey);
+        assert.deepEqual(inputConfig.prompts[vstsTask4NameIndex].name, vstsTask4NameKey);
+        assert.deepEqual(inputConfig.prompts[vstsTask5NameIndex].name, vstsTask5NameKey);
+        assert.deepEqual(inputConfig.prompts[vstsSampleTaskIndex].name, vstsSampleTaskKey);
+        assert.deepEqual(inputConfig.prompts[vscodeIndex].name, vscodePromptKey);
         assert.deepEqual(inputConfig.prompts[dependenciesIndex].name, dependenciesPromptKey);
     });
 
@@ -99,6 +123,10 @@ suite('Input Config Suite:', () => {
         test('Should be the correct type of prompt', () => {
             assert.deepEqual(prompt.type, expectedPromptType);
         });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 'me');
+        });
     });
 
     suite('Type Prompt Tests:', () => {
@@ -116,6 +144,10 @@ suite('Input Config Suite:', () => {
 
         test('Should be the correct type of prompt', () => {
             assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, ProjectTypes[ProjectTypes.boilerplate]);
         });
 
         suite('Choices Tests:', () => {
@@ -206,6 +238,229 @@ suite('Input Config Suite:', () => {
         });
     });
 
+    suite('Docker User Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[dockerUserIndex];
+        const expectedMessage = 'What is your Docker Hub User Id?';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, dockerUserPromptKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isExpressApiProject);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, PromptHelpers.getDockerUserValue);
+        });
+    });
+
+    suite('VSTS Task Count Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsTaskCountIndex];
+        const expectedMessage = 'How many VSTS Tasks do you want?';
+        const expectedPromptType = 'list';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsTaskCountPromptKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isVSTSTaskProject);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 1);
+        });
+
+        test('Should have the correct choice options', () => {
+            const choices = prompt.choices;
+            assert.deepEqual(choices.length, 5);
+            assert.deepEqual(choices[0].name, '1');
+            assert.deepEqual(choices[0].value, 1);
+            assert.deepEqual(choices[1].name, '2');
+            assert.deepEqual(choices[1].value, 2);
+            assert.deepEqual(choices[2].name, '3');
+            assert.deepEqual(choices[2].value, 3);
+            assert.deepEqual(choices[3].name, '4');
+            assert.deepEqual(choices[3].value, 4);
+            assert.deepEqual(choices[4].name, '5');
+            assert.deepEqual(choices[4].value, 5);
+        });
+    });
+
+    suite('VSTS Task 1 Name Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsTask1NameIndex];
+        const expectedMessage = 'What would you like to name the first VSTS task?';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsTask1NameKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isVSTSTaskProject);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 'taskOne');
+        });
+    });
+
+    suite('VSTS Task 2 Name Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsTask2NameIndex];
+        const expectedMessage = 'What would you like to name the second VSTS task?';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsTask2NameKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isRequestedVstsTaskCountGreaterThanOne);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 'taskTwo');
+        });
+    });
+
+    suite('VSTS Task 3 Name Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsTask3NameIndex];
+        const expectedMessage = 'What would you like to name the third VSTS task?';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsTask3NameKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isRequestedVstsTaskCountGreaterThanTwo);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 'taskThree');
+        });
+    });
+
+    suite('VSTS Task 4 Name Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsTask4NameIndex];
+        const expectedMessage = 'What would you like to name the fourth VSTS task?';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsTask4NameKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isRequestedVstsTaskCountGreaterThanThree);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 'taskFour');
+        });
+    });
+
+    suite('VSTS Task 5 Name Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsTask5NameIndex];
+        const expectedMessage = 'What would you like to name the fifth VSTS task?';
+        const expectedPromptType = 'input';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsTask5NameKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isRequestedVstsTaskCountGreaterThanFour);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, 'taskFive');
+        });
+    });
+
+    suite('VSTS Sample Task Prompt Tests:', () => {
+        const prompt = inputConfig.prompts[vstsSampleTaskIndex];
+        const expectedMessage = 'Do you want me to include a sample VSTS task?';
+        const expectedPromptType = 'confirm';
+
+        test('Should have the correct prompt name', () => {
+            assert.deepEqual(prompt.name, vstsSampleTaskKey);
+        });
+
+        test('Should have the correct message that describes the prompt', () => {
+            assert.deepEqual(prompt.message, expectedMessage);
+        });
+
+        test('Should be the correct type of prompt', () => {
+            assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct when condition', () => {
+            assert.deepEqual(prompt.when, PromptHelpers.isVSTSTaskProject);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, true);
+        });
+    });
+
     suite('Add VSCode Files Prompt Tests:', () => {
         const prompt = inputConfig.prompts[vscodeIndex];
         const expectedMessage = 'Do you use Visual Studio Code?';
@@ -222,23 +477,9 @@ suite('Input Config Suite:', () => {
         test('Should be the correct type of prompt', () => {
             assert.deepEqual(prompt.type, expectedPromptType);
         });
-    });
 
-    suite('Docker User Prompt Tests', () => {
-        const prompt = inputConfig.prompts[dockerUserIndex];
-        const expectedMessage = 'What is your Docker Hub User Id?';
-        const expectedPromptType = 'input';
-
-        test('Should have the correct prompt name', () => {
-            assert.deepEqual(prompt.name, dockerUserPromptKey);
-        });
-
-        test('Should have the correct message that describes the prompt', () => {
-            assert.deepEqual(prompt.message, expectedMessage);
-        });
-
-        test('Should be the correct type of prompt', () => {
-            assert.deepEqual(prompt.type, expectedPromptType);
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, true);
         });
     });
 
@@ -257,6 +498,10 @@ suite('Input Config Suite:', () => {
 
         test('Should be the correct type of prompt', () => {
             assert.deepEqual(prompt.type, expectedPromptType);
+        });
+
+        test('Should have the correct default value', () => {
+            assert.deepEqual(prompt.default, true);
         });
     });
 });

@@ -1,6 +1,6 @@
 {
   "name": "generator-swell",
-  "version": "0.18.2",
+  "version": "0.21.2",
   "description": "Yeoman generator for various types of Node, Angular, and Aurelia projects with TypeScript",
   "license": "MIT",
   "author": {
@@ -69,17 +69,17 @@
     "bump-patch": "npm --no-git-tag-version version patch --force && git add package.json && git commit --no-verify --allow-empty-message -m ''"
   },
   "devDependencies": {
-    "@swellaby/eslint-config": "^1.1.3",
-    "@swellaby/tslint-config": "^1.0.4",
+    "@swellaby/eslint-config": "^1.1.6",
+    "@swellaby/tslint-config": "^1.1.4",
     "@types/chai": "^4.1.3",
     "@types/deep-extend": "^0.4.31",
     "@types/glob": "^5.0.35",
     "@types/inquirer": "0.0.41",
     "@types/mkdirp": "^0.5.2",
-    "@types/mocha": "^5.2.0",
-    "@types/node": "^10.0.8",
+    "@types/mocha": "^5.2.1",
+    "@types/node": "^10.3.0",
     "@types/request": "^2.47.0",
-    "@types/sinon": "^4.3.3",
+    "@types/sinon": "^5.0.1",
     "@types/uuid": "^3.4.3",
     "@types/yeoman-generator": "^2.0.3",
     "@types/yosay": "^0.0.29",
@@ -97,20 +97,20 @@
     "gulp-typescript": "^4.0.2",
     "husky": "^1.0.0-rc.2",
     "istanbul": "^0.4.5",
-    "mocha": "^5.1.1",
+    "mocha": "^5.2.0",
     "mocha-multi": "^1.0.1",
     "require-dir": "^1.0.0",
-    "sinon": "^5.0.7",
+    "sinon": "^5.0.10",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.3",
+    "typescript": "^2.9.1",
     "yeoman-assert": "^3.1.1",
-    "yeoman-test": "^1.7.1"
+    "yeoman-test": "^1.7.2"
   },
   "dependencies": {
-    "deep-extend": "^0.5.1",
+    "deep-extend": "^0.6.0",
     "glob": "^7.1.2",
     "mkdirp": "^0.5.1",
-    "tslib": "^1.9.0",
+    "tslib": "^1.9.2",
     "uuid": "^3.2.1",
     "yeoman-generator": "^1.1.1",
     "yosay": "^2.0.2"

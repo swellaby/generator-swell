@@ -1,6 +1,6 @@
 {
   "id": <%- JSON.stringify(taskId) %>,
-  "name": <%- JSON.stringify(appName) %>,
+  "name": <%- JSON.stringify(taskName) %>,
   "friendlyName": "Sample Task",
   "description": <%- JSON.stringify(description) %>,
   "author": <%- JSON.stringify(author) %>,

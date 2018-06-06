@@ -1,3 +1,6 @@
 {
-  "extends": "@swellaby/tslint-config"
+  "extends": "@swellaby/tslint-config",
+  "rules": {
+    "no-any": false
+  }
 }
