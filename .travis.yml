@@ -27,7 +27,7 @@ before_script:
 
 install:  
     - npm install
-    - nvm install 10
+    # - nvm install 10
     - nvm install 9
     - nvm install 8
     - nvm install 6
@@ -39,8 +39,8 @@ script:
     - npm run build
     - nvm use 9
     - npm run build
-    - nvm use 10
-    - npm run build
+    # - nvm use 10
+    # - npm run build
 
     # - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
 
