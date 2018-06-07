@@ -7,7 +7,8 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![NPM Stats Badge][nodeico-badge]][npmjs-package-url]  
   
 [![NPM Version Badge][npmjs-version-badge]][npmjs-package-url]
-[![npm][npmjs-downloads-badge]][npmjs-package-url]  
+[![npm][npmjs-downloads-badge]][npmjs-package-url]
+[![License Badge][license-badge]][license-url]  
   
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
 [![AppVeyor Status][appveyor-badge]][appveyor-url]
@@ -42,8 +43,16 @@ yo swell
 See the [Usage Overview][generator-usage-overview-url] for detailed information about usage.
 Note you will need to cd into the newly created directory if you specify an app name that is different than the name of the directory you execute the yo command from.
 
-## Development  
-First please read the [Contribution Guidelines][guidelines].  
+## Contributing
+More details can be found in the [Contribution Guidelines][guidelines].  
+
+Click the below links to create a new issue:
+
+- [Report a bug][create-bug-url]
+- [Request an enhancement or feature][create-enhancement-url]
+- [Ask a question][create-question-url]
+
+### Developing
 The Swellaby Generator is developed using [Typescript][typescript-url].  
 Here are some things you should know:  
 
@@ -76,3 +85,8 @@ Here are some things you should know:
 [guidelines]: ./CONTRIBUTING.md
 [chatbot-docs]: docs/CHATBOT.md
 [vsts-docs]: docs/VSTS-TASK.md
+[create-bug-url]: https://github.com/swellaby/generator-swell/issues/new?template=BUG_TEMPLATE.md&labels=bug,unreviewed&title=Bug:%20
+[create-question-url]: https://github.com/swellaby/generator-swell/issues/new?template=QUESTION_TEMPLATE.md&labels=question,unreviewed&title=Q:%20
+[create-enhancement-url]: https://github.com/swellaby/generator-swell/issues/new?template=ENHANCEMENT_TEMPLATE.md&labels=enhancement,unreviewed&title=E:%20
+[license-url]: ./LICENSE
+[license-badge]: https://img.shields.io/github/license/swellaby/generator-swell.svg
