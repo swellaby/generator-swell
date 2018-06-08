@@ -7,19 +7,19 @@ addons:
   # srcclr: true
   # codeclimate:
   #   repo_token: $CODECLIMATE_REPO_TOKEN
-  jdk:
-    - oraclejdk8
-  sonarcloud:
-    organization: "swellaby"
-    token:
-      secure: $SONAR_TOKEN
+  # jdk:
+  #   - oraclejdk8
+  # sonarcloud:
+  #   organization: "swellaby"
+  #   token:
+  #     secure: $SONAR_TOKEN
 
 notifications:
   slack: swellaby:$SLACK_TOKEN
 
 cache:
   directories:
-    - '$HOME/.sonar/cache'
+    # - '$HOME/.sonar/cache'
     - 'node_modules'
 
 before_script:
@@ -27,7 +27,7 @@ before_script:
 
 install:  
     - npm install
-    - nvm install 10
+    # - nvm install 10
     - nvm install 9
     - nvm install 8
     - nvm install 6
@@ -35,13 +35,14 @@ install:
 script:
     - nvm use 6
     - npm run build
+    - nvm use 8
+    - npm run build
     - nvm use 9
     - npm run build
     # - nvm use 10
     # - npm run build
-    - nvm use 8
-    - npm run build
-    - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
+
+    # - if [ "$SONARQUBE_SKIPPED" != true ]; then sonar-scanner -D sonar.projectVersion=$PROJECT_VERSION; fi
 
 after_success:
     - npm install -g codeclimate-test-reporter coveralls
