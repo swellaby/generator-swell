@@ -1,6 +1,6 @@
 {
   "name": "generator-swell",
-  "version": "0.21.5",
+  "version": "0.21.6",
   "description": "Yeoman generator for various types of Node, Angular, and Aurelia projects with TypeScript",
   "license": "MIT",
   "author": {
@@ -79,6 +79,7 @@
     "@types/mocha": "^5.2.1",
     "@types/node": "^10.3.1",
     "@types/request": "^2.47.0",
+    "@types/semver": "^5.5.0",
     "@types/sinon": "^5.0.1",
     "@types/uuid": "^3.4.3",
     "@types/yeoman-generator": "^2.0.3",
@@ -110,6 +111,7 @@
     "deep-extend": "^0.6.0",
     "glob": "^7.1.2",
     "mkdirp": "^0.5.1",
+    "semver": "^5.5.0",
     "tslib": "^1.9.2",
     "uuid": "^3.2.1",
     "yeoman-generator": "^1.1.1",

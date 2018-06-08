@@ -1,10 +1,11 @@
 'use strict';
 
 const path = require('path');
-const srcRoot = './generators/app';
+const srcRoot = './generators';
+const srcAppRoot = srcRoot + '/app';
 const testRoot = './test';
 const templatesRoot = '/templates';
-const templatesRootPath = srcRoot + templatesRoot;
+const templatesRootPath = srcAppRoot + templatesRoot;
 const notGlob = '!';
 const nodeModulesRoot = 'node_modules';
 const notNodeModules = notGlob + nodeModulesRoot + '/**';
@@ -14,7 +15,7 @@ const tsconfig = './tsconfig.json';
 
 module.exports = {
     packageJSON: path.resolve('./package.json'),
-    root: srcRoot,
+    root: srcAppRoot,
     templateJavascript: [
         templatesRootPath + '/**/*.js'
     ],
