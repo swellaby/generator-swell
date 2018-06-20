@@ -17,8 +17,11 @@ vsts-publish/
 .vsts-publish/
 
 generators/**/*.js*
-test/**/*.js*
+test/**/*.js
+test/**/*.js.map
 !generators/app/templates/**/*.js
 !generators/app/templates/**/*.json
 generator-swell*.tar*
 generator-swell*.tgz*
+
+/.nyc_output/
