@@ -69,7 +69,7 @@
     "coverage:component:enforce": "nyc --nycrc-path test/component-integration/.nycrc.json npm run test:component",
     "coverage:component:open": "npm run coverage:component && opn .coverage/unit/index.html",
     "transpile": "gulp transpile",
-    "sonar:reportfix": "replace-in-file .js .ts .test-results/unit/sonar.xml"
+    "sonar:reportfix": "replace-in-file .js .ts .testresults/unit/sonar.xml"
   },
   "devDependencies": {
     "@swellaby/eslint-config": "^1.1.6",
