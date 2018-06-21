@@ -1,0 +1,9 @@
+{
+    "reporterEnabled": "spec, xunit, mocha-sonarqube-reporter",
+    "xunitReporterOptions": {
+        "output": ".testresults/component/xunit.xml"
+    },
+    "mochaSonarqubeReporterReporterOptions": {
+        "output": ".testresults/component/sonar.xml"
+    }
+}

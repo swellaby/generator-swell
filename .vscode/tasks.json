@@ -53,7 +53,7 @@
             "args": [
                 "npm",
                 "run",
-                "test"
+                "test:unit"
             ],
             "problemMatcher": "$tsc"
         },
@@ -63,7 +63,7 @@
             "args": [
                 "npm",
                 "run",
-                "show-unit-test-coverage"
+                "coverage:open"
             ]
         },
                 {
@@ -71,7 +71,7 @@
             "args": [
                 "npm",
                 "run",
-                "component-test"
+                "test:component"
             ],
             "problemMatcher": "$tsc"
         },
@@ -81,7 +81,7 @@
             "args": [
                 "npm",
                 "run",
-                "show-component-integration-test-coverage"
+                "coverage:component:open"
             ]
         },
         {

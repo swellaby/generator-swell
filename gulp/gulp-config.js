@@ -26,7 +26,8 @@ module.exports = {
     ],
     allTranspiledJavascript: [
         srcRoot + '/**/*.js*',
-        testRoot + '/**/*.js*',
+        testRoot + '/**/*.js',
+        testRoot + '/**/*.js.map',
         notTemplates
     ],
     appTranspiledJavaScript: [

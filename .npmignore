@@ -32,3 +32,5 @@ oldtslint.json
 *.tar*
 /CONTRIBUTING.md
 /.huskyrc.json
+/.codeclimate.yml
+.nyc_output/

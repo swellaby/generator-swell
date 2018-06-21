@@ -8,7 +8,8 @@
         ".testresults": true,
         "coverage": true,
         "testresults": true,
-        "**/*.tgz*": true
+        "**/*.tgz*": true,
+        ".nyc_output": true
     },
     "eslint.options": {
         "configFile": "./.eslintrc.js",
