@@ -68,7 +68,8 @@
     "coverage:component": "nyc --nycrc-path test/component-integration/.nycrc.json --check-coverage false npm run test:component",
     "coverage:component:enforce": "nyc --nycrc-path test/component-integration/.nycrc.json npm run test:component",
     "coverage:component:open": "npm run coverage:component && opn .coverage/unit/index.html",
-    "transpile": "gulp transpile"
+    "transpile": "gulp transpile",
+    "sonar:reportfix": "replace-in-file .js .ts .test-results/unit/sonar.xml"
   },
   "devDependencies": {
     "@swellaby/eslint-config": "^1.1.6",
@@ -99,6 +100,7 @@
     "mocha-sonarqube-reporter": "^1.0.1",
     "nyc": "^12.0.2",
     "opn-cli": "^3.1.0",
+    "replace-in-file": "^3.4.0",
     "require-dir": "^1.0.0",
     "rimraf": "^2.6.2",
     "sinon": "^6.0.0",
