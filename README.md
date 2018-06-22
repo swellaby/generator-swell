@@ -13,7 +13,7 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
 [![AppVeyor Status][appveyor-badge]][appveyor-url]
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
-[![Test Results Badge][tests-badge]][appveyor-url]
+[![Test Results Badge][tests-badge]][sonar-tests-url]
 [![Coveralls Badge][coveralls-badge]][coveralls-url]
 [![SonarQube Quality Gate Badge][sonarqube-qualitygate-badge]][sonarqube-project-url]
 [![SonarQube Maintainability Badge][sonarqube-maintainability-badge]][sonarqube-maintainability-url]
@@ -79,6 +79,7 @@ Here are some things you should know:
 [sonarqube-project-url]: https://sonarcloud.io/dashboard?id=swellaby%3Agenerator-swell
 [sonarqube-maintainability-badge]: https://sonarcloud.io/api/project_badges/measure?project=swellaby%3Agenerator-swell&metric=sqale_rating
 [sonarqube-maintainability-url]: https://sonarcloud.io/component_measures?id=swellaby%3Agenerator-swell&metric=sqale_rating
+[sonar-tests-url]: https://sonarcloud.io/component_measures?id=swellaby%3Agenerator-swell&metric=tests
 [coveralls-badge]: https://coveralls.io/repos/github/swellaby/generator-swell/badge.svg
 [coveralls-url]: https://coveralls.io/github/swellaby/generator-swell
 [generator-usage-overview-url]: https://github.com/swellaby/generator-swell/blob/master/docs/USAGE-OVERVIEW.md
