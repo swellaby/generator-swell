@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "eS6",
         "lib": [
             "dom",
             "es2015.promise",
@@ -12,7 +12,14 @@
         "removeComments": false,
         "noImplicitAny": false,
         "importHelpers": true,
-        "allowJs":  true
-    }
+        "sourceMap": true
+    },
+    "include": [
+        "generators/**/*.ts",
+        "test/**/*.ts"
+    ],
+    "exclude": [
+        "generators/app/templates/**/*.ts"
+    ]
 }
 
