@@ -4,7 +4,7 @@
     "showOutput": "silent",
     "tasks": [
         {
-            "taskName": "install dependencies",
+            "taskName": "install",
             "suppressTaskName": true,
             "args": [
                 "npm",

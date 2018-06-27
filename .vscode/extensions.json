@@ -3,6 +3,9 @@
         "GuardRex.status-bar-tasks",
         "joelday.docthis",
         "eg2.tslint",
-        "christian-kohler.path-intellisense"
+        "dbaeumer.vscode-eslint",
+        "christian-kohler.path-intellisense",
+        "christian-kohler.npm-intellisense",
+        "eamodio.gitlens"
     ]
 }

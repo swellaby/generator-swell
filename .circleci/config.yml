@@ -13,7 +13,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v0-dependencies-{{ checksum "package-lock.json" }}
+          - v0-dependencies-{{ checksum "package.json" }}
           - v0-dependencies-
       - restore_cache:
           keys:
@@ -30,11 +30,11 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: v0-dependencies-{{ checksum "package-lock.json" }}
+          key: v0-dependencies-{{ checksum "package.json" }}
         
       - run: 
           name: build
-          command: npm run build && npm run sonar:reportfix
+          command: npm run build
       - store_artifacts:
           path: .coverage/unit/
           prefix: coverage
