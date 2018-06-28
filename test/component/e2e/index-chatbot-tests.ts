@@ -14,20 +14,18 @@ import testHelpers = require('./../test-helpers');
  * Contains component integration tests from the index entry point to the functions in chatbot.ts
  */
 suite('Index/Chatbot Project Component Integration Tests:', () => {
-    let sandbox: Sinon.SinonSandbox;
     let gitInitCommandStub: Sinon.SinonStub;
     let npmInstallCommandStub: Sinon.SinonStub;
     let installDependenciesCommandStub: Sinon.SinonStub;
 
     setup(() => {
-        sandbox = Sinon.createSandbox();
-        gitInitCommandStub = testHelpers.createGitInitStub(sandbox);
-        npmInstallCommandStub = testHelpers.createNpmInstallStub(sandbox);
-        installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(sandbox);
+        gitInitCommandStub = testHelpers.createGitInitStub(Sinon);
+        npmInstallCommandStub = testHelpers.createNpmInstallStub(Sinon);
+        installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(Sinon);
     });
 
     teardown(() => {
-        sandbox.restore();
+        Sinon.restore();
     });
 
     suite('Chatbot Option Tests:', () => {
@@ -84,14 +82,15 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
             };
 
             helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
-                yeomanAssert.equal(path.basename(process.cwd()), chatbotAppName);
-                yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, chatbotAppName));
+                const cwd = testHelpers.getYeomanTmpCwd();
+                yeomanAssert.equal(path.basename(cwd), chatbotAppName);
+                yeomanAssert.equal(path.resolve(cwd), path.join(dir, chatbotAppName));
                 done();
             });
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Chatbot option', (done) => {
-            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+            Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), chatbotAppName);
             });
             const prompts = {
@@ -100,8 +99,9 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
                 type: ProjectTypes[ProjectTypes.chatbot]
             };
             helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
-                yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
-                yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                const cwd = testHelpers.getYeomanTmpCwd();
+                yeomanAssert.equal(path.basename(cwd), path.basename(dir));
+                yeomanAssert.equal(path.resolve(cwd), path.resolve(dir));
                 yeomanAssert.noFile(path.join(process.cwd(), chatbotAppName));
                 done();
             });
@@ -174,7 +174,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
         test('Should init a new git repository when the destination directory has a file entitled \'.git\'', (done) => {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in
             // the same directory as the destinationRoot of the generator.
-            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+            Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), chatbotAppName);
             });
             const prompts = {
@@ -193,7 +193,7 @@ suite('Index/Chatbot Project Component Integration Tests:', () => {
         test('Should not init a new git repository when the destination directory already has a git repo initialized', (done) => {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in
             // the same directory as the destinationRoot of the generator.
-            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+            Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), chatbotAppName);
             });
             const prompts = {

@@ -124,18 +124,15 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
                 type: ProjectTypes[ProjectTypes.boilerplate]
             };
             helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
-                yeomanAssert.equal(path.basename(process.cwd()), baseAppName);
-                yeomanAssert.equal(path.resolve(process.cwd()), path.join(dir, baseAppName));
+                const cwd = testHelpers.getYeomanTmpCwd();
+                yeomanAssert.equal(path.basename(cwd), baseAppName);
+                yeomanAssert.equal(path.resolve(cwd), path.join(dir, baseAppName));
                 done();
             });
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option', (done) => {
             Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
-                console.log('*******************************************');
-                console.log('on line 135 of e2e-boilerplate');
-                console.log(`process.cwd: ${process.cwd()}`);
-                console.log(`baseappname: ${baseAppName}`);
                 return path.join(process.cwd(), baseAppName);
             });
             const prompts = {
@@ -145,18 +142,9 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
             };
 
             helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
-                console.log('&&&&&&&&&&&&&&&&################################');
-                console.log('&&&&&&&&&&&&&&&&################################');
-                console.log('&&&&&&&&&&&&&&&&################################');
-                console.log('On line 151 of e2e boilerplate tests');
-                console.log(`process.cwd: ${process.cwd()}`);
-                console.log(`basename of cwd: ${path.basename(process.cwd())}`);
-                console.log(`dir: ${dir}`);
-                console.log(`basename of dir: ${path.basename(dir)}`);
-                yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
-                console.log(`path resolve of cwd: ${path.resolve(process.cwd())}`);
-                console.log(`path resolve of dir: ${path.resolve(dir)}`);
-                yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
+                const cwd = testHelpers.getYeomanTmpCwd();
+                yeomanAssert.equal(path.basename(cwd), path.basename(dir));
+                yeomanAssert.equal(path.resolve(cwd), path.resolve(dir));
                 yeomanAssert.noFile(path.join(process.cwd(), baseAppName));
                 done();
             });

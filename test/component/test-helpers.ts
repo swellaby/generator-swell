@@ -67,3 +67,5 @@ export const createDependenciesInstallStub = (sandbox: Sinon.SinonSandbox): Sino
 export const createConsoleErrorStub = (sandbox: Sinon.SinonSandbox): Sinon.SinonStub => {
     return sandbox.stub(console, 'error');
 };
+
+export const getYeomanTmpCwd = () => process.cwd().replace('/private', '');
