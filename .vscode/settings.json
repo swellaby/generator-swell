@@ -13,6 +13,7 @@
     },
     "eslint.options": {
         "configFile": "./.eslintrc.js",
-        "ignorePath": "./.eslintignore"
+        "ignorePath": "./.eslintignore",
+        "useEslintrc": false
     }
 } 

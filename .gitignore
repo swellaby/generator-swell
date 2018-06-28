@@ -2,6 +2,8 @@
 node_modules
 .ntvs_analysis.dat*
 npm-debug*
+*.tar.*
+*.tgz.*
 
 # IDE - VS Code is not listed here intentionally
 /.idea/
@@ -9,9 +11,9 @@ npm-debug*
 # Code Coverage
 **/coverage/
 .coverage
-
 **/testresults/
 .testresults
+/.nyc_output/
 
 vsts-publish/
 .vsts-publish/
@@ -23,5 +25,3 @@ test/**/*.js.map
 !generators/app/templates/**/*.json
 generator-swell*.tar*
 generator-swell*.tgz*
-
-/.nyc_output/

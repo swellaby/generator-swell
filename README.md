@@ -10,9 +10,8 @@ others out there, but we wanted one that gave us a 100% of what we need. Pull Re
 [![npm][npmjs-downloads-badge]][npmjs-package-url]
 [![License Badge][license-badge]][license-url]  
   
-[![Travis CI Badge][travis-ci-build-status-badge]][travis-ci-url]
-[![AppVeyor Status][appveyor-badge]][appveyor-url]
 [![Circle CI Badge][circle-ci-build-status-badge]][circle-ci-url]
+[![AppVeyor Status][appveyor-badge]][appveyor-url]
 [![Test Results Badge][tests-badge]][sonar-tests-url]
 [![Coveralls Badge][coveralls-badge]][coveralls-url]
 [![SonarQube Quality Gate Badge][sonarqube-qualitygate-badge]][sonarqube-project-url]
@@ -28,7 +27,7 @@ npm i -g generator-swell
 ### Prerequisites
 This should be pretty obvious, but just in case here is what you will need:
 
-- [Node.js][nodejs-url] We are developing on 8.x, but we also run our tests against 6.x, 8.x and 9.x
+- [Node.js][nodejs-url] We are developing on 8.x, but we also run our tests against 6.x, 8.x, 9.x, and 10.x
 - [Yeoman][yeoman-url] 
 
 If you don't have [Yeoman][yeoman-url] installed globally (note, you may need to use sudo):
@@ -56,8 +55,7 @@ Click the below links to create a new issue:
 The Swellaby Generator is developed using [Typescript][typescript-url].  
 Here are some things you should know:  
 
-- Run `npm install` to install dependencies  
-- Run `npm run build` to clean, transpile, lint, test, and check-security  
+- Run `npm run dev:setup` to configure your environment 
 - Run `npm link` (as admin) to install the locally cloned generator globally so that you can see how it behaves
 
 [nodeico-badge]: https://nodei.co/npm/generator-swell.png?downloads=true&downloadRank=true&stars=true
@@ -70,10 +68,10 @@ Here are some things you should know:
 [git-download-url]: https://git-scm.com/download
 [travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swell.svg?branch=master
 [travis-ci-url]: https://travis-ci.org/swellaby/generator-swell
-[tests-badge]: https://img.shields.io/appveyor/tests/swellaby/generator-swell.svg?colorB=45BF17
-[appveyor-badge]: https://ci.appveyor.com/api/projects/status/9cxyoaw8ob2684o4?svg=true
+[tests-badge]: https://img.shields.io/appveyor/tests/swellaby/generator-swell.svg
+[appveyor-badge]: https://img.shields.io/appveyor/ci/swellaby/generator-swell.svg?label=windows%20build
 [appveyor-url]: https://ci.appveyor.com/project/swellaby/generator-swell
-[circle-ci-build-status-badge]: https://circleci.com/gh/swellaby/generator-swell.svg?style=shield
+[circle-ci-build-status-badge]: https://img.shields.io/circleci/project/github/swellaby/generator-swell.svg?label=linux%20build
 [circle-ci-url]: https://circleci.com/gh/swellaby/generator-swell
 [sonarqube-qualitygate-badge]: https://sonarcloud.io/api/project_badges/measure?project=swellaby%3Agenerator-swell&metric=alert_status
 [sonarqube-project-url]: https://sonarcloud.io/dashboard?id=swellaby%3Agenerator-swell
@@ -90,4 +88,4 @@ Here are some things you should know:
 [create-question-url]: https://github.com/swellaby/generator-swell/issues/new?template=QUESTION_TEMPLATE.md&labels=question,unreviewed&title=Q:%20
 [create-enhancement-url]: https://github.com/swellaby/generator-swell/issues/new?template=ENHANCEMENT_TEMPLATE.md&labels=enhancement,unreviewed&title=E:%20
 [license-url]: ./LICENSE
-[license-badge]: https://img.shields.io/github/license/swellaby/generator-swell.svg
+[license-badge]: https://img.shields.io/github/license/swellaby/generator-swell.svg?colorB=0E7FC0

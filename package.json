@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/swellaby/generator-swell/issues"
   },
-  "main": "generators/index.js",
+  "main": "generators/app/index.js",
   "keywords": [
     "yeoman-generator",
     "generator",
@@ -77,7 +77,9 @@
     "coverage:open": "npm run coverage && opn .coverage/unit/index.html",
     "coverage:component": "nyc --nycrc-path test/component-integration/.nycrc.json --check-coverage false npm run test:component",
     "coverage:component:enforce": "nyc --nycrc-path test/component-integration/.nycrc.json npm run test:component",
-    "coverage:component:open": "npm run coverage:component && opn .coverage/unit/index.html"
+    "coverage:component:open": "npm run coverage:component && opn .coverage/unit/index.html",
+    "dev:reset": "npm run clean && node -e \"require('rimraf').sync('node_modules');\" && npm run dev:setup",
+    "dev:setup": "npm install && npm i -g yo && npm run build"
   },
   "devDependencies": {
     "@swellaby/eslint-config": "^1.1.6",
@@ -87,7 +89,7 @@
     "@types/inquirer": "0.0.42",
     "@types/mkdirp": "^0.5.2",
     "@types/mocha": "^5.2.3",
-    "@types/node": "^10.3.6",
+    "@types/node": "^10.5.0",
     "@types/semver": "^5.5.0",
     "@types/sinon": "^5.0.1",
     "@types/uuid": "^3.4.3",
@@ -114,7 +116,7 @@
     "semver": "^5.5.0",
     "tslib": "^1.9.3",
     "uuid": "^3.3.0",
-    "yeoman-generator": "^1.1.1",
+    "yeoman-generator": "^2.0.5",
     "yosay": "^2.0.2"
   }
 }
