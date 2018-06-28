@@ -14,20 +14,18 @@ import testHelpers = require('./../test-helpers');
  * Contains component integration tests from the index entry point to the functions in boilerplate.ts
  */
 suite('Index/Boilerplate Project Component Integration Tests:', () => {
-    let sandbox: Sinon.SinonSandbox;
     let gitInitCommandStub: Sinon.SinonStub;
     let npmInstallCommandStub: Sinon.SinonStub;
     let installDependenciesCommandStub: Sinon.SinonStub;
 
     setup(() => {
-        sandbox = Sinon.createSandbox();
-        gitInitCommandStub = testHelpers.createGitInitStub(sandbox);
-        npmInstallCommandStub = testHelpers.createNpmInstallStub(sandbox);
-        installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(sandbox);
+        gitInitCommandStub = testHelpers.createGitInitStub(Sinon);
+        npmInstallCommandStub = testHelpers.createNpmInstallStub(Sinon);
+        installDependenciesCommandStub = testHelpers.createDependenciesInstallStub(Sinon);
     });
 
     teardown(() => {
-        sandbox.restore();
+        Sinon.restore();
     });
 
     suite('Boilerplate Option Tests:', () => {
@@ -84,7 +82,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         test('Should init a new git repository when the destination directory has a file entitled \'.git\'', (done) => {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in
             // the same directory as the destinationRoot of the generator.
-            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+            Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), baseAppName);
             });
             const prompts = {
@@ -103,7 +101,7 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         test('Should not init a new git repository when the destination directory already has a git repo initialized', (done) => {
             // this stub is to ensure that the tmp directory (see below) creates the .git directory in
             // the same directory as the destinationRoot of the generator.
-            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+            Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
                 return path.join(process.cwd(), baseAppName);
             });
             const prompts = {
@@ -133,7 +131,11 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
         });
 
         test('Should scaffold into the current directory when the specified app name matches the current directory name with the Base option', (done) => {
-            sandbox.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+            Sinon.stub(YeomanGenerator.prototype, testHelpers.yoDestinationPathFunctionName).callsFake(() => {
+                console.log('*******************************************');
+                console.log('on line 135 of e2e-boilerplate');
+                console.log(`process.cwd: ${process.cwd()}`);
+                console.log(`baseappname: ${baseAppName}`);
                 return path.join(process.cwd(), baseAppName);
             });
             const prompts = {
@@ -143,7 +145,17 @@ suite('Index/Boilerplate Project Component Integration Tests:', () => {
             };
 
             helpers.run(testHelpers.generatorRoot).withPrompts(prompts).toPromise().then((dir) => {
+                console.log('&&&&&&&&&&&&&&&&################################');
+                console.log('&&&&&&&&&&&&&&&&################################');
+                console.log('&&&&&&&&&&&&&&&&################################');
+                console.log('On line 151 of e2e boilerplate tests');
+                console.log(`process.cwd: ${process.cwd()}`);
+                console.log(`basename of cwd: ${path.basename(process.cwd())}`);
+                console.log(`dir: ${dir}`);
+                console.log(`basename of dir: ${path.basename(dir)}`);
                 yeomanAssert.equal(path.basename(process.cwd()), path.basename(dir));
+                console.log(`path resolve of cwd: ${path.resolve(process.cwd())}`);
+                console.log(`path resolve of dir: ${path.resolve(dir)}`);
                 yeomanAssert.equal(path.resolve(process.cwd()), path.resolve(dir));
                 yeomanAssert.noFile(path.join(process.cwd(), baseAppName));
                 done();
