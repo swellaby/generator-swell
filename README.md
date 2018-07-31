@@ -68,7 +68,7 @@ Here are some things you should know:
 [git-download-url]: https://git-scm.com/download
 [travis-ci-build-status-badge]: https://travis-ci.org/swellaby/generator-swell.svg?branch=master
 [travis-ci-url]: https://travis-ci.org/swellaby/generator-swell
-[tests-badge]: https://img.shields.io/appveyor/tests/swellaby/generator-swell.svg
+[tests-badge]: https://img.shields.io/appveyor/tests/swellaby/generator-swell.svg?label=unit%20tests
 [appveyor-badge]: https://img.shields.io/appveyor/ci/swellaby/generator-swell.svg?label=windows%20build
 [appveyor-url]: https://ci.appveyor.com/project/swellaby/generator-swell
 [circle-ci-build-status-badge]: https://img.shields.io/circleci/project/github/swellaby/generator-swell.svg?label=linux%20build
