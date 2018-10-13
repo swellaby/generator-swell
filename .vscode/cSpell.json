@@ -1,0 +1,27 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "words": [
+        "chatbot",
+        "circleci",
+        "cobertura",
+        "codecov",
+        "junit",
+        "nycrc",
+        "opensource",
+        "posttest",
+        "prelint",
+        "pretranspile",
+        "repo",
+        "semver",
+        "sonarqube",
+        "swellaby",
+        "testresults",
+        "tslib",
+        "vsts",
+        "yosay"
+    ],
+    "flagWords": [
+
+    ]
+}
