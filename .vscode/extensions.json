@@ -6,6 +6,7 @@
         "dbaeumer.vscode-eslint",
         "christian-kohler.path-intellisense",
         "christian-kohler.npm-intellisense",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "pflannery.vscode-versionlens"
     ]
 }
