@@ -43,7 +43,7 @@ suite('Index Tests:', () => {
         Sinon.stub(yeomanEnvironment, 'enforceUpdate');
         Sinon.stub(fileEditor, 'create');
         Sinon.stub(yeomanGenerator.prototype, 'option');
-        Sinon.stub(yeomanGenerator.prototype, '_getStorage').callsFake(() => null);
+        Sinon.stub(yeomanGenerator.prototype, '_getStorage');
         Sinon.stub(yeomanGenerator.prototype, '_getGlobalStorage');
         Sinon.stub(yeomanGenerator.prototype, 'determineAppname');
         Sinon.stub(yeomanGenerator.prototype, 'sourceRoot');
@@ -53,7 +53,7 @@ suite('Index Tests:', () => {
         stubInternalGeneratorFunctions();
         Sinon.stub(path, 'join');
         Sinon.stub(path, 'dirname');
-        const dirRoot = { root: undefined };
+        const dirRoot = <path.ParsedPath>{ root: undefined };
         Sinon.stub(path, 'parse').callsFake(() => dirRoot);
         swellabyGeneratorCreateProjectStub = Sinon.stub(SwellabyGenerator.prototype, 'createProject');
     });

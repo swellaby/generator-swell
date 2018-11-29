@@ -101,7 +101,7 @@ suite('VSTS Project Tests:', () => {
             return destRoot;
         });
         uuidV4Stub = sandbox.stub(uuid, 'v4').callsFake(() => {
-            return taskId;
+            return Buffer.from(taskId);
         });
         generatorFsExtendJsonStub = sandbox.stub(generatorStub.fs, 'extendJSON');
         pathJoinStub = sandbox.stub(path, 'join');
