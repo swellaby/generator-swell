@@ -71,7 +71,7 @@
     "test:unit": "mocha --config test/unit/.mocharc.yml",
     "posttest:unit": "replace-in-file --isRegex true \"/(.js)/g\" .ts .testresults/unit/sonar.xml",
     "pretest:component": "npm run transpile && npm run clean:test:component",
-    "test:component": "mocha --opts test/component/mocha.opts",
+    "test:component": "mocha --config test/component/.mocharc.yml",
     "coverage": "nyc --nycrc-path test/unit/.nycrc.json --check-coverage false npm run test:unit",
     "coverage:enforce": "nyc --nycrc-path test/unit/.nycrc.json npm run test:unit",
     "coverage:open": "npm run coverage && opn .coverage/unit/index.html",
