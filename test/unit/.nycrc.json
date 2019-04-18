@@ -1,10 +1,13 @@
 {
-    "extends": "@swellaby/nyc-config",
-    "include": [
-        "generators/**/*.js"
-    ],
-    "exclude": [
-        "generators/app/templates/"
-    ],
-    "report-dir": ".coverage/unit"
+  "extends": "@swellaby/nyc-config",
+  "include": [
+    "generators/**/*"
+  ],
+  "exclude": [
+    "generators/app/templates/"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "report-dir": ".coverage/unit"
 }
