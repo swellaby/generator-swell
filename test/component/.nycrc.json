@@ -1,11 +1,14 @@
 {
-    "extends": "@swellaby/nyc-config/partial-coverage",
-    "include": [
-        "generators/**/*.js"
-    ],
-    "exclude": [
-        "generators/app/templates/"
-    ],
-    "report-dir": ".coverage/component",
-    "per-file": false
+  "extends": "@swellaby/nyc-config/partial-coverage",
+  "include": [
+    "generators/**/*"
+  ],
+  "exclude": [
+    "generators/app/templates/"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "report-dir": ".coverage/component",
+  "per-file": false
 }
