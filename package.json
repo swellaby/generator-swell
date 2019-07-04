@@ -79,7 +79,9 @@
     "coverage:component:enforce": "nyc --nycrc-path test/component/.nycrc.json npm run test:component",
     "coverage:component:open": "npm run coverage:component && opn .coverage/unit/index.html",
     "dev:reset": "npm run clean && node -e \"require('rimraf').sync('node_modules');\" && npm run dev:setup",
-    "dev:setup": "npm install && npm i -g yo && npm run build"
+    "dev:setup": "npm install && npm i -g yo && npm run build",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "devDependencies": {
     "@swellaby/eslint-config": "^1.1.6",
@@ -117,6 +119,8 @@
     "tslib": "^1.9.3",
     "uuid": "^3.3.2",
     "yeoman-generator": "^3.2.0",
-    "yosay": "^2.0.2"
-  }
+    "yosay": "^2.0.2",
+    "snyk": "^1.189.0"
+  },
+  "snyk": true
 }
