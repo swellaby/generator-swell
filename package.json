@@ -82,7 +82,7 @@
     "dev:setup": "npm install && npm i -g yo && npm run build"
   },
   "devDependencies": {
-    "@swellaby/eslint-config": "^1.1.6",
+    "@swellaby/eslint-config": "^2.0.0",
     "@swellaby/nyc-config": "^1.1.1",
     "@swellaby/tslint-config": "^2.0.1",
     "@types/chai": "^4.1.7",
