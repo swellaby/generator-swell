@@ -71,7 +71,7 @@ Here are some things you should know:
 [tests-badge]: https://img.shields.io/appveyor/tests/swellaby/generator-swell/master.svg?label=unit%20tests
 [appveyor-badge]: https://img.shields.io/appveyor/ci/swellaby/generator-swell/master.svg?label=windows%20build
 [appveyor-url]: https://ci.appveyor.com/project/swellaby/generator-swell
-[circle-ci-build-status-badge]: https://img.shields.io/circleci/project/github/swellaby/generator-swell.svg?label=linux%20build
+[circle-ci-build-status-badge]: https://img.shields.io/circleci/project/github/swellaby/generator-swell/master.svg?label=linux%20build
 [circle-ci-url]: https://circleci.com/gh/swellaby/generator-swell
 [sonarqube-qualitygate-badge]: https://sonarcloud.io/api/project_badges/measure?project=swellaby%3Agenerator-swell&metric=alert_status
 [sonarqube-project-url]: https://sonarcloud.io/dashboard?id=swellaby%3Agenerator-swell
