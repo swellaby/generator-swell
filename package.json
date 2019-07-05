@@ -1,6 +1,6 @@
 {
   "name": "generator-swell",
-  "version": "0.22.23",
+  "version": "0.22.24",
   "description": "Yeoman generator for various types of Node, Angular, and Aurelia projects with TypeScript",
   "license": "MIT",
   "author": {
