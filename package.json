@@ -83,7 +83,7 @@
   },
   "devDependencies": {
     "@swellaby/eslint-config": "^2.0.0",
-    "@swellaby/nyc-config": "^1.1.1",
+    "@swellaby/nyc-config": "^3.0.0",
     "@swellaby/tslint-config": "^3.0.0",
     "@types/chai": "^4.1.7",
     "@types/inquirer": "^6.0.0",
